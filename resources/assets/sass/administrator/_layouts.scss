@@ -1,0 +1,14 @@
+html {
+  background: #f9f9f9;
+}
+
+// login layout
+.login-container {
+  .login-heading {
+    color: #666666;
+    font-family: $font-primary;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    text-align: center;
+  }
+}
+// login layout

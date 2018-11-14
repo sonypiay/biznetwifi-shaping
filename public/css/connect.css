@@ -1,0 +1,264 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600);@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:100,300,400,700,700italic);@font-face {
+  font-family: 'Univers';
+  src: local("Univers"), url("/works/portalwifi/public/fonts/univers/UniversLTStd.otf") format("opentype");
+  src: local("Univers"), url("/works/portalwifi/public/fonts/univers/Univers-light-normal.ttf") format("truetype");
+  src: local("Univers"), url("/works/portalwifi/public/fonts/univers/Univers.woff") format("woff");
+}
+
+/*bold font*/
+
+@font-face {
+  font-family: 'Univers';
+  src: url("/works/portalwifi/public/fonts/univers/UniversLTStd-Bold.otf") format("opentype");
+  src: url("/works/portalwifi/public/fonts/univers/UniversBlack.ttf") format("truetype");
+  font-weight: bold;
+}
+
+.navbar {
+  background: #ffffff;
+  z-index: 9999;
+}
+
+.navbar .logo-nav {
+  width: 105px;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.banner-heading {
+  font-family: "Univers", sans-serif;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  color: #ffffff;
+}
+
+.banner-subheading {
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  color: #ffffff;
+  margin-top: -8px;
+}
+
+.lead-banner {
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  color: #ffffff;
+  margin-top: 25px;
+  margin-bottom: 45px;
+}
+
+.login-connect {
+  border-radius: 30px;
+  border: 0;
+  padding: 6px;
+  font-size: 11px !important;
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+}
+
+.login-visitor {
+  border-radius: 30px;
+  border: 0;
+  background: linear-gradient(30deg, #01a0ff, #00ccff) !important;
+  /*box-shadow: 2px 5px 8px rgba(0,0,0, 0.3);*/
+}
+
+.login-visitor:hover,
+.login-visitor:active,
+.login-visitor:focus {
+  background: #01a0ff !important;
+}
+
+.login-customer {
+  border-radius: 30px;
+  border: 0;
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  /*box-shadow: 2px 5px 8px rgba(0,0,0, 0.3);*/
+}
+
+.login-customer:hover,
+.login-customer:active,
+.login-customer:focus {
+  background: #da068c !important;
+}
+
+.padding-landingpage {
+  padding-left: 35px !important;
+  padding-right: 35px !important;
+}
+
+.modal-heading {
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+}
+
+.modal-subheading {
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+}
+
+@media screen and (min-width: 320px) {
+  .modal-heading {
+    font-size: 21px !important;
+  }
+
+  .modal-subheading {
+    font-size: 10px !important;
+  }
+}
+
+@media screen and (min-width: 360px) {
+  .modal-heading {
+    font-size: 24px !important;
+  }
+
+  .modal-subheading {
+    font-size: 11px !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .modal-heading {
+    font-size: 28px !important;
+  }
+
+  .modal-subheading {
+    font-size: 14px !important;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .modal-heading {
+    font-size: 24px !important;
+  }
+
+  .modal-subheading {
+    font-size: 12px !important;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .modal-heading {
+    font-size: 32px !important;
+  }
+
+  .modal-subheading {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (min-width: 320px) {
+  .padding-landingpage {
+    margin-top: 3em;
+  }
+
+  .banner-heading {
+    font-size: 28px;
+  }
+
+  .banner-subheading {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .lead-banner {
+    font-size: 10px;
+  }
+
+  .login-customer,
+  .login-visitor {
+    font-size: 10px !important;
+  }
+}
+
+@media screen and (min-width: 360px) {
+  .padding-landingpage {
+    margin-top: 1.5em;
+  }
+
+  .banner-heading {
+    font-size: 34px;
+  }
+
+  .banner-subheading {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+
+  .lead-banner {
+    font-size: 12px;
+  }
+
+  .login-customer,
+  .login-visitor {
+    font-size: 10px !important;
+  }
+}
+
+@media screen and (min-width: 414px) {
+  .padding-landingpage {
+    margin-top: 0;
+  }
+
+  .banner-heading {
+    font-size: 34px;
+  }
+
+  .banner-subheading {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+  .lead-banner {
+    font-size: 13px;
+  }
+
+  .login-customer,
+  .login-visitor {
+    font-size: 10px !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .padding-landingpage {
+    margin-top: 2em;
+  }
+
+  .banner-heading {
+    font-size: 56px;
+  }
+
+  .banner-subheading {
+    font-size: 18px;
+    margin-top: 5px;
+  }
+
+  .lead-banner {
+    font-size: 18px;
+  }
+
+  .login-customer,
+  .login-visitor {
+    font-size: 10px !important;
+  }
+}
+

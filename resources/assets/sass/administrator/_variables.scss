@@ -1,0 +1,19 @@
+// Body
+$body-bg: #f9f9f9;
+
+// Typography
+$font-primary: "Poppins", sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+// Color Brand
+$primary-color: #da068c;
+$secondary-color: #982e7e;
+
+@mixin globalfontstyle( $weight, $stretch, $style, $spacing )
+{
+  font-weight: $weight;
+	font-stretch: $stretch;
+	font-style: $style;
+	letter-spacing: $spacing;
+}

@@ -1,0 +1,48 @@
+// fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700,800,900');
+
+@font-face {
+	font-family: 'Univers';
+	src: local('Univers'), url('/works/portalwifi/public/fonts/univers/UniversLTStd.otf') format('opentype');
+	src: local('Univers'), url('/works/portalwifi/public/fonts/univers/Univers-light-normal.ttf') format('truetype');
+	src: local('Univers'), url('/works/portalwifi/public/fonts/univers/Univers.woff') format('woff');
+}
+
+/*bold font*/
+@font-face {
+	font-family: 'Univers';
+	src: url('/works/portalwifi/public/fonts/univers/UniversLTStd-Bold.otf') format('opentype');
+	src: url('/works/portalwifi/public/fonts/univers/UniversBlack.ttf') format('truetype');
+	font-weight: bold;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+// Variables
+@import 'variables';
+
+// layouts
+@import 'layouts';

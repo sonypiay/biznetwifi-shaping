@@ -1,0 +1,25 @@
+// login form
+.loginform {
+  border: 0;
+  border-bottom: 1px solid #dddddd;
+  height: 60px;
+  font-family: $font-primary;
+  color: #666666;
+  font-size: 12px;
+  @include globalfontstyle(400, normal, normal, 0.6px);
+  &:hover, &:focus {
+    color: #333333;
+    border-bottom: 1px solid $secondary-color;
+  }
+  &::placeholder { color: #aaaaaa; }
+}
+.btnlogin {
+  border: 0;
+  background: linear-gradient(97deg, $primary-color, $secondary-color);
+  border-radius: 30px;
+  color: #ffffff;
+  font-family: $font-primary;
+  font-size: 12px;
+  @include globalfontstyle(600, normal, normal, 0.6px);
+}
+// login form
