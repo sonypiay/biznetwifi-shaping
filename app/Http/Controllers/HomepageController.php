@@ -29,4 +29,11 @@ class HomepageController extends Controller
       'ap' => $ap
     ]);
   }
+
+  public function homepage( Request $request )
+  {
+    return response()->view('portal.homepage', [
+      'request' => $request
+    ]);
+  }
 }

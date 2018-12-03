@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function() { return view('welcome'); })->name('homepage');
+Route::get('/', 'HomepageController@homepage')->name('homepage');
 Route::get('/connect/ruckus', 'PortalController@connectruckus')->name('connect_ruckus');
 Route::post('/connect/mikrotik', 'PortalController@connectmikrotik')->name('connect_mikrotik');
 Route::get('/freehotspot', 'PortalController@hotspot');

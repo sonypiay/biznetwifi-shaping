@@ -1,5 +1,29 @@
 html,
 body { background: #f9f9f9; font-family: $font-primary; }
+.navbar {
+  background: #ffffff;
+  ul {
+    li {
+      a {
+        color: #666666;
+        font-family: $font-primary;
+        font-size: 12px;
+        padding-left: 15px;
+        padding-right: 15px;
+        @include globalfontstyle(bold, normal, normal, 0.4px);
+        &:hover {
+          //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+          color: #da068c;
+        }
+      }
+    }
+  }
+  .uk-logo {
+    .logo-nav {
+      width: 130px;
+    }
+  }
+}
 // homepage customer
 .headerhmpg-cust {
   background: #ffffff;
@@ -447,3 +471,104 @@ body { background: #f9f9f9; font-family: $font-primary; }
   }
 }
 //footer
+.coverbannerhomepage {
+  height: 560px;
+  .banner_ovlay_homepage {
+    //background: linear-gradient(97deg, rgba(1,160,255,0.1), rgba(1,160,255,0.1), rgba(0,204,255,0.2), rgba(0,204,255,0.2)) !important;
+    //background: linear-gradient(108deg, rgba(246, 161, 146, 0.1), rgba(246, 207, 146, 0.5), rgba(246, 176, 146, 0.3)) !important;
+    background: linear-gradient(97deg, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+  }
+  .banner_ovlay_content {
+    padding: 4em;
+    margin-top: 12em;
+    margin-right: 3em;
+    h1,h2,h3 {
+      font-size: 56px;
+      color: #ffffff;
+      font-family: $font-primary;
+      @include globalfontstyle(bold, normal, normal, 0.4px);
+    }
+    p {
+      font-size: 18px;
+      font-family: $font-primary;
+      @include globalfontstyle(normal, normal, normal, 0.6px);
+      color: #ffffff;
+    }
+    .banner_btnovlay {
+      border: 0;
+      background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+      color: #ffffff;
+      font-size: 12px;
+      font-family: $font-primary;
+      @include globalfontstyle(normal, normal, normal, 0.6px);
+      text-transform: capitalize;
+      border-radius: 3px;
+      &:hover, &:focus {
+        background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+.section-banner-biznethome {
+  .section-banner-context-right {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: $font-primary;
+    @include globalfontstyle(normal, normal, normal, 0.6px);
+    text-align: center;
+    background: transparent;
+    background: linear-gradient(97deg, #FF6724, #F35B25, #FC6119);
+    //#FC6119
+    h1 {
+      font-size: 34px;
+      color: #ffffff;
+      padding: 10px;
+    }
+    p {
+      font-size: 16px;
+      color: #ffffff;
+      padding-left: 3em;
+      padding-right: 3em;
+    }
+  }
+}
+.section-banner-biznetmetronet {
+  .section-banner-context-right {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: $font-primary;
+    @include globalfontstyle(normal, normal, normal, 0.6px);
+    text-align: center;
+    background: transparent;
+    background: linear-gradient(97deg, #291B6E, #493D84);
+    h1 {
+      font-size: 34px;
+      color: #ffffff;
+      padding: 10px;
+    }
+    p {
+      font-size: 16px;
+      color: #ffffff;
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+  }
+}
+.section-homepage-flashads {
+  background: #f9f9f9;
+  .flashads-contactads {
+    color: #888888;
+    font-size: 18px;
+    font-family: $font-primary;
+    @include globalfontstyle(normal, normal, normal, 0.6px);
+    margin-bottom: 10px;
+  }
+  a {
+    color: #1d8fce;
+    font-size: 18px;
+    font-family: $font-primary;
+    @include globalfontstyle(normal, normal, normal, 0.6px);
+  }
+}

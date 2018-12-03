@@ -44,6 +44,30 @@ body {
   font-family: "Univers", sans-serif;
 }
 
+.navbar {
+  background: #ffffff;
+}
+
+.navbar ul li a {
+  color: #666666;
+  font-family: "Univers", sans-serif;
+  font-size: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+}
+
+.navbar ul li a:hover {
+  color: #da068c;
+}
+
+.navbar .uk-logo .logo-nav {
+  width: 130px;
+}
+
 .headerhmpg-cust {
   background: #ffffff;
   z-index: 9999;
@@ -677,5 +701,138 @@ body {
 
 .footer .social-media a:hover {
   color: #cccccc;
+}
+
+.coverbannerhomepage {
+  height: 560px;
+}
+
+.coverbannerhomepage .banner_ovlay_homepage {
+  background: linear-gradient(97deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+}
+
+.coverbannerhomepage .banner_ovlay_content {
+  padding: 4em;
+  margin-top: 12em;
+  margin-right: 3em;
+}
+
+.coverbannerhomepage .banner_ovlay_content h1,
+.coverbannerhomepage .banner_ovlay_content h2,
+.coverbannerhomepage .banner_ovlay_content h3 {
+  font-size: 56px;
+  color: #ffffff;
+  font-family: "Univers", sans-serif;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+}
+
+.coverbannerhomepage .banner_ovlay_content p {
+  font-size: 18px;
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  color: #ffffff;
+}
+
+.coverbannerhomepage .banner_ovlay_content .banner_btnovlay {
+  border: 0;
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  color: #ffffff;
+  font-size: 12px;
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  text-transform: capitalize;
+  border-radius: 3px;
+}
+
+.coverbannerhomepage .banner_ovlay_content .banner_btnovlay:hover,
+.coverbannerhomepage .banner_ovlay_content .banner_btnovlay:focus {
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  color: #ffffff;
+}
+
+.section-banner-biznethome .section-banner-context-right {
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  text-align: center;
+  background: transparent;
+  background: linear-gradient(97deg, #FF6724, #F35B25, #FC6119);
+}
+
+.section-banner-biznethome .section-banner-context-right h1 {
+  font-size: 34px;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.section-banner-biznethome .section-banner-context-right p {
+  font-size: 16px;
+  color: #ffffff;
+  padding-left: 3em;
+  padding-right: 3em;
+}
+
+.section-banner-biznetmetronet .section-banner-context-right {
+  color: #ffffff;
+  font-size: 16px;
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  text-align: center;
+  background: transparent;
+  background: linear-gradient(97deg, #291B6E, #493D84);
+}
+
+.section-banner-biznetmetronet .section-banner-context-right h1 {
+  font-size: 34px;
+  color: #ffffff;
+  padding: 10px;
+}
+
+.section-banner-biznetmetronet .section-banner-context-right p {
+  font-size: 16px;
+  color: #ffffff;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.section-homepage-flashads {
+  background: #f9f9f9;
+}
+
+.section-homepage-flashads .flashads-contactads {
+  color: #888888;
+  font-size: 18px;
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  margin-bottom: 10px;
+}
+
+.section-homepage-flashads a {
+  color: #1d8fce;
+  font-size: 18px;
+  font-family: "Univers", sans-serif;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
 }
 
