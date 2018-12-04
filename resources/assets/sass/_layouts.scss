@@ -23,6 +23,14 @@ body { background: #f9f9f9; font-family: $font-primary; }
       width: 130px;
     }
   }
+  .naviicon_mobile {
+    color: #777777;
+    padding-left: 30px;
+    padding-right: 30px;
+    &:hover, &:focus {
+      color: #555555;
+    }
+  }
 }
 // homepage customer
 .headerhmpg-cust {
@@ -479,33 +487,90 @@ body { background: #f9f9f9; font-family: $font-primary; }
     background: linear-gradient(97deg, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
   }
   .banner_ovlay_content {
-    padding: 4em;
-    margin-top: 12em;
-    margin-right: 3em;
     h1,h2,h3 {
-      font-size: 56px;
       color: #ffffff;
       font-family: $font-primary;
       @include globalfontstyle(bold, normal, normal, 0.4px);
     }
     p {
-      font-size: 18px;
       font-family: $font-primary;
       @include globalfontstyle(normal, normal, normal, 0.6px);
       color: #ffffff;
     }
-    .banner_btnovlay {
-      border: 0;
-      background: linear-gradient(97deg, #da068c, #982e7e)  !important;
-      color: #ffffff;
-      font-size: 12px;
-      font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.6px);
-      text-transform: capitalize;
-      border-radius: 3px;
-      &:hover, &:focus {
-        background: linear-gradient(97deg, #da068c, #982e7e)  !important;
-        color: #ffffff;
+  }
+  @media screen and(min-width: 320px)
+  {
+    .banner_ovlay_content {
+      padding: 2em;
+      margin-top: 8.5em;
+      h1,h2,h3 {
+        font-size: 40px;
+        text-align: center;
+      }
+      p {
+        font-size: 12px;
+        text-align: center;
+      }
+    }
+  }
+  @media screen and(min-width: 360px)
+  {
+    .banner_ovlay_content {
+      padding: 2em;
+      margin-top: 9.2em;
+      h1,h2,h3 {
+        font-size: 44px;
+        text-align: center;
+      }
+      p {
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+  }
+  @media screen and(min-width: 411px)
+  {
+    .banner_ovlay_content {
+      padding: 2em;
+      margin-top: 9.2em;
+      h1,h2,h3 {
+        font-size: 46px;
+        text-align: center;
+      }
+      p {
+        font-size: 15px;
+        text-align: center;
+      }
+    }
+  }
+  @media screen and(min-width: 768px)
+  {
+    .banner_ovlay_content {
+      padding: 3em;
+      margin-top: 14em;
+      h1,h2,h3 {
+        font-size: 48px;
+        text-align: left;
+      }
+      p {
+        font-size: 16px;
+        text-align: left;
+      }
+    }
+  }
+  @media screen and(min-width: 1280px)
+  {
+    .banner_ovlay_content {
+      padding: 4em;
+      margin-top: 13em;
+      margin-right: 3em;
+      h1,h2,h3 {
+        font-size: 56px;
+        text-align: left;
+      }
+      p {
+        font-size: 18px;
+        text-align: left;
       }
     }
   }
@@ -514,23 +579,108 @@ body { background: #f9f9f9; font-family: $font-primary; }
 .section-banner-biznethome {
   .section-banner-context-right {
     color: #ffffff;
-    font-size: 16px;
     font-family: $font-primary;
     @include globalfontstyle(normal, normal, normal, 0.6px);
     text-align: center;
     background: transparent;
     background: linear-gradient(97deg, #FF6724, #F35B25, #FC6119);
-    //#FC6119
+    h1 { color: #ffffff; }
+    p { color: #ffffff; }
+  }
+  @media screen and(min-width: 320px)
+  {
     h1 {
-      font-size: 34px;
-      color: #ffffff;
-      padding: 10px;
+      font-size: 32px;
+    }
+    p {
+      font-size: 12px;
+      padding-left: 1em;
+      padding-right: 1em;
+      text-align: center;
+    }
+  }
+  @media screen and(min-width: 360px)
+  {
+    h1 {
+      font-size: 30px;
+    }
+    p {
+      font-size: 12px;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      text-align: center;
+    }
+  }
+  @media screen and(min-width: 375px)
+  {
+    h1 {
+      font-size: 28px;
+    }
+    p {
+      font-size: 12px;
+      padding-left: 1em;
+      padding-right: 1em;
+      text-align: center;
+    }
+  }
+  @media screen and(min-width: 411px)
+  {
+    h1 {
+      font-size: 28px;
+    }
+    p {
+      font-size: 12px;
+      padding-left: 1.5em;
+      padding-right: 1.5em;
+      text-align: center;
+    }
+  }
+  @media screen and(min-width: 768px)
+  {
+    h1 {
+      font-size: 30px;
+    }
+    p {
+      font-size: 12px;
+      padding-left: 2em;
+      padding-right: 2em;
+      text-align: center;
+    }
+  }
+  @media screen and(min-width: 800px)
+  {
+    h1 {
+      font-size: 30px;
+    }
+    p {
+      font-size: 12px;
+      padding-left: 3em;
+      padding-right: 3em;
+      text-align: center;
+    }
+  }
+  @media screen and(min-width: 1024px)
+  {
+    h1 {
+      font-size: 32px;
+    }
+    p {
+      font-size: 14px;
+      padding-left: 4em;
+      padding-right: 4em;
+      text-align: center;
+    }
+  }
+  @media screen and(min-width: 1280px)
+  {
+    h1 {
+      font-size: 40px;
     }
     p {
       font-size: 16px;
-      color: #ffffff;
-      padding-left: 3em;
-      padding-right: 3em;
+      padding-left: 4em;
+      padding-right: 4em;
+      text-align: center;
     }
   }
 }
@@ -543,16 +693,103 @@ body { background: #f9f9f9; font-family: $font-primary; }
     text-align: center;
     background: transparent;
     background: linear-gradient(97deg, #291B6E, #493D84);
-    h1 {
-      font-size: 34px;
-      color: #ffffff;
-      padding: 10px;
+    h1 { color: #ffffff; }
+    p { color: #ffffff; }
+    @media screen and(min-width: 320px)
+    {
+      h1 {
+        font-size: 32px;
+      }
+      p {
+        font-size: 12px;
+        padding-left: 1.5em;
+        padding-right: 1.5em;
+        text-align: center;
+      }
     }
-    p {
-      font-size: 16px;
-      color: #ffffff;
-      padding-left: 2em;
-      padding-right: 2em;
+    @media screen and(min-width: 360px)
+    {
+      h1 {
+        font-size: 30px;
+      }
+      p {
+        font-size: 12px;
+        padding-left: 1em;
+        padding-right: 1em;
+        text-align: center;
+      }
+    }
+    @media screen and(min-width: 375px)
+    {
+      h1 {
+        font-size: 28px;
+      }
+      p {
+        font-size: 12px;
+        padding-left: 1.7em;
+        padding-right: 1.7em;
+        text-align: center;
+      }
+    }
+    @media screen and(min-width: 411px)
+    {
+      h1 {
+        font-size: 28px;
+      }
+      p {
+        font-size: 12px;
+        padding-left: 3em;
+        padding-right: 3em;
+        text-align: center;
+      }
+    }
+    @media screen and(min-width: 768px)
+    {
+      h1 {
+        font-size: 30px;
+      }
+      p {
+        font-size: 12px;
+        padding-left: 2.2em;
+        padding-right: 2.2em;
+        text-align: center;
+      }
+    }
+    @media screen and(min-width: 800px)
+    {
+      h1 {
+        font-size: 30px;
+      }
+      p {
+        font-size: 12px;
+        padding-left: 3em;
+        padding-right: 3em;
+        text-align: center;
+      }
+    }
+    @media screen and(min-width: 1024px)
+    {
+      h1 {
+        font-size: 32px;
+      }
+      p {
+        font-size: 14px;
+        padding-left: 3.5em;
+        padding-right: 3.5em;
+        text-align: center;
+      }
+    }
+    @media screen and(min-width: 1280px)
+    {
+      h1 {
+        font-size: 40px;
+      }
+      p {
+        font-size: 16px;
+        padding-left: 4em;
+        padding-right: 4em;
+        text-align: center;
+      }
     }
   }
 }

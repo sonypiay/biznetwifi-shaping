@@ -5,9 +5,12 @@
      </a>
    </div>
    <div class="uk-navbar-right">
-     <ul class="uk-navbar-nav">
+     <ul class="uk-navbar-nav uk-visible@s">
        <li><a href="{{ route('homepage') }}">Home</a></li>
        <li><a href="#">Lokasi BiznetWifi</a></li>
      </ul>
+     <a class="uk-navbar-item uk-hidden@s naviicon_mobile" href="#">
+       <span uk-icon="menu"></span>
+     </a>
    </div>
  </nav>

@@ -66407,7 +66407,7 @@ var render = function() {
     _c("div", { staticClass: "uk-cover-container coverbannerhomepage" }, [
       _c("img", {
         attrs: {
-          src: _vm.url + "/images/banner/Banner2.jpg",
+          src: _vm.url + "/images/banner/Banner1.jpg",
           alt: "banner_hotspot_1",
           "uk-cover": ""
         }
@@ -66444,7 +66444,7 @@ var render = function() {
                       _vm.url +
                       "/images/banner/Biznet_Metronet_Web_Banner_620x620px_Dec2017_IND.jpg",
                     alt: "",
-                    "uk-scrollspy": "cls: uk-animation-fade; delay: 1000"
+                    "uk-scrollspy": "cls: uk-animation-fade"
                   }
                 })
               ])
@@ -66478,7 +66478,8 @@ var render = function() {
                     "uk-width-4-5@xl uk-width-4-5@l uk-width-2-3@m uk-width-3-4@s uk-align-center uk-visible@s",
                   attrs: {
                     src: _vm.url + "/images/logo/FlashAds-Logo.png",
-                    alt: ""
+                    alt: "",
+                    "uk-scrollspy": "cls: uk-animation-slide-top"
                   }
                 }),
                 _vm._v(" "),
@@ -66486,7 +66487,8 @@ var render = function() {
                   staticClass: "uk-width-1-2 uk-align-center uk-hidden@s",
                   attrs: {
                     src: _vm.url + "/images/logo/FlashAds-Logo.png",
-                    alt: ""
+                    alt: "",
+                    "uk-scrollspy": "cls: uk-animation-slide-top"
                   }
                 })
               ]
@@ -66563,7 +66565,7 @@ var staticRenderFns = [
                     src:
                       "https://www.biznetwifi.com/img/main/Biznet_Home_Web_Banner_620x620px_Aug2018-IND.jpg",
                     alt: "",
-                    "uk-scrollspy": "cls: uk-animation-fade; delay: 500"
+                    "uk-scrollspy": "cls: uk-animation-fade"
                   }
                 })
               ])
@@ -66578,7 +66580,7 @@ var staticRenderFns = [
                   src:
                     "https://www.biznetwifi.com/img/main/Biznet_Home_Web_Banner_620x620px_Aug2018-IND.jpg",
                   alt: "",
-                  "uk-scrollspy": "cls: uk-animation-fade; delay: 500"
+                  "uk-scrollspy": "cls: uk-animation-fade"
                 }
               })
             ])
@@ -66595,11 +66597,7 @@ var staticRenderFns = [
                 _c("div", { staticClass: "uk-position-center" }, [
                   _c(
                     "div",
-                    {
-                      attrs: {
-                        "uk-scrollspy": "cls: uk-animation-fade; delay: 1000"
-                      }
-                    },
+                    { attrs: { "uk-scrollspy": "cls: uk-animation-fade" } },
                     [
                       _c("h1", [_vm._v("Biznet Home")]),
                       _vm._v(" "),
@@ -66623,11 +66621,7 @@ var staticRenderFns = [
               [
                 _c(
                   "div",
-                  {
-                    attrs: {
-                      "uk-scrollspy": "cls: uk-animation-fade; delay: 1000"
-                    }
-                  },
+                  { attrs: { "uk-scrollspy": "cls: uk-animation-fade" } },
                   [
                     _c("h1", [_vm._v("Biznet Home")]),
                     _vm._v(" "),
@@ -66660,9 +66654,7 @@ var staticRenderFns = [
           _c("div", { staticClass: "uk-position-center" }, [
             _c(
               "div",
-              {
-                attrs: { "uk-scrollspy": "cls: uk-animation-fade; delay: 500" }
-              },
+              { attrs: { "uk-scrollspy": "cls: uk-animation-fade;" } },
               [
                 _c("h1", [_vm._v("Biznet Metronet")]),
                 _vm._v(" "),
@@ -66690,19 +66682,15 @@ var staticRenderFns = [
             "uk-tile uk-tile-default uk-text-center section-banner-context-right"
         },
         [
-          _c(
-            "div",
-            { attrs: { "uk-scrollspy": "cls: uk-animation-fade; delay: 500" } },
-            [
-              _c("h1", [_vm._v("Biznet Metronet")]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "\r\n               Biznet Metronet merupakan layanan Broadband Internet Super Cepat khusus untuk keperluan bisnis UKM. Dengan pilihan layanan dari 50 hingga 750 Mbps dan menggunakan jaringan Biznet Fiber, memastikan bisnis Anda akan selalu berjalan dengan lancar.\r\n            "
-                )
-              ])
-            ]
-          )
+          _c("div", { attrs: { "uk-scrollspy": "cls: uk-animation-fade" } }, [
+            _c("h1", [_vm._v("Biznet Metronet")]),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                "\r\n               Biznet Metronet merupakan layanan Broadband Internet Super Cepat khusus untuk keperluan bisnis UKM. Dengan pilihan layanan dari 50 hingga 750 Mbps dan menggunakan jaringan Biznet Fiber, memastikan bisnis Anda akan selalu berjalan dengan lancar.\r\n            "
+              )
+            ])
+          ])
         ]
       )
     ])
@@ -66718,25 +66706,39 @@ var staticRenderFns = [
           "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-2@s"
       },
       [
-        _c("div", { staticClass: "uk-visible@s" }, [
-          _c("div", { staticClass: "flashads-contactads" }, [
-            _vm._v("Hubungi kami untuk beriklan di Biznet Wifi")
-          ]),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "https://www.flashads.co.id/" } }, [
-            _vm._v("www.flashads.co.id")
-          ])
-        ]),
+        _c(
+          "div",
+          {
+            staticClass: "uk-visible@s",
+            attrs: { "uk-scrollspy": "cls: uk-animation-slide-top" }
+          },
+          [
+            _c("div", { staticClass: "flashads-contactads" }, [
+              _vm._v("Hubungi kami untuk beriklan di Biznet Wifi")
+            ]),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "https://www.flashads.co.id/" } }, [
+              _vm._v("www.flashads.co.id")
+            ])
+          ]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "uk-hidden@s uk-text-center" }, [
-          _c("div", { staticClass: "flashads-contactads" }, [
-            _vm._v("Hubungi kami untuk beriklan di Biznet Wifi")
-          ]),
-          _vm._v(" "),
-          _c("a", { attrs: { href: "https://www.flashads.co.id/" } }, [
-            _vm._v("www.flashads.co.id")
-          ])
-        ])
+        _c(
+          "div",
+          {
+            staticClass: "uk-hidden@s uk-text-center",
+            attrs: { "uk-scrollspy": "cls: uk-animation-slide-top" }
+          },
+          [
+            _c("div", { staticClass: "flashads-contactads" }, [
+              _vm._v("Hubungi kami untuk beriklan di Biznet Wifi")
+            ]),
+            _vm._v(" "),
+            _c("a", { attrs: { href: "https://www.flashads.co.id/" } }, [
+              _vm._v("www.flashads.co.id")
+            ])
+          ]
+        )
       ]
     )
   }

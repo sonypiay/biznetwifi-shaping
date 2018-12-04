@@ -68,6 +68,17 @@ body {
   width: 130px;
 }
 
+.navbar .naviicon_mobile {
+  color: #777777;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.navbar .naviicon_mobile:hover,
+.navbar .naviicon_mobile:focus {
+  color: #555555;
+}
+
 .headerhmpg-cust {
   background: #ffffff;
   z-index: 9999;
@@ -711,16 +722,9 @@ body {
   background: linear-gradient(97deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
 }
 
-.coverbannerhomepage .banner_ovlay_content {
-  padding: 4em;
-  margin-top: 12em;
-  margin-right: 3em;
-}
-
 .coverbannerhomepage .banner_ovlay_content h1,
 .coverbannerhomepage .banner_ovlay_content h2,
 .coverbannerhomepage .banner_ovlay_content h3 {
-  font-size: 56px;
   color: #ffffff;
   font-family: "Univers", sans-serif;
   font-weight: bold;
@@ -730,7 +734,6 @@ body {
 }
 
 .coverbannerhomepage .banner_ovlay_content p {
-  font-size: 18px;
   font-family: "Univers", sans-serif;
   font-weight: normal;
   font-stretch: normal;
@@ -739,29 +742,104 @@ body {
   color: #ffffff;
 }
 
-.coverbannerhomepage .banner_ovlay_content .banner_btnovlay {
-  border: 0;
-  background: linear-gradient(97deg, #da068c, #982e7e) !important;
-  color: #ffffff;
-  font-size: 12px;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: 0.6px;
-  text-transform: capitalize;
-  border-radius: 3px;
+@media screen and (min-width: 320px) {
+  .coverbannerhomepage .banner_ovlay_content {
+    padding: 2em;
+    margin-top: 8.5em;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content h1,
+  .coverbannerhomepage .banner_ovlay_content h2,
+  .coverbannerhomepage .banner_ovlay_content h3 {
+    font-size: 40px;
+    text-align: center;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content p {
+    font-size: 12px;
+    text-align: center;
+  }
 }
 
-.coverbannerhomepage .banner_ovlay_content .banner_btnovlay:hover,
-.coverbannerhomepage .banner_ovlay_content .banner_btnovlay:focus {
-  background: linear-gradient(97deg, #da068c, #982e7e) !important;
-  color: #ffffff;
+@media screen and (min-width: 360px) {
+  .coverbannerhomepage .banner_ovlay_content {
+    padding: 2em;
+    margin-top: 9.2em;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content h1,
+  .coverbannerhomepage .banner_ovlay_content h2,
+  .coverbannerhomepage .banner_ovlay_content h3 {
+    font-size: 44px;
+    text-align: center;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content p {
+    font-size: 14px;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 411px) {
+  .coverbannerhomepage .banner_ovlay_content {
+    padding: 2em;
+    margin-top: 9.2em;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content h1,
+  .coverbannerhomepage .banner_ovlay_content h2,
+  .coverbannerhomepage .banner_ovlay_content h3 {
+    font-size: 46px;
+    text-align: center;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content p {
+    font-size: 15px;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .coverbannerhomepage .banner_ovlay_content {
+    padding: 3em;
+    margin-top: 14em;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content h1,
+  .coverbannerhomepage .banner_ovlay_content h2,
+  .coverbannerhomepage .banner_ovlay_content h3 {
+    font-size: 48px;
+    text-align: left;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content p {
+    font-size: 16px;
+    text-align: left;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .coverbannerhomepage .banner_ovlay_content {
+    padding: 4em;
+    margin-top: 13em;
+    margin-right: 3em;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content h1,
+  .coverbannerhomepage .banner_ovlay_content h2,
+  .coverbannerhomepage .banner_ovlay_content h3 {
+    font-size: 56px;
+    text-align: left;
+  }
+
+  .coverbannerhomepage .banner_ovlay_content p {
+    font-size: 18px;
+    text-align: left;
+  }
 }
 
 .section-banner-biznethome .section-banner-context-right {
   color: #ffffff;
-  font-size: 16px;
   font-family: "Univers", sans-serif;
   font-weight: normal;
   font-stretch: normal;
@@ -773,16 +851,115 @@ body {
 }
 
 .section-banner-biznethome .section-banner-context-right h1 {
-  font-size: 34px;
   color: #ffffff;
-  padding: 10px;
 }
 
 .section-banner-biznethome .section-banner-context-right p {
-  font-size: 16px;
   color: #ffffff;
-  padding-left: 3em;
-  padding-right: 3em;
+}
+
+@media screen and (min-width: 320px) {
+  .section-banner-biznethome h1 {
+    font-size: 32px;
+  }
+
+  .section-banner-biznethome p {
+    font-size: 12px;
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 360px) {
+  .section-banner-biznethome h1 {
+    font-size: 30px;
+  }
+
+  .section-banner-biznethome p {
+    font-size: 12px;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .section-banner-biznethome h1 {
+    font-size: 28px;
+  }
+
+  .section-banner-biznethome p {
+    font-size: 12px;
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 411px) {
+  .section-banner-biznethome h1 {
+    font-size: 28px;
+  }
+
+  .section-banner-biznethome p {
+    font-size: 12px;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .section-banner-biznethome h1 {
+    font-size: 30px;
+  }
+
+  .section-banner-biznethome p {
+    font-size: 12px;
+    padding-left: 2em;
+    padding-right: 2em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .section-banner-biznethome h1 {
+    font-size: 30px;
+  }
+
+  .section-banner-biznethome p {
+    font-size: 12px;
+    padding-left: 3em;
+    padding-right: 3em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .section-banner-biznethome h1 {
+    font-size: 32px;
+  }
+
+  .section-banner-biznethome p {
+    font-size: 14px;
+    padding-left: 4em;
+    padding-right: 4em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .section-banner-biznethome h1 {
+    font-size: 40px;
+  }
+
+  .section-banner-biznethome p {
+    font-size: 16px;
+    padding-left: 4em;
+    padding-right: 4em;
+    text-align: center;
+  }
 }
 
 .section-banner-biznetmetronet .section-banner-context-right {
@@ -799,16 +976,115 @@ body {
 }
 
 .section-banner-biznetmetronet .section-banner-context-right h1 {
-  font-size: 34px;
   color: #ffffff;
-  padding: 10px;
 }
 
 .section-banner-biznetmetronet .section-banner-context-right p {
-  font-size: 16px;
   color: #ffffff;
-  padding-left: 2em;
-  padding-right: 2em;
+}
+
+@media screen and (min-width: 320px) {
+  .section-banner-biznetmetronet .section-banner-context-right h1 {
+    font-size: 32px;
+  }
+
+  .section-banner-biznetmetronet .section-banner-context-right p {
+    font-size: 12px;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 360px) {
+  .section-banner-biznetmetronet .section-banner-context-right h1 {
+    font-size: 30px;
+  }
+
+  .section-banner-biznetmetronet .section-banner-context-right p {
+    font-size: 12px;
+    padding-left: 1em;
+    padding-right: 1em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .section-banner-biznetmetronet .section-banner-context-right h1 {
+    font-size: 28px;
+  }
+
+  .section-banner-biznetmetronet .section-banner-context-right p {
+    font-size: 12px;
+    padding-left: 1.7em;
+    padding-right: 1.7em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 411px) {
+  .section-banner-biznetmetronet .section-banner-context-right h1 {
+    font-size: 28px;
+  }
+
+  .section-banner-biznetmetronet .section-banner-context-right p {
+    font-size: 12px;
+    padding-left: 3em;
+    padding-right: 3em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .section-banner-biznetmetronet .section-banner-context-right h1 {
+    font-size: 30px;
+  }
+
+  .section-banner-biznetmetronet .section-banner-context-right p {
+    font-size: 12px;
+    padding-left: 2.2em;
+    padding-right: 2.2em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .section-banner-biznetmetronet .section-banner-context-right h1 {
+    font-size: 30px;
+  }
+
+  .section-banner-biznetmetronet .section-banner-context-right p {
+    font-size: 12px;
+    padding-left: 3em;
+    padding-right: 3em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .section-banner-biznetmetronet .section-banner-context-right h1 {
+    font-size: 32px;
+  }
+
+  .section-banner-biznetmetronet .section-banner-context-right p {
+    font-size: 14px;
+    padding-left: 3.5em;
+    padding-right: 3.5em;
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .section-banner-biznetmetronet .section-banner-context-right h1 {
+    font-size: 40px;
+  }
+
+  .section-banner-biznetmetronet .section-banner-context-right p {
+    font-size: 16px;
+    padding-left: 4em;
+    padding-right: 4em;
+    text-align: center;
+  }
 }
 
 .section-homepage-flashads {
