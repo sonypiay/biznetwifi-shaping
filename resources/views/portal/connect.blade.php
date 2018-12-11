@@ -21,7 +21,7 @@
   uip="{{ $uip }}"
   ssid="{{ $ssid }}"
   starturl="http://qabiznethotspot.qeon.co.id"
-  loc="{{ $loc }}"
+  :loc="{{ json_encode( $loc ) }}"
   ap="{{ $ap }}"></connect-section>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>

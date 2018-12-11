@@ -62,7 +62,7 @@
               </div>
               <div class="uk-grid-small uk-margin-top" uk-grid>
                 <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
-                  <a :href="url + '/freehotspot?ap=' + ap + '&src=BiznetHotspot&loc=' + loc + '&uip=' + uip + '&client_mac=' + client_mac + '&starturl=' + starturl + '&ssid=' + ssid" class="uk-display-block uk-button login-connect login-visitor">
+                  <a :href="url + '/freehotspot?ap=' + ap + '&src=BiznetHotspot&loc=' + loc.origin + '&uip=' + uip + '&client_mac=' + client_mac + '&starturl=' + starturl + '&ssid=' + ssid" class="uk-display-block uk-button login-connect login-visitor">
                     Login sebagai Pengunjung
                   </a>
                 </div>

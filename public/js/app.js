@@ -64838,7 +64838,7 @@ var render = function() {
                                 "/freehotspot?ap=" +
                                 _vm.ap +
                                 "&src=BiznetHotspot&loc=" +
-                                _vm.loc +
+                                _vm.loc.origin +
                                 "&uip=" +
                                 _vm.uip +
                                 "&client_mac=" +

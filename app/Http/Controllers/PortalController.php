@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Database\AccountSubscriber;
 use App\RadiusAPI;
+use App\CustomFunction;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 
 class PortalController extends Controller
 {
   use RadiusAPI;
+  use CustomFunction;
 
   public function connectmikrotik( Request $request )
   {
@@ -54,23 +56,26 @@ class PortalController extends Controller
     $startUrl = $request->StartURL;
     $location = $request->loc;
 
-    if( $ap == 'mkt' )
-    {
-      $startUrl = 'biznethotspot.qeon.co.id';
-    }
-
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
       $request->session()->put('client_mac', $client_mac);
       $request->session()->put('uip', $uip);
       $request->session()->put('starturl', $startUrl);
     }
+
+    $convert_string = hex2bin( $location );
+    $filter_location = explode('-', $convert_string);
+    $merchant = $this->get_merchant( $filter_location[1] );
+
     return response()->view('portal.connect', [
       'mac' => $client_mac,
       'uip' => $uip,
       'ssid' => $ssid,
       'startUrl' => $startUrl,
-      'loc' => $location,
+      'loc' => [
+        'origin' => $location,
+        'merchant' => $merchant
+      ],
       'ap' => $ap
     ])
     ->header('Content-Type', 'text/html; charset=utf8')
@@ -83,10 +88,10 @@ class PortalController extends Controller
     if( $request->cookie('connect') == 'freehotspot' )
     {
       Cookie::queue( Cookie::forget('connect') );
-	  $fullUrl = $request->fullUrl();
-	  $fullUrlParts = parse_url($fullUrl);
-	  $redirectUrl = 'http://qabiznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
-	  return redirect($redirectUrl);
+      $fullUrl = $request->fullUrl();
+      $fullUrlParts = parse_url($fullUrl);
+      $redirectUrl = 'http://qabiznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
+      return redirect($redirectUrl);
     }
     else if( $request->cookie('connect') == 'biznetwifi' )
     {
@@ -190,28 +195,20 @@ class PortalController extends Controller
     return $this->userAgent( $request->server('HTTP_USER_AGENT') );
   }
 
-  private function userAgent( $agent )
+  public function test_location( Request $request )
   {
-    $iPod = strpos( $agent, "iPod" );
-  	$iPhone = strpos( $agent, "iPhone" );
-  	$iPad = strpos( $agent, "iPad" );
-  	$android = strpos( $agent, "Android" );
-  	$smartTV = strpos( $agent, "TV" );
-  	if( $iPad || $iPhone || $iPod )
-  	{
-  		return 'iOS';
-  	}
-  	else if( $android )
-  	{
-  		return 'ANDROID';
-  	}
-  	else if( $smartTV )
-  	{
-  		return 'SMART TV';
-  	}
-  	else
-  	{
-  		return 'PC/LAPTOP';
-  	}
+    $loc = $request->loc;
+    $ap = $request->ap;
+    if( $ap == 'mkt' )
+    {
+      $filter = explode( '-', $loc );
+    }
+    else
+    {
+      $convert = hex2bin( $loc );
+      $filter = explode( '-', $convert );
+    }
+    $result = $this->get_merchant( $filter[1] );
+    dd( $result );
   }
 }
