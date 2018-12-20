@@ -35,12 +35,18 @@ class PortalController extends Controller
       $request->session()->put('starturl', $startUrl);
     }
 
+    $filter_location = explode('-', $location);
+    $merchant = $this->get_merchant( $filter_location[1] );
+
     return response()->view('portal.connect', [
       'mac' => $client_mac,
       'uip' => $uip,
       'ssid' => $ssid,
       'startUrl' => $startUrl,
-      'loc' => $location,
+      'loc' => [
+        'origin' => $location,
+        'merchant' => $merchant
+      ],
       'ap' => $ap
     ])
     ->header('Content-Type', 'text/html; charset=utf8')
