@@ -155,7 +155,7 @@ export default {
             redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + this.client_mac + '&uip=' + this.uip;
           }
           ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
-          setTimeout(function() { document.location = redirect; }, 2000);
+          setTimeout(function() { document.location = redirect; }, 1000);
         }
       }).catch( err => {
         if( err.response.status === 401 )

@@ -64512,7 +64512,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           ga('send', { hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID' });
           setTimeout(function () {
             document.location = redirect;
-          }, 2000);
+          }, 1000);
         }
       }).catch(function (err) {
         if (err.response.status === 401) {
