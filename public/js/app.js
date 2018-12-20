@@ -64509,6 +64509,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           } else {
             redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + _this.client_mac + '&uip=' + _this.uip;
           }
+          ga('send', { hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID' });
           setTimeout(function () {
             document.location = redirect;
           }, 2000);
@@ -64520,6 +64521,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this.errorMessage = err.response.statusText;
         }
 
+        ga('send', { hitType: 'event', eventCategory: 'Error', eventAction: 'submit', eventLabel: 'AuthError' });
         _this.forms.btnSubmit = 'Log In';
       });
     },

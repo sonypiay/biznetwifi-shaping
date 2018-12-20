@@ -154,6 +154,7 @@ export default {
           {
             redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + this.client_mac + '&uip=' + this.uip;
           }
+          ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
           setTimeout(function() { document.location = redirect; }, 2000);
         }
       }).catch( err => {
@@ -166,6 +167,7 @@ export default {
           this.errorMessage = err.response.statusText;
         }
 
+        ga('send', {hitType: 'event', eventCategory: 'Error', eventAction: 'submit', eventLabel: 'AuthError'});
         this.forms.btnSubmit = 'Log In';
       });
     },
