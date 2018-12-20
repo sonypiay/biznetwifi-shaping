@@ -64485,8 +64485,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         url: this.url + '/biznetwifi/auth',
         headers: { 'Content-Type': 'application/json' },
         params: {
-          username: this.username,
-          password: this.password
+          username: this.forms.username,
+          password: this.forms.password
         }
       }).then(function (res) {
         var result = res.data;

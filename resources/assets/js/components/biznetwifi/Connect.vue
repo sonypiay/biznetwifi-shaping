@@ -124,8 +124,8 @@ export default {
         url: this.url + '/biznetwifi/auth',
         headers: { 'Content-Type': 'application/json' },
         params: {
-          username: this.username,
-          password: this.password
+          username: this.forms.username,
+          password: this.forms.password
         }
       }).then( res => {
         let result = res.data;
