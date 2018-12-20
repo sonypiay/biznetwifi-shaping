@@ -37,7 +37,7 @@ trait LdapConnection {
       {
         $res = [
           'status' => 401,
-          'statusText' => 'Invalid LDAP username or password',
+          'statusText' => 'Username / Password yang anda masukkan salah.',
           'response' => false
         ];
       }
@@ -60,7 +60,7 @@ trait LdapConnection {
           $entries = @ldap_get_entries( $connect, $find );
           $res = [
             'status' => 401,
-            'statusText' => 'Invalid LDAP username or password',
+            'statusText' => 'Username / Password yang anda masukkan salah.',
             'response' => ''
           ];
 

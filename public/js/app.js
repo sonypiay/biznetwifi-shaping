@@ -30467,6 +30467,7 @@ try {
 
 window.moment = __webpack_require__(0);
 window.axios = __webpack_require__(142);
+window.swal = __webpack_require__(172);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -64361,11 +64362,6 @@ module.exports = function listToStyles (parentId, list) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sweetalert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sweetalert__);
-//
-//
-//
 //
 //
 //
@@ -64450,10 +64446,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['url', 'client_mac', 'uip', 'ssid', 'starturl', 'loc', 'ap'],
   data: function data() {
     return {
-      username: '',
-      password: '',
-      btnSubmit: 'Log In',
-      errors: {}
+      forms: {
+        username: '',
+        password: '',
+        btnSubmit: 'Log In',
+        error: false
+      },
+      errors: {},
+      errorMessage: ''
     };
   },
 
@@ -64461,75 +64461,66 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     doLoginCustomer: function doLoginCustomer() {
       var _this = this;
 
-      if (this.username === '') {
-        /*swal({
-          title: 'Warning',
-          text: 'Silahkan masukkan Customer ID Anda.',
-          icon: 'warning',
-          dangerMode: true
-        });*/
-      } else if (this.password === '') {
-        /*swal({
-          title: 'Warning',
-          text: 'Silahkan masukkan password Anda.',
-          icon: 'warning',
-          dangerMode: true
-        });*/
-      } else {
-        this.btnSubmit = '<span uk-spinner></span>';
-        axios({
-          method: 'post',
-          url: this.url + '/biznetwifi/auth',
-          headers: { 'Content-Type': 'application/json' },
-          params: {
-            username: this.username,
-            password: this.password
-          }
-        }).then(function (res) {
-          var result = res.data;
-          __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()({
-            title: 'Login berhasil',
-            text: 'Redirecting',
-            icon: 'success'
-          });
-
-          var redirect = _this.url + '/biznetwifi/customers';
-          if (_this.client_mac === '' && _this.uip === '' && _this.ssid === '' && _this.loc === '') {
-            setTimeout(function () {
-              document.location = redirect;
-            }, 2000);
-          } else {
-            var username_radius = 'shaping';
-            var password_radius = 'biznet01';
-            if (_this.ap === 'ruckus') {
-              redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + _this.uip + '&client_mac=' + _this.client_mac + '&ssid=' + _this.ssid + '&starturl=' + _this.starturl;
-            } else {
-              redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + _this.client_mac + '&uip=' + _this.uip;
-            }
-            setTimeout(function () {
-              document.location = redirect;
-            }, 2000);
-          }
-        }).catch(function (err) {
-          if (err.response.status === 401) {
-            __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()({
-              title: 'Warning',
-              text: err.response.data.statusText,
-              icon: 'warning',
-              dangerMode: true
-            });
-          } else {
-            __WEBPACK_IMPORTED_MODULE_0_sweetalert___default()({
-              title: 'Error',
-              text: err.response.data.statusText,
-              icon: 'error',
-              dangerMode: true
-            });
-          }
-
-          _this.btnSubmit = 'Log In';
-        });
+      this.errors = {};
+      this.errorMessage = '';
+      if (this.forms.username === '') {
+        this.forms.error = true;
+        this.errors.username = 'Silahkan masukkan username Anda.';
       }
+
+      if (this.forms.password === '') {
+        this.forms.error = true;
+        this.errors.password = 'Silahkan masukkan password Anda.';
+      }
+
+      if (this.forms.error === true) {
+        this.forms.error = false;
+        return false;
+      }
+
+      this.forms.btnSubmit = '<span uk-spinner></span>';
+      axios({
+        method: 'post',
+        url: this.url + '/biznetwifi/auth',
+        headers: { 'Content-Type': 'application/json' },
+        params: {
+          username: this.username,
+          password: this.password
+        }
+      }).then(function (res) {
+        var result = res.data;
+        swal({
+          title: 'Login berhasil',
+          text: 'Redirecting',
+          icon: 'success'
+        });
+
+        var redirect = _this.url + '/biznetwifi/customers';
+        if (_this.client_mac === '' && _this.uip === '' && _this.ssid === '' && _this.loc === '') {
+          setTimeout(function () {
+            document.location = redirect;
+          }, 2000);
+        } else {
+          var username_radius = 'shaping';
+          var password_radius = 'biznet01';
+          if (_this.ap === 'ruckus') {
+            redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + _this.uip + '&client_mac=' + _this.client_mac + '&ssid=' + _this.ssid + '&starturl=' + _this.starturl;
+          } else {
+            redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + _this.client_mac + '&uip=' + _this.uip;
+          }
+          setTimeout(function () {
+            document.location = redirect;
+          }, 2000);
+        }
+      }).catch(function (err) {
+        if (err.response.status === 401) {
+          _this.errorMessage = err.response.data.statusText;
+        } else {
+          _this.errorMessage = err.response.statusText;
+        }
+
+        _this.forms.btnSubmit = 'Log In';
+      });
     }
   },
   mounted: function mounted() {}
@@ -64594,6 +64585,17 @@ var render = function() {
                         "uk-card uk-card-body uk-card-small uk-card-default login-container"
                     },
                     [
+                      _vm.errorMessage
+                        ? _c(
+                            "div",
+                            {
+                              staticClass: "uk-alert-danger",
+                              attrs: { "uk-alert": "" }
+                            },
+                            [_vm._v(_vm._s(_vm.errorMessage))]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c(
                         "form",
                         {
@@ -64608,28 +64610,6 @@ var render = function() {
                         [
                           _c("div", { staticClass: "uk-margin" }, [
                             _c("div", { staticClass: "uk-form-controls" }, [
-                              _vm.errors.username
-                                ? _c("span", [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "uk-alert-warning uk-margin-top",
-                                        attrs: { "uk-alert": "" }
-                                      },
-                                      [
-                                        _vm._v(
-                                          _vm._s(_vm.errors.username) + " "
-                                        ),
-                                        _c("a", {
-                                          staticClass: "uk-alert-close",
-                                          attrs: { "uk-close": "" }
-                                        })
-                                      ]
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
                               _c(
                                 "div",
                                 { staticClass: "uk-width-1-1 uk-inline" },
@@ -64644,8 +64624,8 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.username,
-                                        expression: "username"
+                                        value: _vm.forms.username,
+                                        expression: "forms.username"
                                       }
                                     ],
                                     staticClass:
@@ -64654,45 +64634,37 @@ var render = function() {
                                       type: "text",
                                       placeholder: "Customer ID"
                                     },
-                                    domProps: { value: _vm.username },
+                                    domProps: { value: _vm.forms.username },
                                     on: {
                                       input: function($event) {
                                         if ($event.target.composing) {
                                           return
                                         }
-                                        _vm.username = $event.target.value
+                                        _vm.$set(
+                                          _vm.forms,
+                                          "username",
+                                          $event.target.value
+                                        )
                                       }
                                     }
                                   })
                                 ]
                               )
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _vm.errors.username
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "uk-text-small uk-text-danger"
+                                  },
+                                  [_vm._v(_vm._s(_vm.errors.username))]
+                                )
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "uk-margin" }, [
                             _c("div", { staticClass: "uk-form-controls" }, [
-                              _vm.errors.password
-                                ? _c("span", [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "uk-alert-warning uk-margin-top",
-                                        attrs: { "uk-alert": "" }
-                                      },
-                                      [
-                                        _vm._v(
-                                          _vm._s(_vm.errors.password) + " "
-                                        ),
-                                        _c("a", {
-                                          staticClass: "uk-alert-close",
-                                          attrs: { "uk-close": "" }
-                                        })
-                                      ]
-                                    )
-                                  ])
-                                : _vm._e(),
-                              _vm._v(" "),
                               _c(
                                 "div",
                                 { staticClass: "uk-width-1-1 uk-inline" },
@@ -64707,8 +64679,8 @@ var render = function() {
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.password,
-                                        expression: "password"
+                                        value: _vm.forms.password,
+                                        expression: "forms.password"
                                       }
                                     ],
                                     staticClass:
@@ -64717,19 +64689,33 @@ var render = function() {
                                       type: "password",
                                       placeholder: "Password"
                                     },
-                                    domProps: { value: _vm.password },
+                                    domProps: { value: _vm.forms.password },
                                     on: {
                                       input: function($event) {
                                         if ($event.target.composing) {
                                           return
                                         }
-                                        _vm.password = $event.target.value
+                                        _vm.$set(
+                                          _vm.forms,
+                                          "password",
+                                          $event.target.value
+                                        )
                                       }
                                     }
                                   })
                                 ]
                               )
-                            ])
+                            ]),
+                            _vm._v(" "),
+                            _vm.errors.password
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "uk-text-small uk-text-danger"
+                                  },
+                                  [_vm._v(_vm._s(_vm.errors.password))]
+                                )
+                              : _vm._e()
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "uk-margin" }, [
@@ -64738,8 +64724,9 @@ var render = function() {
                               {
                                 staticClass:
                                   "uk-width-1-1 uk-button uk-button-default button-login-customer",
-                                attrs: { id: "btnSubmit" },
-                                domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
+                                domProps: {
+                                  innerHTML: _vm._s(_vm.forms.btnSubmit)
+                                }
                               },
                               [_vm._v("Log In")]
                             )
@@ -64919,7 +64906,11 @@ var staticRenderFns = [
               "uk-display-block uk-button login-connect login-customer",
             attrs: { "uk-toggle": "target: #loginCustomer" }
           },
-          [_vm._v("\n                  Login Akun Biznet\n                ")]
+          [
+            _vm._v(
+              "\n                  Login menggunakan Akun Biznet\n                "
+            )
+          ]
         )
       ]
     )

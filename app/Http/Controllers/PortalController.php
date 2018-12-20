@@ -79,7 +79,7 @@ class PortalController extends Controller
       'ssid' => $ssid,
       'startUrl' => $startUrl,
       'loc' => [
-        'origin' => $location,
+        'origin' => $convert_string,
         'merchant' => $merchant
       ],
       'ap' => $ap

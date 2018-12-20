@@ -10,31 +10,28 @@
               <span class="uk-text-center">Layanan Wi-Fi Turbo untuk pelanggan Biznet dengan kecepatan hingga 100 Mbps!</span>
             </div>
             <div class="uk-card uk-card-body uk-card-small uk-card-default login-container">
+              <div v-if="errorMessage" class="uk-alert-danger" uk-alert>{{ errorMessage }}</div>
               <form class="uk-form-stacked" @submit.prevent="doLoginCustomer">
                 <div class="uk-margin">
                   <div class="uk-form-controls">
-                    <span v-if="errors.username">
-                      <div class="uk-alert-warning uk-margin-top" uk-alert>{{ errors.username }} <a class="uk-alert-close" uk-close></a></div>
-                    </span>
                     <div class="uk-width-1-1 uk-inline">
                       <span class="uk-form-icon" uk-icon="user"></span>
-                      <input type="text" v-model="username" class="uk-width-1-1 uk-input form-login-customer" placeholder="Customer ID">
+                      <input type="text" v-model="forms.username" class="uk-width-1-1 uk-input form-login-customer" placeholder="Customer ID">
                     </div>
                   </div>
+                  <div v-if="errors.username" class="uk-text-small uk-text-danger">{{ errors.username }}</div>
                 </div>
                 <div class="uk-margin">
                   <div class="uk-form-controls">
-                    <span v-if="errors.password">
-                      <div class="uk-alert-warning uk-margin-top" uk-alert>{{ errors.password }} <a class="uk-alert-close" uk-close></a></div>
-                    </span>
                     <div class="uk-width-1-1 uk-inline">
                       <span class="uk-form-icon" uk-icon="lock"></span>
-                      <input type="password" v-model="password" class="uk-width-1-1 uk-input form-login-customer" placeholder="Password">
+                      <input type="password" v-model="forms.password" class="uk-width-1-1 uk-input form-login-customer" placeholder="Password">
                     </div>
                   </div>
+                  <div v-if="errors.password" class="uk-text-small uk-text-danger">{{ errors.password }}</div>
                 </div>
                 <div class="uk-margin">
-                  <button v-html="btnSubmit" class="uk-width-1-1 uk-button uk-button-default button-login-customer" id="btnSubmit">Log In</button>
+                  <button v-html="forms.btnSubmit" class="uk-width-1-1 uk-button uk-button-default button-login-customer">Log In</button>
                 </div>
               </form>
             </div>
@@ -68,7 +65,7 @@
                 </div>
                 <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
                   <a uk-toggle="target: #loginCustomer" class="uk-display-block uk-button login-connect login-customer">
-                    Login Akun Biznet
+                    Login menggunakan Akun Biznet
                   </a>
                 </div>
               </div>
@@ -80,104 +77,96 @@
 </template>
 
 <script>
-import swal from 'sweetalert';
+
 export default {
   props: [
     'url', 'client_mac','uip','ssid','starturl','loc','ap'
   ],
   data() {
     return {
-      username: '',
-      password: '',
-      btnSubmit: 'Log In',
-      errors: {}
+      forms: {
+        username: '',
+        password: '',
+        btnSubmit: 'Log In',
+        error: false
+      },
+      errors: {},
+      errorMessage: ''
     }
   },
   methods: {
     doLoginCustomer()
     {
-      if( this.username === '' )
+      this.errors = {};
+      this.errorMessage = '';
+      if( this.forms.username === '' )
       {
-        /*swal({
-          title: 'Warning',
-          text: 'Silahkan masukkan Customer ID Anda.',
-          icon: 'warning',
-          dangerMode: true
-        });*/
+        this.forms.error = true;
+        this.errors.username = 'Silahkan masukkan username Anda.';
       }
 
-      else if( this.password === '' )
+      if( this.forms.password === '' )
       {
-        /*swal({
-          title: 'Warning',
-          text: 'Silahkan masukkan password Anda.',
-          icon: 'warning',
-          dangerMode: true
-        });*/
+        this.forms.error = true;
+        this.errors.password = 'Silahkan masukkan password Anda.';
       }
-      else
+
+      if( this.forms.error === true )
       {
-        this.btnSubmit = '<span uk-spinner></span>';
-        axios({
-          method: 'post',
-          url: this.url + '/biznetwifi/auth',
-          headers: { 'Content-Type': 'application/json' },
-          params: {
-            username: this.username,
-            password: this.password
-          }
-        }).then( res => {
-          let result = res.data;
-          swal({
-            title: 'Login berhasil',
-            text: 'Redirecting',
-            icon: 'success'
-          });
+        this.forms.error = false;
+        return false;
+      }
 
-          var redirect = this.url + '/biznetwifi/customers';
-          if( this.client_mac === ''
-            && this.uip === ''
-            && this.ssid === ''
-            && this.loc === '')
-          {
-            setTimeout(function() { document.location = redirect; }, 2000);
-          }
-          else
-          {
-            var username_radius = 'shaping';
-            var password_radius = 'biznet01';
-            if( this.ap === 'ruckus' ) {
-              redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&ssid=' + this.ssid + '&starturl=' + this.starturl;
-            }
-            else
-            {
-              redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + this.client_mac + '&uip=' + this.uip;
-            }
-            setTimeout(function() { document.location = redirect; }, 2000);
-          }
-        }).catch( err => {
-          if( err.response.status === 401 )
-          {
-            swal({
-              title: 'Warning',
-              text: err.response.data.statusText,
-              icon: 'warning',
-              dangerMode: true
-            });
-          }
-          else
-          {
-            swal({
-              title: 'Error',
-              text: err.response.data.statusText,
-              icon: 'error',
-              dangerMode: true
-            });
-          }
-
-          this.btnSubmit = 'Log In';
+      this.forms.btnSubmit = '<span uk-spinner></span>';
+      axios({
+        method: 'post',
+        url: this.url + '/biznetwifi/auth',
+        headers: { 'Content-Type': 'application/json' },
+        params: {
+          username: this.username,
+          password: this.password
+        }
+      }).then( res => {
+        let result = res.data;
+        swal({
+          title: 'Login berhasil',
+          text: 'Redirecting',
+          icon: 'success'
         });
-      }
+
+        var redirect = this.url + '/biznetwifi/customers';
+        if( this.client_mac === ''
+          && this.uip === ''
+          && this.ssid === ''
+          && this.loc === '')
+        {
+          setTimeout(function() { document.location = redirect; }, 2000);
+        }
+        else
+        {
+          var username_radius = 'shaping';
+          var password_radius = 'biznet01';
+          if( this.ap === 'ruckus' ) {
+            redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&ssid=' + this.ssid + '&starturl=' + this.starturl;
+          }
+          else
+          {
+            redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + this.client_mac + '&uip=' + this.uip;
+          }
+          setTimeout(function() { document.location = redirect; }, 2000);
+        }
+      }).catch( err => {
+        if( err.response.status === 401 )
+        {
+          this.errorMessage = err.response.data.statusText;
+        }
+        else
+        {
+          this.errorMessage = err.response.statusText;
+        }
+
+        this.forms.btnSubmit = 'Log In';
+      });
     }
   },
   mounted() {}
