@@ -64530,6 +64530,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       setTimeout(function () {
         document.location = redirect;
       }, 2000);
+    },
+    closeLoginAsBiznet: function closeLoginAsBiznet() {
+      ga('send', { hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'CloseFormLogin' });
     }
   },
   mounted: function mounted() {}
@@ -64559,11 +64562,6 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "uk-modal-dialog modal-dialog" }, [
-          _c("a", {
-            staticClass: "uk-modal-close-default",
-            attrs: { "uk-close": "" }
-          }),
-          _vm._v(" "),
           _c(
             "div",
             {
@@ -64579,6 +64577,16 @@ var render = function() {
                     "uk-width-2-3@xl uk-width-2-3@l uk-width-3-4@m uk-width-2-3@s uk-align-center"
                 },
                 [
+                  _c("a", {
+                    staticClass: "uk-modal-close-default",
+                    attrs: { "uk-close": "" },
+                    on: {
+                      click: function($event) {
+                        _vm.closeLoginAsBiznet()
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "uk-margin-large-top modal-heading" },

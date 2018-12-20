@@ -2,9 +2,9 @@
   <div>
     <div id="loginCustomer" class="uk-modal-full" uk-modal>
       <div class="uk-modal-dialog modal-dialog">
-        <a class="uk-modal-close-default" uk-close></a>
         <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s uk-align-center uk-modal-body modal-body" uk-height-viewport>
           <div class="uk-width-2-3@xl uk-width-2-3@l uk-width-3-4@m uk-width-2-3@s uk-align-center">
+            <a @click="closeLoginAsBiznet()" class="uk-modal-close-default" uk-close></a>
             <div class="uk-margin-large-top modal-heading">Login Akun Biznet</div>
             <div class="uk-width-1-1 uk-padding-small uk-align-center uk-margin-bottom modal-subheading">
               <span class="uk-text-center">Layanan Wi-Fi Turbo untuk pelanggan Biznet dengan kecepatan hingga 100 Mbps!</span>
@@ -177,6 +177,10 @@ export default {
       setTimeout(function(){
         document.location = redirect;
       }, 2000);
+    },
+    closeLoginAsBiznet()
+    {
+      ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'CloseFormLogin'});
     }
   },
   mounted() {}
