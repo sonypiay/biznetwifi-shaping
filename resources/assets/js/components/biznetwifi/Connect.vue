@@ -59,9 +59,7 @@
               </div>
               <div class="uk-grid-small uk-margin-top" uk-grid>
                 <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
-                  <a :href="url + '/freehotspot?ap=' + ap + '&src=BiznetHotspot&loc=' + loc.origin + '&uip=' + uip + '&client_mac=' + client_mac + '&starturl=' + starturl + '&ssid=' + ssid" class="uk-display-block uk-button login-connect login-visitor">
-                    Login sebagai Pengunjung
-                  </a>
+                  <a @click="doLoginHotspot()" class="uk-display-block uk-button login-connect login-visitor" v-html="forms.btnhotspot"></a>
                 </div>
                 <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
                   <a uk-toggle="target: #loginCustomer" class="uk-display-block uk-button login-connect login-customer">
@@ -88,6 +86,7 @@ export default {
         username: '',
         password: '',
         btnSubmit: 'Log In',
+        btnhotspot: 'Login sebagai Pengunjung',
         error: false
       },
       errors: {},
@@ -116,6 +115,8 @@ export default {
         this.forms.error = false;
         return false;
       }
+
+      ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsBiznet'});
 
       this.forms.btnSubmit = '<span uk-spinner></span>';
       axios({
@@ -167,6 +168,15 @@ export default {
 
         this.forms.btnSubmit = 'Log In';
       });
+    },
+    doLoginHotspot()
+    {
+      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid;
+      ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsGuest'});
+      this.forms.btnhotspot = '<span uk-spinner></span>';
+      setTimeout(function(){
+        document.location = redirect;
+      }, 2000);
     }
   },
   mounted() {}

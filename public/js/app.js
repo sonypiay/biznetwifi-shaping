@@ -64438,8 +64438,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -64450,6 +64448,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         username: '',
         password: '',
         btnSubmit: 'Log In',
+        btnhotspot: 'Login sebagai Pengunjung',
         error: false
       },
       errors: {},
@@ -64477,6 +64476,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.forms.error = false;
         return false;
       }
+
+      ga('send', { hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsBiznet' });
 
       this.forms.btnSubmit = '<span uk-spinner></span>';
       axios({
@@ -64521,6 +64522,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         _this.forms.btnSubmit = 'Log In';
       });
+    },
+    doLoginHotspot: function doLoginHotspot() {
+      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid;
+      ga('send', { hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsGuest' });
+      this.forms.btnhotspot = '<span uk-spinner></span>';
+      setTimeout(function () {
+        document.location = redirect;
+      }, 2000);
     }
   },
   mounted: function mounted() {}
@@ -64814,34 +64823,16 @@ var render = function() {
                           "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
                       },
                       [
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "uk-display-block uk-button login-connect login-visitor",
-                            attrs: {
-                              href:
-                                _vm.url +
-                                "/freehotspot?ap=" +
-                                _vm.ap +
-                                "&src=BiznetHotspot&loc=" +
-                                _vm.loc.origin +
-                                "&uip=" +
-                                _vm.uip +
-                                "&client_mac=" +
-                                _vm.client_mac +
-                                "&starturl=" +
-                                _vm.starturl +
-                                "&ssid=" +
-                                _vm.ssid
+                        _c("a", {
+                          staticClass:
+                            "uk-display-block uk-button login-connect login-visitor",
+                          domProps: { innerHTML: _vm._s(_vm.forms.btnhotspot) },
+                          on: {
+                            click: function($event) {
+                              _vm.doLoginHotspot()
                             }
-                          },
-                          [
-                            _vm._v(
-                              "\n                  Login sebagai Pengunjung\n                "
-                            )
-                          ]
-                        )
+                          }
+                        })
                       ]
                     ),
                     _vm._v(" "),
