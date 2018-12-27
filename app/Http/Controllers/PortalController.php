@@ -16,7 +16,14 @@ class PortalController extends Controller
 
   public function connectmikrotik( Request $request )
   {
-    app()->setLocale( 'en' );
+    if( ! $request->session()->has('session_locale') )
+    {
+      $locale = app()->getLocale();
+      session()->put('session_locale', $locale);
+    }
+
+    $getlocale = session()->get('session_locale');
+    app()->setLocale( $getlocale );
 
     $ap = $request->ap;
     $client_mac = $request->client_mac;
@@ -58,7 +65,14 @@ class PortalController extends Controller
 
   public function connectruckus( Request $request )
   {
-    app()->setLocale( 'en' );
+    if( ! $request->session()->has('session_locale') )
+    {
+      $locale = app()->getLocale();
+      session()->put('session_locale', $locale);
+    }
+
+    $getlocale = session()->get('session_locale');
+    app()->setLocale( $getlocale );
 
     $ap = $request->ap;
     $client_mac = $request->client_mac;

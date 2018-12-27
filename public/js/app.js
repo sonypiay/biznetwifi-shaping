@@ -64443,22 +64443,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url', 'client_mac', 'uip', 'ssid', 'starturl', 'loc', 'ap'],
+  props: ['url', 'client_mac', 'uip', 'ssid', 'starturl', 'loc', 'ap', 'connectlocale', 'homepagelocale'],
   data: function data() {
     return {
       forms: {
         username: '',
         password: '',
-        btnSubmit: 'Log In',
-        btnhotspot: 'Login sebagai Pengunjung',
+        btnSubmit: this.connectlocale.biznetwifi.btnlogin,
+        btnhotspot: this.connectlocale.connect.freehotspot,
         error: false
       },
       errors: {},
@@ -64474,12 +64469,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.errorMessage = '';
       if (this.forms.username === '') {
         this.forms.error = true;
-        this.errors.username = 'Silahkan masukkan username Anda.';
+        this.errors.username = this.connectlocale.errors.username;
       }
 
       if (this.forms.password === '') {
         this.forms.error = true;
-        this.errors.password = 'Silahkan masukkan password Anda.';
+        this.errors.password = this.connectlocale.errors.password;
       }
 
       if (this.forms.error === true) {
@@ -64500,12 +64495,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       }).then(function (res) {
         var result = res.data;
-        swal({
+        /*swal({
           title: 'Login berhasil',
           text: 'Redirecting',
           icon: 'success'
-        });
-
+        });*/
         var redirect = _this.url + '/biznetwifi/customers';
         if (_this.client_mac === '' && _this.uip === '' && _this.ssid === '' && _this.loc === '') {
           setTimeout(function () {
@@ -64595,10 +64589,21 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "uk-margin-large-top modal-heading" },
-                    [_vm._v("Login Akun Biznet")]
+                    [_vm._v(_vm._s(_vm.connectlocale.biznetwifi.login_heading))]
                   ),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-width-1-1 uk-padding-small uk-align-center uk-margin-bottom modal-subheading"
+                    },
+                    [
+                      _c("span", { staticClass: "uk-text-center" }, [
+                        _vm._v(_vm._s(_vm.connectlocale.biznetwifi.service))
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -64654,7 +64659,7 @@ var render = function() {
                                       "uk-width-1-1 uk-input form-login-customer",
                                     attrs: {
                                       type: "text",
-                                      placeholder: "Customer ID"
+                                      placeholder: "Username"
                                     },
                                     domProps: { value: _vm.forms.username },
                                     on: {
@@ -64741,17 +64746,13 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "uk-margin" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "uk-width-1-1 uk-button uk-button-default button-login-customer",
-                                domProps: {
-                                  innerHTML: _vm._s(_vm.forms.btnSubmit)
-                                }
-                              },
-                              [_vm._v("Log In")]
-                            )
+                            _c("button", {
+                              staticClass:
+                                "uk-width-1-1 uk-button uk-button-default button-login-customer",
+                              domProps: {
+                                innerHTML: _vm._s(_vm.forms.btnSubmit)
+                              }
+                            })
                           ])
                         ]
                       )
@@ -64817,10 +64818,15 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "uk-text-center banner-subheading" }, [
-                  _vm._v("Wi-Fi Gratis dari Biznet")
+                  _vm._v(_vm._s(_vm.homepagelocale.freewifi.frombiznet))
                 ]),
                 _vm._v(" "),
-                _vm._m(1),
+                _c("div", {
+                  staticClass: "uk-text-center lead-banner",
+                  domProps: {
+                    innerHTML: _vm._s(_vm.homepagelocale.freewifi.textcontent)
+                  }
+                }),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -64849,7 +64855,24 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "uk-display-block uk-button login-connect login-customer",
+                            attrs: { "uk-toggle": "target: #loginCustomer" }
+                          },
+                          [_vm._v(_vm._s(_vm.connectlocale.connect.biznetwifi))]
+                        )
+                      ]
+                    )
                   ]
                 )
               ])
@@ -64860,66 +64883,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "uk-width-1-1 uk-padding-small uk-align-center uk-margin-bottom modal-subheading"
-      },
-      [
-        _c("span", { staticClass: "uk-text-center" }, [
-          _vm._v(
-            "Layanan Wi-Fi Turbo untuk pelanggan Biznet dengan kecepatan hingga 100 Mbps!"
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-text-center lead-banner" }, [
-      _vm._v(
-        "\n              Cara mudah mendapatkan banyak hal baru melalui akses internet terbaik.\n              "
-      ),
-      _c("br"),
-      _vm._v("Mulai sekarang untuk segera terkoneksi.\n            ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
-      },
-      [
-        _c(
-          "a",
-          {
-            staticClass:
-              "uk-display-block uk-button login-connect login-customer",
-            attrs: { "uk-toggle": "target: #loginCustomer" }
-          },
-          [
-            _vm._v(
-              "\n                  Login menggunakan Akun Biznet\n                "
-            )
-          ]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

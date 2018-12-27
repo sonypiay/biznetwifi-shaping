@@ -53,7 +53,9 @@ var google_remarketing_only = true;
   ssid="{{ $ssid }}"
   starturl="http://qabiznethotspot.qeon.co.id"
   :loc="{{ json_encode( $loc ) }}"
-  ap="{{ $ap }}"></connect-section>
+  ap="{{ $ap }}"
+  :connectlocale="{{ json_encode( __('connect') ) }}"
+  :homepagelocale="{{ json_encode( __('homepage') ) }}"></connect-section>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
 </body>

@@ -5,9 +5,9 @@
         <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s uk-align-center uk-modal-body modal-body" uk-height-viewport>
           <div class="uk-width-2-3@xl uk-width-2-3@l uk-width-3-4@m uk-width-2-3@s uk-align-center">
             <a @click="closeLoginAsBiznet()" class="uk-modal-close-default" uk-close></a>
-            <div class="uk-margin-large-top modal-heading">Login Akun Biznet</div>
+            <div class="uk-margin-large-top modal-heading">{{ connectlocale.biznetwifi.login_heading }}</div>
             <div class="uk-width-1-1 uk-padding-small uk-align-center uk-margin-bottom modal-subheading">
-              <span class="uk-text-center">Layanan Wi-Fi Turbo untuk pelanggan Biznet dengan kecepatan hingga 100 Mbps!</span>
+              <span class="uk-text-center">{{ connectlocale.biznetwifi.service }}</span>
             </div>
             <div class="uk-card uk-card-body uk-card-small uk-card-default login-container">
               <div v-if="errorMessage" class="uk-alert-danger" uk-alert>{{ errorMessage }}</div>
@@ -16,7 +16,7 @@
                   <div class="uk-form-controls">
                     <div class="uk-width-1-1 uk-inline">
                       <span class="uk-form-icon" uk-icon="user"></span>
-                      <input type="text" v-model="forms.username" class="uk-width-1-1 uk-input form-login-customer" placeholder="Customer ID">
+                      <input type="text" v-model="forms.username" class="uk-width-1-1 uk-input form-login-customer" placeholder="Username">
                     </div>
                   </div>
                   <div v-if="errors.username" class="uk-text-small uk-text-danger">{{ errors.username }}</div>
@@ -31,7 +31,7 @@
                   <div v-if="errors.password" class="uk-text-small uk-text-danger">{{ errors.password }}</div>
                 </div>
                 <div class="uk-margin">
-                  <button v-html="forms.btnSubmit" class="uk-width-1-1 uk-button uk-button-default button-login-customer">Log In</button>
+                  <button v-html="forms.btnSubmit" class="uk-width-1-1 uk-button uk-button-default button-login-customer"></button>
                 </div>
               </form>
             </div>
@@ -52,19 +52,14 @@
       		<div class="uk-position-center">
             <div class="uk-container padding-landingpage">
               <div class="uk-text-center banner-heading">Biznet Wifi</div>
-              <div class="uk-text-center banner-subheading">Wi-Fi Gratis dari Biznet</div>
-              <div class="uk-text-center lead-banner">
-                Cara mudah mendapatkan banyak hal baru melalui akses internet terbaik.
-                <br>Mulai sekarang untuk segera terkoneksi.
-              </div>
+              <div class="uk-text-center banner-subheading">{{ homepagelocale.freewifi.frombiznet }}</div>
+              <div class="uk-text-center lead-banner" v-html="homepagelocale.freewifi.textcontent"></div>
               <div class="uk-grid-small uk-margin-top" uk-grid>
                 <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
                   <a @click="doLoginHotspot()" class="uk-display-block uk-button login-connect login-visitor" v-html="forms.btnhotspot"></a>
                 </div>
                 <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
-                  <a uk-toggle="target: #loginCustomer" class="uk-display-block uk-button login-connect login-customer">
-                    Login menggunakan Akun Biznet
-                  </a>
+                  <a uk-toggle="target: #loginCustomer" class="uk-display-block uk-button login-connect login-customer">{{ connectlocale.connect.biznetwifi }}</a>
                 </div>
               </div>
             </div>
@@ -78,15 +73,16 @@
 
 export default {
   props: [
-    'url', 'client_mac','uip','ssid','starturl','loc','ap'
+    'url', 'client_mac','uip','ssid','starturl','loc','ap',
+    'connectlocale','homepagelocale'
   ],
   data() {
     return {
       forms: {
         username: '',
         password: '',
-        btnSubmit: 'Log In',
-        btnhotspot: 'Login sebagai Pengunjung',
+        btnSubmit: this.connectlocale.biznetwifi.btnlogin,
+        btnhotspot: this.connectlocale.connect.freehotspot,
         error: false
       },
       errors: {},
@@ -101,13 +97,13 @@ export default {
       if( this.forms.username === '' )
       {
         this.forms.error = true;
-        this.errors.username = 'Silahkan masukkan username Anda.';
+        this.errors.username = this.connectlocale.errors.username;
       }
 
       if( this.forms.password === '' )
       {
         this.forms.error = true;
-        this.errors.password = 'Silahkan masukkan password Anda.';
+        this.errors.password = this.connectlocale.errors.password;
       }
 
       if( this.forms.error === true )
@@ -129,12 +125,11 @@ export default {
         }
       }).then( res => {
         let result = res.data;
-        swal({
+        /*swal({
           title: 'Login berhasil',
           text: 'Redirecting',
           icon: 'success'
-        });
-
+        });*/
         var redirect = this.url + '/biznetwifi/customers';
         if( this.client_mac === ''
           && this.uip === ''
