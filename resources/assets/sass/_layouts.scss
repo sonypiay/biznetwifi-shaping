@@ -1,5 +1,34 @@
 html,
 body { background: #f9f9f9; font-family: $font-primary; }
+.navbarlang {
+  background: #f9f9f9;
+  height: 30px;
+  padding: 10px;
+  ul {
+    li {
+      a {
+        color: #666666;
+        font-family: $font-primary;
+        font-size: 11px;
+        @include globalfontstyle(bold, normal, normal, 0.4px);
+        &:hover {
+          //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+          color: #da068c;
+        }
+      }
+    }
+    .lang {
+      .lang_active {
+        span {
+          padding: 5px 20px 5px 20px;
+          border-radius: 30px;
+          background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
 .navbar {
   background: #ffffff;
   ul {
@@ -16,6 +45,19 @@ body { background: #f9f9f9; font-family: $font-primary; }
           color: #da068c;
         }
       }
+    }
+    .lang {
+      .lang_active {
+        span {
+          padding: 5px 20px 5px 20px;
+          border-radius: 30px;
+          background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+          color: #ffffff;
+        }
+      }
+    }
+    .navbar-divider {
+      border-right: 1px solid #eeeeee;
     }
   }
   .uk-logo {

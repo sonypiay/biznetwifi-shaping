@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomepageController@homepage')->name('homepage');
+Route::post('/change_locale/{locale}', 'HomepageController@change_locale')->name('change_locale');
 Route::get('/connect/ruckus', 'PortalController@connectruckus')->name('connect_ruckus');
 Route::post('/connect/mikrotik', 'PortalController@connectmikrotik')->name('connect_mikrotik');
 Route::get('/freehotspot', 'PortalController@hotspot');

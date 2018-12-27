@@ -44,6 +44,33 @@ body {
   font-family: "Univers", sans-serif;
 }
 
+.navbarlang {
+  background: #f9f9f9;
+  height: 30px;
+  padding: 10px;
+}
+
+.navbarlang ul li a {
+  color: #666666;
+  font-family: "Univers", sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+}
+
+.navbarlang ul li a:hover {
+  color: #da068c;
+}
+
+.navbarlang ul .lang .lang_active span {
+  padding: 5px 20px 5px 20px;
+  border-radius: 30px;
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  color: #ffffff;
+}
+
 .navbar {
   background: #ffffff;
 }
@@ -62,6 +89,17 @@ body {
 
 .navbar ul li a:hover {
   color: #da068c;
+}
+
+.navbar ul .lang .lang_active span {
+  padding: 5px 20px 5px 20px;
+  border-radius: 30px;
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  color: #ffffff;
+}
+
+.navbar ul .navbar-divider {
+  border-right: 1px solid #eeeeee;
 }
 
 .navbar .uk-logo .logo-nav {

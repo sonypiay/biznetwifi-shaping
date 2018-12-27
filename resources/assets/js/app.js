@@ -21,5 +21,8 @@ Vue.component('login-biznetwifi', require('./components/biznetwifi/Login.vue'));
 Vue.component('homepage', require('./components/biznetwifi/Homepage.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+      getLocale: biznetwifi_locale
+    }
 });

@@ -7,33 +7,31 @@ use Illuminate\Support\Facades\Cookie;
 
 class HomepageController extends Controller
 {
-  public function connect( Request $request )
+  public function homepage( Request $request )
   {
-    $ap = $request->ap;
-    $client_mac = $request->client_mac;
-    $uip = $request->uip;
-    $ssid = $request->ssid;
-    $startUrl = $request->starturl;
-    $location = $request->loc;
-    if( $ap == 'mkt' )
+    if( ! $request->session()->has('session_locale') )
     {
-      $startUrl = 'biznethotspot.qeon.co.id';
+      $locale = app()->getLocale();
+      session()->put('session_locale', $locale);
     }
 
-    return response()->view('portal.connect', [
-      'mac' => $client_mac,
-      'uip' => $uip,
-      'ssid' => $ssid,
-      'startUrl' => $startUrl,
-      'loc' => $location,
-      'ap' => $ap
+    $getlocale = session()->get('session_locale');
+    app()->setLocale( $getlocale );
+
+    return response()->view('portal.homepage', [
+      'request' => $request,
+      'locale' => $getlocale
     ]);
   }
 
-  public function homepage( Request $request )
+  public function change_locale( Request $request, $lang )
   {
-    return response()->view('portal.homepage', [
-      'request' => $request
-    ]);
+    session()->put('session_locale', $lang);
+    $res = [
+      'status' => 200,
+      'statusText' => 'success',
+      'lang' => $lang
+    ];
+    return response()->json( $res, $res['status'] );
   }
 }

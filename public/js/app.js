@@ -64236,7 +64236,10 @@ Vue.component('login-biznetwifi', __webpack_require__(177));
 Vue.component('homepage', __webpack_require__(182));
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    getLocale: biznetwifi_locale
+  }
 });
 
 /***/ }),
@@ -66206,7 +66209,7 @@ exports = module.exports = __webpack_require__(164)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -66313,72 +66316,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url'],
+  props: ['url', 'homepagelocale'],
   data: function data() {
     return {};
   },
@@ -66405,10 +66345,152 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _vm._m(0)
+      _c(
+        "div",
+        {
+          staticClass:
+            "uk-overlay uk-overlay-primary uk-position-cover banner_ovlay_homepage"
+        },
+        [
+          _c("div", { staticClass: "uk-position-top-left" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-card uk-card-body uk-card-small banner_ovlay_content"
+              },
+              [
+                _c("h1", [_vm._v("Biznet Wifi")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(_vm._s(_vm.homepagelocale.freewifi.frombiznet))
+                ]),
+                _vm._v(" "),
+                _c("p", {
+                  domProps: {
+                    innerHTML: _vm._s(_vm.homepagelocale.freewifi.textcontent)
+                  }
+                })
+              ]
+            )
+          ])
+        ]
+      )
     ]),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "section-banner-biznethome" }, [
+      _c(
+        "div",
+        {
+          staticClass: "uk-grid-collapse uk-grid-match",
+          attrs: { "uk-grid": "" }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s uk-visible@s"
+            },
+            [
+              _c("div", { staticClass: "uk-tile uk-tile-default" }, [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "https://www.biznethome.net/" + _vm.$root.getLocale
+                    }
+                  },
+                  [
+                    _c("img", {
+                      staticClass:
+                        "uk-width-4-5 uk-box-shadow-large uk-align-center",
+                      attrs: {
+                        src:
+                          "https://www.biznetwifi.com/img/main/Biznet_Home_Web_Banner_620x620px_Aug2018-IND.jpg",
+                        alt: "",
+                        "uk-scrollspy": "cls: uk-animation-fade"
+                      }
+                    })
+                  ]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-width-1-1 uk-hidden@s" }, [
+            _c("div", { staticClass: "uk-tile uk-tile-default" }, [
+              _c(
+                "a",
+                {
+                  attrs: {
+                    href: "https://www.biznethome.net/" + _vm.$root.getLocale
+                  }
+                },
+                [
+                  _c("img", {
+                    staticClass:
+                      "uk-width-4-5 uk-box-shadow-large uk-align-center",
+                    attrs: {
+                      src:
+                        "https://www.biznetwifi.com/img/main/Biznet_Home_Web_Banner_620x620px_Aug2018-IND.jpg",
+                      alt: "",
+                      "uk-scrollspy": "cls: uk-animation-fade"
+                    }
+                  })
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-width-expand" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-tile uk-tile-default uk-text-center section-banner-context-right uk-visible@s"
+              },
+              [
+                _c("div", { staticClass: "uk-position-center" }, [
+                  _c(
+                    "div",
+                    { attrs: { "uk-scrollspy": "cls: uk-animation-fade" } },
+                    [
+                      _c("h1", [_vm._v("Biznet Home")]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(_vm._s(_vm.homepagelocale.product.biznet_home))
+                      ])
+                    ]
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-tile uk-tile-default uk-text-center section-banner-context-right uk-hidden@s"
+              },
+              [
+                _c(
+                  "div",
+                  { attrs: { "uk-scrollspy": "cls: uk-animation-fade" } },
+                  [
+                    _c("h1", [_vm._v("Biznet Home")]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(_vm._s(_vm.homepagelocale.product.biznet_home))
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "section-banner-biznetmetronet" }, [
       _c(
@@ -66418,7 +66500,32 @@ var render = function() {
           attrs: { "uk-grid": "" }
         },
         [
-          _vm._m(2),
+          _c("div", { staticClass: "uk-width-expand uk-visible@s" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-tile uk-tile-default uk-text-center section-banner-context-right"
+              },
+              [
+                _c("div", { staticClass: "uk-position-center" }, [
+                  _c(
+                    "div",
+                    { attrs: { "uk-scrollspy": "cls: uk-animation-fade;" } },
+                    [
+                      _c("h1", [_vm._v("Biznet Metronet")]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          _vm._s(_vm.homepagelocale.product.biznet_metronet)
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              ]
+            )
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -66428,22 +66535,56 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "uk-tile uk-tile-default" }, [
-                _c("img", {
-                  staticClass:
-                    "uk-width-4-5 uk-box-shadow-large uk-align-center",
-                  attrs: {
-                    src:
-                      _vm.url +
-                      "/images/banner/Biznet_Metronet_Web_Banner_620x620px_Dec2017_IND.jpg",
-                    alt: "",
-                    "uk-scrollspy": "cls: uk-animation-fade"
-                  }
-                })
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href:
+                        "http://www.biznetnetworks.com/" +
+                        _vm.$root.getLocale +
+                        "/business/internet/biznet-metronet/"
+                    }
+                  },
+                  [
+                    _c("img", {
+                      staticClass:
+                        "uk-width-4-5 uk-box-shadow-large uk-align-center",
+                      attrs: {
+                        src:
+                          _vm.url +
+                          "/images/banner/Biznet_Metronet_Web_Banner_620x620px_Dec2017_IND.jpg",
+                        alt: "",
+                        "uk-scrollspy": "cls: uk-animation-fade"
+                      }
+                    })
+                  ]
+                )
               ])
             ]
           ),
           _vm._v(" "),
-          _vm._m(3)
+          _c("div", { staticClass: "uk-width-1-1 uk-hidden@s" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-tile uk-tile-default uk-text-center section-banner-context-right"
+              },
+              [
+                _c(
+                  "div",
+                  { attrs: { "uk-scrollspy": "cls: uk-animation-fade" } },
+                  [
+                    _c("h1", [_vm._v("Biznet Metronet")]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _vm._v(_vm._s(_vm.homepagelocale.product.biznet_metronet))
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
         ]
       )
     ]),
@@ -66486,255 +66627,59 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(4)
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-2@s"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-visible@s",
+                    attrs: { "uk-scrollspy": "cls: uk-animation-slide-top" }
+                  },
+                  [
+                    _c("div", { staticClass: "flashads-contactads" }, [
+                      _vm._v(_vm._s(_vm.homepagelocale.flashads))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { attrs: { href: "https://www.flashads.co.id/" } },
+                      [_vm._v("www.flashads.co.id")]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-hidden@s uk-text-center",
+                    attrs: { "uk-scrollspy": "cls: uk-animation-slide-top" }
+                  },
+                  [
+                    _c("div", { staticClass: "flashads-contactads" }, [
+                      _vm._v(_vm._s(_vm.homepagelocale.flashads))
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      { attrs: { href: "https://www.flashads.co.id/" } },
+                      [_vm._v("www.flashads.co.id")]
+                    )
+                  ]
+                )
+              ]
+            )
           ]
         )
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "uk-overlay uk-overlay-primary uk-position-cover banner_ovlay_homepage"
-      },
-      [
-        _c("div", { staticClass: "uk-position-top-left" }, [
-          _c(
-            "div",
-            {
-              staticClass:
-                "uk-card uk-card-body uk-card-small banner_ovlay_content"
-            },
-            [
-              _c("h1", [_vm._v("Biznet Wifi")]),
-              _vm._v(" "),
-              _c("p", [_vm._v("Wi-Fi Gratis dari Biznet")]),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(
-                  "Cara mudah mendapatkan banyak hal baru melalui akses internet terbaik.\r\n            "
-                ),
-                _c("br"),
-                _vm._v("Mulai sekarang untuk segera terkoneksi.\r\n          ")
-              ])
-            ]
-          )
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "section-banner-biznethome" }, [
-      _c(
-        "div",
-        {
-          staticClass: "uk-grid-collapse uk-grid-match",
-          attrs: { "uk-grid": "" }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s uk-visible@s"
-            },
-            [
-              _c("div", { staticClass: "uk-tile uk-tile-default" }, [
-                _c("img", {
-                  staticClass:
-                    "uk-width-4-5 uk-box-shadow-large uk-align-center",
-                  attrs: {
-                    src:
-                      "https://www.biznetwifi.com/img/main/Biznet_Home_Web_Banner_620x620px_Aug2018-IND.jpg",
-                    alt: "",
-                    "uk-scrollspy": "cls: uk-animation-fade"
-                  }
-                })
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-width-1-1 uk-hidden@s" }, [
-            _c("div", { staticClass: "uk-tile uk-tile-default" }, [
-              _c("img", {
-                staticClass: "uk-width-4-5 uk-box-shadow-large uk-align-center",
-                attrs: {
-                  src:
-                    "https://www.biznetwifi.com/img/main/Biznet_Home_Web_Banner_620x620px_Aug2018-IND.jpg",
-                  alt: "",
-                  "uk-scrollspy": "cls: uk-animation-fade"
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-width-expand" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-tile uk-tile-default uk-text-center section-banner-context-right uk-visible@s"
-              },
-              [
-                _c("div", { staticClass: "uk-position-center" }, [
-                  _c(
-                    "div",
-                    { attrs: { "uk-scrollspy": "cls: uk-animation-fade" } },
-                    [
-                      _c("h1", [_vm._v("Biznet Home")]),
-                      _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "\r\n                Biznet Home Internet merupakan layanan Internet Ultra Cepat untuk rumah dan apartemen dengan kecepatan koneksi hingga 100 Mbps baik untuk download maupun upload.\r\n              "
-                        )
-                      ])
-                    ]
-                  )
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-tile uk-tile-default uk-text-center section-banner-context-right uk-hidden@s"
-              },
-              [
-                _c(
-                  "div",
-                  { attrs: { "uk-scrollspy": "cls: uk-animation-fade" } },
-                  [
-                    _c("h1", [_vm._v("Biznet Home")]),
-                    _vm._v(" "),
-                    _c("p", [
-                      _vm._v(
-                        "\r\n              Biznet Home Internet merupakan layanan Internet Ultra Cepat untuk rumah dan apartemen dengan kecepatan koneksi hingga 100 Mbps baik untuk download maupun upload.\r\n            "
-                      )
-                    ])
-                  ]
-                )
-              ]
-            )
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-expand uk-visible@s" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "uk-tile uk-tile-default uk-text-center section-banner-context-right"
-        },
-        [
-          _c("div", { staticClass: "uk-position-center" }, [
-            _c(
-              "div",
-              { attrs: { "uk-scrollspy": "cls: uk-animation-fade;" } },
-              [
-                _c("h1", [_vm._v("Biznet Metronet")]),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v(
-                    "\r\n                 Biznet Metronet merupakan layanan Broadband Internet Super Cepat khusus untuk keperluan bisnis UKM. Dengan pilihan layanan dari 50 hingga 750 Mbps dan menggunakan jaringan Biznet Fiber, memastikan bisnis Anda akan selalu berjalan dengan lancar.\r\n              "
-                  )
-                ])
-              ]
-            )
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-1-1 uk-hidden@s" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "uk-tile uk-tile-default uk-text-center section-banner-context-right"
-        },
-        [
-          _c("div", { attrs: { "uk-scrollspy": "cls: uk-animation-fade" } }, [
-            _c("h1", [_vm._v("Biznet Metronet")]),
-            _vm._v(" "),
-            _c("p", [
-              _vm._v(
-                "\r\n               Biznet Metronet merupakan layanan Broadband Internet Super Cepat khusus untuk keperluan bisnis UKM. Dengan pilihan layanan dari 50 hingga 750 Mbps dan menggunakan jaringan Biznet Fiber, memastikan bisnis Anda akan selalu berjalan dengan lancar.\r\n            "
-              )
-            ])
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-2@s"
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass: "uk-visible@s",
-            attrs: { "uk-scrollspy": "cls: uk-animation-slide-top" }
-          },
-          [
-            _c("div", { staticClass: "flashads-contactads" }, [
-              _vm._v("Hubungi kami untuk beriklan di Biznet Wifi")
-            ]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "https://www.flashads.co.id/" } }, [
-              _vm._v("www.flashads.co.id")
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "uk-hidden@s uk-text-center",
-            attrs: { "uk-scrollspy": "cls: uk-animation-slide-top" }
-          },
-          [
-            _c("div", { staticClass: "flashads-contactads" }, [
-              _vm._v("Hubungi kami untuk beriklan di Biznet Wifi")
-            ]),
-            _vm._v(" "),
-            _c("a", { attrs: { href: "https://www.flashads.co.id/" } }, [
-              _vm._v("www.flashads.co.id")
-            ])
-          ]
-        )
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
