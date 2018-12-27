@@ -16,7 +16,7 @@
                   <div class="uk-form-controls">
                     <div class="uk-width-1-1 uk-inline">
                       <span class="uk-form-icon" uk-icon="user"></span>
-                      <input type="text" v-model="forms.username" class="uk-width-1-1 uk-input form-login-customer" placeholder="Username">
+                      <input type="text" v-model="forms.username" class="uk-width-1-1 uk-input form-login-customer" :placeholder="connectlocale.loginform.username">
                     </div>
                   </div>
                   <div v-if="errors.username" class="uk-text-small uk-text-danger">{{ errors.username }}</div>
@@ -25,7 +25,7 @@
                   <div class="uk-form-controls">
                     <div class="uk-width-1-1 uk-inline">
                       <span class="uk-form-icon" uk-icon="lock"></span>
-                      <input type="password" v-model="forms.password" class="uk-width-1-1 uk-input form-login-customer" placeholder="Password">
+                      <input type="password" v-model="forms.password" class="uk-width-1-1 uk-input form-login-customer" :placeholder="connectlocale.loginform.password">
                     </div>
                   </div>
                   <div v-if="errors.password" class="uk-text-small uk-text-danger">{{ errors.password }}</div>

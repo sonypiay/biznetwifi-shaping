@@ -64659,7 +64659,8 @@ var render = function() {
                                       "uk-width-1-1 uk-input form-login-customer",
                                     attrs: {
                                       type: "text",
-                                      placeholder: "Username"
+                                      placeholder:
+                                        _vm.connectlocale.loginform.username
                                     },
                                     domProps: { value: _vm.forms.username },
                                     on: {
@@ -64714,7 +64715,8 @@ var render = function() {
                                       "uk-width-1-1 uk-input form-login-customer",
                                     attrs: {
                                       type: "password",
-                                      placeholder: "Password"
+                                      placeholder:
+                                        _vm.connectlocale.loginform.password
                                     },
                                     domProps: { value: _vm.forms.password },
                                     on: {

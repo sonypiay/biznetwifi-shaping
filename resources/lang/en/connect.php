@@ -14,5 +14,9 @@ return [
     'username' => 'Please enter your username',
     'password' => 'Please enter your password'
   ],
-  'noerror' => 'Login success'
+  'noerror' => 'Login success',
+  'loginform' => [
+    'username' => 'Username',
+    'password' => 'Password'
+  ]
 ];

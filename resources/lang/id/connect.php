@@ -14,5 +14,9 @@ return [
     'username' => 'Silahkan masukkan username Anda.',
     'password' => 'Silahkan masukkan password Anda.'
   ],
-  'noerror' => 'Login berhasil'
+  'noerror' => 'Login berhasil',
+  'loginform' => [
+    'username' => 'Nama Pengguna',
+    'password' => 'Kata Sandi'
+  ]
 ];

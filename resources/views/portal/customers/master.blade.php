@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ session()->get('session_locale') }}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <meta name="description" content="Biznet Wifi adalah Layanan Wi-Fi Turbo 100 Mbps GRATIS untuk pelanggan Biznet Home dan Biznet Metronet.">
-  <meta name="keywords" content="Biznet, 5G, WiFi, Wi-Fi, cepat, murah, hotspot, internet" />
+  <meta name="description" content="@lang('metaheader.description')">
+  <meta name="keywords" content="@lang('metaheader.keywords')" />
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo/logo_biznet_wifi.ico') }}">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('vendor/uikit/css/uikit.min.css') }}" media="screen" />
-<link rel="stylesheet" href="{{ asset('css/app.css') }}" media="screen" />
-<!-- UIkit JS -->
-<script src="{{ asset('vendor/uikit/js/uikit.min.js') }}"></script>
-<script src="{{ asset('vendor/uikit/js/uikit-icons.min.js') }}"></script>
-<title>BiznetWifi - Wi-Fi Turbo Gratis untuk pelanggan Biznet</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('vendor/uikit/css/uikit.min.css') }}" media="screen" />
+  <link rel="stylesheet" href="{{ asset('css/app.css') }}" media="screen" />
+  <!-- UIkit JS -->
+  <script src="{{ asset('vendor/uikit/js/uikit.min.js') }}"></script>
+  <script src="{{ asset('vendor/uikit/js/uikit-icons.min.js') }}"></script>
+  <title>@lang('metaheader.title')</title>
+  <script type="text/javascript">
+    var biznetwifi_locale = '{{ app()->getLocale() }}';
+  </script>
 </head>
 <body>
 @if( $request->route()->getName() !== 'pagelogin_biznetwifi' )
@@ -69,11 +72,8 @@
     <div class="uk-grid-small" uk-grid>
       <div class="uk-width-expand">
         <div class="footer-info">
-          <div class="footer-heading">Tentang Biznet</div>
-          <div class="footer-content">
-            Biznet merupakan perusahaan yang fokus di bidang telekomunikasi dan multimedia yang memiliki komitmen untuk membangun infrastruktur modern dengan tujuan mengurangi kesenjangan digital Indonesia dengan negara berkembang lainnya.
-            <a href="#">Selengkapnya</a>
-          </div>
+          <div class="footer-heading">@lang('metafooter.aboutus_heading')</div>
+          <div class="footer-content"> @lang('metafooter.aboutus_content') <a href="#">@lang('metafooter.aboutus_more')</a> </div>
         </div>
         <div class="footer-info">
           <div class="footer-heading">Biznet Fiber</div>
@@ -90,10 +90,10 @@
         <ul class="uk-nav uk-nav-default link-useful">
           <li class="uk-nav-header">Useful Links</li>
           <li class="uk-nav-divider"></li>
-          <li><a href="http://www.biznetnetworks.com/id/company/about-us/">Perusahaan <span class="uk-float-right"><i class="fas fa-angle-right"></i></span> </a></li>
+          <li><a href="http://www.biznetnetworks.com/id/company/about-us/">@lang('metafooter.company') <span class="uk-float-right"><i class="fas fa-angle-right"></i></span> </a></li>
           <li><a href="mailto:hotspot@biznetnetworks.com">hotspot@biznetnetworks.com <span class="uk-float-right"><i class="fas fa-angle-right"></i></span> </a></li>
-          <li><a href="http://www.biznetnetworks.com/id/terms-and-conditions/">Syarat dan Ketentuan <span class="uk-float-right"><i class="fas fa-angle-right"></i></span> </a></li>
-          <li><a href="http://www.biznetnetworks.com/id/privacy-policy/">Kebijakan Privasi <span class="uk-float-right"><i class="fas fa-angle-right"></i></span> </a></li>
+          <li><a href="http://www.biznetnetworks.com/id/terms-and-conditions/">@lang('metafooter.term_condition') <span class="uk-float-right"><i class="fas fa-angle-right"></i></span> </a></li>
+          <li><a href="http://www.biznetnetworks.com/id/privacy-policy/">@lang('metafooter.privacy_policy') <span class="uk-float-right"><i class="fas fa-angle-right"></i></span> </a></li>
         </ul>
       </div>
     </div>
