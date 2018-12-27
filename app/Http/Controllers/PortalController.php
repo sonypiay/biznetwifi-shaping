@@ -16,6 +16,8 @@ class PortalController extends Controller
 
   public function connectmikrotik( Request $request )
   {
+    app()->setLocale( 'en' );
+
     $ap = $request->ap;
     $client_mac = $request->client_mac;
     $uip = $request->uip;
@@ -54,7 +56,10 @@ class PortalController extends Controller
     ->header('Access-Control-Allow-Headers', 'POST');
   }
 
-  public function connectruckus( Request $request ) {
+  public function connectruckus( Request $request )
+  {
+    app()->setLocale( 'en' );
+
     $ap = $request->ap;
     $client_mac = $request->client_mac;
     $uip = $request->uip;
@@ -194,27 +199,5 @@ class PortalController extends Controller
     $location = $request->loc;
     $redirect = 'http://qabiznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1';
     return redirect( $redirect );
-  }
-
-  public function testradius( Request $request )
-  {
-    return $this->userAgent( $request->server('HTTP_USER_AGENT') );
-  }
-
-  public function test_location( Request $request )
-  {
-    $loc = $request->loc;
-    $ap = $request->ap;
-    if( $ap == 'mkt' )
-    {
-      $filter = explode( '-', $loc );
-    }
-    else
-    {
-      $convert = hex2bin( $loc );
-      $filter = explode( '-', $convert );
-    }
-    $result = $this->get_merchant( $filter[1] );
-    dd( $result );
   }
 }
