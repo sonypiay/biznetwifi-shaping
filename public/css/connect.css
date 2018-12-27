@@ -23,6 +23,27 @@
   width: 105px;
 }
 
+.navbar .navlang li a {
+  color: #666666;
+  font-family: "Univers", sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+}
+
+.navbar .navlang li a:hover {
+  color: #da068c;
+}
+
+.navbar .navlang li .lang_active span {
+  padding: 5px 20px 5px 20px;
+  border-radius: 30px;
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  color: #ffffff;
+}
+
 .overlay {
   background: rgba(0, 0, 0, 0.2);
 }

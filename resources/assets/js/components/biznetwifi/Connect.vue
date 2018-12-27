@@ -45,9 +45,21 @@
          <nav class="uk-navbar uk-box-shadow-medium navbar" uk-navbar>
       			<div class="uk-navbar-left">
       				<a class="uk-navbar-item uk-logo" href="#">
-      					<img class="logo-nav" v-bind:src="url + '/images/logo/biznetwifi_primary.png'" />
+      					<img class="logo-nav" :src="url + '/images/logo/biznetwifi_primary.png'" />
       				</a>
       			</div>
+            <div class="uk-navbar-right">
+              <ul class="uk-navbar-nav navlang">
+                <li>
+                  <a v-if="$root.getLocale === 'id'" class="lang_active"><span>ID</span></a>
+                  <a v-else @click="switchLocale('id')"><span>ID</span></a>
+                </li>
+                <li>
+                  <a v-if="$root.getLocale === 'en'" class="lang_active"><span>EN</span></a>
+                  <a v-else @click="switchLocale('en')"><span>EN</span></a>
+                </li>
+              </ul>
+            </div>
       		</nav>
       		<div class="uk-position-center">
             <div class="uk-container padding-landingpage">
@@ -178,6 +190,17 @@ export default {
     closeLoginAsBiznet()
     {
       ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'CloseFormLogin'});
+    },
+    switchLocale(lang)
+    {
+      axios({
+        method: 'post',
+        url: this.url + '/change_locale/' + lang
+      }).then( res => {
+        setTimeout(function(){ document.location = ''; }, 100);
+      }).catch( err => {
+        console.log( err.response.statusText );
+      });
     }
   },
   mounted() {}

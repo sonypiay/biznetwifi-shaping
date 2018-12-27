@@ -23,7 +23,7 @@
   </script>
   <title>BiznetWifi | Connect to Wifi</title>
   <script type="text/javascript">
-    var biznetwifi_locale = '{{ app()->getLocale() }}';
+    var biznetwifi_locale = '{{ session()->get("session_locale") }}';
   </script>
 </head>
 <body>

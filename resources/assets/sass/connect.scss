@@ -35,6 +35,29 @@ $line-height-base: 1.6;
 	.logo-nav {
 		width: 105px;
 	}
+	.navlang {
+		li {
+			a {
+        color: #666666;
+        font-family: $font-primary;
+        font-size: 13px;
+        @include globalfontstyle(bold, normal, normal, 0.4px);
+        &:hover {
+          //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+          color: #da068c;
+        }
+      }
+
+			.lang_active {
+				span {
+					padding: 5px 20px 5px 20px;
+					border-radius: 30px;
+					background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+					color: #ffffff;
+				}
+			}
+		}
+	}
 }
 .overlay {
   background: rgba(0,0,0,0.2);

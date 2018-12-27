@@ -14,7 +14,7 @@
 	<script src="{{ asset('vendor/uikit/js/uikit-icons.min.js') }}"></script>
   <title>@lang('metaheader.title')</title>
   <script type="text/javascript">
-    var biznetwifi_locale = '{{ app()->getLocale() }}';
+    var biznetwifi_locale = '{{ session()->get("session_locale") }}';
   </script>
 </head>
 <body>

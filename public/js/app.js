@@ -64443,6 +64443,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -64539,6 +64551,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     closeLoginAsBiznet: function closeLoginAsBiznet() {
       ga('send', { hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'CloseFormLogin' });
+    },
+    switchLocale: function switchLocale(lang) {
+      axios({
+        method: 'post',
+        url: this.url + '/change_locale/' + lang
+      }).then(function (res) {
+        setTimeout(function () {
+          document.location = '';
+        }, 100);
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
     }
   },
   mounted: function mounted() {}
@@ -64809,6 +64833,46 @@ var render = function() {
                       })
                     ]
                   )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-navbar-right" }, [
+                  _c("ul", { staticClass: "uk-navbar-nav navlang" }, [
+                    _c("li", [
+                      _vm.$root.getLocale === "id"
+                        ? _c("a", { staticClass: "lang_active" }, [
+                            _c("span", [_vm._v("ID")])
+                          ])
+                        : _c(
+                            "a",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.switchLocale("id")
+                                }
+                              }
+                            },
+                            [_c("span", [_vm._v("ID")])]
+                          )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _vm.$root.getLocale === "en"
+                        ? _c("a", { staticClass: "lang_active" }, [
+                            _c("span", [_vm._v("EN")])
+                          ])
+                        : _c(
+                            "a",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.switchLocale("en")
+                                }
+                              }
+                            },
+                            [_c("span", [_vm._v("EN")])]
+                          )
+                    ])
+                  ])
                 ])
               ]
             ),
