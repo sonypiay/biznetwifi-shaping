@@ -142,7 +142,6 @@ class PortalController extends Controller
 
           if( $getcurrentmac->count() == 0 )
           {
-            // curl radius
             $this->timeout_socket = 2;
             $radprimary = $this->check_connection('202.169.53.9', 3306);
             $radbackup = $this->check_connection('182.253.238.66', 3306);
