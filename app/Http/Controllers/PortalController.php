@@ -153,8 +153,8 @@ class PortalController extends Controller
             }
             else
             {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              $this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
+              //$this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              //$this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
             }
 
             $subscriber->account_id = $username;
@@ -183,7 +183,7 @@ class PortalController extends Controller
             }
             else
             {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              //$this->add_radcheck( '182.253.238.66:8080', $mac, $username );
             }
 
             $subscriber->account_id = $username;
