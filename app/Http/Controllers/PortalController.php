@@ -215,6 +215,7 @@ class PortalController extends Controller
     $ssid = $request->ssid;
     $starturl = 'http://qabiznethotspot.qeon.co.id';
     $location = $request->loc;
+    $shaping = $request->shaping;
     $redirect = 'http://qabiznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1&shaping=true';
     return redirect( $redirect );
   }
