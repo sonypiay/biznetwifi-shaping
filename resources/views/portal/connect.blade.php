@@ -54,6 +54,7 @@ var google_remarketing_only = true;
   starturl="http://qabiznethotspot.qeon.co.id"
   :loc="{{ json_encode( $loc ) }}"
   ap="{{ $ap }}"
+  shaping="{{ $shaping }}"
   :connectlocale="{{ json_encode( __('connect') ) }}"
   :homepagelocale="{{ json_encode( __('homepage') ) }}"></connect-section>
 </div>

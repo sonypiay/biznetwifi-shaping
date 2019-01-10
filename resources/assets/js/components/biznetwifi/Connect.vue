@@ -85,7 +85,7 @@
 
 export default {
   props: [
-    'url', 'client_mac','uip','ssid','starturl','loc','ap',
+    'url', 'client_mac','uip','ssid','starturl','loc','ap','shaping',
     'connectlocale','homepagelocale'
   ],
   data() {
@@ -180,7 +180,7 @@ export default {
     },
     doLoginHotspot()
     {
-      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid;
+      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid + '&shaping=true';
       ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsGuest'});
       this.forms.btnhotspot = '<span uk-spinner></span>';
       setTimeout(function(){
