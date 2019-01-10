@@ -64458,7 +64458,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url', 'client_mac', 'uip', 'ssid', 'starturl', 'loc', 'ap', 'connectlocale', 'homepagelocale'],
+  props: ['url', 'client_mac', 'uip', 'ssid', 'starturl', 'loc', 'ap', 'shaping', 'connectlocale', 'homepagelocale'],
   data: function data() {
     return {
       forms: {
@@ -64542,7 +64542,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     doLoginHotspot: function doLoginHotspot() {
-      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid;
+      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid + '&shaping=true';
       ga('send', { hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsGuest' });
       this.forms.btnhotspot = '<span uk-spinner></span>';
       setTimeout(function () {

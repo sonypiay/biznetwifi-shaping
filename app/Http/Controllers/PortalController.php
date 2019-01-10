@@ -31,6 +31,7 @@ class PortalController extends Controller
     $ssid = $request->ssid;
     $startUrl = $request->starturl;
     $location = $request->loc;
+    $shaping = $request->shaping;
 
     if( $ap == 'mkt' )
     {
@@ -56,7 +57,8 @@ class PortalController extends Controller
         'origin' => $location,
         'merchant' => $merchant
       ],
-      'ap' => $ap
+      'ap' => $ap,
+      'shaping' => $shaping
     ])
     ->header('Content-Type', 'text/html; charset=utf8')
     ->header('Accepts', 'text/html; charset=utf8')
@@ -80,6 +82,7 @@ class PortalController extends Controller
     $ssid = $request->ssid;
     $startUrl = $request->StartURL;
     $location = $request->loc;
+    $shaping = $request->shaping;
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
@@ -101,7 +104,8 @@ class PortalController extends Controller
         'origin' => $convert_string,
         'merchant' => $merchant
       ],
-      'ap' => $ap
+      'ap' => $ap,
+      'shaping' => $shaping
     ])
     ->header('Content-Type', 'text/html; charset=utf8')
     ->header('Accepts', 'text/html; charset=utf8')
@@ -211,7 +215,7 @@ class PortalController extends Controller
     $ssid = $request->ssid;
     $starturl = 'http://qabiznethotspot.qeon.co.id';
     $location = $request->loc;
-    $redirect = 'http://qabiznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1';
+    $redirect = 'http://qabiznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1&shaping=true';
     return redirect( $redirect );
   }
 }
