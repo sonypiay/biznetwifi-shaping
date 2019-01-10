@@ -35,7 +35,7 @@ class PortalController extends Controller
 
     if( $ap == 'mkt' )
     {
-      $startUrl = 'biznethotspot.qeon.co.id';
+      $startUrl = 'http://qabiznethotspot.qeon.co.id';
     }
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
