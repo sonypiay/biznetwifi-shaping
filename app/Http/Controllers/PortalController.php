@@ -114,15 +114,17 @@ class PortalController extends Controller
 
   public function afterlogin( Request $request, AccountSubscriber $subscriber )
   {
-    if( $request->cookie('connect') == 'freehotspot' )
+    if( $request->session()->get('connect') == 'freehotspot' )
     {
-      Cookie::queue( Cookie::forget('connect') );
+      $request->session()->forget('connect');
+      $request->session()->flush();
+
       $fullUrl = $request->fullUrl();
       $fullUrlParts = parse_url($fullUrl);
       $redirectUrl = 'http://qabiznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
       return redirect($redirectUrl);
     }
-    else if( $request->cookie('connect') == 'biznetwifi' )
+    else if( $request->session()->get('connect') == 'biznetwifi' )
     {
       if( $request->session()->has('client_mac') AND $request->session()->has('uip') )
       {
@@ -193,14 +195,13 @@ class PortalController extends Controller
             $subscriber->save();
           }
         }
-        Cookie::queue( Cookie::forget('connect') );
         return redirect()->route('hmpgcustomer');
       }
       else
       {
-        if( Cookie::get('connect') )
+        if( $request->session()->has('connect') )
         {
-          if( Cookie::get('connect') == 'freehotspot' )
+          if( $request->session()->get('connect') == 'freehotspot' )
           {
             return redirect()->route('connect_mikrotik');
           }
@@ -219,7 +220,8 @@ class PortalController extends Controller
 
   public function hotspot( Request $request )
   {
-    Cookie::queue( Cookie::make('connect', 'freehotspot', time() + 36000) );
+    //Cookie::queue( Cookie::make('connect', 'freehotspot', time() + 36000) );
+    $request->session()->put('freehotspot');
     $ap = $request->ap;
     $client_mac = $request->client_mac;
     $uip = $request->uip;

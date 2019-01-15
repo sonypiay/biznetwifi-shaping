@@ -7,10 +7,10 @@
         <img class="uk-width-1-3 uk-align-center" :src="url + '/images/logo/biznetwifi_white.png'" alt="biznetwifi">
       </div>
       <div class="uk-card uk-card-body uk-card-default uk-box-shadow-large card-bzw-login">
-        <div class="bzw-heading-login">Login</div>
+        <div class="bzw-heading-login">{{ connectlocale.biznetwifi.login_heading }}</div>
         <form class="uk-form-stacked" @submit.prevent="doLogin">
           <div class="uk-margin">
-            <label class="uk-form-label bzw-form-label">Customer ID</label>
+            <label class="uk-form-label bzw-form-label">{{ connectlocale.loginform.username }}</label>
             <div class="uk-form-controls">
               <div class="uk-width-1-1 uk-inline">
                 <span uk-icon="user" class="uk-form-icon"></span>
@@ -19,7 +19,7 @@
             </div>
           </div>
           <div class="uk-margin">
-            <label class="uk-form-label bzw-form-label">Password</label>
+            <label class="uk-form-label bzw-form-label">{{ connectlocale.loginform.password }}</label>
             <div class="uk-form-controls">
               <div class="uk-width-1-1 uk-inline">
                 <span uk-icon="lock" class="uk-form-icon"></span>
@@ -28,7 +28,7 @@
             </div>
           </div>
           <div class="uk-margin">
-            <button v-html="btnSubmit" class="uk-width-1-1 uk-button uk-button-default bzw-button-login">Login</button>
+            <button v-html="btnSubmit" class="uk-width-1-1 uk-button uk-button-default bzw-button-login"></button>
           </div>
         </form>
         <div class="uk-text-center copyright-login">&copy; 2000 - {{ getMoment() }} Biznet.</div>
@@ -40,14 +40,14 @@
 
 <script>
 export default {
-  props: ['url'],
+  props: ['url','connectlocale'],
   data() {
     return {
       forms: {
         username: '',
         password: ''
       },
-      btnSubmit: 'Login'
+      btnSubmit: this.connectlocale.biznetwifi.btnlogin
     }
   },
   methods: {
@@ -56,7 +56,7 @@ export default {
       {
         swal({
           title: 'Warning',
-          text: 'Silahkan masukkan Customer ID Anda.',
+          text: this.connectlocale.errors.username,
           icon: 'warning',
           dangerMode: true
         });
@@ -65,7 +65,7 @@ export default {
       {
         swal({
           title: 'Warning',
-          text: 'Silahkan masukkan password Anda.',
+          text: this.connectlocale.errors.password,
           icon: 'warning',
           dangerMode: true
         });
@@ -84,10 +84,11 @@ export default {
         }).then( res => {
           let result = res.data;
           swal({
-            title: 'Login berhasil',
+            title: this.connectlocale.noerror,
             text: 'Redirecting',
             icon: 'success'
           });
+          console.log(result);
           var redirect = this.url + '/biznetwifi/customers';
           setTimeout(function() { document.location = redirect; }, 2000);
         }).catch( err => {

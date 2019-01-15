@@ -1,5 +1,7 @@
 <?php
 
 return [
-  'lokasi' => 'BiznetWifi Location'
+  'lokasi' => 'BiznetWifi Location',
+  'login' => 'Login',
+  'logout' => 'Logout'
 ];

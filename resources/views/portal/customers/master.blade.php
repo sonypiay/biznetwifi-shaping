@@ -22,6 +22,28 @@
 </head>
 <body>
 @if( $request->route()->getName() !== 'pagelogin_biznetwifi' )
+<script type="text/javascript">
+var change_locale = {};
+change_locale.change = function(lang) {
+  var param = {
+    method: 'post',
+    headers: {
+      'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    },
+    url: '{{ url("/") }}/change_locale/' + lang,
+    processData: true, cache: false
+  };
+  var d = $.ajax(param);
+  d.done(function(res) {
+    setTimeout(function(){
+      document.location = '';
+    }, 100);
+  });
+  d.fail(function(err) {
+    console.error(err);
+  });
+};
+</script>
 <header class="uk-box-shadow-medium headerhmpg-cust">
   <nav class="uk-navbar navbarhmpg-cust" uk-navbar>
     <div class="uk-navbar-left">
@@ -31,11 +53,12 @@
     </div>
     <div class="uk-navbar-right">
       <ul class="uk-navbar-nav navhmpg-cust">
-        <li><a href="{{ route('logoutpage') }}">Log out</a></li>
-        <!--<li><a href="#">Home</a></li>
-        <li><a href="#">Tentang Biznet</a></li>
-        <li><a href="#">Lokasi</a></li>
-        <li><a href="#">John Doe</a></li>-->
+        <li><a href="{{ route('homepage') }}">Home</a></li>
+        <li><a href="#">@lang('headermenu.lokasi')</a></li>
+        <li><a href="{{ route('logoutpage') }}">@lang('headermenu.logout')</a></li>
+        <li class="navbar-divider"></li>
+        <li class="lang"><a onclick="change_locale.change('id')" @if( session()->get('sessio n_locale') == 'id' ) class="lang_active" @endif><span>ID</span></a></li>
+        <li class="lang"><a onclick="change_locale.change('en')" @if( session()->get('session_locale') == 'en' ) class="lang_active" @endif><span>EN</span></a></li>
       </ul>
     </div>
   </nav>

@@ -65850,7 +65850,7 @@ exports = module.exports = __webpack_require__(164)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65903,14 +65903,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url'],
+  props: ['url', 'connectlocale'],
   data: function data() {
     return {
       forms: {
         username: '',
         password: ''
       },
-      btnSubmit: 'Login'
+      btnSubmit: this.connectlocale.biznetwifi.btnlogin
     };
   },
 
@@ -65921,14 +65921,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.forms.username === '') {
         swal({
           title: 'Warning',
-          text: 'Silahkan masukkan Customer ID Anda.',
+          text: this.connectlocale.errors.username,
           icon: 'warning',
           dangerMode: true
         });
       } else if (this.forms.password === '') {
         swal({
           title: 'Warning',
-          text: 'Silahkan masukkan password Anda.',
+          text: this.connectlocale.errors.password,
           icon: 'warning',
           dangerMode: true
         });
@@ -65945,10 +65945,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }).then(function (res) {
           var result = res.data;
           swal({
-            title: 'Login berhasil',
+            title: _this.connectlocale.noerror,
             text: 'Redirecting',
             icon: 'success'
           });
+          console.log(result);
           var redirect = _this.url + '/biznetwifi/customers';
           setTimeout(function () {
             document.location = redirect;
@@ -66018,7 +66019,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "bzw-heading-login" }, [
-                _vm._v("Login")
+                _vm._v(_vm._s(_vm.connectlocale.biznetwifi.login_heading))
               ]),
               _vm._v(" "),
               _c(
@@ -66037,7 +66038,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "uk-form-label bzw-form-label" },
-                      [_vm._v("Customer ID")]
+                      [_vm._v(_vm._s(_vm.connectlocale.loginform.username))]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "uk-form-controls" }, [
@@ -66080,7 +66081,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "uk-form-label bzw-form-label" },
-                      [_vm._v("Password")]
+                      [_vm._v(_vm._s(_vm.connectlocale.loginform.password))]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "uk-form-controls" }, [
@@ -66120,15 +66121,11 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "uk-margin" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "uk-width-1-1 uk-button uk-button-default bzw-button-login",
-                        domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
-                      },
-                      [_vm._v("Login")]
-                    )
+                    _c("button", {
+                      staticClass:
+                        "uk-width-1-1 uk-button uk-button-default bzw-button-login",
+                      domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
+                    })
                   ])
                 ]
               ),

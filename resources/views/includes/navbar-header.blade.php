@@ -38,6 +38,7 @@ change_locale.change = function(lang) {
      <ul class="uk-navbar-nav uk-visible@s">
        <li><a href="{{ route('homepage') }}">Home</a></li>
        <li><a href="#">@lang('headermenu.lokasi')</a></li>
+       <li><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login')</a></li>
        <li class="navbar-divider"></li>
        <li class="lang"><a onclick="change_locale.change('id')" @if( session()->get('session_locale') == 'id' ) class="lang_active" @endif><span>ID</span></a></li>
        <li class="lang"><a onclick="change_locale.change('en')" @if( session()->get('session_locale') == 'en' ) class="lang_active" @endif><span>EN</span></a></li>
