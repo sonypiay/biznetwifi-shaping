@@ -48,16 +48,10 @@ class LoginController extends Controller
         $request->session()->put('displayname', $res['response']['displayname']);
         $request->session()->put('username', $username);
         $request->session()->put('ip', $request->server('REMOTE_ADDR'));
+        $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
         $request->session()->put('logintime', time());
         $request->session()->put('biznetwifi_login', true);
         $request->session()->put('connect', 'biznetwifi');
-        //Cookie::queue( Cookie::make('displayname', $res['response']['displayname']), $cookieexpired, '/');
-        //Cookie::queue( Cookie::make('username',$username, $cookieexpired, '/'));
-        //Cookie::queue( Cookie::make('ip', $request->server('REMOTE_ADDR'), $cookieexpired, '/'));
-        //Cookie::queue( Cookie::make('agent', $request->server('HTTP_USER_AGENT'), $cookieexpired, '/'));
-        //Cookie::queue( Cookie::make('logintime', time(), $cookieexpired, '/'));
-        //Cookie::queue( Cookie::make('biznetwifi_login', true, $cookieexpired, '/'));
-        //Cookie::queue( Cookie::make('connect', 'biznetwifi', time() + 36000) );
       }
     }
     else if( preg_match( '/^[A-Z0-9]*$/', $username ) )
@@ -74,18 +68,10 @@ class LoginController extends Controller
         $request->session()->put('displayname', $getcustomer_sterlite['responseObject']['customerAccountResponseobj']['firstName']);
         $request->session()->put('username', $username);
         $request->session()->put('ip', $request->server('REMOTE_ADDR'));
+        $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
         $request->session()->put('logintime', time());
         $request->session()->put('biznetwifi_login', true);
         $request->session()->put('connect', 'biznetwifi');
-
-        /*$cookieexpired = time() + 60 * 60 * 24 * 30;
-        Cookie::queue( Cookie::make('displayname', $getcustomer_sterlite['responseObject']['customerAccountResponseobj']['firstName'], $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('username',$auth['responseObject']['accountNumber'], $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('ip', $request->server('REMOTE_ADDR'), $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('agent', $request->server('HTTP_USER_AGENT'), $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('logintime', time(), $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('hasLoginBiznetWifi', true, $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('connect', 'biznetwifi', time() + 36000) );*/
       }
       else
       {
@@ -116,7 +102,9 @@ class LoginController extends Controller
       $request->session()->forget('ip');
       $request->session()->forget('connect');
       $request->session()->forget('logintime');
+      $request->session()->forget('agent');
       $request->session()->flush();
+      
       return redirect()->route('pagelogin_biznetwifi');
     }
     else

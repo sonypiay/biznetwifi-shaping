@@ -43,7 +43,7 @@ change_locale.change = function(lang) {
        <li class="lang"><a onclick="change_locale.change('id')" @if( session()->get('session_locale') == 'id' ) class="lang_active" @endif><span>ID</span></a></li>
        <li class="lang"><a onclick="change_locale.change('en')" @if( session()->get('session_locale') == 'en' ) class="lang_active" @endif><span>EN</span></a></li>
      </ul>
-     <a class="uk-navbar-item uk-hidden@s naviicon_mobile" href="#">
+     <a class="uk-navbar-item uk-hidden@s naviicon_mobile" uk-toggle="target: #offcanvas-mobile">
        <span uk-icon="menu"></span>
      </a>
    </div>

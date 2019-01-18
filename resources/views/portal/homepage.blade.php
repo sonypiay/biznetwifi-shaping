@@ -18,6 +18,57 @@
   </script>
 </head>
 <body>
+<!-- nav offcanvas -->
+<section id="offcanvas-mobile" uk-offcanvas="overlay: true">
+  <div class="uk-offcanvas-bar offcanvas-bar">
+    <div class="uk-inline">
+      <!--<img class="uk-align-center logo-offcanvas" src="{{ asset('images/logo/biznetwifi_primary.png') }}" />-->
+      <a class="uk-text-uppercase uk-display-block lang-offcanvas"><div class="uk-float-right">{{ session()->get('session_locale') }} <span uk-icon="chevron-down"></span></div></a>
+      <div uk-dropdown="mode: click; pos: bottom" class="uk-margin-top lang-dropdown-offcanvas">
+        <ul class="uk-nav uk-dropdown-nav">
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'id' )
+            <a class="lang-active-sub" onclick="change_locale.change('id')">ID</a>
+            @else
+            <a onclick="change_locale.change('id')">ID</a>
+            @endif
+          </li>
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'en' )
+            <a class="lang-active-sub" onclick="change_locale.change('en')">EN</a>
+            @else
+            <a onclick="change_locale.change('en')">EN</a>
+            @endif
+          </li>
+        </ul>
+      </div>
+    </div>
+    <ul class="uk-nav uk-nav-default uk-margin-top nav-offcanvas-bar" uk-nav>
+      <li><a href="{{ route('homepage') }}">Home</a></li>
+      <li><a href="#">@lang('headermenu.lokasi')</a></li>
+      <li><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login')</a></li>
+      <!--<li class="uk-parent"><a class="uk-text-uppercase">{{ session()->get('session_locale') }} <span class="uk-align-right" uk-icon="chevron-down"></span></a>
+        <ul class="uk-nav-sub nav-sub-offcanvas">
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'id' )
+            <a class="lang-active-sub" onclick="change_locale.change('id')"><div>ID</div></a>
+            @else
+            <a onclick="change_locale.change('id')"><div>ID</div></a>
+            @endif
+          </li>
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'en' )
+            <a class="lang-active-sub" onclick="change_locale.change('en')"><div>EN</div></a>
+            @else
+            <a onclick="change_locale.change('en')"><div>EN</div></a>
+            @endif
+          </li>
+        </ul>
+      </li>-->
+    </ul>
+  </div>
+</section>
+<!-- nav offcanvas -->
 @include('includes.navbar-header')
 
 <!-- Google Code for Remarketing Tag -->
