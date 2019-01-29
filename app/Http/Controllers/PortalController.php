@@ -118,8 +118,8 @@ class PortalController extends Controller
     {
       $request->session()->forget('connect');
       $request->session()->flush();
-
       $fullUrl = $request->fullUrl();
+
       $fullUrlParts = parse_url($fullUrl);
       $redirectUrl = 'http://qabiznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
       return redirect($redirectUrl);
@@ -220,8 +220,7 @@ class PortalController extends Controller
 
   public function hotspot( Request $request )
   {
-    //Cookie::queue( Cookie::make('connect', 'freehotspot', time() + 36000) );
-    $request->session()->put('freehotspot');
+    $request->session()->put('connect', 'freehotspot');
     $ap = $request->ap;
     $client_mac = $request->client_mac;
     $uip = $request->uip;
