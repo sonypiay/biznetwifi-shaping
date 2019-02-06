@@ -16,14 +16,15 @@ class LoginController extends Controller
 
   public function index( Request $request )
   {
-    if( Cookie::get('hasLoginBiznetWifi') )
+    if( $request->session()->has('biznetwifi_login') )
     {
       return redirect()->route('hmpgcustomer');
     }
     else
     {
       return response()->view('portal.customers.login', [
-        'request' => $request
+        'request' => $request,
+        'session' => $request->session()->all()
       ])
       ->header('Content-Type', 'text/html, charset=utf8')
       ->header('Accepts', 'text/html, charset=utf8');
@@ -44,14 +45,13 @@ class LoginController extends Controller
       $res = $ldap;
       if( $res['status'] == 200 )
       {
-        $cookieexpired = time() + 60 * 60 * 24 * 30;
-        Cookie::queue( Cookie::make('displayname', $res['response']['displayname']), $cookieexpired, '/');
-        Cookie::queue( Cookie::make('username',$username, $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('ip', $request->server('REMOTE_ADDR'), $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('agent', $request->server('HTTP_USER_AGENT'), $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('logintime', time(), $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('hasLoginBiznetWifi', true, $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('connect', 'biznetwifi', time() + 36000) );
+        $request->session()->put('displayname', $res['response']['displayname']);
+        $request->session()->put('username', $username);
+        $request->session()->put('ip', $request->server('REMOTE_ADDR'));
+        $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
+        $request->session()->put('logintime', time());
+        $request->session()->put('biznetwifi_login', true);
+        $request->session()->put('connect', 'biznetwifi');
       }
     }
     else if( preg_match( '/^[A-Z0-9]*$/', $username ) )
@@ -65,14 +65,13 @@ class LoginController extends Controller
           'statusText' => 'Login berhasil'
         ];
 
-        $cookieexpired = time() + 60 * 60 * 24 * 30;
-        Cookie::queue( Cookie::make('displayname', $getcustomer_sterlite['responseObject']['customerAccountResponseobj']['firstName'], $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('username',$auth['responseObject']['accountNumber'], $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('ip', $request->server('REMOTE_ADDR'), $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('agent', $request->server('HTTP_USER_AGENT'), $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('logintime', time(), $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('hasLoginBiznetWifi', true, $cookieexpired, '/'));
-        Cookie::queue( Cookie::make('connect', 'biznetwifi', time() + 36000) );
+        $request->session()->put('displayname', $getcustomer_sterlite['responseObject']['customerAccountResponseobj']['firstName']);
+        $request->session()->put('username', $username);
+        $request->session()->put('ip', $request->server('REMOTE_ADDR'));
+        $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
+        $request->session()->put('logintime', time());
+        $request->session()->put('biznetwifi_login', true);
+        $request->session()->put('connect', 'biznetwifi');
       }
       else
       {
@@ -95,16 +94,17 @@ class LoginController extends Controller
 
   public function logout( Request $request )
   {
-    if( Cookie::get('hasLoginBiznetWifi') )
+    if( $request->session()->has('biznetwifi_login') )
     {
-      Cookie::queue( Cookie::forget('username') );
-      Cookie::queue( Cookie::forget('displayname') );
-      Cookie::queue( Cookie::forget('ip') );
-      Cookie::queue( Cookie::forget('connect') );
-      Cookie::queue( Cookie::forget('agent') );
-      Cookie::queue( Cookie::forget('logintime') );
-      Cookie::queue( Cookie::forget('hasLoginBiznetWifi') );
-
+      $request->session()->forget('biznetwifi_login');
+      $request->session()->forget('displayname');
+      $request->session()->forget('username');
+      $request->session()->forget('ip');
+      $request->session()->forget('connect');
+      $request->session()->forget('logintime');
+      $request->session()->forget('agent');
+      $request->session()->flush();
+      
       return redirect()->route('pagelogin_biznetwifi');
     }
     else

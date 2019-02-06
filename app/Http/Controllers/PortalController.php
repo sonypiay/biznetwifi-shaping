@@ -31,10 +31,11 @@ class PortalController extends Controller
     $ssid = $request->ssid;
     $startUrl = $request->starturl;
     $location = $request->loc;
+    $shaping = $request->shaping;
 
     if( $ap == 'mkt' )
     {
-      $startUrl = 'biznethotspot.qeon.co.id';
+      $startUrl = 'http://biznethotspot.qeon.co.id';
     }
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
@@ -56,7 +57,8 @@ class PortalController extends Controller
         'origin' => $location,
         'merchant' => $merchant
       ],
-      'ap' => $ap
+      'ap' => $ap,
+      'shaping' => $shaping
     ])
     ->header('Content-Type', 'text/html; charset=utf8')
     ->header('Accepts', 'text/html; charset=utf8')
@@ -80,6 +82,7 @@ class PortalController extends Controller
     $ssid = $request->ssid;
     $startUrl = $request->StartURL;
     $location = $request->loc;
+    $shaping = $request->shaping;
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
@@ -101,7 +104,8 @@ class PortalController extends Controller
         'origin' => $convert_string,
         'merchant' => $merchant
       ],
-      'ap' => $ap
+      'ap' => $ap,
+      'shaping' => $shaping
     ])
     ->header('Content-Type', 'text/html; charset=utf8')
     ->header('Accepts', 'text/html; charset=utf8')
@@ -110,21 +114,23 @@ class PortalController extends Controller
 
   public function afterlogin( Request $request, AccountSubscriber $subscriber )
   {
-    if( $request->cookie('connect') == 'freehotspot' )
+    if( $request->session()->get('connect') == 'freehotspot' )
     {
-      Cookie::queue( Cookie::forget('connect') );
       $fullUrl = $request->fullUrl();
+
       $fullUrlParts = parse_url($fullUrl);
-      $redirectUrl = 'http://qabiznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
+      $redirectUrl = 'http://biznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
+      $request->session()->forget('connect');
+      $request->session()->flush();
       return redirect($redirectUrl);
     }
-    else if( $request->cookie('connect') == 'biznetwifi' )
+    else if( $request->session()->get('connect') == 'biznetwifi' )
     {
       if( $request->session()->has('client_mac') AND $request->session()->has('uip') )
       {
         $mac = $request->session()->get('client_mac');
-        $username = $request->cookie('username');
-        $displayname = $request->cookie('displayname');
+        $username = $request->session()->get('username');
+        $displayname = $request->session()->get('displayname');
         $agent = $request->cookie('agent');
 
         $checksubs = $subscriber->where('account_id', '=', $username);
@@ -138,14 +144,20 @@ class PortalController extends Controller
 
           if( $getcurrentmac->count() == 0 )
           {
-            // curl radius
             $this->timeout_socket = 2;
-            $radbackup = $this->check_connection('182.253.238.66', 3306);
-            if( $radbackup['status'] == null )
+            $radprimary = $this->check_connection('202.169.53.9', 3306);
+            //$radbackup = $this->check_connection('182.253.238.66', 3306);
+
+            if( $radprimary['status'] == null )
+            {
+              $this->add_radcheck( '202.169.53.9', $mac, $username );
+              $this->delete_radcheck( '202.169.53.9', $getuser->mac_address );
+            }
+            /*else
             {
               $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
               $this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
-            }
+            }*/
 
             $subscriber->account_id = $username;
             $subscriber->mac_address = $mac;
@@ -165,11 +177,16 @@ class PortalController extends Controller
           if( $getcurrentmac->count() == 0 )
           {
             $this->timeout_socket = 2;
-            $radbackup = $this->check_connection('182.253.238.66', 3306);
-            if( $radbackup['status'] == null )
+            $radprimary = $this->check_connection('202.169.53.9', 3306);
+            //$radbackup = $this->check_connection('182.253.238.66', 3306);
+            if( $radprimary['status'] == null )
+            {
+              $this->add_radcheck( '202.169.53.9', $mac, $username );
+            }
+            /*else
             {
               $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-            }
+            }*/
 
             $subscriber->account_id = $username;
             $subscriber->mac_address = $mac;
@@ -178,14 +195,13 @@ class PortalController extends Controller
             $subscriber->save();
           }
         }
-        Cookie::queue( Cookie::forget('connect') );
         return redirect()->route('hmpgcustomer');
       }
       else
       {
-        if( Cookie::get('connect') )
+        if( $request->session()->has('connect') )
         {
-          if( Cookie::get('connect') == 'freehotspot' )
+          if( $request->session()->get('connect') == 'freehotspot' )
           {
             return redirect()->route('connect_mikrotik');
           }
@@ -204,14 +220,14 @@ class PortalController extends Controller
 
   public function hotspot( Request $request )
   {
-    Cookie::queue( Cookie::make('connect', 'freehotspot', time() + 36000) );
+    $request->session()->put('connect', 'freehotspot');
     $ap = $request->ap;
     $client_mac = $request->client_mac;
     $uip = $request->uip;
     $ssid = $request->ssid;
-    $starturl = 'http://qabiznethotspot.qeon.co.id';
+    $starturl = 'http://biznethotspot.qeon.co.id';
     $location = $request->loc;
-    $redirect = 'http://qabiznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1';
+    $redirect = 'http://biznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1&shaping=true';
     return redirect( $redirect );
   }
 }

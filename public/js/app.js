@@ -64458,7 +64458,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url', 'client_mac', 'uip', 'ssid', 'starturl', 'loc', 'ap', 'connectlocale', 'homepagelocale'],
+  props: ['url', 'client_mac', 'uip', 'ssid', 'starturl', 'loc', 'ap', 'shaping', 'connectlocale', 'homepagelocale'],
   data: function data() {
     return {
       forms: {
@@ -64518,8 +64518,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             document.location = redirect;
           }, 2000);
         } else {
-          var username_radius = 'shaping';
-          var password_radius = 'biznet01';
+          var username_radius = '9e1b9d0d7c59f0ed2a794f50015cf82339866406';
+          var password_radius = 'e3e155b21531cc739bd78f36830ca697ec1d028b';
           if (_this.ap === 'ruckus') {
             redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + _this.uip + '&client_mac=' + _this.client_mac + '&ssid=' + _this.ssid + '&starturl=' + _this.starturl;
           } else {
@@ -64542,7 +64542,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     doLoginHotspot: function doLoginHotspot() {
-      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid;
+      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid + '&shaping=true';
       ga('send', { hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsGuest' });
       this.forms.btnhotspot = '<span uk-spinner></span>';
       setTimeout(function () {
@@ -65156,12 +65156,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'datauser'],
@@ -65532,8 +65526,8 @@ var render = function() {
         _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
           _vm._m(4),
           _vm._v(" "),
-          _c("div", { staticClass: "uk-width-expand" }, [
-            _c("div", { staticClass: "uk-text-left welcome-customer-name" }, [
+          _c("div", { staticClass: "uk-width-1-1-" }, [
+            _c("div", { staticClass: "uk-text-center welcome-customer-name" }, [
               _vm._v("Hi, " + _vm._s(_vm.datauser.displayname))
             ]),
             _vm._v(" "),
@@ -65591,83 +65585,58 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } },
+          { staticClass: "uk-grid-medium", attrs: { "uk-grid": "" } },
           _vm._l(_vm.devices.results, function(device) {
             return _c("div", { staticClass: "uk-width-1-1" }, [
               _c(
                 "div",
-                { staticClass: "uk-card uk-card-default card-listdevice" },
+                {
+                  staticClass:
+                    "uk-card uk-card-default uk-box-shadow-large card-listdevice"
+                },
                 [
                   _c(
                     "div",
-                    {
-                      staticClass: "uk-grid-collapse uk-grid-match",
-                      attrs: { "uk-grid": "" }
-                    },
+                    { staticClass: "uk-tile uk-tile-default tile-icon-device" },
                     [
-                      _c("div", { staticClass: "uk-width-1-4" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "uk-tile uk-tile-default tile-icon-device"
-                          },
-                          [
-                            device.device_agent === "iOS"
-                              ? _c("div", [_vm._m(5, true)])
-                              : device.device_agent === "ANDROID"
-                                ? _c("div", [_vm._m(6, true)])
-                                : _c("div", [_vm._m(7, true)])
-                          ]
-                        )
+                      device.device_agent === "iOS"
+                        ? _c("div", [_vm._m(5, true)])
+                        : device.device_agent === "ANDROID"
+                          ? _c("div", [_vm._m(6, true)])
+                          : _c("div", [_vm._m(7, true)])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "uk-card uk-card-body uk-card-small" },
+                    [
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("div", { staticClass: "card-labeldevice" }, [
+                          _vm._v("Perangkat terdaftar")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-sublabel" }, [
+                          _vm._v(_vm._s(_vm.dateConverted(device.logindate)))
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "uk-width-expand" }, [
+                      _c("div", { staticClass: "uk-margin" }, [
                         _c(
-                          "div",
-                          { staticClass: "uk-card uk-card-body uk-card-small" },
-                          [
-                            _c("div", { staticClass: "uk-margin" }, [
-                              _c("div", { staticClass: "card-labeldevice" }, [
-                                _vm._v("Mac Address")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-sublabel" }, [
-                                _vm._v(_vm._s(device.mac_address))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "uk-margin" }, [
-                              _c("div", { staticClass: "card-labeldevice" }, [
-                                _vm._v("Perangkat terdaftar")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-sublabel" }, [
-                                _vm._v(
-                                  _vm._s(_vm.dateConverted(device.logindate))
+                          "button",
+                          {
+                            staticClass:
+                              "uk-width-1-1 uk-button uk-button-default btn-delete-device",
+                            on: {
+                              click: function($event) {
+                                _vm.deleteDevice(
+                                  device.account_id,
+                                  device.mac_address
                                 )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "uk-margin" }, [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "uk-width-1-1 uk-button uk-button-small uk-button-default btn-delete-device",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteDevice(
-                                        device.account_id,
-                                        device.mac_address
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v("Hapus")]
-                              )
-                            ])
-                          ]
+                              }
+                            }
+                          },
+                          [_vm._v("Hapus")]
                         )
                       ])
                     ]
@@ -65724,8 +65693,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-1-5" }, [
-      _c("div", { staticClass: "uk-text-left banner-icon-customer" }, [
+    return _c("div", { staticClass: "uk-width-1-1" }, [
+      _c("div", { staticClass: "uk-text-center banner-icon-customer" }, [
         _c("span", { staticClass: "fas fa-user-circle" })
       ])
     ])
@@ -65850,7 +65819,7 @@ exports = module.exports = __webpack_require__(164)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65903,14 +65872,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url'],
+  props: ['url', 'connectlocale'],
   data: function data() {
     return {
       forms: {
         username: '',
         password: ''
       },
-      btnSubmit: 'Login'
+      btnSubmit: this.connectlocale.biznetwifi.btnlogin
     };
   },
 
@@ -65921,14 +65890,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.forms.username === '') {
         swal({
           title: 'Warning',
-          text: 'Silahkan masukkan Customer ID Anda.',
+          text: this.connectlocale.errors.username,
           icon: 'warning',
           dangerMode: true
         });
       } else if (this.forms.password === '') {
         swal({
           title: 'Warning',
-          text: 'Silahkan masukkan password Anda.',
+          text: this.connectlocale.errors.password,
           icon: 'warning',
           dangerMode: true
         });
@@ -65945,10 +65914,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }).then(function (res) {
           var result = res.data;
           swal({
-            title: 'Login berhasil',
+            title: _this.connectlocale.noerror,
             text: 'Redirecting',
             icon: 'success'
           });
+          console.log(result);
           var redirect = _this.url + '/biznetwifi/customers';
           setTimeout(function () {
             document.location = redirect;
@@ -66018,7 +65988,7 @@ var render = function() {
             },
             [
               _c("div", { staticClass: "bzw-heading-login" }, [
-                _vm._v("Login")
+                _vm._v(_vm._s(_vm.connectlocale.biznetwifi.login_heading))
               ]),
               _vm._v(" "),
               _c(
@@ -66037,7 +66007,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "uk-form-label bzw-form-label" },
-                      [_vm._v("Customer ID")]
+                      [_vm._v(_vm._s(_vm.connectlocale.loginform.username))]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "uk-form-controls" }, [
@@ -66080,7 +66050,7 @@ var render = function() {
                     _c(
                       "label",
                       { staticClass: "uk-form-label bzw-form-label" },
-                      [_vm._v("Password")]
+                      [_vm._v(_vm._s(_vm.connectlocale.loginform.password))]
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "uk-form-controls" }, [
@@ -66120,15 +66090,11 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "uk-margin" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass:
-                          "uk-width-1-1 uk-button uk-button-default bzw-button-login",
-                        domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
-                      },
-                      [_vm._v("Login")]
-                    )
+                    _c("button", {
+                      staticClass:
+                        "uk-width-1-1 uk-button uk-button-default bzw-button-login",
+                      domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
+                    })
                   ])
                 ]
               ),

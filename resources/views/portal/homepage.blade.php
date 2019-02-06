@@ -18,6 +18,57 @@
   </script>
 </head>
 <body>
+<!-- nav offcanvas -->
+<section id="offcanvas-mobile" uk-offcanvas="overlay: true">
+  <div class="uk-offcanvas-bar offcanvas-bar">
+    <div class="uk-inline">
+      <!--<img class="uk-align-center logo-offcanvas" src="{{ asset('images/logo/biznetwifi_primary.png') }}" />-->
+      <a class="uk-text-uppercase uk-display-block lang-offcanvas"><div class="uk-float-right">{{ session()->get('session_locale') }} <span uk-icon="chevron-down"></span></div></a>
+      <div uk-dropdown="mode: click; pos: bottom" class="uk-margin-top lang-dropdown-offcanvas">
+        <ul class="uk-nav uk-dropdown-nav">
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'id' )
+            <a class="lang-active-sub" onclick="change_locale.change('id')">ID</a>
+            @else
+            <a onclick="change_locale.change('id')">ID</a>
+            @endif
+          </li>
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'en' )
+            <a class="lang-active-sub" onclick="change_locale.change('en')">EN</a>
+            @else
+            <a onclick="change_locale.change('en')">EN</a>
+            @endif
+          </li>
+        </ul>
+      </div>
+    </div>
+    <ul class="uk-nav uk-nav-default uk-margin-top nav-offcanvas-bar" uk-nav>
+      <li><a href="{{ route('homepage') }}">Home</a></li>
+      <li><a href="#">@lang('headermenu.lokasi')</a></li>
+      <li><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login')</a></li>
+      <!--<li class="uk-parent"><a class="uk-text-uppercase">{{ session()->get('session_locale') }} <span class="uk-align-right" uk-icon="chevron-down"></span></a>
+        <ul class="uk-nav-sub nav-sub-offcanvas">
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'id' )
+            <a class="lang-active-sub" onclick="change_locale.change('id')"><div>ID</div></a>
+            @else
+            <a onclick="change_locale.change('id')"><div>ID</div></a>
+            @endif
+          </li>
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'en' )
+            <a class="lang-active-sub" onclick="change_locale.change('en')"><div>EN</div></a>
+            @else
+            <a onclick="change_locale.change('en')"><div>EN</div></a>
+            @endif
+          </li>
+        </ul>
+      </li>-->
+    </ul>
+  </div>
+</section>
+<!-- nav offcanvas -->
 @include('includes.navbar-header')
 
 <!-- Google Code for Remarketing Tag -->
@@ -43,28 +94,6 @@ var google_remarketing_only = true;
   <homepage url="{{ url('/') }}" :homepagelocale="{{ json_encode( __('homepage') ) }}"></homepage>
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
-@php
-  $curl = @curl_init();
-  @curl_setopt_array($curl, [
-    CURLOPT_URL => "http://192.168.0.45/portalhome/footerCityList",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "POST",
-    CURLOPT_POSTFIELDS => "package=INTERNET",
-    CURLOPT_HTTPHEADER => [
-      "authorization: Basic Yml6bmV0cG9ydGFsOmIxem4zdDIwMThwMHJ0NGw=",
-      "cache-control: no-cache",
-      "content-type: application/x-www-form-urlencoded",
-      "postman-token: c1412e0e-6f9d-a4c7-4c49-ca8d2346877a"
-    ]
-  ]);
-  $response = @curl_exec( $curl );
-  $cherr = curl_error( $curl );
-  curl_close( $curl );
-@endphp
 <footer class="footer">
   <div class="uk-container footer-container">
     <div class="uk-grid-small" uk-grid>
@@ -76,11 +105,7 @@ var google_remarketing_only = true;
         <div class="footer-info">
           <div class="footer-heading">Biznet Fiber</div>
           <div class="footer-content">
-            @if( $cherr ) cUrl error
-            @else
-              @php $city = json_decode( $response ) @endphp
-              {{ $city->message[0]->CityList }}
-            @endif
+            Ajibarang | Amlapura (Karangasem) | Babat | Badung (Kuta) | BANDUNG | Bangil | Bangli | Banyuwangi | Batam | Batang | Bekasi | Besuki | Blitar | Blora | Bogor | Bojonegoro | Bondowoso | Boyolali | Brebes | Bumiayu | Cepu | Cianjur | Cibadak | Cicurug | Cikampek | Cimahi | Cirebon | Comal | Demak | DENPASAR | Depok | Gempol | Genteng | Gianyar | Glenmore | Gresik | Indramayu | Jajag | JAKARTA | JAMBI | Jember | Jimbaran | Jombang | Karangampel | Karawang | Kartasura | Kebumen | Kediri | Kendal | Kepanjen | Kertosono | Klaten | Kraksan | Krian | Kudus | Lamongan | Lawang | Lumajang | Madiun | Malang | Mojokerto | Muncar | Negara | Nganjuk | Ngawi | Ngopak | Padalarang | PADANG | Paiton | PALEMBANG | Pamanukan | Pasirian | Pasuruan | Pati | Pekalongan | Pemalang | Probolinggo | Purwakarta | Purwodadi | Purwokerto | Purworejo | Rogojampi | Salatiga | SEMARANG | Semarapura (Klungkung) | SERANG | Sidoarjo | Situbondo | Slawi | Sleman | Solo | Sragen | Sukabumi | SURABAYA | Tabanan | Tangerang | Tangerang Selatan | Tanggul | Tegal | Tulungagung | Turen | Ubud | Ungaran | Weleri | Wlingi | YOGYAKARTA
           </div>
         </div>
       </div>

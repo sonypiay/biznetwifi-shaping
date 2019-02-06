@@ -75,6 +75,105 @@ body { background: #f9f9f9; font-family: $font-primary; }
   }
 }
 // homepage customer
+.offcanvas-bar {
+  background: #ffffff;
+  .logo-offcanvas {
+    width: 140px;
+  }
+  .lang-offcanvas {
+    color: #da068c;
+    text-decoration: none;
+    font-family: $font-primary;
+    font-size: 12px;
+    @include globalfontstyle(bold, normal, normal, 0.4px);
+    &:hover {
+      color: #da068c;
+    }
+  }
+  .lang-dropdown-offcanvas {
+    margin: 5em !important;
+    border: 1px solid #e9e9e9;
+    box-shadow: none;
+    ul {
+      li {
+        a {
+          color: #ffffff;
+          font-family: $font-primary;
+          font-size: 16px;
+          @include globalfontstyle(bold, normal, normal, 0.4px);
+          &:hover {
+            color: #da068c;
+          }
+        }
+      }
+      .lang-sub {
+        a {
+          color: #666666;
+          font-family: $font-primary;
+          font-size: 14px;
+          @include globalfontstyle(bold, normal, normal, 0.4px);
+          &:hover {
+            color: #da068c;
+          }
+        }
+        .lang-active-sub {
+          color: #da068c;
+        }
+      }
+    }
+  }
+  .lang-dropdown-offcanvas {
+
+  }
+  .nav-offcanvas-bar {
+    li {
+      a {
+        color: #666666;
+        font-family: $font-primary;
+        font-size: 14px;
+        @include globalfontstyle(bold, normal, normal, 0.4px);
+        &:hover {
+          //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+          color: #da068c;
+        }
+      }
+      .nav-sub-offcanvas {
+        li {
+          a {
+            color: #666666;
+            font-family: $font-primary;
+            font-size: 14px;
+            @include globalfontstyle(bold, normal, normal, 0.4px);
+            &:hover {
+              //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+              color: #da068c;
+            }
+          }
+        }
+        .lang-sub {
+          a {
+            color: #666666;
+            font-family: $font-primary;
+            font-size: 14px;
+            @include globalfontstyle(bold, normal, normal, 0.4px);
+            &:hover {
+              //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+              color: #da068c;
+            }
+          }
+          .lang-active-sub {
+            div {
+              padding: 5px 20px 5px 20px;
+              border-radius: 2px;
+              background: linear-gradient(97deg, #da068c, #982e7e) !important;
+              color: #ffffff;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 .headerhmpg-cust {
   background: #ffffff;
   z-index: 9999;
@@ -95,6 +194,14 @@ body { background: #f9f9f9; font-family: $font-primary; }
           color: #da068c;
         }
       }
+    }
+  }
+  .naviicon_mobile {
+    color: #777777;
+    padding-left: 30px;
+    padding-right: 30px;
+    &:hover, &:focus {
+      color: #555555;
     }
   }
 }
@@ -210,38 +317,46 @@ body { background: #f9f9f9; font-family: $font-primary; }
     @include globalfontstyle(normal, normal, normal, 0.4px);
   }
   .card-listdevice {
+    border-radius: 4px;
+    background: linear-gradient(97deg, #da068c, #982e7e)  !important;
     .card-labeldevice {
-      font-size: 12px;
+      font-size: 14px;
       font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.4px);
+      @include globalfontstyle(bold, normal, normal, 0.4px);
       padding-left: 10px;
+      text-align: center;
+      color: #ffffff;
     }
     .card-sublabel {
       font-size: 14px;
       font-family: $font-primary;
       @include globalfontstyle(normal, normal, normal, 0.4px);
       padding-left: 10px;
+      text-align: center;
+      color: #ffffff;
     }
   }
   .tile-icon-device {
+    background: none;
     .icon-device {
       font-size: 52px;
       margin-top: 6px;
       padding: 10px;
+      color: #ffffff;
     }
-    .android { color: #a4c639 !important; }
+    /*.android { color: #a4c639 !important; }
     .ios { color: #777777 !important; }
-    .laptop { color: #01a0ff !important; }
+    .laptop { color: #01a0ff !important; }*/
   }
   .btn-delete-device {
     border: 0;
     border-radius: 30px;
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
+    background: none;
     color: #ffffff;
-    font-size: 10px !important;
+    font-size: 12px !important;
     text-transform: capitalize;
     font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.4px);
+    @include globalfontstyle(bold, normal, normal, 0.4px);
     margin-left: 5px;
   }
 }

@@ -15,6 +15,9 @@
   <!-- UIkit JS -->
   <script src="{{ asset('vendor/uikit/js/uikit.min.js') }}"></script>
   <script src="{{ asset('vendor/uikit/js/uikit-icons.min.js') }}"></script>
+
+  <!-- ionic icons -->
+  <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
   <title>@lang('metaheader.title')</title>
   <script type="text/javascript">
     var biznetwifi_locale = '{{ session()->get("session_locale") }}';
@@ -22,6 +25,61 @@
 </head>
 <body>
 @if( $request->route()->getName() !== 'pagelogin_biznetwifi' )
+<script type="text/javascript">
+var change_locale = {};
+change_locale.change = function(lang) {
+  var param = {
+    method: 'post',
+    headers: {
+      'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    },
+    url: '{{ url("/") }}/change_locale/' + lang,
+    processData: true, cache: false
+  };
+  var d = $.ajax(param);
+  d.done(function(res) {
+    setTimeout(function(){
+      document.location = '';
+    }, 100);
+  });
+  d.fail(function(err) {
+    console.error(err);
+  });
+};
+</script>
+<!-- nav offcanvas -->
+<section id="offcanvas-mobile" uk-offcanvas="overlay: true">
+  <div class="uk-offcanvas-bar offcanvas-bar">
+    <div class="uk-inline">
+      <!--<img class="uk-align-center logo-offcanvas" src="{{ asset('images/logo/biznetwifi_primary.png') }}" />-->
+      <a class="uk-text-uppercase uk-display-block lang-offcanvas"><div class="uk-float-right">{{ session()->get('session_locale') }} <span uk-icon="chevron-down"></span></div></a>
+      <div uk-dropdown="mode: click; pos: bottom" class="uk-margin-top lang-dropdown-offcanvas">
+        <ul class="uk-nav uk-dropdown-nav">
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'id' )
+            <a class="lang-active-sub" onclick="change_locale.change('id')">ID</a>
+            @else
+            <a onclick="change_locale.change('id')">ID</a>
+            @endif
+          </li>
+          <li class="lang-sub">
+            @if( session()->get('session_locale') == 'en' )
+            <a class="lang-active-sub" onclick="change_locale.change('en')">EN</a>
+            @else
+            <a onclick="change_locale.change('en')">EN</a>
+            @endif
+          </li>
+        </ul>
+      </div>
+    </div>
+    <ul class="uk-nav uk-nav-default uk-margin-top nav-offcanvas-bar" uk-nav>
+      <li><a href="{{ route('homepage') }}">Home</a></li>
+      <li><a href="#">@lang('headermenu.lokasi')</a></li>
+      <li><a href="{{ route('logoutpage') }}">@lang('headermenu.logout')</a></li>
+    </ul>
+  </div>
+</section>
+<!-- nav offcanvas -->
 <header class="uk-box-shadow-medium headerhmpg-cust">
   <nav class="uk-navbar navbarhmpg-cust" uk-navbar>
     <div class="uk-navbar-left">
@@ -30,41 +88,23 @@
       </a>
     </div>
     <div class="uk-navbar-right">
-      <ul class="uk-navbar-nav navhmpg-cust">
-        <li><a href="{{ route('logoutpage') }}">Log out</a></li>
-        <!--<li><a href="#">Home</a></li>
-        <li><a href="#">Tentang Biznet</a></li>
-        <li><a href="#">Lokasi</a></li>
-        <li><a href="#">John Doe</a></li>-->
+      <ul class="uk-navbar-nav uk-visible@s navhmpg-cust">
+        <li><a href="{{ route('homepage') }}">Home</a></li>
+        <li><a href="#">@lang('headermenu.lokasi')</a></li>
+        <li><a href="{{ route('logoutpage') }}">@lang('headermenu.logout')</a></li>
+        <li class="navbar-divider"></li>
+        <li class="lang"><a onclick="change_locale.change('id')" @if( session()->get('sessio n_locale') == 'id' ) class="lang_active" @endif><span>ID</span></a></li>
+        <li class="lang"><a onclick="change_locale.change('en')" @if( session()->get('session_locale') == 'en' ) class="lang_active" @endif><span>EN</span></a></li>
       </ul>
+      <a class="uk-navbar-item uk-hidden@s naviicon_mobile" uk-toggle="target: #offcanvas-mobile">
+        <span uk-icon="menu"></span>
+      </a>
     </div>
   </nav>
 </header>
 @endif
 <main id="app">
   @yield('maincontent')
-  @php
-    $curl = @curl_init();
-    @curl_setopt_array($curl, [
-      CURLOPT_URL => "http://192.168.0.45/portalhome/footerCityList",
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => "",
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 30,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => "POST",
-      CURLOPT_POSTFIELDS => "package=INTERNET",
-      CURLOPT_HTTPHEADER => [
-        "authorization: Basic Yml6bmV0cG9ydGFsOmIxem4zdDIwMThwMHJ0NGw=",
-        "cache-control: no-cache",
-        "content-type: application/x-www-form-urlencoded",
-        "postman-token: c1412e0e-6f9d-a4c7-4c49-ca8d2346877a"
-      ]
-    ]);
-    $response = @curl_exec( $curl );
-    $cherr = curl_error( $curl );
-    curl_close( $curl );
-  @endphp
 </main>
 @if( $request->route()->getName() != 'pagelogin_biznetwifi' )
 <footer class="footer">
@@ -78,11 +118,7 @@
         <div class="footer-info">
           <div class="footer-heading">Biznet Fiber</div>
           <div class="footer-content">
-            @if( $cherr ) cUrl error
-            @else
-              @php $city = json_decode( $response ) @endphp
-              {{ $city->message[0]->CityList }}
-            @endif
+            Ajibarang | Amlapura (Karangasem) | Babat | Badung (Kuta) | BANDUNG | Bangil | Bangli | Banyuwangi | Batam | Batang | Bekasi | Besuki | Blitar | Blora | Bogor | Bojonegoro | Bondowoso | Boyolali | Brebes | Bumiayu | Cepu | Cianjur | Cibadak | Cicurug | Cikampek | Cimahi | Cirebon | Comal | Demak | DENPASAR | Depok | Gempol | Genteng | Gianyar | Glenmore | Gresik | Indramayu | Jajag | JAKARTA | JAMBI | Jember | Jimbaran | Jombang | Karangampel | Karawang | Kartasura | Kebumen | Kediri | Kendal | Kepanjen | Kertosono | Klaten | Kraksan | Krian | Kudus | Lamongan | Lawang | Lumajang | Madiun | Malang | Mojokerto | Muncar | Negara | Nganjuk | Ngawi | Ngopak | Padalarang | PADANG | Paiton | PALEMBANG | Pamanukan | Pasirian | Pasuruan | Pati | Pekalongan | Pemalang | Probolinggo | Purwakarta | Purwodadi | Purwokerto | Purworejo | Rogojampi | Salatiga | SEMARANG | Semarapura (Klungkung) | SERANG | Sidoarjo | Situbondo | Slawi | Sleman | Solo | Sragen | Sukabumi | SURABAYA | Tabanan | Tangerang | Tangerang Selatan | Tanggul | Tegal | Tulungagung | Turen | Ubud | Ungaran | Weleri | Wlingi | YOGYAKARTA
           </div>
         </div>
       </div>
