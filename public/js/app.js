@@ -64598,15 +64598,14 @@ var render = function() {
       "div",
       {
         staticClass: "uk-modal-full",
-        attrs: { id: "loginCustomer", "uk-modal": "" }
+        attrs: { id: "loginCustomer", "uk-modal": "esc-close: false;" }
       },
       [
         _c("div", { staticClass: "uk-modal-dialog modal-dialog" }, [
           _c(
             "div",
             {
-              staticClass:
-                "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s uk-align-center uk-modal-body modal-body",
+              staticClass: "uk-modal-body modal-body",
               attrs: { "uk-height-viewport": "" }
             },
             [
@@ -64614,7 +64613,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "uk-width-2-3@xl uk-width-2-3@l uk-width-3-4@m uk-width-2-3@s uk-align-center"
+                    "uk-width-1-3@xl uk-width-1-3@l uk-width-3-4@m uk-width-2-3@s uk-align-center"
                 },
                 [
                   _c("a", {
@@ -65185,30 +65184,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'datauser'],
@@ -65409,157 +65384,62 @@ var render = function() {
                       "uk-width-1-4@xl uk-width-1-4@l uk-width-1-2@m uk-width-1-2@s card-devices"
                   },
                   [
-                    device.device_agent === "ANDROID"
-                      ? _c(
-                          "div",
+                    _c(
+                      "div",
+                      {
+                        staticClass: "uk-tile uk-tile-default card-device-box"
+                      },
+                      [
+                        _c("div", { staticClass: "card-icon-device" }, [
+                          device.device_agent === "ANDROID"
+                            ? _c("span", [
+                                _c("i", { staticClass: "fab fa-android" })
+                              ])
+                            : device.device_agent === "iOS"
+                              ? _c("span", [
+                                  _c("i", { staticClass: "fab fa-apple" })
+                                ])
+                              : _c("span", [
+                                  _c("i", { staticClass: "fas fa-laptop" })
+                                ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-identity-mac" }, [
+                          _vm._v(_vm._s(device.device_agent))
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-device-info" }, [
+                          _c("div", { staticClass: "device-info-lead" }, [
+                            _vm._v("Perangkat terdaftar")
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "device-last-login" }, [
+                            _vm._v(
+                              "\r\n                  " +
+                                _vm._s(_vm.dateConverted(device.logindate)) +
+                                "\r\n                "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
                           {
                             staticClass:
-                              "uk-tile uk-tile-default uk-box-shadow-medium card-device-box card-android"
+                              "uk-width-1-1 uk-button uk-button-default btn-delete-device",
+                            on: {
+                              click: function($event) {
+                                _vm.deleteDevice(
+                                  device.account_id,
+                                  device.mac_address
+                                )
+                              }
+                            }
                           },
-                          [
-                            _vm._m(1, true),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "card-identity-mac" }, [
-                              _vm._v(_vm._s(device.mac_address))
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "card-device-info" }, [
-                              _c("div", { staticClass: "device-info-lead" }, [
-                                _vm._v("Perangkat terdaftar")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "device-last-login" }, [
-                                _vm._v(
-                                  "\r\n                  " +
-                                    _vm._s(
-                                      _vm.dateConverted(device.logindate)
-                                    ) +
-                                    "\r\n                "
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "uk-width-1-1 uk-button uk-button-default btn-delete-device delete-android",
-                                on: {
-                                  click: function($event) {
-                                    _vm.deleteDevice(
-                                      device.account_id,
-                                      device.mac_address
-                                    )
-                                  }
-                                }
-                              },
-                              [_vm._v("Hapus")]
-                            )
-                          ]
+                          [_vm._v("Hapus")]
                         )
-                      : device.device_agent === "iOS"
-                        ? _c(
-                            "div",
-                            {
-                              staticClass:
-                                "uk-tile uk-tile-default uk-box-shadow-medium card-device-box card-ios"
-                            },
-                            [
-                              _vm._m(2, true),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-identity-mac" }, [
-                                _vm._v(_vm._s(device.mac_address))
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-device-info" }, [
-                                _c("div", { staticClass: "device-info-lead" }, [
-                                  _vm._v("Perangkat terdaftar")
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "device-last-login" },
-                                  [
-                                    _vm._v(
-                                      "\r\n                  " +
-                                        _vm._s(
-                                          _vm.dateConverted(device.logindate)
-                                        ) +
-                                        "\r\n                "
-                                    )
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "uk-width-1-1 uk-button uk-button-default btn-delete-device delete-ios",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteDevice(
-                                        device.account_id,
-                                        device.mac_address
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v("Hapus")]
-                              )
-                            ]
-                          )
-                        : _c(
-                            "div",
-                            {
-                              staticClass:
-                                "uk-tile uk-tile-default uk-box-shadow-medium card-device-box card-laptop"
-                            },
-                            [
-                              _vm._m(3, true),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-identity-mac" }, [
-                                _vm._v(_vm._s(device.mac_address))
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-device-info" }, [
-                                _c("div", { staticClass: "device-info-lead" }, [
-                                  _vm._v("Perangkat terdaftar")
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "device-last-login" },
-                                  [
-                                    _vm._v(
-                                      "\r\n                  " +
-                                        _vm._s(
-                                          _vm.dateConverted(device.logindate)
-                                        ) +
-                                        "\r\n                "
-                                    )
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "uk-width-1-1 uk-button uk-button-default btn-delete-device delete-laptop",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteDevice(
-                                        device.account_id,
-                                        device.mac_address
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v("Hapus")]
-                              )
-                            ]
-                          )
+                      ]
+                    )
                   ]
                 )
               })
@@ -65577,7 +65457,7 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
-          _vm._m(4),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "uk-width-1-1-" }, [
             _c("div", { staticClass: "uk-text-center welcome-customer-name" }, [
@@ -65645,7 +65525,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "uk-card uk-card-default uk-box-shadow-large card-listdevice"
+                    "uk-card uk-card-default uk-card-body card-listdevice"
                 },
                 [
                   _c(
@@ -65653,47 +65533,43 @@ var render = function() {
                     { staticClass: "uk-tile uk-tile-default tile-icon-device" },
                     [
                       device.device_agent === "iOS"
-                        ? _c("div", [_vm._m(5, true)])
+                        ? _c("div", [_vm._m(2, true)])
                         : device.device_agent === "ANDROID"
-                          ? _c("div", [_vm._m(6, true)])
-                          : _c("div", [_vm._m(7, true)])
+                          ? _c("div", [_vm._m(3, true)])
+                          : _c("div", [_vm._m(4, true)])
                     ]
                   ),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "uk-card uk-card-body uk-card-small" },
-                    [
-                      _c("div", { staticClass: "uk-margin" }, [
-                        _c("div", { staticClass: "card-labeldevice" }, [
-                          _vm._v("Perangkat terdaftar")
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "card-sublabel" }, [
-                          _vm._v(_vm._s(_vm.dateConverted(device.logindate)))
-                        ])
+                  _c("div", { staticClass: "uk-card uk-card-body" }, [
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "card-labeldevice" }, [
+                        _vm._v("Perangkat terdaftar")
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "uk-margin" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "uk-width-1-1 uk-button uk-button-default btn-delete-device",
-                            on: {
-                              click: function($event) {
-                                _vm.deleteDevice(
-                                  device.account_id,
-                                  device.mac_address
-                                )
-                              }
-                            }
-                          },
-                          [_vm._v("Hapus")]
-                        )
+                      _c("div", { staticClass: "card-sublabel" }, [
+                        _vm._v(_vm._s(_vm.dateConverted(device.logindate)))
                       ])
-                    ]
-                  )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "uk-width-1-1 uk-button uk-button-default btn-delete-device",
+                          on: {
+                            click: function($event) {
+                              _vm.deleteDevice(
+                                device.account_id,
+                                device.mac_address
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v("Hapus")]
+                      )
+                    ])
+                  ])
                 ]
               )
             ])
@@ -65710,36 +65586,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "uk-text-center banner-icon-customer" }, [
       _c("span", { staticClass: "fas fa-user-circle" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-icon-device" }, [
-      _c("span", { staticClass: "android" }, [
-        _c("i", { staticClass: "fab fa-android" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-icon-device" }, [
-      _c("span", { staticClass: "ios" }, [
-        _c("i", { staticClass: "fab fa-apple" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-icon-device" }, [
-      _c("span", { staticClass: "laptop" }, [
-        _c("i", { staticClass: "fas fa-laptop" })
-      ])
     ])
   },
   function() {
@@ -66102,25 +65948,18 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "container-bzw-login" }, [
-            _c("div", { staticClass: "bzw-logo-login" }, [
-              _c("img", {
-                staticClass: "uk-width-1-3 uk-align-center",
-                attrs: {
-                  src: _vm.url + "/images/logo/biznetwifi_white.png",
-                  alt: "biznetwifi"
-                }
-              })
-            ]),
-            _vm._v(" "),
             _c(
               "div",
-              {
-                staticClass:
-                  "uk-card uk-card-body uk-card-default uk-box-shadow-large card-bzw-login"
-              },
+              { staticClass: "uk-tile uk-box-shadow-large card-bzw-login" },
               [
-                _c("div", { staticClass: "bzw-heading-login" }, [
-                  _vm._v(_vm._s(_vm.connectlocale.biznetwifi.login_heading))
+                _c("div", { staticClass: "bzw-logo-login" }, [
+                  _c("img", {
+                    staticClass: "uk-width-1-2 uk-align-center",
+                    attrs: {
+                      src: _vm.url + "/images/logo/biznetwifi_white.png",
+                      alt: "biznetwifi"
+                    }
+                  })
                 ]),
                 _vm._v(" "),
                 _c(

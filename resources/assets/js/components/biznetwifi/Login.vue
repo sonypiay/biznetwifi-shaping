@@ -23,11 +23,11 @@
   <div class="uk-position-cover">
     <div class="uk-container uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-2-3@s uk-align-center">
       <div class="container-bzw-login">
-        <div class="bzw-logo-login">
-          <img class="uk-width-1-3 uk-align-center" :src="url + '/images/logo/biznetwifi_white.png'" alt="biznetwifi">
-        </div>
-        <div class="uk-card uk-card-body uk-card-default uk-box-shadow-large card-bzw-login">
-          <div class="bzw-heading-login">{{ connectlocale.biznetwifi.login_heading }}</div>
+        <div class="uk-tile uk-box-shadow-large card-bzw-login">
+          <div class="bzw-logo-login">
+            <img class="uk-width-1-2 uk-align-center" :src="url + '/images/logo/biznetwifi_white.png'" alt="biznetwifi">
+          </div>
+          <!--<div class="bzw-heading-login">{{ connectlocale.biznetwifi.login_heading }}</div>-->
           <form class="uk-form-stacked" @submit.prevent="doLogin">
             <div class="uk-margin">
               <!--<label class="uk-form-label bzw-form-label">{{ connectlocale.loginform.username }}</label>-->

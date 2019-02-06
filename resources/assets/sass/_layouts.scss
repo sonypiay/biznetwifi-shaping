@@ -318,14 +318,15 @@ body { background: #f9f9f9; font-family: $font-primary; }
   }
   .card-listdevice {
     border-radius: 4px;
-    background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+    background: #ffffff;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
     .card-labeldevice {
       font-size: 14px;
       font-family: $font-primary;
       @include globalfontstyle(bold, normal, normal, 0.4px);
       padding-left: 10px;
       text-align: center;
-      color: #ffffff;
+      color: #333333;
     }
     .card-sublabel {
       font-size: 14px;
@@ -333,7 +334,7 @@ body { background: #f9f9f9; font-family: $font-primary; }
       @include globalfontstyle(normal, normal, normal, 0.4px);
       padding-left: 10px;
       text-align: center;
-      color: #ffffff;
+      color: #333333;
     }
   }
   .tile-icon-device {
@@ -342,7 +343,7 @@ body { background: #f9f9f9; font-family: $font-primary; }
       font-size: 52px;
       margin-top: 6px;
       padding: 10px;
-      color: #ffffff;
+      color: #333333;
     }
     /*.android { color: #a4c639 !important; }
     .ios { color: #777777 !important; }
@@ -351,13 +352,14 @@ body { background: #f9f9f9; font-family: $font-primary; }
   .btn-delete-device {
     border: 0;
     border-radius: 30px;
-    background: none;
+    background: #da068c;
     color: #ffffff;
     font-size: 12px !important;
     text-transform: capitalize;
     font-family: $font-primary;
     @include globalfontstyle(bold, normal, normal, 0.4px);
     margin-left: 5px;
+    box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
   }
 }
 
@@ -380,19 +382,18 @@ body { background: #f9f9f9; font-family: $font-primary; }
     .card-device-box {
       border-radius: 6px;
       background: #ffffff;
+      box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
     }
     .card-icon-device {
       font-size: 64px !important;
       text-align: center;
-      //.android { color: #a4c639; }
-      //.ios { color: #777777; }
-      //.laptop { color: #01a0ff; }
+      color: #333333;
     }
 
     .card-identity-mac {
-      color: #666666;
+      color: #333333;
       font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.4px);
+      @include globalfontstyle(bold, normal, normal, 0.4px);
       text-align: center;
       margin-top: 20px;
       text-transform: uppercase;
@@ -400,13 +401,13 @@ body { background: #f9f9f9; font-family: $font-primary; }
     .card-device-info {
       margin-top: 10px;
       .device-info-lead {
-        color: #666666;
+        color: #333333;
         font-family: $font-primary;
-        @include globalfontstyle(normal, normal, normal, 0.4px);
+        @include globalfontstyle(bold, normal, normal, 0.4px);
         text-align: center;
       }
       .device-last-login {
-        color: #666666;
+        color: #333333;
         font-family: $font-primary;
         @include globalfontstyle(normal, normal, normal, 0.4px);
         text-align: center;
@@ -456,12 +457,17 @@ body { background: #f9f9f9; font-family: $font-primary; }
       border-radius: 30px;
       margin-top: 20px;
       margin-bottom: -10px;
-      color: #333333;
-      background: #f0f0f0;
+      color: #dddddd;
+      background: #da068c;
+      box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
       font-size: 12px !important;
       text-transform: capitalize;
       font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.4px);
+      @include globalfontstyle(bold, normal, normal, 0.4px);
+      &:hover, &:focus, &:active {
+        background: #dddddd;
+        color: #333333;
+      }
     }
     .delete-android {
       &:hover, &:focus {
