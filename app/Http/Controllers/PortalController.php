@@ -35,7 +35,7 @@ class PortalController extends Controller
 
     if( $ap == 'mkt' )
     {
-      $startUrl = 'http://qabiznethotspot.qeon.co.id';
+      $startUrl = 'http://biznethotspot.qeon.co.id';
     }
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
@@ -116,12 +116,12 @@ class PortalController extends Controller
   {
     if( $request->session()->get('connect') == 'freehotspot' )
     {
-      $request->session()->forget('connect');
-      $request->session()->flush();
       $fullUrl = $request->fullUrl();
 
       $fullUrlParts = parse_url($fullUrl);
-      $redirectUrl = 'http://qabiznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
+      $redirectUrl = 'http://biznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
+      $request->session()->forget('connect');
+      $request->session()->flush();
       return redirect($redirectUrl);
     }
     else if( $request->session()->get('connect') == 'biznetwifi' )
@@ -225,9 +225,9 @@ class PortalController extends Controller
     $client_mac = $request->client_mac;
     $uip = $request->uip;
     $ssid = $request->ssid;
-    $starturl = 'http://qabiznethotspot.qeon.co.id';
+    $starturl = 'http://biznethotspot.qeon.co.id';
     $location = $request->loc;
-    $redirect = 'http://qabiznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1&shaping=true';
+    $redirect = 'http://biznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1&shaping=true';
     return redirect( $redirect );
   }
 }

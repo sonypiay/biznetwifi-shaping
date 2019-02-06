@@ -152,8 +152,8 @@ export default {
         }
         else
         {
-          var username_radius = 'shaping';
-          var password_radius = 'biznet01';
+          var username_radius = '9e1b9d0d7c59f0ed2a794f50015cf82339866406';
+          var password_radius = 'e3e155b21531cc739bd78f36830ca697ec1d028b';
           if( this.ap === 'ruckus' ) {
             redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&ssid=' + this.ssid + '&starturl=' + this.starturl;
           }
