@@ -231,7 +231,7 @@ class PortalController extends Controller
     return redirect( $redirect );
   }
 
-  public function testradius( Request $request )
+  public function testing( Request $request )
   {
     $agent = $this->userAgent($request->server('HTTP_USER_AGENT'));
     return $agent;
