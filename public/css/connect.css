@@ -88,6 +88,13 @@
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
+  color: #ffffff;
+}
+
+.login-connect:hover,
+.login-connect:active,
+.login-connect:focus {
+  color: #ffffff;
 }
 
 .login-visitor {

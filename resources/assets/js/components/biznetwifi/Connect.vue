@@ -39,44 +39,61 @@
         </div>
       </div>
     </div>
-    <div class="uk-cover-container" uk-height-viewport>
-      <img v-bind:src="url + '/images/banner/banner3.jpg'" uk-cover />
-      <div class="uk-overlay uk-overlay-primary uk-position-cover uk-padding-remove overlay">
-         <nav class="uk-navbar uk-box-shadow-medium navbar" uk-navbar>
-      			<div class="uk-navbar-left">
-      				<a class="uk-navbar-item uk-logo" href="#">
-      					<img class="logo-nav" :src="url + '/images/logo/biznetwifi_primary.png'" />
-      				</a>
-      			</div>
-            <div class="uk-navbar-right">
-              <ul class="uk-navbar-nav navlang">
-                <li>
-                  <a v-if="$root.getLocale === 'id'" class="lang_active"><span>ID</span></a>
-                  <a v-else @click="switchLocale('id')"><span>ID</span></a>
-                </li>
-                <li>
-                  <a v-if="$root.getLocale === 'en'" class="lang_active"><span>EN</span></a>
-                  <a v-else @click="switchLocale('en')"><span>EN</span></a>
-                </li>
-              </ul>
+    <div class="uk-cover-container">
+      <div uk-slideshow="autoplay: true; animation: fade">
+        <ul class="uk-slideshow-items" uk-height-viewport>
+          <li>
+            <img v-bind:src="url + '/images/banner/Banner1.jpg'" uk-cover />
+            <div class="uk-overlay uk-overlay-primary uk-position-cover overlay">
+
             </div>
-      		</nav>
-      		<div class="uk-position-center">
-            <div class="uk-container padding-landingpage">
-              <div class="uk-text-center banner-heading">Biznet Wifi</div>
-              <div class="uk-text-center banner-subheading">{{ homepagelocale.freewifi.frombiznet }}</div>
-              <div class="uk-text-center lead-banner" v-html="homepagelocale.freewifi.textcontent"></div>
-              <div class="uk-grid-small uk-margin-top" uk-grid>
-                <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
-                  <a @click="doLoginHotspot()" class="uk-display-block uk-button login-connect login-visitor" v-html="forms.btnhotspot"></a>
-                </div>
-                <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
-                  <a uk-toggle="target: #loginCustomer" class="uk-display-block uk-button login-connect login-customer">{{ connectlocale.connect.biznetwifi }}</a>
-                </div>
+          </li>
+          <li>
+            <img v-bind:src="url + '/images/banner/Banner2.jpg'" uk-cover />
+            <div class="uk-overlay uk-overlay-primary uk-position-cover overlay"></div>
+          </li>
+          <li>
+            <img v-bind:src="url + '/images/banner/banner3.jpg'" uk-cover />
+            <div class="uk-overlay uk-overlay-primary uk-position-cover overlay"></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="uk-position-cover overlay">
+       <nav class="uk-navbar uk-box-shadow-medium navbar" uk-navbar>
+          <div class="uk-navbar-left">
+            <a class="uk-navbar-item uk-logo" href="#">
+              <img class="logo-nav" :src="url + '/images/logo/biznetwifi_primary.png'" />
+            </a>
+          </div>
+          <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav navlang">
+              <li>
+                <a v-if="$root.getLocale === 'id'" class="lang_active"><span>ID</span></a>
+                <a v-else @click="switchLocale('id')"><span>ID</span></a>
+              </li>
+              <li>
+                <a v-if="$root.getLocale === 'en'" class="lang_active"><span>EN</span></a>
+                <a v-else @click="switchLocale('en')"><span>EN</span></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <div class="uk-position-center">
+          <div class="uk-container padding-landingpage">
+            <div class="uk-text-center banner-heading">Biznet Wifi</div>
+            <div class="uk-text-center banner-subheading">{{ homepagelocale.freewifi.frombiznet }}</div>
+            <div class="uk-text-center lead-banner" v-html="homepagelocale.freewifi.textcontent"></div>
+            <div class="uk-grid-small uk-margin-top" uk-grid>
+              <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
+                <a @click="doLoginHotspot()" class="uk-display-block uk-button login-connect login-visitor" v-html="forms.btnhotspot"></a>
+              </div>
+              <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
+                <a uk-toggle="target: #loginCustomer" class="uk-display-block uk-button login-connect login-customer">{{ connectlocale.connect.biznetwifi }}</a>
               </div>
             </div>
-      		</div>
-      </div>
+          </div>
+        </div>
     </div>
   </div>
 </template>
