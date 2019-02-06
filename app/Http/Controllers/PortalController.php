@@ -131,7 +131,7 @@ class PortalController extends Controller
         $mac = $request->session()->get('client_mac');
         $username = $request->session()->get('username');
         $displayname = $request->session()->get('displayname');
-        $agent = $request->cookie('agent');
+        $agent = $request->session()->get('agent');
 
         $checksubs = $subscriber->where('account_id', '=', $username);
         if( $checksubs->count() === 4 )
