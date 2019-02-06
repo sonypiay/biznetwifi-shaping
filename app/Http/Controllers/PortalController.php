@@ -129,8 +129,8 @@ class PortalController extends Controller
       if( $request->session()->has('client_mac') AND $request->session()->has('uip') )
       {
         $mac = $request->session()->get('client_mac');
-        $username = $request->cookie('username');
-        $displayname = $request->cookie('displayname');
+        $username = $request->session()->get('username');
+        $displayname = $request->session()->get('displayname');
         $agent = $request->cookie('agent');
 
         $checksubs = $subscriber->where('account_id', '=', $username);
