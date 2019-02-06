@@ -233,7 +233,7 @@ class PortalController extends Controller
 
   public function testradius( Request $request )
   {
-    $agent = $this->userAgent( $request->server('HTTP_USER_AGENT') );
+    $agent = $this->userAgent($request->server('HTTP_USER_AGENT'));
     return $agent;
   }
 }
