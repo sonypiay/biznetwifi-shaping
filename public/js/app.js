@@ -65182,8 +65182,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'datauser'],
@@ -65410,16 +65408,16 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "card-device-info" }, [
                           _c("div", { staticClass: "device-info-lead" }, [
-                            _vm._v("Perangkat terdaftar")
+                            _vm._v("Mac Address")
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "device-last-login" }, [
-                            _vm._v(
-                              "\r\n                  " +
-                                _vm._s(_vm.dateConverted(device.logindate)) +
-                                "\r\n                "
-                            )
-                          ])
+                          _c(
+                            "div",
+                            {
+                              staticClass: "uk-text-uppercase device-last-login"
+                            },
+                            [_vm._v(_vm._s(device.mac_address))]
+                          )
                         ]),
                         _vm._v(" "),
                         _c(
@@ -65549,12 +65547,14 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "uk-margin" }, [
                       _c("div", { staticClass: "card-labeldevice" }, [
-                        _vm._v("Perangkat terdaftar")
+                        _vm._v("Mac Address")
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "card-sublabel" }, [
-                        _vm._v(_vm._s(_vm.dateConverted(device.logindate)))
-                      ])
+                      _c(
+                        "div",
+                        { staticClass: "uk-text-uppercase card-sublabel" },
+                        [_vm._v(_vm._s(device.mac_address))]
+                      )
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "uk-margin" }, [

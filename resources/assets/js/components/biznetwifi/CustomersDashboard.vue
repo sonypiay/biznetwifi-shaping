@@ -43,10 +43,8 @@
               </div>
               <div class="card-identity-mac">{{ device.device_agent }}</div>
               <div class="card-device-info">
-                <div class="device-info-lead">Perangkat terdaftar</div>
-                <div class="device-last-login">
-                  {{ dateConverted(device.logindate) }}
-                </div>
+                <div class="device-info-lead">Mac Address</div>
+                <div class="uk-text-uppercase device-last-login">{{ device.mac_address }}</div>
               </div>
               <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">Hapus</button>
             </div>
@@ -102,8 +100,8 @@
               <!--<div class="card-sublabel">{{ device.device_agent }}</div>-->
             </div>
             <div class="uk-margin">
-              <div class="card-labeldevice">Perangkat terdaftar</div>
-              <div class="card-sublabel">{{ dateConverted(device.logindate) }}</div>
+              <div class="card-labeldevice">Mac Address</div>
+              <div class="uk-text-uppercase card-sublabel">{{ device.mac_address }}</div>
             </div>
             <div class="uk-margin">
               <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">Hapus</button>
