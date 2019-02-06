@@ -412,7 +412,9 @@ body {
 
 .container-listdevice .card-listdevice {
   border-radius: 4px;
-  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  background: #ffffff;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .container-listdevice .card-listdevice .card-labeldevice {
@@ -424,7 +426,7 @@ body {
   letter-spacing: 0.4px;
   padding-left: 10px;
   text-align: center;
-  color: #ffffff;
+  color: #333333;
 }
 
 .container-listdevice .card-listdevice .card-sublabel {
@@ -436,7 +438,7 @@ body {
   letter-spacing: 0.4px;
   padding-left: 10px;
   text-align: center;
-  color: #ffffff;
+  color: #333333;
 }
 
 .container-listdevice .tile-icon-device {
@@ -450,13 +452,13 @@ body {
   font-size: 52px;
   margin-top: 6px;
   padding: 10px;
-  color: #ffffff;
+  color: #333333;
 }
 
 .container-listdevice .btn-delete-device {
   border: 0;
   border-radius: 30px;
-  background: none;
+  background: #da068c;
   color: #ffffff;
   font-size: 12px !important;
   text-transform: capitalize;
@@ -466,6 +468,8 @@ body {
   font-style: normal;
   letter-spacing: 0.4px;
   margin-left: 5px;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
+          box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
 }
 
 .container {
@@ -503,17 +507,20 @@ body {
 .container .card-devices .card-device-box {
   border-radius: 6px;
   background: #ffffff;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .container .card-devices .card-icon-device {
   font-size: 64px !important;
   text-align: center;
+  color: #333333;
 }
 
 .container .card-devices .card-identity-mac {
-  color: #666666;
+  color: #333333;
   font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -527,9 +534,9 @@ body {
 }
 
 .container .card-devices .card-device-info .device-info-lead {
-  color: #666666;
+  color: #333333;
   font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -537,7 +544,7 @@ body {
 }
 
 .container .card-devices .card-device-info .device-last-login {
-  color: #666666;
+  color: #333333;
   font-family: "Univers", sans-serif;
   font-weight: normal;
   font-stretch: normal;
@@ -605,15 +612,24 @@ body {
   border-radius: 30px;
   margin-top: 20px;
   margin-bottom: -10px;
-  color: #333333;
-  background: #f0f0f0;
+  color: #dddddd;
+  background: #da068c;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
+          box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
   font-size: 12px !important;
   text-transform: capitalize;
   font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
+}
+
+.container .card-devices .btn-delete-device:hover,
+.container .card-devices .btn-delete-device:focus,
+.container .card-devices .btn-delete-device:active {
+  background: #dddddd;
+  color: #333333;
 }
 
 .container .card-devices .delete-android:hover,

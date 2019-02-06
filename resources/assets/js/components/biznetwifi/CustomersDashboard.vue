@@ -35,44 +35,20 @@
         </div>
         <div class="uk-grid-medium uk-flex-center" uk-grid>
           <div v-for="device in devices.results" class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-2@m uk-width-1-2@s card-devices">
-            <div v-if="device.device_agent === 'ANDROID'" class="uk-tile uk-tile-default uk-box-shadow-medium card-device-box card-android">
+            <div class="uk-tile uk-tile-default card-device-box">
               <div class="card-icon-device">
-                <span class="android"><i class="fab fa-android"></i></span>
+                <span v-if="device.device_agent === 'ANDROID'"><i class="fab fa-android"></i></span>
+                <span v-else-if="device.device_agent === 'iOS'"><i class="fab fa-apple"></i></span>
+                <span v-else><i class="fas fa-laptop"></i></span>
               </div>
-              <div class="card-identity-mac">{{ device.mac_address }}</div>
+              <div class="card-identity-mac">{{ device.device_agent }}</div>
               <div class="card-device-info">
                 <div class="device-info-lead">Perangkat terdaftar</div>
                 <div class="device-last-login">
                   {{ dateConverted(device.logindate) }}
                 </div>
               </div>
-              <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device delete-android">Hapus</button>
-            </div>
-            <div v-else-if="device.device_agent === 'iOS'" class="uk-tile uk-tile-default uk-box-shadow-medium card-device-box card-ios">
-              <div class="card-icon-device">
-                <span class="ios"><i class="fab fa-apple"></i></span>
-              </div>
-              <div class="card-identity-mac">{{ device.mac_address }}</div>
-              <div class="card-device-info">
-                <div class="device-info-lead">Perangkat terdaftar</div>
-                <div class="device-last-login">
-                  {{ dateConverted(device.logindate) }}
-                </div>
-              </div>
-              <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device delete-ios">Hapus</button>
-            </div>
-            <div v-else class="uk-tile uk-tile-default uk-box-shadow-medium card-device-box card-laptop">
-              <div class="card-icon-device">
-                <span class="laptop"><i class="fas fa-laptop"></i></span>
-              </div>
-              <div class="card-identity-mac">{{ device.mac_address }}</div>
-              <div class="card-device-info">
-                <div class="device-info-lead">Perangkat terdaftar</div>
-                <div class="device-last-login">
-                  {{ dateConverted(device.logindate) }}
-                </div>
-              </div>
-              <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device delete-laptop">Hapus</button>
+              <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">Hapus</button>
             </div>
           </div>
         </div>
@@ -108,7 +84,7 @@
     </div>
     <div class="uk-grid-medium" uk-grid>
       <div v-for="device in devices.results" class="uk-width-1-1">
-        <div class="uk-card uk-card-default uk-box-shadow-large card-listdevice">
+        <div class="uk-card uk-card-default uk-card-body card-listdevice">
           <div class="uk-tile uk-tile-default tile-icon-device">
             <div v-if="device.device_agent === 'iOS'">
               <div class="uk-text-center icon-device ios"><i class="fab fa-apple"></i></div>
@@ -120,7 +96,7 @@
               <div class="uk-text-center icon-device laptop"><i class="fas fa-laptop"></i></div>
             </div>
           </div>
-          <div class="uk-card uk-card-body uk-card-small">
+          <div class="uk-card uk-card-body">
             <!--<div class="uk-margin">
               <div class="card-labeldevice">Perangkat</div>
               <div class="card-sublabel">{{ device.device_agent }}</div>

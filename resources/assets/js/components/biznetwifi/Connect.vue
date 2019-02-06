@@ -1,9 +1,9 @@
 <template lang="html">
   <div>
-    <div id="loginCustomer" class="uk-modal-full" uk-modal>
+    <div id="loginCustomer" class="uk-modal-full" uk-modal="esc-close: false;">
       <div class="uk-modal-dialog modal-dialog">
-        <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s uk-align-center uk-modal-body modal-body" uk-height-viewport>
-          <div class="uk-width-2-3@xl uk-width-2-3@l uk-width-3-4@m uk-width-2-3@s uk-align-center">
+        <div class="uk-modal-body modal-body" uk-height-viewport>
+          <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-3-4@m uk-width-2-3@s uk-align-center">
             <a @click="closeLoginAsBiznet()" class="uk-modal-close-default" uk-close></a>
             <div class="uk-margin-large-top modal-heading">{{ connectlocale.biznetwifi.login_heading }}</div>
             <div class="uk-width-1-1 uk-padding-small uk-align-center uk-margin-bottom modal-subheading">
