@@ -65156,12 +65156,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'datauser'],
@@ -65591,83 +65585,58 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } },
+          { staticClass: "uk-grid-medium", attrs: { "uk-grid": "" } },
           _vm._l(_vm.devices.results, function(device) {
             return _c("div", { staticClass: "uk-width-1-1" }, [
               _c(
                 "div",
-                { staticClass: "uk-card uk-card-default card-listdevice" },
+                {
+                  staticClass:
+                    "uk-card uk-card-default uk-box-shadow-large card-listdevice"
+                },
                 [
                   _c(
                     "div",
-                    {
-                      staticClass: "uk-grid-collapse uk-grid-match",
-                      attrs: { "uk-grid": "" }
-                    },
+                    { staticClass: "uk-tile uk-tile-default tile-icon-device" },
                     [
-                      _c("div", { staticClass: "uk-width-1-4" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "uk-tile uk-tile-default tile-icon-device"
-                          },
-                          [
-                            device.device_agent === "iOS"
-                              ? _c("div", [_vm._m(5, true)])
-                              : device.device_agent === "ANDROID"
-                                ? _c("div", [_vm._m(6, true)])
-                                : _c("div", [_vm._m(7, true)])
-                          ]
-                        )
+                      device.device_agent === "iOS"
+                        ? _c("div", [_vm._m(5, true)])
+                        : device.device_agent === "ANDROID"
+                          ? _c("div", [_vm._m(6, true)])
+                          : _c("div", [_vm._m(7, true)])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "uk-card uk-card-body uk-card-small" },
+                    [
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("div", { staticClass: "card-labeldevice" }, [
+                          _vm._v("Perangkat terdaftar")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-sublabel" }, [
+                          _vm._v(_vm._s(_vm.dateConverted(device.logindate)))
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "uk-width-expand" }, [
+                      _c("div", { staticClass: "uk-margin" }, [
                         _c(
-                          "div",
-                          { staticClass: "uk-card uk-card-body uk-card-small" },
-                          [
-                            _c("div", { staticClass: "uk-margin" }, [
-                              _c("div", { staticClass: "card-labeldevice" }, [
-                                _vm._v("Mac Address")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-sublabel" }, [
-                                _vm._v(_vm._s(device.mac_address))
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "uk-margin" }, [
-                              _c("div", { staticClass: "card-labeldevice" }, [
-                                _vm._v("Perangkat terdaftar")
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "card-sublabel" }, [
-                                _vm._v(
-                                  _vm._s(_vm.dateConverted(device.logindate))
+                          "button",
+                          {
+                            staticClass:
+                              "uk-width-1-1 uk-button uk-button-default btn-delete-device",
+                            on: {
+                              click: function($event) {
+                                _vm.deleteDevice(
+                                  device.account_id,
+                                  device.mac_address
                                 )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "uk-margin" }, [
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "uk-width-1-1 uk-button uk-button-small uk-button-default btn-delete-device",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.deleteDevice(
-                                        device.account_id,
-                                        device.mac_address
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v("Hapus")]
-                              )
-                            ])
-                          ]
+                              }
+                            }
+                          },
+                          [_vm._v("Hapus")]
                         )
                       ])
                     ]

@@ -317,38 +317,46 @@ body { background: #f9f9f9; font-family: $font-primary; }
     @include globalfontstyle(normal, normal, normal, 0.4px);
   }
   .card-listdevice {
+    border-radius: 4px;
+    background: linear-gradient(97deg, #da068c, #982e7e)  !important;
     .card-labeldevice {
-      font-size: 12px;
+      font-size: 14px;
       font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.4px);
+      @include globalfontstyle(bold, normal, normal, 0.4px);
       padding-left: 10px;
+      text-align: center;
+      color: #ffffff;
     }
     .card-sublabel {
       font-size: 14px;
       font-family: $font-primary;
       @include globalfontstyle(normal, normal, normal, 0.4px);
       padding-left: 10px;
+      text-align: center;
+      color: #ffffff;
     }
   }
   .tile-icon-device {
+    background: none;
     .icon-device {
       font-size: 52px;
       margin-top: 6px;
       padding: 10px;
+      color: #ffffff;
     }
-    .android { color: #a4c639 !important; }
+    /*.android { color: #a4c639 !important; }
     .ios { color: #777777 !important; }
-    .laptop { color: #01a0ff !important; }
+    .laptop { color: #01a0ff !important; }*/
   }
   .btn-delete-device {
     border: 0;
     border-radius: 30px;
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
+    background: none;
     color: #ffffff;
-    font-size: 10px !important;
+    font-size: 12px !important;
     text-transform: capitalize;
     font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.4px);
+    @include globalfontstyle(bold, normal, normal, 0.4px);
     margin-left: 5px;
   }
 }

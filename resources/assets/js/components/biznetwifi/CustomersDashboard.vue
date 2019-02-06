@@ -106,37 +106,31 @@
         <a class="uk-alert-close" uk-close></a>
       </div>
     </div>
-    <div class="uk-grid-small" uk-grid>
+    <div class="uk-grid-medium" uk-grid>
       <div v-for="device in devices.results" class="uk-width-1-1">
-        <div class="uk-card uk-card-default card-listdevice">
-          <div class="uk-grid-collapse uk-grid-match" uk-grid>
-            <div class="uk-width-1-4">
-              <div class="uk-tile uk-tile-default tile-icon-device">
-                <div v-if="device.device_agent === 'iOS'">
-                  <div class="uk-text-center icon-device ios"><i class="fab fa-apple"></i></div>
-                </div>
-                <div v-else-if="device.device_agent === 'ANDROID'">
-                  <div class="uk-text-center icon-device android"><i class="fab fa-android"></i></div>
-                </div>
-                <div v-else>
-                  <div class="uk-text-center icon-device laptop"><i class="fas fa-laptop"></i></div>
-                </div>
-              </div>
+        <div class="uk-card uk-card-default uk-box-shadow-large card-listdevice">
+          <div class="uk-tile uk-tile-default tile-icon-device">
+            <div v-if="device.device_agent === 'iOS'">
+              <div class="uk-text-center icon-device ios"><i class="fab fa-apple"></i></div>
             </div>
-            <div class="uk-width-expand">
-              <div class="uk-card uk-card-body uk-card-small">
-                <div class="uk-margin">
-                  <div class="card-labeldevice">Mac Address</div>
-                  <div class="card-sublabel">{{ device.mac_address }}</div>
-                </div>
-                <div class="uk-margin">
-                  <div class="card-labeldevice">Perangkat terdaftar</div>
-                  <div class="card-sublabel">{{ dateConverted(device.logindate) }}</div>
-                </div>
-                <div class="uk-margin">
-                  <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-small uk-button-default btn-delete-device">Hapus</button>
-                </div>
-              </div>
+            <div v-else-if="device.device_agent === 'ANDROID'">
+              <div class="uk-text-center icon-device android"><i class="fab fa-android"></i></div>
+            </div>
+            <div v-else>
+              <div class="uk-text-center icon-device laptop"><i class="fas fa-laptop"></i></div>
+            </div>
+          </div>
+          <div class="uk-card uk-card-body uk-card-small">
+            <!--<div class="uk-margin">
+              <div class="card-labeldevice">Perangkat</div>
+              <div class="card-sublabel">{{ device.device_agent }}</div>
+            </div>-->
+            <div class="uk-margin">
+              <div class="card-labeldevice">Perangkat terdaftar</div>
+              <div class="card-sublabel">{{ dateConverted(device.logindate) }}</div>
+            </div>
+            <div class="uk-margin">
+              <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">Hapus</button>
             </div>
           </div>
         </div>

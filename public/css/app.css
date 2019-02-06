@@ -410,14 +410,21 @@ body {
   letter-spacing: 0.4px;
 }
 
+.container-listdevice .card-listdevice {
+  border-radius: 4px;
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+}
+
 .container-listdevice .card-listdevice .card-labeldevice {
-  font-size: 12px;
+  font-size: 14px;
   font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
   padding-left: 10px;
+  text-align: center;
+  color: #ffffff;
 }
 
 .container-listdevice .card-listdevice .card-sublabel {
@@ -428,35 +435,33 @@ body {
   font-style: normal;
   letter-spacing: 0.4px;
   padding-left: 10px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.container-listdevice .tile-icon-device {
+  background: none;
+  /*.android { color: #a4c639 !important; }
+    .ios { color: #777777 !important; }
+    .laptop { color: #01a0ff !important; }*/
 }
 
 .container-listdevice .tile-icon-device .icon-device {
   font-size: 52px;
   margin-top: 6px;
   padding: 10px;
-}
-
-.container-listdevice .tile-icon-device .android {
-  color: #a4c639 !important;
-}
-
-.container-listdevice .tile-icon-device .ios {
-  color: #777777 !important;
-}
-
-.container-listdevice .tile-icon-device .laptop {
-  color: #01a0ff !important;
+  color: #ffffff;
 }
 
 .container-listdevice .btn-delete-device {
   border: 0;
   border-radius: 30px;
-  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  background: none;
   color: #ffffff;
-  font-size: 10px !important;
+  font-size: 12px !important;
   text-transform: capitalize;
   font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
