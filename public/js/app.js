@@ -64455,6 +64455,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -64792,161 +64809,197 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "uk-cover-container",
-        attrs: { "uk-height-viewport": "" }
-      },
-      [
-        _c("img", {
-          attrs: { src: _vm.url + "/images/banner/banner3.jpg", "uk-cover": "" }
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-overlay uk-overlay-primary uk-position-cover uk-padding-remove overlay"
-          },
-          [
-            _c(
-              "nav",
-              {
-                staticClass: "uk-navbar uk-box-shadow-medium navbar",
-                attrs: { "uk-navbar": "" }
-              },
-              [
-                _c("div", { staticClass: "uk-navbar-left" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "uk-navbar-item uk-logo",
-                      attrs: { href: "#" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "logo-nav",
-                        attrs: {
-                          src: _vm.url + "/images/logo/biznetwifi_primary.png"
-                        }
-                      })
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-navbar-right" }, [
-                  _c("ul", { staticClass: "uk-navbar-nav navlang" }, [
-                    _c("li", [
-                      _vm.$root.getLocale === "id"
-                        ? _c("a", { staticClass: "lang_active" }, [
-                            _c("span", [_vm._v("ID")])
-                          ])
-                        : _c(
-                            "a",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.switchLocale("id")
-                                }
-                              }
-                            },
-                            [_c("span", [_vm._v("ID")])]
-                          )
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _vm.$root.getLocale === "en"
-                        ? _c("a", { staticClass: "lang_active" }, [
-                            _c("span", [_vm._v("EN")])
-                          ])
-                        : _c(
-                            "a",
-                            {
-                              on: {
-                                click: function($event) {
-                                  _vm.switchLocale("en")
-                                }
-                              }
-                            },
-                            [_c("span", [_vm._v("EN")])]
-                          )
-                    ])
-                  ])
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "uk-position-center" }, [
-              _c("div", { staticClass: "uk-container padding-landingpage" }, [
-                _c("div", { staticClass: "uk-text-center banner-heading" }, [
-                  _vm._v("Biznet Wifi")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-text-center banner-subheading" }, [
-                  _vm._v(_vm._s(_vm.homepagelocale.freewifi.frombiznet))
-                ]),
-                _vm._v(" "),
-                _c("div", {
-                  staticClass: "uk-text-center lead-banner",
-                  domProps: {
-                    innerHTML: _vm._s(_vm.homepagelocale.freewifi.textcontent)
+    _c("div", { staticClass: "uk-cover-container" }, [
+      _c(
+        "div",
+        { attrs: { "uk-slideshow": "autoplay: true; animation: fade" } },
+        [
+          _c(
+            "ul",
+            {
+              staticClass: "uk-slideshow-items",
+              attrs: { "uk-height-viewport": "" }
+            },
+            [
+              _c("li", [
+                _c("img", {
+                  attrs: {
+                    src: _vm.url + "/images/banner/Banner1.jpg",
+                    "uk-cover": ""
                   }
                 }),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "uk-grid-small uk-margin-top",
-                    attrs: { "uk-grid": "" }
-                  },
-                  [
-                    _c(
-                      "div",
+                _c("div", {
+                  staticClass:
+                    "uk-overlay uk-overlay-primary uk-position-cover overlay"
+                })
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("img", {
+                  attrs: {
+                    src: _vm.url + "/images/banner/Banner2.jpg",
+                    "uk-cover": ""
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass:
+                    "uk-overlay uk-overlay-primary uk-position-cover overlay"
+                })
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("img", {
+                  attrs: {
+                    src: _vm.url + "/images/banner/banner3.jpg",
+                    "uk-cover": ""
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass:
+                    "uk-overlay uk-overlay-primary uk-position-cover overlay"
+                })
+              ])
+            ]
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "uk-position-cover overlay" }, [
+      _c(
+        "nav",
+        {
+          staticClass: "uk-navbar uk-box-shadow-medium navbar",
+          attrs: { "uk-navbar": "" }
+        },
+        [
+          _c("div", { staticClass: "uk-navbar-left" }, [
+            _c(
+              "a",
+              { staticClass: "uk-navbar-item uk-logo", attrs: { href: "#" } },
+              [
+                _c("img", {
+                  staticClass: "logo-nav",
+                  attrs: {
+                    src: _vm.url + "/images/logo/biznetwifi_primary.png"
+                  }
+                })
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-navbar-right" }, [
+            _c("ul", { staticClass: "uk-navbar-nav navlang" }, [
+              _c("li", [
+                _vm.$root.getLocale === "id"
+                  ? _c("a", { staticClass: "lang_active" }, [
+                      _c("span", [_vm._v("ID")])
+                    ])
+                  : _c(
+                      "a",
                       {
-                        staticClass:
-                          "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
-                      },
-                      [
-                        _c("a", {
-                          staticClass:
-                            "uk-display-block uk-button login-connect login-visitor",
-                          domProps: { innerHTML: _vm._s(_vm.forms.btnhotspot) },
-                          on: {
-                            click: function($event) {
-                              _vm.doLoginHotspot()
-                            }
+                        on: {
+                          click: function($event) {
+                            _vm.switchLocale("id")
                           }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
+                        }
                       },
-                      [
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "uk-display-block uk-button login-connect login-customer",
-                            attrs: { "uk-toggle": "target: #loginCustomer" }
-                          },
-                          [_vm._v(_vm._s(_vm.connectlocale.connect.biznetwifi))]
-                        )
-                      ]
+                      [_c("span", [_vm._v("ID")])]
                     )
-                  ]
-                )
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _vm.$root.getLocale === "en"
+                  ? _c("a", { staticClass: "lang_active" }, [
+                      _c("span", [_vm._v("EN")])
+                    ])
+                  : _c(
+                      "a",
+                      {
+                        on: {
+                          click: function($event) {
+                            _vm.switchLocale("en")
+                          }
+                        }
+                      },
+                      [_c("span", [_vm._v("EN")])]
+                    )
               ])
             ])
-          ]
-        )
-      ]
-    )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-position-center" }, [
+        _c("div", { staticClass: "uk-container padding-landingpage" }, [
+          _c("div", { staticClass: "uk-text-center banner-heading" }, [
+            _vm._v("Biznet Wifi")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-text-center banner-subheading" }, [
+            _vm._v(_vm._s(_vm.homepagelocale.freewifi.frombiznet))
+          ]),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "uk-text-center lead-banner",
+            domProps: {
+              innerHTML: _vm._s(_vm.homepagelocale.freewifi.textcontent)
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "uk-grid-small uk-margin-top",
+              attrs: { "uk-grid": "" }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
+                },
+                [
+                  _c("a", {
+                    staticClass:
+                      "uk-display-block uk-button login-connect login-visitor",
+                    domProps: { innerHTML: _vm._s(_vm.forms.btnhotspot) },
+                    on: {
+                      click: function($event) {
+                        _vm.doLoginHotspot()
+                      }
+                    }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "uk-display-block uk-button login-connect login-customer",
+                      attrs: { "uk-toggle": "target: #loginCustomer" }
+                    },
+                    [_vm._v(_vm._s(_vm.connectlocale.connect.biznetwifi))]
+                  )
+                ]
+              )
+            ]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
@@ -65819,7 +65872,7 @@ exports = module.exports = __webpack_require__(164)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65830,6 +65883,27 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -65959,151 +66033,204 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "bzw-content-login uk-height-viewport" }, [
-    _c("div", { staticClass: "uk-box-shadow-large bzw-bglogin" }),
+  return _c("div", { staticClass: "bzw-content-login" }, [
+    _c("div", { staticClass: "uk-cover-container" }, [
+      _c(
+        "div",
+        { attrs: { "uk-slideshow": "autoplay: true; animation: fade" } },
+        [
+          _c(
+            "ul",
+            {
+              staticClass: "uk-slideshow-items",
+              attrs: { "uk-height-viewport": "" }
+            },
+            [
+              _c("li", [
+                _c("img", {
+                  attrs: {
+                    src: _vm.url + "/images/banner/Banner1.jpg",
+                    "uk-cover": ""
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass:
+                    "uk-overlay uk-overlay-primary uk-position-cover overlay-bzw-login"
+                })
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("img", {
+                  attrs: {
+                    src: _vm.url + "/images/banner/Banner2.jpg",
+                    "uk-cover": ""
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass:
+                    "uk-overlay uk-overlay-primary uk-position-cover overlay-bzw-login"
+                })
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("img", {
+                  attrs: {
+                    src: _vm.url + "/images/banner/banner3.jpg",
+                    "uk-cover": ""
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass:
+                    "uk-overlay uk-overlay-primary uk-position-cover overlay-bzw-login"
+                })
+              ])
+            ]
+          )
+        ]
+      )
+    ]),
     _vm._v(" "),
-    _c("div", { staticClass: "uk-container container-bzw-login" }, [
+    _c("div", { staticClass: "uk-position-cover" }, [
       _c(
         "div",
         {
           staticClass:
-            "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-2-3@s uk-align-center"
+            "uk-container uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-2-3@s uk-align-center"
         },
         [
-          _c("div", { staticClass: "bzw-logo-login" }, [
-            _c("img", {
-              staticClass: "uk-width-1-3 uk-align-center",
-              attrs: {
-                src: _vm.url + "/images/logo/biznetwifi_white.png",
-                alt: "biznetwifi"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "uk-card uk-card-body uk-card-default uk-box-shadow-large card-bzw-login"
-            },
-            [
-              _c("div", { staticClass: "bzw-heading-login" }, [
-                _vm._v(_vm._s(_vm.connectlocale.biznetwifi.login_heading))
-              ]),
-              _vm._v(" "),
-              _c(
-                "form",
-                {
-                  staticClass: "uk-form-stacked",
-                  on: {
-                    submit: function($event) {
-                      $event.preventDefault()
-                      return _vm.doLogin($event)
+          _c("div", { staticClass: "container-bzw-login" }, [
+            _c("div", { staticClass: "bzw-logo-login" }, [
+              _c("img", {
+                staticClass: "uk-width-1-3 uk-align-center",
+                attrs: {
+                  src: _vm.url + "/images/logo/biznetwifi_white.png",
+                  alt: "biznetwifi"
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-card uk-card-body uk-card-default uk-box-shadow-large card-bzw-login"
+              },
+              [
+                _c("div", { staticClass: "bzw-heading-login" }, [
+                  _vm._v(_vm._s(_vm.connectlocale.biznetwifi.login_heading))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    staticClass: "uk-form-stacked",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.doLogin($event)
+                      }
                     }
-                  }
-                },
-                [
-                  _c("div", { staticClass: "uk-margin" }, [
-                    _c(
-                      "label",
-                      { staticClass: "uk-form-label bzw-form-label" },
-                      [_vm._v(_vm._s(_vm.connectlocale.loginform.username))]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "uk-form-controls" }, [
-                      _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
-                        _c("span", {
-                          staticClass: "uk-form-icon",
-                          attrs: { "uk-icon": "user" }
-                        }),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.forms.username,
-                              expression: "forms.username"
-                            }
-                          ],
-                          staticClass: "uk-width-1-1 uk-input bzw-form-login",
-                          attrs: { type: "text", placeholder: "" },
-                          domProps: { value: _vm.forms.username },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                  },
+                  [
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "uk-form-controls" }, [
+                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                          _c("span", {
+                            staticClass: "uk-form-icon bzw-form-icon",
+                            attrs: { "uk-icon": "user" }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.forms.username,
+                                expression: "forms.username"
                               }
-                              _vm.$set(
-                                _vm.forms,
-                                "username",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "uk-margin" }, [
-                    _c(
-                      "label",
-                      { staticClass: "uk-form-label bzw-form-label" },
-                      [_vm._v(_vm._s(_vm.connectlocale.loginform.password))]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "uk-form-controls" }, [
-                      _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
-                        _c("span", {
-                          staticClass: "uk-form-icon",
-                          attrs: { "uk-icon": "lock" }
-                        }),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.forms.password,
-                              expression: "forms.password"
-                            }
-                          ],
-                          staticClass: "uk-width-1-1 uk-input bzw-form-login",
-                          attrs: { type: "password", placeholder: "" },
-                          domProps: { value: _vm.forms.password },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                            ],
+                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
+                            attrs: {
+                              type: "text",
+                              placeholder: _vm.connectlocale.loginform.username
+                            },
+                            domProps: { value: _vm.forms.username },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.forms,
+                                  "username",
+                                  $event.target.value
+                                )
                               }
-                              _vm.$set(
-                                _vm.forms,
-                                "password",
-                                $event.target.value
-                              )
                             }
-                          }
-                        })
+                          })
+                        ])
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "uk-form-controls" }, [
+                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                          _c("span", {
+                            staticClass: "uk-form-icon bzw-form-icon",
+                            attrs: { "uk-icon": "lock" }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.forms.password,
+                                expression: "forms.password"
+                              }
+                            ],
+                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
+                            attrs: {
+                              type: "password",
+                              placeholder: _vm.connectlocale.loginform.password
+                            },
+                            domProps: { value: _vm.forms.password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.forms,
+                                  "password",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("button", {
+                        staticClass:
+                          "uk-width-1-1 uk-button uk-button-default bzw-button-login",
+                        domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
+                      })
                     ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "uk-margin" }, [
-                    _c("button", {
-                      staticClass:
-                        "uk-width-1-1 uk-button uk-button-default bzw-button-login",
-                      domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
-                    })
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-text-center copyright-login" }, [
-                _vm._v("© 2000 - " + _vm._s(_vm.getMoment()) + " Biznet.")
-              ])
-            ]
-          )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-text-center copyright-login" }, [
+                  _vm._v("© 2000 - " + _vm._s(_vm.getMoment()) + " Biznet.")
+                ])
+              ]
+            )
+          ])
         ]
       )
     ])

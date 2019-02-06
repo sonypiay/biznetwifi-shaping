@@ -89,6 +89,8 @@ $line-height-base: 1.6;
   font-size: 11px !important;
   font-family: $font-primary;
   @include globalfontstyle(normal, normal, normal, 0.4px);
+	color: #ffffff;
+	&:hover, &:active, &:focus { color: #ffffff; }
 }
 .login-visitor {
   border-radius: 30px;
