@@ -65543,6 +65543,12 @@ var render = function() {
                   _c("div", { staticClass: "uk-card uk-card-body" }, [
                     _c("div", { staticClass: "uk-margin" }, [
                       _c("div", { staticClass: "card-labeldevice" }, [
+                        _vm._v(_vm._s(device.device_agent))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "card-labeldevice" }, [
                         _vm._v("Perangkat terdaftar")
                       ]),
                       _vm._v(" "),

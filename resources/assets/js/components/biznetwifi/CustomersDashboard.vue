@@ -97,10 +97,10 @@
             </div>
           </div>
           <div class="uk-card uk-card-body">
-            <!--<div class="uk-margin">
-              <div class="card-labeldevice">Perangkat</div>
-              <div class="card-sublabel">{{ device.device_agent }}</div>
-            </div>-->
+            <div class="uk-margin">
+              <div class="card-labeldevice">{{ device.device_agent }}</div>
+              <!--<div class="card-sublabel">{{ device.device_agent }}</div>-->
+            </div>
             <div class="uk-margin">
               <div class="card-labeldevice">Perangkat terdaftar</div>
               <div class="card-sublabel">{{ dateConverted(device.logindate) }}</div>
