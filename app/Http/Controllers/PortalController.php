@@ -230,4 +230,10 @@ class PortalController extends Controller
     $redirect = 'http://biznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1&shaping=true';
     return redirect( $redirect );
   }
+
+  public function testradius( Request $request )
+  {
+    $agent = $this->userAgent( $request->server('HTTP_USER_AGENT') );
+    return $agent;
+  }
 }

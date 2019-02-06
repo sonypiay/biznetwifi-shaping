@@ -17,8 +17,7 @@ Route::get('/connect/ruckus', 'PortalController@connectruckus')->name('connect_r
 Route::post('/connect/mikrotik', 'PortalController@connectmikrotik')->name('connect_mikrotik');
 Route::get('/freehotspot', 'PortalController@hotspot');
 Route::get('/afterlogin', 'PortalController@afterlogin');
-Route::get('/test', 'PortalController@testradius');
-Route::get('/testlocation', 'PortalController@test_location');
+Route::get('/testing', 'PortalController@testing');
 
 Route::group(['prefix' => 'biznetwifi'], function() {
   Route::get('/login', 'BiznetWifi\LoginController@index')->name('pagelogin_biznetwifi');
