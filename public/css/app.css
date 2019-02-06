@@ -629,7 +629,7 @@ body {
 .container .card-devices .btn-delete-device:focus,
 .container .card-devices .btn-delete-device:active {
   background: #da068c;
-  color: #333333;
+  color: #ffffff;
 }
 
 .container .card-devices .delete-android:hover,

@@ -466,7 +466,7 @@ body { background: #f9f9f9; font-family: $font-primary; }
       @include globalfontstyle(bold, normal, normal, 0.4px);
       &:hover, &:focus, &:active {
         background: #da068c;
-        color: #333333;
+        color: #ffffff;
       }
     }
     .delete-android {
