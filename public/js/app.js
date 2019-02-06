@@ -65532,8 +65532,8 @@ var render = function() {
         _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
           _vm._m(4),
           _vm._v(" "),
-          _c("div", { staticClass: "uk-width-expand" }, [
-            _c("div", { staticClass: "uk-text-left welcome-customer-name" }, [
+          _c("div", { staticClass: "uk-width-1-1-" }, [
+            _c("div", { staticClass: "uk-text-center welcome-customer-name" }, [
               _vm._v("Hi, " + _vm._s(_vm.datauser.displayname))
             ]),
             _vm._v(" "),
@@ -65724,8 +65724,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-1-5" }, [
-      _c("div", { staticClass: "uk-text-left banner-icon-customer" }, [
+    return _c("div", { staticClass: "uk-width-1-1" }, [
+      _c("div", { staticClass: "uk-text-center banner-icon-customer" }, [
         _c("span", { staticClass: "fas fa-user-circle" })
       ])
     ])

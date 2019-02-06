@@ -253,6 +253,17 @@ body {
   color: #da068c;
 }
 
+.headerhmpg-cust .naviicon_mobile {
+  color: #777777;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.headerhmpg-cust .naviicon_mobile:hover,
+.headerhmpg-cust .naviicon_mobile:focus {
+  color: #555555;
+}
+
 .banner-hmpg-customer {
   color: #ffffff;
 }
