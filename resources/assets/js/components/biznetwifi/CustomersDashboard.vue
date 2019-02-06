@@ -84,13 +84,13 @@
   <!-- mobile -->
   <section class="uk-card uk-card-default uk-card-body uk-hidden@s banner-hmpg-customer">
     <div class="uk-grid-small" uk-grid>
-      <div class="uk-width-1-5">
-        <div class="uk-text-left banner-icon-customer">
+      <div class="uk-width-1-1">
+        <div class="uk-text-center banner-icon-customer">
           <span class="fas fa-user-circle"></span>
         </div>
       </div>
-      <div class="uk-width-expand">
-        <div class="uk-text-left welcome-customer-name">Hi, {{ datauser.displayname }}</div>
+      <div class="uk-width-1-1-">
+        <div class="uk-text-center welcome-customer-name">Hi, {{ datauser.displayname }}</div>
         <div v-show="datauser.customer_id">
           <div class="uk-text-center mobile-customer-id">12266000</div>
         </div>
@@ -144,7 +144,7 @@
     </div>
   </div>
   <!-- mobile -->
-  
+
 </div>
 </template>
 

@@ -196,6 +196,14 @@ body { background: #f9f9f9; font-family: $font-primary; }
       }
     }
   }
+  .naviicon_mobile {
+    color: #777777;
+    padding-left: 30px;
+    padding-right: 30px;
+    &:hover, &:focus {
+      color: #555555;
+    }
+  }
 }
 .banner-hmpg-customer {
   color: #ffffff;
