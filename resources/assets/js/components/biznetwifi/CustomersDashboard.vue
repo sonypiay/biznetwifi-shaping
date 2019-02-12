@@ -56,17 +56,25 @@
   <!-- desktop -->
 
   <!-- mobile -->
-  <section class="uk-card uk-card-default uk-card-body uk-hidden@s banner-hmpg-customer">
-    <div class="uk-grid-small" uk-grid>
-      <div class="uk-width-1-1">
-        <div class="uk-text-center banner-icon-customer">
-          <span class="fas fa-user-circle"></span>
+  <section class="uk-card uk-card-body uk-hidden@s box-content-customer">
+    <div class="uk-tile uk-tile-default box-customer-profile">
+      <div class="uk-grid-small" uk-grid>
+        <div class="uk-width-1-1">
+          <div class="uk-text-center box-icon-customer">
+            <!--<span class="fas fa-user-circle"></span>-->
+            <span class="icon ion-ios-contact"></span>
+          </div>
         </div>
-      </div>
-      <div class="uk-width-1-1-">
-        <div class="uk-text-center welcome-customer-name">Hi, {{ datauser.displayname }}</div>
-        <div v-show="datauser.customer_id">
-          <div class="uk-text-center mobile-customer-id">12266000</div>
+        <div class="uk-width-1-1">
+          <div class="uk-text-center box-customer-name">Hello, <br> {{ datauser.displayname }}</div>
+          <div v-show="datauser.customer_id">
+            <div class="uk-text-center box-customer-id">{{ datauser.customer_id }}</div>
+          </div>
+        </div>
+        <div class="uk-width-1-1">
+          <div class="uk-text-center">
+            <a href="https://www.biznethome.net/id/" class="uk-button uk-button-default box-button-browse">Browse Now</a>
+          </div>
         </div>
       </div>
     </div>

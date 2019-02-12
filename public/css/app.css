@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito:400,600,700,800,900);@font-face {
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,600,700,800,900);@import url(https://fonts.googleapis.com/css?family=Poppins:400,600,700);@font-face {
   font-family: 'Univers';
   src: local("Univers"), url("/works/portalwifi/public/fonts/univers/UniversLTStd.otf") format("opentype");
   src: local("Univers"), url("/works/portalwifi/public/fonts/univers/Univers-light-normal.ttf") format("truetype");
@@ -41,7 +41,7 @@
 html,
 body {
   background: #f9f9f9;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 .navbarlang {
@@ -52,9 +52,9 @@ body {
 
 .navbarlang ul li a {
   color: #666666;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 11px;
-  font-weight: bold;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -77,11 +77,11 @@ body {
 
 .navbar ul li a {
   color: #666666;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
   padding-left: 15px;
   padding-right: 15px;
-  font-weight: bold;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -128,9 +128,9 @@ body {
 .offcanvas-bar .lang-offcanvas {
   color: #da068c;
   text-decoration: none;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -149,9 +149,9 @@ body {
 
 .offcanvas-bar .lang-dropdown-offcanvas ul li a {
   color: #ffffff;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -163,9 +163,9 @@ body {
 
 .offcanvas-bar .lang-dropdown-offcanvas ul .lang-sub a {
   color: #666666;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -181,9 +181,9 @@ body {
 
 .offcanvas-bar .nav-offcanvas-bar li a {
   color: #666666;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -195,9 +195,9 @@ body {
 
 .offcanvas-bar .nav-offcanvas-bar li .nav-sub-offcanvas li a {
   color: #666666;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -209,9 +209,9 @@ body {
 
 .offcanvas-bar .nav-offcanvas-bar li .nav-sub-offcanvas .lang-sub a {
   color: #666666;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 14px;
-  font-weight: bold;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -239,11 +239,11 @@ body {
 
 .headerhmpg-cust .navhmpg-cust li a {
   color: #666666;
-  font-family: "Univers", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
   padding-left: 15px;
   padding-right: 15px;
-  font-weight: bold;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -264,55 +264,97 @@ body {
   color: #555555;
 }
 
-.banner-hmpg-customer {
+.headermobile-customer {
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  height: 230px;
+  border-radius: 0 0 25px 25px;
+}
+
+.headermobile-customer .navbarmobile-cust img {
+  width: 120px;
+}
+
+.headermobile-customer .naviicon_mobile {
+  color: #ffffff;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.headermobile-customer .naviicon_mobile:hover,
+.headermobile-customer .naviicon_mobile:focus {
   color: #ffffff;
 }
 
-.banner-hmpg-customer .banner-hmpg-overlay {
+.box-content-customer .box-customer-profile {
+  border-radius: 15px;
+  margin-top: -10em;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 320px) {
+  .box-content-customer .box-icon-customer {
+    color: #333333;
+    font-size: 52px;
+    margin-top: -8px;
+  }
+
+  .box-content-customer .box-customer-name {
+    font-size: 18px;
+    color: #333333;
+    padding-left: 10px;
+  }
+
+  .box-content-customer .box-customer-id {
+    color: #333333;
+    font-size: 12px;
+    padding-left: 10px;
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0.4px;
+  }
+}
+
+.box-content-customer .box-button-browse {
+  border: 0;
+  border-radius: 30px;
+  background: #da068c;
+  color: #ffffff;
+  font-size: 12px !important;
+  text-transform: capitalize;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  margin-left: 5px;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.3);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.3);
+}
+
+.banner-hmpg-overlay {
   background: rgba(0, 0, 0, 0.4666);
 }
 
-.banner-hmpg-customer .banner-icon-customer {
+.banner-icon-customer {
   font-size: 72px;
 }
 
-.banner-hmpg-customer .welcome-customer-name {
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+.welcome-customer-name {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
 }
 
-@media screen and (min-width: 320px) {
-  .banner-hmpg-customer {
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
-    -webkit-box-shadow: none;
-            box-shadow: none;
-  }
-
-  .banner-hmpg-customer .banner-icon-customer {
-    color: #f2f2f2;
-    font-size: 48px;
-    margin-top: -8px;
-  }
-
-  .banner-hmpg-customer .welcome-customer-name {
-    font-size: 21px;
-    color: #f2f2f2;
-    padding-left: 10px;
-  }
-
-  .banner-hmpg-customer .mobile-customer-id {
-    color: #f2f2f2;
-    font-size: 14px;
-    padding-left: 10px;
-    font-family: "Univers", sans-serif;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: 0.4px;
-  }
+.banner-hmpg-customer {
+  color: #ffffff;
+  background: #ffffff !important;
 }
 
 @media screen and (min-width: 640px) {
@@ -336,8 +378,8 @@ body {
   .banner-hmpg-customer .desktop-customer-id {
     color: #f2f2f2;
     font-size: 18px;
-    font-family: "Univers", sans-serif;
-    font-weight: normal;
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
     font-stretch: normal;
     font-style: normal;
     letter-spacing: 0.4px;
@@ -357,8 +399,8 @@ body {
   .banner-hmpg-customer .desktop-customer-id {
     color: #f2f2f2;
     font-size: 14px;
-    font-family: "Univers", sans-serif;
-    font-weight: normal;
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
     font-stretch: normal;
     font-style: normal;
     letter-spacing: 0.4px;
@@ -403,15 +445,15 @@ body {
 .container-listdevice .heading-listdevice {
   margin-bottom: 10px;
   font-size: 18px;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
 }
 
 .container-listdevice .card-listdevice {
-  border-radius: 8px;
+  border-radius: 15px;
   background: #ffffff;
   -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
           box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
@@ -419,8 +461,8 @@ body {
 
 .container-listdevice .card-listdevice .card-labeldevice {
   font-size: 14px;
-  font-family: "Univers", sans-serif;
-  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -431,8 +473,8 @@ body {
 
 .container-listdevice .card-listdevice .card-sublabel {
   font-size: 14px;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -460,16 +502,16 @@ body {
   border-radius: 30px;
   background: #da068c;
   color: #ffffff;
-  font-size: 12px !important;
+  font-size: 13px !important;
   text-transform: capitalize;
-  font-family: "Univers", sans-serif;
-  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
   margin-left: 5px;
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
-          box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .container {
@@ -519,8 +561,8 @@ body {
 
 .container .card-devices .card-identity-mac {
   color: #333333;
-  font-family: "Univers", sans-serif;
-  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -535,8 +577,8 @@ body {
 
 .container .card-devices .card-device-info .device-info-lead {
   color: #333333;
-  font-family: "Univers", sans-serif;
-  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -545,8 +587,8 @@ body {
 
 .container .card-devices .card-device-info .device-last-login {
   color: #333333;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -612,14 +654,14 @@ body {
   border-radius: 30px;
   margin-top: 20px;
   margin-bottom: -10px;
-  color: #dddddd;
+  color: #ffffff;
   background: #da068c;
   -webkit-box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
           box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
-  font-size: 12px !important;
+  font-size: 13px !important;
   text-transform: capitalize;
-  font-family: "Univers", sans-serif;
-  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -668,8 +710,8 @@ body {
 .container-bzw-login .bzw-heading-login {
   font-size: 24px !important;
   text-transform: capitalize;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -682,8 +724,8 @@ body {
   color: #f2f2f2;
   font-size: 13px !important;
   text-transform: capitalize;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -694,9 +736,9 @@ body {
   border-radius: 30px;
   background: rgba(0, 0, 0, 0.3);
   color: #f2f2f2;
-  font-size: 12px !important;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-size: 13px !important;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -717,6 +759,8 @@ body {
 .container-bzw-login .bzw-form-login:hover,
 .container-bzw-login .bzw-form-login:focus {
   color: #dddddd;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.2);
 }
 
 .container-bzw-login .bzw-form-login:hover::-webkit-input-placeholder,
@@ -738,91 +782,36 @@ body {
   border-radius: 30px;
   border: 0;
   color: #ffffff;
-  font-size: 12px !important;
+  font-size: 13px !important;
   text-transform: capitalize;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
-  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  background: linear-gradient(97deg, #da068c, #982e7e);
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.20s ease-in-out 0s;
+  -webkit-transition: all 0.20s ease-in-out 0s;
+  -moz-transition: all 0.20s ease-in-out 0s;
+  -ms-transition: all 0.20s ease-in-out 0s;
+  -o-transition: all 0.20s ease-in-out 0s;
 }
 
-@media screen and (min-width: 320px) {
-  .bzw-content-login {
-    background: linear-gradient(97deg, #da068c, #982e7e);
-  }
-
-  .bzw-bglogin {
-    height: 40px;
-    -webkit-box-shadow: none;
-            box-shadow: none;
-  }
+.container-bzw-login .bzw-button-login:hover,
+.container-bzw-login .bzw-button-login:focus {
+  background: #da068c;
 }
 
-@media screen and (min-width: 360px) {
-  .bzw-content-login {
-    background: linear-gradient(97deg, #da068c, #982e7e);
-  }
-
-  .bzw-bglogin {
-    height: 60px;
-    -webkit-box-shadow: none;
-            box-shadow: none;
-  }
-}
-
-@media screen and (min-width: 375px) {
-  .bzw-content-login {
-    background: linear-gradient(97deg, #da068c, #982e7e);
-  }
-
-  .bzw-bglogin {
-    height: 110px;
-    -webkit-box-shadow: none;
-            box-shadow: none;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .bzw-content-login {
-    background: #ffffff;
-  }
-
-  .bzw-bglogin {
-    height: 320px;
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
-  }
-}
-
-@media screen and (min-width: 800px) {
-  .bzw-content-login {
-    background: #ffffff;
-  }
-
-  .bzw-bglogin {
-    height: 320px;
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
-    -webkit-box-shadow: 0 4px 8px #dddddd;
-            box-shadow: 0 4px 8px #dddddd;
-  }
-}
-
-@media screen and (min-width: 800px) {
-  .bzw-content-login {
-    background: #ffffff;
-  }
-
-  .bzw-bglogin {
-    height: 320px;
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
-  }
+.bzw-content-login {
+  background: linear-gradient(108deg, #da068c, #591749);
 }
 
 .copyright-login {
   font-size: 12px !important;
-  font-family: "Univers", sans-serif;
-  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
@@ -842,8 +831,8 @@ body {
 
 .footer .footer-heading {
   font-size: 22px !important;
-  font-family: "Univers", sans-serif;
-  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.8px;
@@ -852,8 +841,8 @@ body {
 
 .footer .footer-content {
   font-size: 13px !important;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.7px;
@@ -868,8 +857,8 @@ body {
 
 .footer .link-useful .uk-nav-header {
   font-size: 13px !important;
-  font-family: "Univers", sans-serif;
-  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 1px;
@@ -882,8 +871,8 @@ body {
 
 .footer .link-useful li a {
   font-size: 13px;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.8px;
@@ -893,8 +882,8 @@ body {
 .footer .midplaza .copyright,
 .footer .midplaza .part-midplaza {
   font-size: 12px;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.8px;
@@ -926,16 +915,16 @@ body {
 .coverbannerhomepage .banner_ovlay_content h2,
 .coverbannerhomepage .banner_ovlay_content h3 {
   color: #ffffff;
-  font-family: "Univers", sans-serif;
-  font-weight: bold;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
 }
 
 .coverbannerhomepage .banner_ovlay_content p {
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
@@ -1040,8 +1029,8 @@ body {
 
 .section-banner-biznethome .section-banner-context-right {
   color: #ffffff;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
@@ -1165,8 +1154,8 @@ body {
 .section-banner-biznetmetronet .section-banner-context-right {
   color: #ffffff;
   font-size: 16px;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
@@ -1294,8 +1283,8 @@ body {
 .section-homepage-flashads .flashads-contactads {
   color: #888888;
   font-size: 18px;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
@@ -1305,8 +1294,8 @@ body {
 .section-homepage-flashads a {
   color: #1d8fce;
   font-size: 18px;
-  font-family: "Univers", sans-serif;
-  font-weight: normal;
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;

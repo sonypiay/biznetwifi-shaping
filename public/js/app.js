@@ -65182,6 +65182,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'datauser'],
@@ -65449,41 +65457,56 @@ var render = function() {
     _vm._v(" "),
     _c(
       "section",
-      {
-        staticClass:
-          "uk-card uk-card-default uk-card-body uk-hidden@s banner-hmpg-customer"
-      },
+      { staticClass: "uk-card uk-card-body uk-hidden@s box-content-customer" },
       [
-        _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-width-1-1-" }, [
-            _c("div", { staticClass: "uk-text-center welcome-customer-name" }, [
-              _vm._v("Hi, " + _vm._s(_vm.datauser.displayname))
-            ]),
-            _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-tile uk-tile-default box-customer-profile" },
+          [
             _c(
               "div",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.datauser.customer_id,
-                    expression: "datauser.customer_id"
-                  }
-                ]
-              },
+              { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } },
               [
-                _c(
-                  "div",
-                  { staticClass: "uk-text-center mobile-customer-id" },
-                  [_vm._v("12266000")]
-                )
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-width-1-1" }, [
+                  _c(
+                    "div",
+                    { staticClass: "uk-text-center box-customer-name" },
+                    [
+                      _vm._v("Hello, "),
+                      _c("br"),
+                      _vm._v(" " + _vm._s(_vm.datauser.displayname))
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.datauser.customer_id,
+                          expression: "datauser.customer_id"
+                        }
+                      ]
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "uk-text-center box-customer-id" },
+                        [_vm._v(_vm._s(_vm.datauser.customer_id))]
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._m(2)
               ]
             )
-          ])
-        ])
+          ]
+        )
       ]
     ),
     _vm._v(" "),
@@ -65531,10 +65554,10 @@ var render = function() {
                     { staticClass: "uk-tile uk-tile-default tile-icon-device" },
                     [
                       device.device_agent === "iOS"
-                        ? _c("div", [_vm._m(2, true)])
+                        ? _c("div", [_vm._m(3, true)])
                         : device.device_agent === "ANDROID"
-                          ? _c("div", [_vm._m(3, true)])
-                          : _c("div", [_vm._m(4, true)])
+                          ? _c("div", [_vm._m(4, true)])
+                          : _c("div", [_vm._m(5, true)])
                     ]
                   ),
                   _vm._v(" "),
@@ -65599,8 +65622,25 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "uk-width-1-1" }, [
-      _c("div", { staticClass: "uk-text-center banner-icon-customer" }, [
-        _c("span", { staticClass: "fas fa-user-circle" })
+      _c("div", { staticClass: "uk-text-center box-icon-customer" }, [
+        _c("span", { staticClass: "icon ion-ios-contact" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-width-1-1" }, [
+      _c("div", { staticClass: "uk-text-center" }, [
+        _c(
+          "a",
+          {
+            staticClass: "uk-button uk-button-default box-button-browse",
+            attrs: { href: "https://www.biznethome.net/id/" }
+          },
+          [_vm._v("Browse Now")]
+        )
       ])
     ])
   },
@@ -65885,201 +65925,150 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "bzw-content-login" }, [
-    _c("div", { staticClass: "uk-cover-container" }, [
-      _c(
-        "div",
-        { attrs: { "uk-slideshow": "autoplay: true; animation: fade" } },
-        [
-          _c(
-            "ul",
-            {
-              staticClass: "uk-slideshow-items",
-              attrs: { "uk-height-viewport": "" }
-            },
-            [
-              _c("li", [
-                _c("img", {
-                  attrs: {
-                    src: _vm.url + "/images/banner/Banner1.jpg",
-                    "uk-cover": ""
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", {
-                  staticClass:
-                    "uk-overlay uk-overlay-primary uk-position-cover overlay-bzw-login"
-                })
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("img", {
-                  attrs: {
-                    src: _vm.url + "/images/banner/Banner2.jpg",
-                    "uk-cover": ""
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", {
-                  staticClass:
-                    "uk-overlay uk-overlay-primary uk-position-cover overlay-bzw-login"
-                })
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("img", {
-                  attrs: {
-                    src: _vm.url + "/images/banner/banner3.jpg",
-                    "uk-cover": ""
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", {
-                  staticClass:
-                    "uk-overlay uk-overlay-primary uk-position-cover overlay-bzw-login"
-                })
-              ])
-            ]
-          )
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "uk-position-cover" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "uk-container uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-2-3@s uk-align-center"
-        },
-        [
-          _c("div", { staticClass: "container-bzw-login" }, [
-            _c(
-              "div",
-              { staticClass: "uk-tile uk-box-shadow-large card-bzw-login" },
-              [
-                _c("div", { staticClass: "bzw-logo-login" }, [
-                  _c("img", {
-                    staticClass: "uk-width-1-2 uk-align-center",
-                    attrs: {
-                      src: _vm.url + "/images/logo/biznetwifi_white.png",
-                      alt: "biznetwifi"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c(
-                  "form",
-                  {
-                    staticClass: "uk-form-stacked",
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.doLogin($event)
+  return _c(
+    "div",
+    { staticClass: "bzw-content-login", attrs: { "uk-height-viewport": "" } },
+    [
+      _c("div", { staticClass: "uk-position-cover" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-2-3@s uk-align-center"
+          },
+          [
+            _c("div", { staticClass: "container-bzw-login" }, [
+              _c(
+                "div",
+                { staticClass: "uk-tile uk-box-shadow-large card-bzw-login" },
+                [
+                  _c("div", { staticClass: "bzw-logo-login" }, [
+                    _c("img", {
+                      staticClass: "uk-width-1-2 uk-align-center",
+                      attrs: {
+                        src: _vm.url + "/images/logo/biznetwifi_white.png",
+                        alt: "biznetwifi"
                       }
-                    }
-                  },
-                  [
-                    _c("div", { staticClass: "uk-margin" }, [
-                      _c("div", { staticClass: "uk-form-controls" }, [
-                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
-                          _c("span", {
-                            staticClass: "uk-form-icon bzw-form-icon",
-                            attrs: { "uk-icon": "user" }
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.forms.username,
-                                expression: "forms.username"
-                              }
-                            ],
-                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
-                            attrs: {
-                              type: "text",
-                              placeholder: _vm.connectlocale.loginform.username
-                            },
-                            domProps: { value: _vm.forms.username },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      staticClass: "uk-form-stacked",
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.doLogin($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("div", { staticClass: "uk-form-controls" }, [
+                          _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                            _c("span", {
+                              staticClass: "uk-form-icon bzw-form-icon",
+                              attrs: { "uk-icon": "user" }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.forms.username,
+                                  expression: "forms.username"
                                 }
-                                _vm.$set(
-                                  _vm.forms,
-                                  "username",
-                                  $event.target.value
-                                )
-                              }
-                            }
-                          })
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "uk-margin" }, [
-                      _c("div", { staticClass: "uk-form-controls" }, [
-                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
-                          _c("span", {
-                            staticClass: "uk-form-icon bzw-form-icon",
-                            attrs: { "uk-icon": "lock" }
-                          }),
-                          _vm._v(" "),
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.forms.password,
-                                expression: "forms.password"
-                              }
-                            ],
-                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
-                            attrs: {
-                              type: "password",
-                              placeholder: _vm.connectlocale.loginform.password
-                            },
-                            domProps: { value: _vm.forms.password },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
+                              ],
+                              staticClass:
+                                "uk-width-1-1 uk-input bzw-form-login",
+                              attrs: {
+                                type: "text",
+                                placeholder:
+                                  _vm.connectlocale.loginform.username
+                              },
+                              domProps: { value: _vm.forms.username },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.forms,
+                                    "username",
+                                    $event.target.value
+                                  )
                                 }
-                                _vm.$set(
-                                  _vm.forms,
-                                  "password",
-                                  $event.target.value
-                                )
                               }
-                            }
-                          })
+                            })
+                          ])
                         ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("div", { staticClass: "uk-form-controls" }, [
+                          _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                            _c("span", {
+                              staticClass: "uk-form-icon bzw-form-icon",
+                              attrs: { "uk-icon": "lock" }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.forms.password,
+                                  expression: "forms.password"
+                                }
+                              ],
+                              staticClass:
+                                "uk-width-1-1 uk-input bzw-form-login",
+                              attrs: {
+                                type: "password",
+                                placeholder:
+                                  _vm.connectlocale.loginform.password
+                              },
+                              domProps: { value: _vm.forms.password },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.forms,
+                                    "password",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("button", {
+                          staticClass:
+                            "uk-width-1-1 uk-button uk-button-default bzw-button-login",
+                          domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
+                        })
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "uk-margin" }, [
-                      _c("button", {
-                        staticClass:
-                          "uk-width-1-1 uk-button uk-button-default bzw-button-login",
-                        domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-text-center copyright-login" }, [
-                  _vm._v("© 2000 - " + _vm._s(_vm.getMoment()) + " Biznet.")
-                ])
-              ]
-            )
-          ])
-        ]
-      )
-    ])
-  ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-text-center copyright-login" }, [
+                    _vm._v("© 2000 - " + _vm._s(_vm.getMoment()) + " Biznet.")
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -66374,8 +66363,7 @@ var render = function() {
                       staticClass:
                         "uk-width-4-5 uk-box-shadow-large uk-align-center",
                       attrs: {
-                        src:
-                          "https://www.biznetwifi.com/img/main/Biznet_Home_Web_Banner_620x620px_Aug2018-IND.jpg",
+                        src: _vm.url + "/images/banner/biznethome.jpg",
                         alt: "",
                         "uk-scrollspy": "cls: uk-animation-fade"
                       }
@@ -66400,8 +66388,7 @@ var render = function() {
                     staticClass:
                       "uk-width-4-5 uk-box-shadow-large uk-align-center",
                     attrs: {
-                      src:
-                        "https://www.biznetwifi.com/img/main/Biznet_Home_Web_Banner_620x620px_Aug2018-IND.jpg",
+                      src: _vm.url + "/images/banner/biznethome.jpg",
                       alt: "",
                       "uk-scrollspy": "cls: uk-animation-fade"
                     }
@@ -66518,9 +66505,7 @@ var render = function() {
                       staticClass:
                         "uk-width-4-5 uk-box-shadow-large uk-align-center",
                       attrs: {
-                        src:
-                          _vm.url +
-                          "/images/banner/Biznet_Metronet_Web_Banner_620x620px_Dec2017_IND.jpg",
+                        src: _vm.url + "/images/banner/biznetmetronet.jpg",
                         alt: "",
                         "uk-scrollspy": "cls: uk-animation-fade"
                       }
