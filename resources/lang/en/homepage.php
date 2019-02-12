@@ -3,7 +3,7 @@
 return [
   'freewifi' => [
     'frombiznet' => 'Free Wi-Fi from Biznet',
-    'textcontent' => 'An easy way to get new things through the best internet access.<br /> Let\'s get started now'
+    'textcontent' => 'The easiest way to get a lot of new things through reliable internet access.<br /> Start now to get connected.'
   ],
   'product' => [
     'biznet_metronet' => 'Biznet Metronet is a Super Fast Broadband Internet service targeted for Small Medium Business (SMB). With service from 50 to 750 Mbps and uses Biznet Fiber network, ensure your business always runs smoothly.',

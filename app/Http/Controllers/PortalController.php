@@ -131,7 +131,7 @@ class PortalController extends Controller
         $mac = $request->session()->get('client_mac');
         $username = $request->session()->get('username');
         $displayname = $request->session()->get('displayname');
-        $agent = $request->cookie('agent');
+        $agent = $request->session()->get('agent');
 
         $checksubs = $subscriber->where('account_id', '=', $username);
         if( $checksubs->count() === 4 )
@@ -229,5 +229,11 @@ class PortalController extends Controller
     $location = $request->loc;
     $redirect = 'http://biznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1&shaping=true';
     return redirect( $redirect );
+  }
+
+  public function testing( Request $request )
+  {
+    $agent = $this->userAgent($request->server('HTTP_USER_AGENT'));
+    return $agent;
   }
 }

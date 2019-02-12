@@ -1,6 +1,6 @@
 <template lang="html">
-<div class="bzw-content-login">
-  <div class="uk-cover-container">
+<div class="bzw-content-login" uk-height-viewport>
+  <!--<div class="uk-cover-container">
     <div uk-slideshow="autoplay: true; animation: fade">
       <ul class="uk-slideshow-items" uk-height-viewport>
         <li>
@@ -19,7 +19,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </div>-->
   <div class="uk-position-cover">
     <div class="uk-container uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-2-3@s uk-align-center">
       <div class="container-bzw-login">

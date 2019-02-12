@@ -43,10 +43,8 @@
               </div>
               <div class="card-identity-mac">{{ device.device_agent }}</div>
               <div class="card-device-info">
-                <div class="device-info-lead">Perangkat terdaftar</div>
-                <div class="device-last-login">
-                  {{ dateConverted(device.logindate) }}
-                </div>
+                <div class="device-info-lead">Mac Address</div>
+                <div class="uk-text-uppercase device-last-login">{{ device.mac_address }}</div>
               </div>
               <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">Hapus</button>
             </div>
@@ -58,17 +56,25 @@
   <!-- desktop -->
 
   <!-- mobile -->
-  <section class="uk-card uk-card-default uk-card-body uk-hidden@s banner-hmpg-customer">
-    <div class="uk-grid-small" uk-grid>
-      <div class="uk-width-1-1">
-        <div class="uk-text-center banner-icon-customer">
-          <span class="fas fa-user-circle"></span>
+  <section class="uk-card uk-card-body uk-hidden@s box-content-customer">
+    <div class="uk-tile uk-tile-default box-customer-profile">
+      <div class="uk-grid-small" uk-grid>
+        <div class="uk-width-1-1">
+          <div class="uk-text-center box-icon-customer">
+            <!--<span class="fas fa-user-circle"></span>-->
+            <span class="icon ion-ios-contact"></span>
+          </div>
         </div>
-      </div>
-      <div class="uk-width-1-1-">
-        <div class="uk-text-center welcome-customer-name">Hi, {{ datauser.displayname }}</div>
-        <div v-show="datauser.customer_id">
-          <div class="uk-text-center mobile-customer-id">12266000</div>
+        <div class="uk-width-1-1">
+          <div class="uk-text-center box-customer-name">Hello, <br> {{ datauser.displayname }}</div>
+          <div v-show="datauser.customer_id">
+            <div class="uk-text-center box-customer-id">{{ datauser.customer_id }}</div>
+          </div>
+        </div>
+        <div class="uk-width-1-1">
+          <div class="uk-text-center">
+            <a href="https://www.biznethome.net/id/" class="uk-button uk-button-default box-button-browse">Browse Now</a>
+          </div>
         </div>
       </div>
     </div>
@@ -97,13 +103,13 @@
             </div>
           </div>
           <div class="uk-card uk-card-body">
-            <!--<div class="uk-margin">
-              <div class="card-labeldevice">Perangkat</div>
-              <div class="card-sublabel">{{ device.device_agent }}</div>
-            </div>-->
             <div class="uk-margin">
-              <div class="card-labeldevice">Perangkat terdaftar</div>
-              <div class="card-sublabel">{{ dateConverted(device.logindate) }}</div>
+              <div class="card-labeldevice">{{ device.device_agent }}</div>
+              <!--<div class="card-sublabel">{{ device.device_agent }}</div>-->
+            </div>
+            <div class="uk-margin">
+              <div class="card-labeldevice">Mac Address</div>
+              <div class="uk-text-uppercase card-sublabel">{{ device.mac_address }}</div>
             </div>
             <div class="uk-margin">
               <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">Hapus</button>

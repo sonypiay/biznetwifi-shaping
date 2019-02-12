@@ -1,5 +1,5 @@
 html,
-body { background: #f9f9f9; font-family: $font-primary; }
+body { background: #f9f9f9; font-family: $font-secondary; }
 .navbarlang {
   background: #f9f9f9;
   height: 30px;
@@ -8,9 +8,9 @@ body { background: #f9f9f9; font-family: $font-primary; }
     li {
       a {
         color: #666666;
-        font-family: $font-primary;
+        font-family: $font-secondary;
         font-size: 11px;
-        @include globalfontstyle(bold, normal, normal, 0.4px);
+        @include globalfontstyle(600, normal, normal, 0.4px);
         &:hover {
           //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
           color: #da068c;
@@ -35,11 +35,11 @@ body { background: #f9f9f9; font-family: $font-primary; }
     li {
       a {
         color: #666666;
-        font-family: $font-primary;
+        font-family: $font-secondary;
         font-size: 12px;
         padding-left: 15px;
         padding-right: 15px;
-        @include globalfontstyle(bold, normal, normal, 0.4px);
+        @include globalfontstyle(600, normal, normal, 0.4px);
         &:hover {
           //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
           color: #da068c;
@@ -83,9 +83,9 @@ body { background: #f9f9f9; font-family: $font-primary; }
   .lang-offcanvas {
     color: #da068c;
     text-decoration: none;
-    font-family: $font-primary;
+    font-family: $font-secondary;
     font-size: 12px;
-    @include globalfontstyle(bold, normal, normal, 0.4px);
+    @include globalfontstyle(600, normal, normal, 0.4px);
     &:hover {
       color: #da068c;
     }
@@ -98,9 +98,9 @@ body { background: #f9f9f9; font-family: $font-primary; }
       li {
         a {
           color: #ffffff;
-          font-family: $font-primary;
+          font-family: $font-secondary;
           font-size: 16px;
-          @include globalfontstyle(bold, normal, normal, 0.4px);
+          @include globalfontstyle(600, normal, normal, 0.4px);
           &:hover {
             color: #da068c;
           }
@@ -109,9 +109,9 @@ body { background: #f9f9f9; font-family: $font-primary; }
       .lang-sub {
         a {
           color: #666666;
-          font-family: $font-primary;
+          font-family: $font-secondary;
           font-size: 14px;
-          @include globalfontstyle(bold, normal, normal, 0.4px);
+          @include globalfontstyle(600, normal, normal, 0.4px);
           &:hover {
             color: #da068c;
           }
@@ -129,9 +129,9 @@ body { background: #f9f9f9; font-family: $font-primary; }
     li {
       a {
         color: #666666;
-        font-family: $font-primary;
+        font-family: $font-secondary;
         font-size: 14px;
-        @include globalfontstyle(bold, normal, normal, 0.4px);
+        @include globalfontstyle(600, normal, normal, 0.4px);
         &:hover {
           //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
           color: #da068c;
@@ -141,9 +141,9 @@ body { background: #f9f9f9; font-family: $font-primary; }
         li {
           a {
             color: #666666;
-            font-family: $font-primary;
+            font-family: $font-secondary;
             font-size: 14px;
-            @include globalfontstyle(bold, normal, normal, 0.4px);
+            @include globalfontstyle(600, normal, normal, 0.4px);
             &:hover {
               //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
               color: #da068c;
@@ -153,9 +153,9 @@ body { background: #f9f9f9; font-family: $font-primary; }
         .lang-sub {
           a {
             color: #666666;
-            font-family: $font-primary;
+            font-family: $font-secondary;
             font-size: 14px;
-            @include globalfontstyle(bold, normal, normal, 0.4px);
+            @include globalfontstyle(600, normal, normal, 0.4px);
             &:hover {
               //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
               color: #da068c;
@@ -184,11 +184,11 @@ body { background: #f9f9f9; font-family: $font-primary; }
     li {
       a {
         color: #666666;
-        font-family: $font-primary;
+        font-family: $font-secondary;
         font-size: 12px;
         padding-left: 15px;
         padding-right: 15px;
-        @include globalfontstyle(bold, normal, normal, 0.4px);
+        @include globalfontstyle(600, normal, normal, 0.4px);
         &:hover {
           //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
           color: #da068c;
@@ -205,42 +205,80 @@ body { background: #f9f9f9; font-family: $font-primary; }
     }
   }
 }
-.banner-hmpg-customer {
-  color: #ffffff;
-  .banner-hmpg-overlay {
-    background: rgba(0,0,0,0.4666);
-  }
-  .banner-icon-customer {
-    font-size: 72px;
-  }
-  .welcome-customer-name {
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.4px);
-  }
 
+.headermobile-customer {
+  background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  .navbarmobile-cust {
+    img { width: 120px; }
+  }
+  height: 230px;
+  border-radius: 0 0 25px 25px;
+  .naviicon_mobile {
+    color: #ffffff;
+    padding-left: 30px;
+    padding-right: 30px;
+    &:hover, &:focus {
+      color: #ffffff;
+    }
+  }
+}
+
+.box-content-customer {
+  .box-customer-profile {
+    border-radius: 15px;
+    margin-top: -10em;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  }
   @media screen and(min-width: 320px)
   {
-    //background: #f2f2f2;
-    background: linear-gradient(97deg, #da068c, #982e7e)  !important;
-    box-shadow: none;
-    .banner-icon-customer {
-      color: #f2f2f2;
-      font-size: 48px;
+    .box-icon-customer {
+      color: #333333;
+      font-size: 52px;
       margin-top: -8px;
     }
-    .welcome-customer-name {
-      font-size: 21px;
-      color: #f2f2f2;
+    .box-customer-name {
+      font-size: 18px;
+      color: #333333;
       padding-left: 10px;
     }
-    .mobile-customer-id {
-      color: #f2f2f2;
-      font-size: 14px;
+    .box-customer-id {
+      color: #333333;
+      font-size: 12px;
       padding-left: 10px;
-      font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.4px);
+      font-family: $font-secondary;
+      @include globalfontstyle(400, normal, normal, 0.4px);
     }
   }
+
+  .box-button-browse {
+    border: 0;
+    border-radius: 30px;
+    background: #da068c;
+    color: #ffffff;
+    font-size: 12px !important;
+    text-transform: capitalize;
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
+    margin-left: 5px;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+.banner-hmpg-overlay {
+  background: rgba(0,0,0,0.4666);
+}
+.banner-icon-customer {
+  font-size: 72px;
+}
+.welcome-customer-name {
+  font-family: $font-secondary;
+  @include globalfontstyle(400, normal, normal, 0.4px);
+}
+
+.banner-hmpg-customer {
+  color: #ffffff;
+  background: #ffffff !important;
   @media screen and(min-width: 640px)
   {
     height: 360px;
@@ -258,8 +296,8 @@ body { background: #f9f9f9; font-family: $font-primary; }
     .desktop-customer-id {
       color: #f2f2f2;
       font-size: 18px;
-      font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.4px);
+      font-family: $font-secondary;
+      @include globalfontstyle(400, normal, normal, 0.4px);
     }
   }
   @media screen and(min-width: 1024px)
@@ -274,8 +312,8 @@ body { background: #f9f9f9; font-family: $font-primary; }
     .desktop-customer-id {
       color: #f2f2f2;
       font-size: 14px;
-      font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.4px);
+      font-family: $font-secondary;
+      @include globalfontstyle(400, normal, normal, 0.4px);
     }
   }
 }
@@ -313,25 +351,25 @@ body { background: #f9f9f9; font-family: $font-primary; }
   .heading-listdevice {
     margin-bottom: 10px;
     font-size: 18px;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.4px);
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
   }
   .card-listdevice {
-    border-radius: 4px;
+    border-radius: 15px;
     background: #ffffff;
     box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
     .card-labeldevice {
       font-size: 14px;
-      font-family: $font-primary;
-      @include globalfontstyle(bold, normal, normal, 0.4px);
+      font-family: $font-secondary;
+      @include globalfontstyle(600, normal, normal, 0.4px);
       padding-left: 10px;
       text-align: center;
       color: #333333;
     }
     .card-sublabel {
       font-size: 14px;
-      font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.4px);
+      font-family: $font-secondary;
+      @include globalfontstyle(400, normal, normal, 0.4px);
       padding-left: 10px;
       text-align: center;
       color: #333333;
@@ -354,12 +392,12 @@ body { background: #f9f9f9; font-family: $font-primary; }
     border-radius: 30px;
     background: #da068c;
     color: #ffffff;
-    font-size: 12px !important;
+    font-size: 13px !important;
     text-transform: capitalize;
-    font-family: $font-primary;
-    @include globalfontstyle(bold, normal, normal, 0.4px);
+    font-family: $font-secondary;
+    @include globalfontstyle(600, normal, normal, 0.4px);
     margin-left: 5px;
-    box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -380,7 +418,7 @@ body { background: #f9f9f9; font-family: $font-primary; }
   }
   .card-devices {
     .card-device-box {
-      border-radius: 6px;
+      border-radius: 8px;
       background: #ffffff;
       box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
     }
@@ -392,8 +430,8 @@ body { background: #f9f9f9; font-family: $font-primary; }
 
     .card-identity-mac {
       color: #333333;
-      font-family: $font-primary;
-      @include globalfontstyle(bold, normal, normal, 0.4px);
+      font-family: $font-secondary;
+      @include globalfontstyle(600, normal, normal, 0.4px);
       text-align: center;
       margin-top: 20px;
       text-transform: uppercase;
@@ -402,14 +440,14 @@ body { background: #f9f9f9; font-family: $font-primary; }
       margin-top: 10px;
       .device-info-lead {
         color: #333333;
-        font-family: $font-primary;
-        @include globalfontstyle(bold, normal, normal, 0.4px);
+        font-family: $font-secondary;
+        @include globalfontstyle(600, normal, normal, 0.4px);
         text-align: center;
       }
       .device-last-login {
         color: #333333;
-        font-family: $font-primary;
-        @include globalfontstyle(normal, normal, normal, 0.4px);
+        font-family: $font-secondary;
+        @include globalfontstyle(600, normal, normal, 0.4px);
         text-align: center;
       }
     }
@@ -457,16 +495,16 @@ body { background: #f9f9f9; font-family: $font-primary; }
       border-radius: 30px;
       margin-top: 20px;
       margin-bottom: -10px;
-      color: #dddddd;
+      color: #ffffff;
       background: #da068c;
       box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
-      font-size: 12px !important;
+      font-size: 13px !important;
       text-transform: capitalize;
-      font-family: $font-primary;
-      @include globalfontstyle(bold, normal, normal, 0.4px);
+      font-family: $font-secondary;
+      @include globalfontstyle(600, normal, normal, 0.4px);
       &:hover, &:focus, &:active {
-        background: #dddddd;
-        color: #333333;
+        background: #da068c;
+        color: #ffffff;
       }
     }
     .delete-android {
@@ -502,8 +540,8 @@ body { background: #f9f9f9; font-family: $font-primary; }
   .bzw-heading-login {
     font-size: 24px !important;
     text-transform: capitalize;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.4px);
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
     text-align: center;
     color: #f2f2f2;
     margin-bottom: 1.3333em;
@@ -512,22 +550,23 @@ body { background: #f9f9f9; font-family: $font-primary; }
     color: #f2f2f2;
     font-size: 13px !important;
     text-transform: capitalize;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.4px);
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
   }
   .bzw-form-login {
     border: 0;
     border-radius: 30px;
     background: rgba(0,0,0,0.3);
     color: #f2f2f2;
-    font-size: 12px !important;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.4px);
+    font-size: 13px !important;
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
     &::placeholder {
       color: #bbbbbb;
     }
     &:hover, &:focus {
       color: #dddddd;
+      box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.2);
       &::placeholder {
         color: #dddddd;
       }
@@ -537,59 +576,25 @@ body { background: #f9f9f9; font-family: $font-primary; }
     border-radius: 30px;
     border: 0;
     color: #ffffff;
-    font-size: 12px !important;
+    font-size: 13px !important;
     text-transform: capitalize;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.4px);
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
+    background: linear-gradient(97deg, #da068c, #982e7e);
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.20s ease-in-out 0s;
+    -webkit-transition: all 0.20s ease-in-out 0s;
+    -moz-transition: all 0.20s ease-in-out 0s;
+    -ms-transition: all 0.20s ease-in-out 0s;
+    -o-transition: all 0.20s ease-in-out 0s;
+    &:hover, &:focus { background: #da068c; }
   }
 }
-
-@media screen and(min-width: 320px)
-{
-  .bzw-content-login { background: linear-gradient(97deg, #da068c, #982e7e); }
-  .bzw-bglogin { height: 40px; box-shadow: none; }
-}
-@media screen and(min-width: 360px)
-{
-  .bzw-content-login { background: linear-gradient(97deg, #da068c, #982e7e); }
-  .bzw-bglogin { height: 60px; box-shadow: none; }
-}
-@media screen and(min-width: 375px)
-{
-  .bzw-content-login { background: linear-gradient(97deg, #da068c, #982e7e); }
-  .bzw-bglogin { height: 110px; box-shadow: none; }
-}
-@media screen and(min-width: 768px)
-{
-  .bzw-content-login { background: #ffffff; }
-  .bzw-bglogin {
-    height: 320px;
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
-  }
-}
-@media screen and(min-width: 800px)
-{
-  .bzw-content-login { background: #ffffff; }
-  .bzw-bglogin {
-    height: 320px;
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
-    box-shadow: 0 4px 8px #dddddd;
-  }
-}
-
-@media screen and(min-width: 800px)
-{
-  .bzw-content-login { background: #ffffff; }
-  .bzw-bglogin {
-    height: 320px;
-    background: linear-gradient(97deg, #da068c, #982e7e) !important;
-  }
-}
+.bzw-content-login { background: linear-gradient(108deg, #da068c, #591749); }
 .copyright-login {
   font-size: 12px !important;
-  font-family: $font-primary;
-  @include globalfontstyle(bold, normal, normal, 0.4px);
+  font-family: $font-secondary;
+  @include globalfontstyle(600, normal, normal, 0.4px);
   color: #f2f2f2;
 }
 // biznetwifi login
@@ -602,14 +607,14 @@ body { background: #f9f9f9; font-family: $font-primary; }
   .footer-container { margin-top: 20px; margin-bottom: 20px; }
   .footer-heading {
     font-size: 22px !important;
-    font-family: $font-primary;
-    @include globalfontstyle(bold, normal, normal, 0.8px);
+    font-family: $font-secondary;
+    @include globalfontstyle(600, normal, normal, 0.8px);
     margin-bottom: 20px;
   }
   .footer-content {
     font-size: 13px !important;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.7px);
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.7px);
     margin-bottom: 20px;
     line-height: 1.8em;
     a {
@@ -620,23 +625,23 @@ body { background: #f9f9f9; font-family: $font-primary; }
   .link-useful {
     .uk-nav-header {
       font-size: 13px !important;
-      font-family: $font-primary;
-      @include globalfontstyle(bold, normal, normal, 1px);
+      font-family: $font-secondary;
+      @include globalfontstyle(600, normal, normal, 1px);
       color: #ffffff;
     }
     .uk-nav-divider { border-top: 1px solid #666666 !important; }
     li a {
       font-size: 13px;
-      font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.8px);
+      font-family: $font-secondary;
+      @include globalfontstyle(400, normal, normal, 0.8px);
       color: #ffffff !important;
     }
   }
   .midplaza {
     .copyright, .part-midplaza {
       font-size: 12px;
-      font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.8px);
+      font-family: $font-secondary;
+      @include globalfontstyle(400, normal, normal, 0.8px);
       color: #cccccc;
     }
     .part-midplaza a {
@@ -660,12 +665,12 @@ body { background: #f9f9f9; font-family: $font-primary; }
   .banner_ovlay_content {
     h1,h2,h3 {
       color: #ffffff;
-      font-family: $font-primary;
-      @include globalfontstyle(bold, normal, normal, 0.4px);
+      font-family: $font-secondary;
+      @include globalfontstyle(400, normal, normal, 0.4px);
     }
     p {
-      font-family: $font-primary;
-      @include globalfontstyle(normal, normal, normal, 0.6px);
+      font-family: $font-secondary;
+      @include globalfontstyle(400, normal, normal, 0.6px);
       color: #ffffff;
     }
   }
@@ -750,8 +755,8 @@ body { background: #f9f9f9; font-family: $font-primary; }
 .section-banner-biznethome {
   .section-banner-context-right {
     color: #ffffff;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.6px);
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.6px);
     text-align: center;
     background: transparent;
     background: linear-gradient(97deg, #FF6724, #F35B25, #FC6119);
@@ -859,8 +864,8 @@ body { background: #f9f9f9; font-family: $font-primary; }
   .section-banner-context-right {
     color: #ffffff;
     font-size: 16px;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.6px);
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.6px);
     text-align: center;
     background: transparent;
     background: linear-gradient(97deg, #291B6E, #493D84);
@@ -969,14 +974,14 @@ body { background: #f9f9f9; font-family: $font-primary; }
   .flashads-contactads {
     color: #888888;
     font-size: 18px;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.6px);
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.6px);
     margin-bottom: 10px;
   }
   a {
     color: #1d8fce;
     font-size: 18px;
-    font-family: $font-primary;
-    @include globalfontstyle(normal, normal, normal, 0.6px);
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.6px);
   }
 }
