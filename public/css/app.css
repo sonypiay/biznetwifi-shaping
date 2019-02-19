@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito:400,600,700,800,900);@import url(https://fonts.googleapis.com/css?family=Poppins:400,600,700);@font-face {
+@import url(https://fonts.googleapis.com/css?family=Arimo:400,700);@import url(https://fonts.googleapis.com/css?family=Poppins:400,600,700);@font-face {
   font-family: 'Univers';
   src: local("Univers"), url("/works/portalwifi/public/fonts/univers/UniversLTStd.otf") format("opentype");
   src: local("Univers"), url("/works/portalwifi/public/fonts/univers/Univers-light-normal.ttf") format("truetype");
@@ -41,7 +41,7 @@
 html,
 body {
   background: #f9f9f9;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
 }
 
 .navbarlang {
@@ -52,7 +52,7 @@ body {
 
 .navbarlang ul li a {
   color: #666666;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-size: 11px;
   font-weight: 600;
   font-stretch: normal;
@@ -77,7 +77,7 @@ body {
 
 .navbar ul li a {
   color: #666666;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-size: 12px;
   padding-left: 15px;
   padding-right: 15px;
@@ -128,7 +128,7 @@ body {
 .offcanvas-bar .lang-offcanvas {
   color: #da068c;
   text-decoration: none;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-size: 12px;
   font-weight: 600;
   font-stretch: normal;
@@ -149,7 +149,7 @@ body {
 
 .offcanvas-bar .lang-dropdown-offcanvas ul li a {
   color: #ffffff;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-size: 16px;
   font-weight: 600;
   font-stretch: normal;
@@ -163,7 +163,7 @@ body {
 
 .offcanvas-bar .lang-dropdown-offcanvas ul .lang-sub a {
   color: #666666;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-size: 14px;
   font-weight: 600;
   font-stretch: normal;
@@ -181,7 +181,7 @@ body {
 
 .offcanvas-bar .nav-offcanvas-bar li a {
   color: #666666;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-size: 14px;
   font-weight: 600;
   font-stretch: normal;
@@ -195,7 +195,7 @@ body {
 
 .offcanvas-bar .nav-offcanvas-bar li .nav-sub-offcanvas li a {
   color: #666666;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-size: 14px;
   font-weight: 600;
   font-stretch: normal;
@@ -209,7 +209,7 @@ body {
 
 .offcanvas-bar .nav-offcanvas-bar li .nav-sub-offcanvas .lang-sub a {
   color: #666666;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-size: 14px;
   font-weight: 600;
   font-stretch: normal;
@@ -239,7 +239,7 @@ body {
 
 .headerhmpg-cust .navhmpg-cust li a {
   color: #666666;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-size: 12px;
   padding-left: 15px;
   padding-right: 15px;
@@ -294,6 +294,18 @@ body {
           box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
+.box-content-customer .connected-mobile {
+  color: #666666;
+  font-size: 12px;
+  font-family: "Arimo", sans-serif;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  margin-top: 15px;
+  text-transform: capitalize;
+}
+
 @media screen and (min-width: 320px) {
   .box-content-customer .box-icon-customer {
     color: #333333;
@@ -302,7 +314,7 @@ body {
   }
 
   .box-content-customer .box-customer-name {
-    font-size: 18px;
+    font-size: 14px;
     color: #333333;
     padding-left: 10px;
   }
@@ -311,7 +323,7 @@ body {
     color: #333333;
     font-size: 12px;
     padding-left: 10px;
-    font-family: "Nunito", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-stretch: normal;
     font-style: normal;
@@ -326,7 +338,7 @@ body {
   color: #ffffff;
   font-size: 12px !important;
   text-transform: capitalize;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -345,7 +357,7 @@ body {
 }
 
 .welcome-customer-name {
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -378,7 +390,7 @@ body {
   .banner-hmpg-customer .desktop-customer-id {
     color: #f2f2f2;
     font-size: 18px;
-    font-family: "Nunito", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-stretch: normal;
     font-style: normal;
@@ -399,7 +411,7 @@ body {
   .banner-hmpg-customer .desktop-customer-id {
     color: #f2f2f2;
     font-size: 14px;
-    font-family: "Nunito", sans-serif;
+    font-family: "Arimo", sans-serif;
     font-weight: 400;
     font-stretch: normal;
     font-style: normal;
@@ -445,7 +457,7 @@ body {
 .container-listdevice .heading-listdevice {
   margin-bottom: 10px;
   font-size: 18px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -461,7 +473,7 @@ body {
 
 .container-listdevice .card-listdevice .card-labeldevice {
   font-size: 14px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -473,7 +485,7 @@ body {
 
 .container-listdevice .card-listdevice .card-sublabel {
   font-size: 14px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -504,7 +516,7 @@ body {
   color: #ffffff;
   font-size: 13px !important;
   text-transform: capitalize;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -561,7 +573,7 @@ body {
 
 .container .card-devices .card-identity-mac {
   color: #333333;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -577,7 +589,7 @@ body {
 
 .container .card-devices .card-device-info .device-info-lead {
   color: #333333;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -587,7 +599,7 @@ body {
 
 .container .card-devices .card-device-info .device-last-login {
   color: #333333;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -660,7 +672,7 @@ body {
           box-shadow: 10px 10px 40px 0 rgba(218, 6, 140, 0.3);
   font-size: 13px !important;
   text-transform: capitalize;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -710,7 +722,7 @@ body {
 .container-bzw-login .bzw-heading-login {
   font-size: 24px !important;
   text-transform: capitalize;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -724,7 +736,7 @@ body {
   color: #f2f2f2;
   font-size: 13px !important;
   text-transform: capitalize;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -737,7 +749,7 @@ body {
   background: rgba(0, 0, 0, 0.3);
   color: #f2f2f2;
   font-size: 13px !important;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -784,7 +796,7 @@ body {
   color: #ffffff;
   font-size: 13px !important;
   text-transform: capitalize;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -810,7 +822,7 @@ body {
 
 .copyright-login {
   font-size: 12px !important;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -831,7 +843,7 @@ body {
 
 .footer .footer-heading {
   font-size: 22px !important;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -841,7 +853,7 @@ body {
 
 .footer .footer-content {
   font-size: 13px !important;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -857,7 +869,7 @@ body {
 
 .footer .link-useful .uk-nav-header {
   font-size: 13px !important;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -871,7 +883,7 @@ body {
 
 .footer .link-useful li a {
   font-size: 13px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -882,7 +894,7 @@ body {
 .footer .midplaza .copyright,
 .footer .midplaza .part-midplaza {
   font-size: 12px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -915,7 +927,7 @@ body {
 .coverbannerhomepage .banner_ovlay_content h2,
 .coverbannerhomepage .banner_ovlay_content h3 {
   color: #ffffff;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -923,7 +935,7 @@ body {
 }
 
 .coverbannerhomepage .banner_ovlay_content p {
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -1029,7 +1041,7 @@ body {
 
 .section-banner-biznethome .section-banner-context-right {
   color: #ffffff;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -1154,7 +1166,7 @@ body {
 .section-banner-biznetmetronet .section-banner-context-right {
   color: #ffffff;
   font-size: 16px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -1283,7 +1295,7 @@ body {
 .section-homepage-flashads .flashads-contactads {
   color: #888888;
   font-size: 18px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -1294,7 +1306,7 @@ body {
 .section-homepage-flashads a {
   color: #1d8fce;
   font-size: 18px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Arimo", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
