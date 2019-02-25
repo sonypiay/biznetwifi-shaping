@@ -213,7 +213,7 @@ body { background: #f9f9f9; font-family: $font-secondary; }
     img { width: 120px; }
   }
   height: 230px;
-  border-radius: 0 0 15px 15px;
+  border-radius: 0 0 6% 6%;
   .naviicon_mobile {
     color: #ffffff;
     padding-left: 30px;
@@ -226,7 +226,7 @@ body { background: #f9f9f9; font-family: $font-secondary; }
 
 .box-content-customer {
   .box-customer-profile {
-    border-radius: 15px;
+    border-radius: 6%;
     margin-top: -10em;
     box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
   }
@@ -363,7 +363,7 @@ body { background: #f9f9f9; font-family: $font-secondary; }
     @include globalfontstyle(400, normal, normal, 0.4px);
   }
   .card-listdevice {
-    border-radius: 15px;
+    border-radius: 6%;
     background: #ffffff;
     box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
     .card-labeldevice {

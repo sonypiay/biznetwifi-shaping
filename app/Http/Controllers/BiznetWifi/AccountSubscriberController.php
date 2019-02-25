@@ -37,10 +37,16 @@ class AccountSubscriberController extends Controller
     {
       $getsubscriber = $subscriber->first();
       $this->timeout_socket = 3;
-      $radprimary = $this->check_connection('202.169.53.9', 3306);
+      $radprimary = $this->check_connection('182.253.238.66', 3306);
+      $radbackup = $this->check_connection('202.169.53.9', 3306);
+
       if( $radprimary['status'] == null )
       {
-        $this->delete_radcheck('202.169.53.9', $mac);
+        $this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
+      }
+      else
+      {
+        $this->delete_radcheck( '202.169.53.9', $getuser->mac_address );
       }
       $subscriber->delete();
       return response()->json([ 'statusText' => strtoupper( $mac ) . ' berhasil dihapus.' ], 200);
