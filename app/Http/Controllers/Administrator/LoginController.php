@@ -32,11 +32,14 @@ class LoginController extends Controller
           'statusText' => 'Login success',
           'status' => 200
         ];
+        $request->session()->put('admin_userid', $result->userid);
+        $request->session()->put('admin_logintime', date('Y-m-d H:i:s'));
+        $request->session()->put('admin_login', true);
       }
       else
       {
         $data = [
-          'statusText' => 'Invalid password',
+          'statusText' => 'Access denied. Please enter your correct password.',
           'status' => 403
         ];
       }
@@ -49,5 +52,10 @@ class LoginController extends Controller
       ];
     }
     return response()->json($data, $data['status']);
+  }
+
+  public function dologout( Request $request, UsersPanel $users )
+  {
+    
   }
 }

@@ -78,7 +78,6 @@ trait CustomFunction {
         ];
       }
     }
-
     return $res;
   }
 }

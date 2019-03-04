@@ -33,6 +33,13 @@ Route::group(['prefix' => 'biznetwifi'], function() {
 });
 
 Route::group(['prefix' => 'admin'], function() {
-  Route::get('/', function() { return redirect('admin_login'); });
+  Route::get('/', function() { return redirect()->route('admin_login'); });
   Route::get('/login', 'Administrator\LoginController@index')->name('admin_login');
+  Route::group(['prefix' => 'auth'], function() {
+    Route::post('/login', 'Administrator\LoginController@dologin');
+  });
+
+  Route::get('/dashboard', 'Administrator\DashboardController@index')->name('admin_dashboard');
+  Route::get('/devices', 'Administrator\AccountSubscribersController@index')->name('admin_deviceconnected');
+  Route::get('/list_device_connected', 'Administrator\AccountSubscribersController@data_deviceconnected');
 });

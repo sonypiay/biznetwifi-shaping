@@ -16,7 +16,14 @@ window.Vue = require('vue');
  */
 
 Vue.component('section-login', require('./components/administrator/Login.vue'));
+Vue.component('device-connected', require('./components/administrator/DeviceConnected.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+      formatDate(str, format) {
+        var res = moment(str).locale('en').format(format);
+        return res;
+      }
+    }
 });

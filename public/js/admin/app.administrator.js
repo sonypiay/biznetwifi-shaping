@@ -63944,9 +63944,16 @@ window.Vue = __webpack_require__(163);
  */
 
 Vue.component('section-login', __webpack_require__(192));
+Vue.component('device-connected', __webpack_require__(200));
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  data: {
+    formatDate: function formatDate(str, format) {
+      var res = moment(str).locale('en').format(format);
+      return res;
+    }
+  }
 });
 
 /***/ }),
@@ -64031,38 +64038,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
   data: function data() {
     return {
-      username: '',
-      password: '',
-      btnSubmit: 'Log In'
+      forms: {
+        username: '',
+        password: '',
+        submit: 'Sign In',
+        error: false
+      },
+      errors: {},
+      errorMessage: ''
     };
   },
 
   methods: {
     doLogin: function doLogin() {
+      var _this = this;
+
+      this.errors = {};
+      this.errorMessage = '';
+      if (this.forms.username === '') {
+        this.errors.username = 'Username must be required';
+        this.forms.error = true;
+      }
+      if (this.forms.password === '') {
+        this.errors.password = 'Password must be required';
+        this.forms.error = true;
+      }
+
+      if (this.forms.error === true) {
+        this.forms.error = false;
+        return false;
+      }
+
+      this.forms.submit = '<span uk-spinner></span>';
       axios({
         method: 'post',
         url: this.url + 'admin/auth/login',
+        headers: { 'Content-Type': 'application/json' },
         params: {
-          username: this.username,
-          password: this.password
+          username: this.forms.username,
+          password: this.forms.password
         }
       }).then(function (res) {
         var results = res.data;
-        console.log(res.status);
+        swal({
+          title: 'Authorization Granted',
+          text: 'Redirecting to dashboard page....',
+          icon: 'success'
+        });
+        var redirect = _this.url + 'admin/dashboard';
+        setTimeout(function () {
+          document.location = redirect;
+        }, 2000);
+      }).catch(function (err) {
+        if (err.response.status === 403) {
+          _this.errorMessage = err.response.data.statusText;
+        } else {
+          _this.errorMessage = err.response.statusText;
+        }
+        _this.forms.submit = 'Sign In';
       });
     }
-  },
-  mounted: function mounted() {}
+  }
 });
 
 /***/ }),
@@ -64081,115 +64122,112 @@ var render = function() {
           "uk-width-1-3@xl uk-width-1-3@l uk-width-2-3@m uk-width-1-2@s uk-align-center"
       },
       [
-        _c("img", {
-          staticClass: "uk-width-1-3 uk-align-center",
-          attrs: {
-            src: _vm.url + "images/logo/biznetwifi_primary.png",
-            alt: ""
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "uk-card uk-card-body uk-card-default login-container"
-          },
-          [
-            _c("h4", { staticClass: "login-heading" }, [_vm._v("Log In")]),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
-                staticClass: "uk-form-stacked",
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.doLogin($event)
-                  }
+        _c("div", { staticClass: "uk-tile uk-tile-default login-container" }, [
+          _c("img", {
+            staticClass: "uk-width-1-2 uk-align-center",
+            attrs: {
+              src: _vm.url + "images/logo/biznetwifi_primary.png",
+              alt: ""
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "uk-form-stacked",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.doLogin($event)
                 }
-              },
-              [
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("div", { staticClass: "uk-form-controls" }, [
-                    _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
-                      _c("span", {
-                        staticClass: "uk-form-icon",
-                        attrs: { "uk-icon": "user" }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.username,
-                            expression: "username"
-                          }
-                        ],
-                        staticClass: "uk-width-1-1 uk-input loginform",
-                        attrs: { type: "text", placeholder: "Username" },
-                        domProps: { value: _vm.username },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.username = $event.target.value
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c("div", { staticClass: "uk-form-controls" }, [
-                    _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
-                      _c("span", {
-                        staticClass: "uk-form-icon",
-                        attrs: { "uk-icon": "lock" }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.password,
-                            expression: "password"
-                          }
-                        ],
-                        staticClass: "uk-width-1-1 uk-input loginform",
-                        attrs: { type: "password", placeholder: "Password" },
-                        domProps: { value: _vm.password },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.password = $event.target.value
-                          }
-                        }
-                      })
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-margin" }, [
-                  _c(
-                    "button",
+              }
+            },
+            [
+              _vm.errorMessage
+                ? _c(
+                    "div",
                     {
-                      staticClass:
-                        "uk-width-1-1 uk-button uk-button-default btnlogin",
-                      domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
+                      staticClass: "uk-alert-danger",
+                      attrs: { "uk-alert": "" }
                     },
-                    [_vm._v("Log In")]
+                    [_vm._v(_vm._s(_vm.errorMessage))]
                   )
-                ])
-              ]
-            )
-          ]
-        )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-margin" }, [
+                _c("div", { staticClass: "uk-form-controls" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.forms.username,
+                        expression: "forms.username"
+                      }
+                    ],
+                    staticClass: "uk-width-1-1 uk-input loginform",
+                    attrs: { type: "text", placeholder: "Username" },
+                    domProps: { value: _vm.forms.username },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.forms, "username", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm.errors.username
+                  ? _c("div", { staticClass: "uk-text-danger uk-text-small" }, [
+                      _vm._v(_vm._s(_vm.errors.username))
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-margin" }, [
+                _c("div", { staticClass: "uk-form-controls" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.forms.password,
+                        expression: "forms.password"
+                      }
+                    ],
+                    staticClass: "uk-width-1-1 uk-input loginform",
+                    attrs: { type: "password", placeholder: "Password" },
+                    domProps: { value: _vm.forms.password },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.forms, "password", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm.errors.password
+                  ? _c("div", { staticClass: "uk-text-danger uk-text-small" }, [
+                      _vm._v(_vm._s(_vm.errors.password))
+                    ])
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-margin" }, [
+                _c("button", {
+                  staticClass:
+                    "uk-width-1-1 uk-button uk-button-default btnlogin",
+                  domProps: { innerHTML: _vm._s(_vm.forms.submit) }
+                })
+              ])
+            ]
+          )
+        ])
       ]
     )
   ])
@@ -64201,6 +64239,647 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-43d32e80", module.exports)
+  }
+}
+
+/***/ }),
+/* 195 */,
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(5)
+/* script */
+var __vue_script__ = __webpack_require__(201)
+/* template */
+var __vue_template__ = __webpack_require__(202)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/administrator/DeviceConnected.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6e8e66ea", Component.options)
+  } else {
+    hotAPI.reload("data-v-6e8e66ea", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 201 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url'],
+  data: function data() {
+    return {
+      forms: {
+        device: 'all',
+        keywords: '',
+        searchby: 'account_id',
+        selectedrows: 10
+      },
+      pagination: {
+        current: 1,
+        next_url: '',
+        prev_url: '',
+        path: '',
+        last_page: ''
+      },
+      devices: {
+        total: 0,
+        result: {},
+        device_total: {
+          ios: 0,
+          android: 0,
+          pc: 0,
+          tv: 0
+        },
+        loading: false,
+        loadingContent: ''
+      },
+      errors: {}
+    };
+  },
+
+  methods: {
+    dataTableClick: function dataTableClick(id) {
+      console.log(id);
+    },
+    getDeviceConnected: function getDeviceConnected(pages) {
+      var _this = this;
+
+      this.errors = {};
+      var param = '&keywords=' + this.forms.keywords + '&rows=' + this.forms.selectedrows + '&device=' + this.forms.device + '&searchby=' + this.forms.searchby;
+      var url = this.url + 'admin/list_device_connected';
+      if (pages === undefined) url = url + '?page=' + this.pagination.current + param;else url = pages + param;
+
+      if (this.devices.loading === false) this.devices.loading = true;
+      if (this.devices.loading === true) this.devices.loadingContent = '<span uk-spinner></span>';
+      axios({
+        method: 'get',
+        url: url,
+        headers: { 'Content-Type': 'application/json' }
+      }).then(function (res) {
+        var results = res.data;
+        _this.devices.total = results.results.total;
+        _this.devices.result = results.results.data;
+        _this.devices.device_total = {
+          ios: results.device_total.ios,
+          android: results.device_total.android,
+          pc: results.device_total.pc,
+          tv: results.device_total.tv
+        };
+        _this.pagination = {
+          current: results.results.current_page,
+          next_url: results.results.next_page_url,
+          prev_url: results.results.prev_page_url,
+          path: results.results.path,
+          last_page: results.results.last_page
+        };
+        _this.devices.loading = false;
+        _this.devices.loadingContent = '';
+      }).catch(function (err) {
+        _this.errors.load_data = err.response.statusText;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getDeviceConnected();
+  }
+});
+
+/***/ }),
+/* 202 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "uk-margin-top uk-container" }, [
+      _c("h3", { staticClass: "content-heading" }, [
+        _vm._v("Device Connected")
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "uk-card uk-card-default uk-card-body content-data" },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "uk-grid-small uk-margin-top",
+              attrs: { "uk-grid": "" }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s"
+                },
+                [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.forms.selectedrows,
+                          expression: "forms.selectedrows"
+                        }
+                      ],
+                      staticClass: "uk-select form-content-select",
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.forms,
+                              "selectedrows",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                          function($event) {
+                            _vm.getDeviceConnected(
+                              _vm.pagination.path + "?page=1"
+                            )
+                          }
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "10" } }, [
+                        _vm._v("10 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "20" } }, [
+                        _vm._v("20 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "50" } }, [
+                        _vm._v("50 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "100" } }, [
+                        _vm._v("100 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "200" } }, [
+                        _vm._v("200 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "500" } }, [
+                        _vm._v("500 rows")
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-5@xl uk-width-1-5@l uk-width-1-3@m uk-width-1-1@s"
+                },
+                [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.forms.device,
+                          expression: "forms.device"
+                        }
+                      ],
+                      staticClass: "uk-select form-content-select",
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.forms,
+                              "device",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                          function($event) {
+                            _vm.getDeviceConnected(
+                              _vm.pagination.path +
+                                "?page=" +
+                                _vm.pagination.current
+                            )
+                          }
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "all" } }, [
+                        _vm._v("All Devices")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "iOS" } }, [
+                        _vm._v("iOS")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "ANDROID" } }, [
+                        _vm._v("Android")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "PC/LAPTOP" } }, [
+                        _vm._v("PC/Laptop")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "TV" } }, [_vm._v("TV")])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-5@xl uk-width-1-5@l uk-width-1-3@m uk-width-1-1@s"
+                },
+                [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.forms.searchby,
+                          expression: "forms.searchby"
+                        }
+                      ],
+                      staticClass: "uk-select form-content-select",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.forms,
+                            "searchby",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "account_id" } }, [
+                        _vm._v("Account ID/Name")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "mac_address" } }, [
+                        _vm._v("Mac Address")
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-width-expand" }, [
+                _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                  _c("a", {
+                    staticClass: "uk-form-icon",
+                    attrs: { "uk-icon": "search" },
+                    on: {
+                      click: function($event) {
+                        _vm.getDeviceConnected(
+                          _vm.pagination.path +
+                            "?page=" +
+                            _vm.pagination.current
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.forms.keywords,
+                        expression: "forms.keywords"
+                      }
+                    ],
+                    staticClass: "uk-width-1-1 uk-input form-content-input",
+                    attrs: { type: "text", placeholder: "Type keywords..." },
+                    domProps: { value: _vm.forms.keywords },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        _vm.getDeviceConnected(
+                          _vm.pagination.path +
+                            "?page=" +
+                            _vm.pagination.current
+                        )
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.forms, "keywords", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-margin-top uk-overflow-auto" }, [
+            _vm.devices.loading === true
+              ? _c("div", {
+                  staticClass: "uk-text-center",
+                  domProps: { innerHTML: _vm._s(_vm.devices.loadingContent) }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-height-medium" }, [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.devices.result, function(device) {
+                      return _c(
+                        "tr",
+                        {
+                          on: {
+                            click: function($event) {
+                              _vm.dataTableClick(device.seqid)
+                            }
+                          }
+                        },
+                        [
+                          _c("td", [_vm._v(_vm._s(device.account_id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(device.mac_address))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(device.device_agent))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(
+                                _vm.$root.formatDate(
+                                  device.login_date,
+                                  "MMM DD, YYYY HH:mm "
+                                )
+                              )
+                            )
+                          ])
+                        ]
+                      )
+                    })
+                  )
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "uk-pagination content-data-pagination" }, [
+            _c("li", [
+              _vm.pagination.prev_url
+                ? _c(
+                    "a",
+                    {
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          _vm.getDeviceConnected(_vm.pagination.prev_url)
+                        }
+                      }
+                    },
+                    [_c("span", { attrs: { "uk-pagination-previous": "" } })]
+                  )
+                : _c("a", [
+                    _c("span", { attrs: { "uk-pagination-previous": "" } })
+                  ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _vm._v(
+                "Page " +
+                  _vm._s(_vm.pagination.current) +
+                  " of " +
+                  _vm._s(_vm.pagination.last_page)
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _vm.pagination.next_url
+                ? _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.getDeviceConnected(_vm.pagination.next_url)
+                        }
+                      }
+                    },
+                    [_c("span", { attrs: { "uk-pagination-next": "" } })]
+                  )
+                : _c("a", [_c("span", { attrs: { "uk-pagination-next": "" } })])
+            ])
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Account ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Mac Address")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Device")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Connected on")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6e8e66ea", module.exports)
   }
 }
 
