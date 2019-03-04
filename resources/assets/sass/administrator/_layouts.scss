@@ -1,14 +1,113 @@
 html {
-  background: #f9f9f9;
+  background: #ffffff;
 }
 
 // login layout
 .login-container {
+  box-shadow: none;
   .login-heading {
-    color: #666666;
+    color: $primary-color;
     font-family: $font-primary;
     @include globalfontstyle(600, normal, normal, 0.6px);
     text-align: center;
+    font-size: 32px;
   }
 }
 // login layout
+
+// administrator
+.navbarleft {
+  background: #ffffff;
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  .navbarlogo {
+    width: 200px;
+  }
+  .navbarnav {
+    border-top: 1px solid #eeeeee;
+    li {
+      a {
+        color: #666666;
+        font-family: $font-primary;
+        @include globalfontstyle(600, normal, normal, 0.6px);
+        font-size: 13px;
+        padding: 10px 20px;
+        &:hover {
+          background: #f9f9f9;
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+.headertop {
+  background: #ffffff;
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  .navbartop {
+    li {
+      a {
+        color: #666666;
+        font-family: $font-primary;
+        @include globalfontstyle(600, normal, normal, 0.6px);
+        font-size: 13px;
+        padding: 10px 20px;
+        text-transform: capitalize;
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+.content-heading {
+  color: #666666;
+  font-family: $font-primary;
+  @include globalfontstyle(600, normal, normal, 0.6px);
+}
+.content-data {
+  .form-content-select {
+    border: 1px solid #eeeeee;
+    border-radius: 30px;
+    color: #666666;
+    font-family: $font-primary;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-size: 12px;
+    &:hover, &:focus {
+      border: 1px solid $primary-color;
+      box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+  .form-content-input {
+    border: 1px solid #eeeeee;
+    border-radius: 30px;
+    color: #666666;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 12px;
+    &:hover, &:focus {
+      border: 1px solid $primary-color;
+      box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+  .table-data-content {
+    thead {
+      tr {
+        th {
+          color: #666666;
+          @include globalfontstyle(600, normal, normal, 0.6px);
+          font-family: $font-primary;
+          font-size: 12px;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          color: #666666;
+          @include globalfontstyle(400, normal, normal, 0.6px);
+          font-family: $font-primary;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

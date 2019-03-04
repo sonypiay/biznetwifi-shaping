@@ -11,7 +11,7 @@
           </div>
           <div class="uk-text-center welcome-customer-name">Hi, {{ datauser.displayname }}</div>
           <div v-show="datauser.customer_id">
-            <div class="uk-text-center desktop-customer-id">12266000</div>
+            <div class="uk-text-center desktop-customer-id">{{ datauser.customer_id }}</div>
           </div>
         </div>
       </div>
@@ -21,7 +21,7 @@
   <section class="uk-visible@s container">
     <div class="uk-card uk-card-default uk-card-body container-box">
       <div class="container-devices">
-        <div class="uk-margin-bottom container-heading">Perangkat Saya</div>
+        <div class="uk-margin-bottom container-heading">{{ custdash.mydevice }}</div>
         <div v-if="errors">
           <div class="uk-alert-error" uk-alert>
             {{ errors }}
@@ -30,7 +30,7 @@
         </div>
         <div v-if="devices.total === 0">
           <div class="uk-alert-warning" uk-alert>
-            Tidak ada perangkat yang terdaftar
+            {{ custdash.nodevice }}
           </div>
         </div>
         <div class="uk-grid-medium uk-flex-center" uk-grid>
@@ -46,7 +46,7 @@
                 <div class="device-info-lead">Mac Address</div>
                 <div class="uk-text-uppercase device-last-login">{{ device.mac_address }}</div>
               </div>
-              <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">Hapus</button>
+              <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">{{ custdash.btndelete }}</button>
             </div>
           </div>
         </div>
@@ -67,21 +67,19 @@
         </div>
         <div class="uk-width-1-1">
           <div class="uk-text-center box-customer-name">Hello, <br> {{ datauser.displayname }}</div>
-          <div v-show="datauser.customer_id">
-            <div class="uk-text-center box-customer-id">{{ datauser.customer_id }}</div>
-          </div>
         </div>
         <div class="uk-width-1-1">
           <div class="uk-text-center">
-            <a href="https://www.biznethome.net/id/" class="uk-button uk-button-default box-button-browse">Browse Now</a>
+            <a href="https://www.biznethome.net/id/" class="uk-button uk-button-default box-button-browse">{{ custdash.browse }}</a>
           </div>
+          <div class="uk-text-center connected-mobile">{{ connectlocale.biznetwifi.connected }}</div>
         </div>
       </div>
     </div>
   </section>
 
   <div class="uk-card uk-card-body uk-card-small container-listdevice uk-hidden@s">
-    <div class="heading-listdevice">Perangkat Saya</div>
+    <div class="heading-listdevice">{{ custdash.mydevice }}</div>
     <div v-if="errors">
       <div class="uk-alert-warning" uk-alert>
         {{ errors }}
@@ -112,7 +110,7 @@
               <div class="uk-text-uppercase card-sublabel">{{ device.mac_address }}</div>
             </div>
             <div class="uk-margin">
-              <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">Hapus</button>
+              <button @click="deleteDevice(device.account_id, device.mac_address)" class="uk-width-1-1 uk-button uk-button-default btn-delete-device">{{ custdash.btndelete }}</button>
             </div>
           </div>
         </div>
@@ -126,7 +124,7 @@
 
 <script>
 export default {
-  props: ['url', 'datauser'],
+  props: ['url', 'datauser', 'connectlocale', 'custdash'],
   data() {
     return {
       devices: {

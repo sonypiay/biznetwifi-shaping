@@ -45,8 +45,8 @@ class PortalController extends Controller
       $request->session()->put('starturl', $startUrl);
     }
 
-    $filter_location = explode('-', $location);
-    $merchant = $this->get_merchant( $filter_location[1] );
+    //$filter_location = explode('-', $location);
+    //$merchant = $this->get_merchant( $filter_location[1] );
 
     return response()->view('portal.connect', [
       'mac' => $client_mac,
@@ -55,7 +55,7 @@ class PortalController extends Controller
       'startUrl' => $startUrl,
       'loc' => [
         'origin' => $location,
-        'merchant' => $merchant
+        'merchant' => ''
       ],
       'ap' => $ap,
       'shaping' => $shaping
@@ -91,9 +91,9 @@ class PortalController extends Controller
       $request->session()->put('starturl', $startUrl);
     }
 
-    $convert_string = hex2bin( $location );
-    $filter_location = explode('-', $convert_string);
-    $merchant = $this->get_merchant( $filter_location[1] );
+    //$convert_string = hex2bin( $location );
+    //$filter_location = explode('-', $convert_string);
+    //$merchant = $this->get_merchant( $filter_location[1] );
 
     return response()->view('portal.connect', [
       'mac' => $client_mac,
@@ -101,8 +101,8 @@ class PortalController extends Controller
       'ssid' => $ssid,
       'startUrl' => $startUrl,
       'loc' => [
-        'origin' => $convert_string,
-        'merchant' => $merchant
+        'origin' => $location,
+        'merchant' => ''
       ],
       'ap' => $ap,
       'shaping' => $shaping
@@ -145,19 +145,19 @@ class PortalController extends Controller
           if( $getcurrentmac->count() == 0 )
           {
             $this->timeout_socket = 2;
-            $radprimary = $this->check_connection('202.169.53.9', 3306);
-            //$radbackup = $this->check_connection('182.253.238.66', 3306);
+            $radprimary = $this->check_connection('182.253.238.66', 3306);
+            $radbackup = $this->check_connection('202.169.53.9', 3306);
 
             if( $radprimary['status'] == null )
+            {
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              $this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
+            }
+            else
             {
               $this->add_radcheck( '202.169.53.9', $mac, $username );
               $this->delete_radcheck( '202.169.53.9', $getuser->mac_address );
             }
-            /*else
-            {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              $this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
-            }*/
 
             $subscriber->account_id = $username;
             $subscriber->mac_address = $mac;
@@ -177,16 +177,17 @@ class PortalController extends Controller
           if( $getcurrentmac->count() == 0 )
           {
             $this->timeout_socket = 2;
-            $radprimary = $this->check_connection('202.169.53.9', 3306);
-            //$radbackup = $this->check_connection('182.253.238.66', 3306);
+            $radprimary = $this->check_connection('182.253.238.66', 3306);
+            $radbackup = $this->check_connection('202.169.53.9', 3306);
+
             if( $radprimary['status'] == null )
+            {
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+            }
+            else
             {
               $this->add_radcheck( '202.169.53.9', $mac, $username );
             }
-            /*else
-            {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-            }*/
 
             $subscriber->account_id = $username;
             $subscriber->mac_address = $mac;
@@ -233,7 +234,12 @@ class PortalController extends Controller
 
   public function testing( Request $request )
   {
-    $agent = $this->userAgent($request->server('HTTP_USER_AGENT'));
-    return $agent;
+    $data = [
+      'nama' => 'Sony',
+      'divisi' => 'Staff',
+      'branch' => 'Head Office'
+    ];
+
+    return json_encode( $data );
   }
 }

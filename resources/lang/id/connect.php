@@ -4,7 +4,8 @@ return [
   'biznetwifi' => [
     'service' => 'Layanan Wi-Fi Turbo untuk pelanggan Biznet dengan kecepatan hingga 100 Mbps!',
     'login_heading' => 'Masuk Akun Biznet',
-    'btnlogin' => 'Masuk'
+    'btnlogin' => 'Masuk',
+    'connected' => 'Anda telah terhubung'
   ],
   'connect' => [
     'biznetwifi' => 'Masuk sebagai Pelanggan',

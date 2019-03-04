@@ -4,11 +4,12 @@ return [
   'biznetwifi' => [
     'service' => 'Wi-Fi Turbo Service for Biznet subscribers with speeds up to 100 Mbps!',
     'login_heading' => 'Login Biznet Account',
-    'btnlogin' => 'Log In'
+    'btnlogin' => 'Log In',
+    'connected' => 'You are connected'
   ],
   'connect' => [
-    'biznetwifi' => 'Login As Subscribers',
-    'freehotspot' => 'Login As Visitor'
+    'biznetwifi' => 'Log In As Subscribers',
+    'freehotspot' => 'Log In As Visitor'
   ],
   'errors' => [
     'username' => 'Please enter your username',

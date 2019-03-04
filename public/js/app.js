@@ -65188,11 +65188,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url', 'datauser'],
+  props: ['url', 'datauser', 'connectlocale', 'custdash'],
   data: function data() {
     return {
       devices: {
@@ -65315,7 +65313,7 @@ var render = function() {
                     _c(
                       "div",
                       { staticClass: "uk-text-center desktop-customer-id" },
-                      [_vm._v("12266000")]
+                      [_vm._v(_vm._s(_vm.datauser.customer_id))]
                     )
                   ]
                 )
@@ -65333,7 +65331,7 @@ var render = function() {
         [
           _c("div", { staticClass: "container-devices" }, [
             _c("div", { staticClass: "uk-margin-bottom container-heading" }, [
-              _vm._v("Perangkat Saya")
+              _vm._v(_vm._s(_vm.custdash.mydevice))
             ]),
             _vm._v(" "),
             _vm.errors
@@ -65369,7 +65367,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\r\n            Tidak ada perangkat yang terdaftar\r\n          "
+                        "\r\n            " +
+                          _vm._s(_vm.custdash.nodevice) +
+                          "\r\n          "
                       )
                     ]
                   )
@@ -65442,7 +65442,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Hapus")]
+                          [_vm._v(_vm._s(_vm.custdash.btndelete))]
                         )
                       ]
                     )
@@ -65478,31 +65478,28 @@ var render = function() {
                       _c("br"),
                       _vm._v(" " + _vm._s(_vm.datauser.displayname))
                     ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.datauser.customer_id,
-                          expression: "datauser.customer_id"
-                        }
-                      ]
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "uk-text-center box-customer-id" },
-                        [_vm._v(_vm._s(_vm.datauser.customer_id))]
-                      )
-                    ]
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(2)
+                _c("div", { staticClass: "uk-width-1-1" }, [
+                  _c("div", { staticClass: "uk-text-center" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass:
+                          "uk-button uk-button-default box-button-browse",
+                        attrs: { href: "https://www.biznethome.net/id/" }
+                      },
+                      [_vm._v(_vm._s(_vm.custdash.browse))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "uk-text-center connected-mobile" },
+                    [_vm._v(_vm._s(_vm.connectlocale.biznetwifi.connected))]
+                  )
+                ])
               ]
             )
           ]
@@ -65518,7 +65515,7 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "heading-listdevice" }, [
-          _vm._v("Perangkat Saya")
+          _vm._v(_vm._s(_vm.custdash.mydevice))
         ]),
         _vm._v(" "),
         _vm.errors
@@ -65554,10 +65551,10 @@ var render = function() {
                     { staticClass: "uk-tile uk-tile-default tile-icon-device" },
                     [
                       device.device_agent === "iOS"
-                        ? _c("div", [_vm._m(3, true)])
+                        ? _c("div", [_vm._m(2, true)])
                         : device.device_agent === "ANDROID"
-                          ? _c("div", [_vm._m(4, true)])
-                          : _c("div", [_vm._m(5, true)])
+                          ? _c("div", [_vm._m(3, true)])
+                          : _c("div", [_vm._m(4, true)])
                     ]
                   ),
                   _vm._v(" "),
@@ -65595,7 +65592,7 @@ var render = function() {
                             }
                           }
                         },
-                        [_vm._v("Hapus")]
+                        [_vm._v(_vm._s(_vm.custdash.btndelete))]
                       )
                     ])
                   ])
@@ -65624,23 +65621,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "uk-width-1-1" }, [
       _c("div", { staticClass: "uk-text-center box-icon-customer" }, [
         _c("span", { staticClass: "icon ion-ios-contact" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-1-1" }, [
-      _c("div", { staticClass: "uk-text-center" }, [
-        _c(
-          "a",
-          {
-            staticClass: "uk-button uk-button-default box-button-browse",
-            attrs: { href: "https://www.biznethome.net/id/" }
-          },
-          [_vm._v("Browse Now")]
-        )
       ])
     ])
   },
