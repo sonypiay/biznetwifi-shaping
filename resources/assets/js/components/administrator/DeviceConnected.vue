@@ -2,8 +2,8 @@
   <div>
     <div class="uk-margin-top uk-container">
       <h3 class="content-heading">Device Connected</h3>
-      <div class="uk-card uk-card-default uk-card-body content-data">
-        <div class="uk-grid-small uk-margin-top" uk-grid>
+      <div class="uk-card uk-card-body uk-card-small content-data">
+        <div class="uk-grid-small" uk-grid>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">
             <select class="uk-select form-content-select" v-model="forms.selectedrows" @change="getDeviceConnected( pagination.path + '?page=1' )">
               <option value="10">10 rows</option>
@@ -36,27 +36,43 @@
             </div>
           </div>
         </div>
-        <div class="uk-margin-top uk-overflow-auto">
+        <div class="uk-margin-top">
+          <div class="uk-margin">
+            <span class="uk-label">{{ devices.total }} device(s)</span>
+            <span class="uk-label">Android: {{ devices.device_total.android }}</span>
+            <span class="uk-label">iOS: {{ devices.device_total.ios }}</span>
+            <span class="uk-label">PC: {{ devices.device_total.pc }}</span>
+            <span class="uk-label">TV: {{ devices.device_total.tv }}</span>
+            <span class="uk-label">Unknown: {{ devices.device_total.unknown }}</span>
+          </div>
           <div v-if="devices.loading === true" class="uk-text-center" v-html="devices.loadingContent"></div>
-          <div class="uk-height-medium">
-            <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
-              <thead>
-                <tr>
-                  <th>Account ID</th>
-                  <th>Mac Address</th>
-                  <th>Device</th>
-                  <th>Connected on</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="device in devices.result" @click="dataTableClick(device.seqid)">
-                  <td>{{ device.account_id }}</td>
-                  <td>{{ device.mac_address }}</td>
-                  <td>{{ device.device_agent }}</td>
-                  <td>{{ $root.formatDate(device.login_date, 'MMM DD, YYYY HH:mm ') }}</td>
-                </tr>
-              </tbody>
-            </table>
+        </div>
+        <div class="table-overflow-content">
+          <div class="uk-overflow-auto">
+            <div class="uk-height-medium">
+              <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
+                <thead>
+                  <tr>
+                    <th class="uk-table-shrink">Action</th>
+                    <th>Account ID</th>
+                    <th>Mac Address</th>
+                    <th>Device</th>
+                    <th>Connected on</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="device in devices.result">
+                    <td>
+                      <a @click="deleteDevice(device.account_id, device.mac_address)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: Delete" uk-icon="trash"></a>
+                    </td>
+                    <td>{{ device.account_id }}</td>
+                    <td>{{ device.mac_address }}</td>
+                    <td>{{ device.device_agent }}</td>
+                    <td>{{ $root.formatDate(device.login_date, 'MMM DD, YYYY HH:mm ') }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <ul class="uk-pagination content-data-pagination">
@@ -108,7 +124,8 @@ export default {
           ios: 0,
           android: 0,
           pc: 0,
-          tv: 0
+          tv: 0,
+          unknown: 0
         },
         loading: false,
         loadingContent: ''
@@ -117,9 +134,44 @@ export default {
     }
   },
   methods: {
-    dataTableClick(id)
+    deleteDevice(account_id, mac_address)
     {
-      console.log(id);
+      swal({
+        title: 'Are you sure?',
+        text: 'MAC ' + mac_address + ' will be delete permanent.',
+        icon: 'warning',
+        dangerMode: true,
+        buttons: {
+          cancel: 'No',
+          confirm: {
+            text: 'Sure',
+            value: true
+          }
+        }
+      }).then( val => {
+        if( val )
+        {
+          axios({
+            method: 'delete',
+            url: this.url + 'admin/delete/devices/' + account_id + '/' + mac_address,
+            headers: { 'Content-Type': 'application/json' }
+          }).then( res => {
+            swal({
+              title: 'Success',
+              text: 'MAC ' + mac_address + ' deleted',
+              icon: 'success'
+            });
+            this.getDeviceConnected();
+          }).catch( err => {
+            swal({
+              title: 'Success',
+              text: 'Whoops, ' + err.response.statusText,
+              icon: 'success',
+              dangerMode: true
+            });
+          });
+        }
+      });
     },
     getDeviceConnected(pages)
     {
@@ -145,7 +197,8 @@ export default {
           ios: results.device_total.ios,
           android: results.device_total.android,
           pc: results.device_total.pc,
-          tv: results.device_total.tv
+          tv: results.device_total.tv,
+          unknown: results.device_total.unknown
         };
         this.pagination = {
           current: results.results.current_page,

@@ -17,7 +17,7 @@
         </ul>
       </div>
     </header>
-    <div id="app">@yield('main_section')</div>
+    <div class="uk-height-medium" id="app">@yield('main_section')</div>
     <script type="text/javascript" src="{{ asset('js/admin/app.administrator.js') }}"></script>
   </section>
 </div>
