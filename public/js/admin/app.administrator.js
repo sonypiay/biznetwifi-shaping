@@ -63944,7 +63944,7 @@ window.Vue = __webpack_require__(163);
  */
 
 Vue.component('section-login', __webpack_require__(192));
-Vue.component('device-connected', __webpack_require__(200));
+Vue.component('device-connected', __webpack_require__(195));
 
 var app = new Vue({
   el: '#app',
@@ -64243,20 +64243,15 @@ if (false) {
 }
 
 /***/ }),
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */,
-/* 199 */,
-/* 200 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(5)
 /* script */
-var __vue_script__ = __webpack_require__(201)
+var __vue_script__ = __webpack_require__(196)
 /* template */
-var __vue_template__ = __webpack_require__(202)
+var __vue_template__ = __webpack_require__(197)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -64295,11 +64290,27 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 201 */
+/* 196 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -64410,7 +64421,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           ios: 0,
           android: 0,
           pc: 0,
-          tv: 0
+          tv: 0,
+          unknown: 0
         },
         loading: false,
         loadingContent: ''
@@ -64420,11 +64432,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    dataTableClick: function dataTableClick(id) {
-      console.log(id);
+    deleteDevice: function deleteDevice(account_id, mac_address) {
+      var _this = this;
+
+      swal({
+        title: 'Are you sure?',
+        text: 'MAC ' + mac_address + ' will be delete permanent.',
+        icon: 'warning',
+        dangerMode: true,
+        buttons: {
+          cancel: 'No',
+          confirm: {
+            text: 'Sure',
+            value: true
+          }
+        }
+      }).then(function (val) {
+        if (val) {
+          axios({
+            method: 'delete',
+            url: _this.url + 'admin/delete/devices/' + account_id + '/' + mac_address,
+            headers: { 'Content-Type': 'application/json' }
+          }).then(function (res) {
+            swal({
+              title: 'Success',
+              text: 'MAC ' + mac_address + ' deleted',
+              icon: 'success'
+            });
+            _this.getDeviceConnected();
+          }).catch(function (err) {
+            swal({
+              title: 'Success',
+              text: 'Whoops, ' + err.response.statusText,
+              icon: 'success',
+              dangerMode: true
+            });
+          });
+        }
+      });
     },
     getDeviceConnected: function getDeviceConnected(pages) {
-      var _this = this;
+      var _this2 = this;
 
       this.errors = {};
       var param = '&keywords=' + this.forms.keywords + '&rows=' + this.forms.selectedrows + '&device=' + this.forms.device + '&searchby=' + this.forms.searchby;
@@ -64439,25 +64487,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         headers: { 'Content-Type': 'application/json' }
       }).then(function (res) {
         var results = res.data;
-        _this.devices.total = results.results.total;
-        _this.devices.result = results.results.data;
-        _this.devices.device_total = {
+        _this2.devices.total = results.results.total;
+        _this2.devices.result = results.results.data;
+        _this2.devices.device_total = {
           ios: results.device_total.ios,
           android: results.device_total.android,
           pc: results.device_total.pc,
-          tv: results.device_total.tv
+          tv: results.device_total.tv,
+          unknown: results.device_total.unknown
         };
-        _this.pagination = {
+        _this2.pagination = {
           current: results.results.current_page,
           next_url: results.results.next_page_url,
           prev_url: results.results.prev_page_url,
           path: results.results.path,
           last_page: results.results.last_page
         };
-        _this.devices.loading = false;
-        _this.devices.loadingContent = '';
+        _this2.devices.loading = false;
+        _this2.devices.loadingContent = '';
       }).catch(function (err) {
-        _this.errors.load_data = err.response.statusText;
+        _this2.errors.load_data = err.response.statusText;
       });
     }
   },
@@ -64467,7 +64516,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 202 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -64482,14 +64531,11 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "uk-card uk-card-default uk-card-body content-data" },
+        { staticClass: "uk-card uk-card-body uk-card-small content-data" },
         [
           _c(
             "div",
-            {
-              staticClass: "uk-grid-small uk-margin-top",
-              attrs: { "uk-grid": "" }
-            },
+            { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } },
             [
               _c(
                 "div",
@@ -64750,37 +64796,76 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "uk-margin-top uk-overflow-auto" }, [
+          _c("div", { staticClass: "uk-margin-top" }, [
+            _c("div", { staticClass: "uk-margin" }, [
+              _c("span", { staticClass: "uk-label" }, [
+                _vm._v(_vm._s(_vm.devices.total) + " device(s)")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "uk-label" }, [
+                _vm._v("Android: " + _vm._s(_vm.devices.device_total.android))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "uk-label" }, [
+                _vm._v("iOS: " + _vm._s(_vm.devices.device_total.ios))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "uk-label" }, [
+                _vm._v("PC: " + _vm._s(_vm.devices.device_total.pc))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "uk-label" }, [
+                _vm._v("TV: " + _vm._s(_vm.devices.device_total.tv))
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "uk-label" }, [
+                _vm._v("Unknown: " + _vm._s(_vm.devices.device_total.unknown))
+              ])
+            ]),
+            _vm._v(" "),
             _vm.devices.loading === true
               ? _c("div", {
                   staticClass: "uk-text-center",
                   domProps: { innerHTML: _vm._s(_vm.devices.loadingContent) }
                 })
-              : _vm._e(),
-            _vm._v(" "),
-            _c("div", { staticClass: "uk-height-medium" }, [
-              _c(
-                "table",
-                {
-                  staticClass:
-                    "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
-                },
-                [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.devices.result, function(device) {
-                      return _c(
-                        "tr",
-                        {
-                          on: {
-                            click: function($event) {
-                              _vm.dataTableClick(device.seqid)
-                            }
-                          }
-                        },
-                        [
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "table-overflow-content" }, [
+            _c("div", { staticClass: "uk-overflow-auto" }, [
+              _c("div", { staticClass: "uk-height-medium" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.devices.result, function(device) {
+                        return _c("tr", [
+                          _c("td", [
+                            _c("a", {
+                              staticClass:
+                                "uk-button uk-button-default uk-button-small table-btn-action",
+                              attrs: {
+                                "uk-tooltip": "title: Delete",
+                                "uk-icon": "trash"
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.deleteDevice(
+                                    device.account_id,
+                                    device.mac_address
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(device.account_id))]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(device.mac_address))]),
@@ -64797,12 +64882,12 @@ var render = function() {
                               )
                             )
                           ])
-                        ]
-                      )
-                    })
-                  )
-                ]
-              )
+                        ])
+                      })
+                    )
+                  ]
+                )
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -64863,6 +64948,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", { staticClass: "uk-table-shrink" }, [_vm._v("Action")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Account ID")]),
         _vm._v(" "),
         _c("th", [_vm._v("Mac Address")]),

@@ -56,6 +56,16 @@ class LoginController extends Controller
 
   public function dologout( Request $request, UsersPanel $users )
   {
-    
+    if( $request->session()->has('admin_login') )
+    {
+      $request->session()->forget(['admin_login'],['admin_logintime'],['admin_userid']);
+      $request->session()->flush();
+
+      return redirect()->route('admin_login');
+    }
+    else
+    {
+      return redirect()->route('admin_login');
+    }
   }
 }

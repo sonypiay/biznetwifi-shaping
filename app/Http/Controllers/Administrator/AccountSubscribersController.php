@@ -74,6 +74,7 @@ class AccountSubscribersController extends Controller
     $android = $subscriber->where('device_agent', '=', 'ANDROID')->count();
     $pc = $subscriber->where('device_agent', '=', 'PC/LAPTOP')->count();
     $tv = $subscriber->where('device_agent', '=', 'SMART TV')->count();
+    $unknown = $subscriber->where('device_agent', '=', '')->count();
 
     $res = [
       'status' => 200,
@@ -83,9 +84,35 @@ class AccountSubscribersController extends Controller
         'ios' => $ios,
         'android' => $android,
         'pc' => $pc,
-        'tv' => $tv
+        'tv' => $tv,
+        'unknown' => $unknown
       ]
     ];
+
+    return response()->json( $res, $res['status'] );
+  }
+
+  public function deleteDevice( Request $request, AccountSubscriber $subscriber, $account_id, $mac )
+  {
+    $query = $subscriber->where([
+      ['account_id', '=', $account_id],
+      ['mac_address', '=', $mac]
+    ]);
+    if( $query->count() === 1 )
+    {
+      $query->delete();
+      $res = [
+        'status' => 200,
+        'statusText' => $mac . ' deleted.'
+      ];
+    }
+    else
+    {
+      $res = [
+        'status' => 200,
+        'statusText' => 'Whoops, ' . $mac . ' not found'
+      ];
+    }
 
     return response()->json( $res, $res['status'] );
   }

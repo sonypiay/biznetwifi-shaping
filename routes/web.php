@@ -37,9 +37,13 @@ Route::group(['prefix' => 'admin'], function() {
   Route::get('/login', 'Administrator\LoginController@index')->name('admin_login');
   Route::group(['prefix' => 'auth'], function() {
     Route::post('/login', 'Administrator\LoginController@dologin');
+    Route::get('/logout', 'Administrator\LoginController@dologout')->name('admin_signout');
   });
 
   Route::get('/dashboard', 'Administrator\DashboardController@index')->name('admin_dashboard');
   Route::get('/devices', 'Administrator\AccountSubscribersController@index')->name('admin_deviceconnected');
   Route::get('/list_device_connected', 'Administrator\AccountSubscribersController@data_deviceconnected');
+  Route::group(['prefix' => 'delete'], function() {
+    Route::delete('devices/{account_id}/{mac}', 'Administrator\AccountSubscribersController@deleteDevice');
+  });
 });
