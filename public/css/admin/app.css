@@ -1,7 +1,7 @@
-@import url(https://fonts.googleapis.com/css?family=Arimo:400,700);@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700);.loginform {
+@import url(https://fonts.googleapis.com/css?family=Arimo:400,700);@import url(https://fonts.googleapis.com/css?family=Nunito:300,400,600,700,900);.loginform {
   border: 0;
   border-bottom: 1px solid #e9e9e9;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   color: #666666;
   font-size: 12px;
   font-weight: 400;
@@ -33,8 +33,9 @@
   background: #da068c;
   border-radius: 30px;
   color: #ffffff;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
+  text-transform: capitalize;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -58,7 +59,7 @@ html {
 
 .login-container .login-heading {
   color: #da068c;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -83,7 +84,7 @@ html {
 
 .navbarleft .navbarnav li a {
   color: #ffffff;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -105,7 +106,7 @@ html {
 
 .headertop .navbartop li a {
   color: #666666;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -121,7 +122,7 @@ html {
 
 .content-heading {
   color: #666666;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -132,7 +133,7 @@ html {
   border: 1px solid #eeeeee;
   border-radius: 30px;
   color: #666666;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -155,7 +156,7 @@ html {
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
 }
 
@@ -164,6 +165,21 @@ html {
   border: 1px solid #da068c;
   -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
           box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.content-data .content-data-pagination li a {
+  color: #666666;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito", sans-serif;
+  font-size: 12px !important;
+}
+
+.content-data .content-data-pagination li a:hover,
+.content-data .content-data-pagination li a:focus {
+  color: #333333;
 }
 
 .content-data .table-overflow-content {
@@ -176,7 +192,7 @@ html {
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
 }
 
@@ -186,7 +202,7 @@ html {
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
 }
 
@@ -202,7 +218,7 @@ html {
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
   border-radius: 4px;
   text-align: center;

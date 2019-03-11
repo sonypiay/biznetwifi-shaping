@@ -8,7 +8,7 @@
     <li class="uk-parent">
       <a href="#">Administration</a>
       <ul class="uk-nav-sub">
-        <li><a href="#">Log</a></li>
+        <li><a href="{{ route('admin_log_activity_pages') }}">Admin Activities</a></li>
         <li><a href="#">Admin Roles</a></li>
       </ul>
     </li>

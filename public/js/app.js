@@ -64533,7 +64533,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (_this.client_mac === '' && _this.uip === '' && _this.ssid === '' && _this.loc === '') {
           setTimeout(function () {
             document.location = redirect;
-          }, 2000);
+          }, 1000);
         } else {
           var username_radius = '9e1b9d0d7c59f0ed2a794f50015cf82339866406';
           var password_radius = 'e3e155b21531cc739bd78f36830ca697ec1d028b';

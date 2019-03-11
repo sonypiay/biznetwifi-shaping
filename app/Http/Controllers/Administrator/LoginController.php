@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Administrator;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\CustomFunction;
 use App\Database\UsersPanel;
+use App\Database\AdminLogActivity;
 use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
+  use CustomFunction;
+
   public function index( Request $request, UsersPanel $users )
   {
     $data = [
@@ -18,7 +22,7 @@ class LoginController extends Controller
     return response()->view('administrator.login', $data);
   }
 
-  public function dologin( Request $request, UsersPanel $users )
+  public function dologin( Request $request, UsersPanel $users, AdminLogActivity $log )
   {
     $username = $request->username;
     $password = $request->password;
@@ -35,6 +39,15 @@ class LoginController extends Controller
         $request->session()->put('admin_userid', $result->userid);
         $request->session()->put('admin_logintime', date('Y-m-d H:i:s'));
         $request->session()->put('admin_login', true);
+
+        $logs = new $log;
+        $logs->log_username = $username;
+        $logs->log_ip = $request->server('REMOTE_ADDR');
+        $logs->log_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $logs->log_browser = $this->getBrowserInfo( $request->server('HTTP_USER_AGENT') );
+        $logs->log_description = $result->fullname . ' has logged in';
+        $logs->log_type = 'Log On';
+        $logs->save();
       }
       else
       {
@@ -42,6 +55,15 @@ class LoginController extends Controller
           'statusText' => 'Access denied. Please enter your correct password.',
           'status' => 403
         ];
+
+        $logs = new $log;
+        $logs->log_username = $username;
+        $logs->log_ip = $request->server('REMOTE_ADDR');
+        $logs->log_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $logs->log_browser = $this->getBrowserInfo( $request->server('HTTP_USER_AGENT') );
+        $logs->log_description = $result->fullname . ' has failed to log on';
+        $logs->log_type = 'Log on failed';
+        $logs->save();
       }
     }
     else
@@ -50,14 +72,34 @@ class LoginController extends Controller
         'statusText' => 'Username did not match',
         'status' => 403
       ];
+
+      $logs = new $log;
+      $logs->log_username = $username;
+      $logs->log_ip = $request->server('REMOTE_ADDR');
+      $logs->log_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+      $logs->log_browser = $this->getBrowserInfo( $request->server('HTTP_USER_AGENT') );
+      $logs->log_description = $username . ' has no match';
+      $logs->log_type = 'Log on failed';
+      $logs->save();
     }
     return response()->json($data, $data['status']);
   }
 
-  public function dologout( Request $request, UsersPanel $users )
+  public function dologout( Request $request, UsersPanel $users, AdminLogActivity $log )
   {
     if( $request->session()->has('admin_login') )
     {
+      $result = $users->where('userid', $request->session()->get('admin_userid'))->first();
+
+      $logs = new $log;
+      $logs->log_username = $result->username;
+      $logs->log_ip = $request->server('REMOTE_ADDR');
+      $logs->log_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+      $logs->log_browser = $this->getBrowserInfo( $request->server('HTTP_USER_AGENT') );
+      $logs->log_description = $result->fullname . ' has logged off';
+      $logs->log_type = 'Log Off';
+      $logs->save();
+
       $request->session()->forget(['admin_login'],['admin_logintime'],['admin_userid']);
       $request->session()->flush();
 

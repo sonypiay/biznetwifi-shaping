@@ -80,4 +80,43 @@ trait CustomFunction {
     }
     return $res;
   }
+
+  public function getOsInfo()
+  {
+  	$os = array(
+  		'Windows' => 'Windows',
+  		'Android' => 'Android',
+  		'Linux' => 'Linux',
+  		'Mac OS' => '(Mac_PowerPC)|(Macintosh)',
+  		'iOS' => '(iPhone)|(iPad)|(iPod)'
+  	);
+
+  	foreach( $os as $os_info => $pattern )
+  	{
+  		$match = preg_match("/" . $pattern. "/i", $_SERVER['HTTP_USER_AGENT']);
+  		if( $match )
+  			return $os_info;
+  	}
+  	return 'Other';
+  }
+
+  public function getBrowserInfo()
+  {
+  	$os = array(
+  		'Firefox' => 'Firefox',
+  		'Chrome' => 'Chrome',
+  		'Opera' => 'Opera',
+  		'Internet Explorer' => 'Internet Explorer',
+  		'Edge' => 'Edge',
+  		'Safari' => 'Safari'
+  	);
+
+  	foreach( $os as $os_info => $pattern )
+  	{
+  		$match = preg_match("/" . $pattern. "/i", $_SERVER['HTTP_USER_AGENT']);
+  		if( $match )
+  			return $os_info;
+  	}
+  	return 'Other';
+  }
 }

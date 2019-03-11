@@ -88,6 +88,19 @@ html {
       box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
     }
   }
+  .content-data-pagination {
+    li {
+      a {
+        color: #666666;
+        @include globalfontstyle(400, normal, normal, 0.6px);
+        font-family: $font-primary;
+        font-size: 12px !important;
+        &:hover, &:focus {
+          color: #333333;
+        }
+      }
+    }
+  }
   .table-overflow-content { border-top: 1px solid #eeeeee; }
   .table-data-content {
     thead {

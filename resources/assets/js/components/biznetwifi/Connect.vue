@@ -165,7 +165,7 @@ export default {
           && this.ssid === ''
           && this.loc === '')
         {
-          setTimeout(function() { document.location = redirect; }, 2000);
+          setTimeout(function() { document.location = redirect; }, 1000);
         }
         else
         {
