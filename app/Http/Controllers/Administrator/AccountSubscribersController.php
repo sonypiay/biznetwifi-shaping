@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Database\AccountSubscriber;
-use App\RadiusAPI;
+use App\Database\AdminLogActivity;
+use App\Database\UsersPanel;
 use App\CustomFunction;
 use DateTime;
 use DatePeriod;
@@ -15,6 +16,8 @@ use App\Http\Controllers\Controller;
 
 class AccountSubscribersController extends Controller
 {
+  use CustomFunction;
+
   public function index( Request $request )
   {
     if( $request->session()->has('admin_login') )
@@ -92,7 +95,7 @@ class AccountSubscribersController extends Controller
     return response()->json( $res, $res['status'] );
   }
 
-  public function deleteDevice( Request $request, AccountSubscriber $subscriber, $account_id, $mac )
+  public function deleteDevice( Request $request, UsersPanel $users, AccountSubscriber $subscriber, AdminLogActivity $log, $account_id, $mac )
   {
     $query = $subscriber->where([
       ['account_id', '=', $account_id],
@@ -100,6 +103,16 @@ class AccountSubscribersController extends Controller
     ]);
     if( $query->count() === 1 )
     {
+      $result = $users->where('userid', $request->session()->get('admin_userid'))->first();
+      $logs = new $log;
+      $logs->log_username = $result->username;
+      $logs->log_ip = $request->server('REMOTE_ADDR');
+      $logs->log_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+      $logs->log_browser = $this->getBrowserInfo( $request->server('HTTP_USER_AGENT') );
+      $logs->log_description = $result->fullname . ' has delete devices.';
+      $logs->log_type = 'Delete';
+      $logs->save();
+
       $query->delete();
       $res = [
         'status' => 200,

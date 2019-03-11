@@ -234,12 +234,6 @@ class PortalController extends Controller
 
   public function testing( Request $request )
   {
-    $data = [
-      'nama' => 'Sony',
-      'divisi' => 'Staff',
-      'branch' => 'Head Office'
-    ];
-
-    return json_encode( $data );
+    
   }
 }

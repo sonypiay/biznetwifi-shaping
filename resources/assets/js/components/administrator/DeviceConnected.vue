@@ -77,14 +77,14 @@
         </div>
         <ul class="uk-pagination content-data-pagination">
           <li>
-            <a v-if="pagination.prev_url" @click="getDeviceConnected( pagination.prev_url )" href="#">
+            <a v-if="pagination.prev_url" @click="getDeviceConnected( pagination.prev_url )">
               <span uk-pagination-previous></span>
             </a>
             <a v-else>
               <span uk-pagination-previous></span>
             </a>
           </li>
-          <li>Page {{ pagination.current }} of {{ pagination.last_page }}</li>
+          <li><a>Page {{ pagination.current }} of {{ pagination.last_page }}</a></li>
           <li>
             <a v-if="pagination.next_url" @click="getDeviceConnected( pagination.next_url )">
               <span uk-pagination-next></span>
@@ -164,9 +164,9 @@ export default {
             this.getDeviceConnected();
           }).catch( err => {
             swal({
-              title: 'Success',
-              text: 'Whoops, ' + err.response.statusText,
-              icon: 'success',
+              title: 'Whoops',
+              text: 'An error has occured. ' + err.response.statusText,
+              icon: 'warning',
               dangerMode: true
             });
           });

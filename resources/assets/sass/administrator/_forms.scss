@@ -19,6 +19,7 @@
   color: #ffffff;
   font-family: $font-primary;
   font-size: 12px;
+  text-transform: capitalize;
   @include globalfontstyle(600, normal, normal, 0.6px);
   &:hover, &:focus {
     color: #ffffff;
