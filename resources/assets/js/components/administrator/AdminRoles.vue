@@ -1,11 +1,63 @@
 <template>
   <div>
+    <div id="modal" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body content-data-modal">
+        <a class="uk-modal-close-default" uk-close></a>
+        <h3>
+          <span v-if="forms.edit">Edit Admin Roles</span>
+          <span v-else>Add Admin Roles</span>
+        </h3>
+        <form class="uk-form-stacked" @submit.prevent="onAddOrUpdateRole()">
+          <div v-if="errorMessage" class="uk-alert-danger" uk-alert>{{ errorMessage }}</div>
+          <div class="uk-margin">
+            <label class="uk-form-label">Fullname</label>
+            <div class="uk-form-controls">
+              <input type="text" placeholder="Enter fullname" class="uk-width-1-1 uk-input form-modal-input" v-model="forms.fullname">
+            </div>
+            <div class="uk-text-danger uk-text-small" v-if="errors.fullname">{{ errors.fullname }}</div>
+          </div>
+          <div class="uk-margin">
+            <label class="uk-form-label">Username</label>
+            <div class="uk-form-controls">
+              <input type="text" placeholder="Enter username" class="uk-width-1-1 uk-input form-modal-input" v-model="forms.username">
+            </div>
+            <div class="uk-text-danger uk-text-small" v-if="errors.username">{{ errors.username }}</div>
+          </div>
+          <div class="uk-margin">
+            <label class="uk-form-label">Email</label>
+            <div class="uk-form-controls">
+              <input type="email" placeholder="Enter email" class="uk-width-1-1 uk-input form-modal-input" v-model="forms.email">
+            </div>
+            <div class="uk-text-danger uk-text-small" v-if="errors.email">{{ errors.email }}</div>
+          </div>
+          <div class="uk-margin">
+            <label class="uk-form-label">Password</label>
+            <div class="uk-form-controls">
+              <input type="password" placeholder="Enter password" class="uk-width-1-1 uk-input form-modal-input" v-model="forms.password">
+            </div>
+            <div class="uk-text-danger uk-text-small" v-if="errors.password">{{ errors.password }}</div>
+          </div>
+          <div class="uk-margin">
+            <label class="uk-form-label">Privilege</label>
+            <select class="uk-width-1-1 uk-select form-modal-select" v-model="forms.privilege">
+              <option value="full">Full Access</option>
+              <option value="write">Write</option>
+              <option value="read">Read Only</option>
+            </select>
+          </div>
+          <div class="uk-margin">
+            <button class="uk-button uk-button-default form-modal-button" v-html="forms.submit"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div class="uk-margin-top uk-container">
       <h3 class="content-heading">Admin Roles</h3>
       <div class="uk-card uk-card-body uk-card-small content-data">
         <div class="uk-grid-small" uk-grid>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">
-            <button class="uk-width-1-1 uk-button uk-button-default form-content-button" name="button">Add New Roles</button>
+            <button @click="modalAddOrUpdate()" class="uk-width-1-1 uk-button uk-button-default form-content-button" name="button">Add New Roles</button>
           </div>
           <div class="uk-width-1-5@xl uk-width-1-5@l uk-width-1-3@m uk-width-1-1@s">
             <select class="uk-select form-content-select" v-model="forms.selectedrows" @change="getAdminRoles( pagination.path + '?page=' + pagination.current )">
@@ -39,8 +91,8 @@
                 <tbody>
                   <tr v-for="roles in adminroles.results">
                     <td>
-                      <a class="uk-icon-button" uk-icon="pencil"></a>
-                      <a class="uk-icon-button" uk-icon="trash"></a>
+                      <a @click="modalAddOrUpdate( roles )" class="uk-icon-button" uk-icon="pencil"></a>
+                      <a @click="" class="uk-icon-button" uk-icon="trash"></a>
                     </td>
                     <td>{{ roles.username }}</td>
                     <td>{{ roles.fullname }}</td>
@@ -67,12 +119,14 @@ export default {
       forms: {
         selectedrows: 10,
         keywords: '',
+        userid: '',
         username: '',
         password: '',
         email: '',
         fullname: '',
+        privilege: 'full',
         error: false,
-        submit: false
+        submit: 'Add'
       },
       errors: {},
       errorMessage: '',
@@ -91,7 +145,8 @@ export default {
     }
   },
   methods: {
-    formatDate(str, format) {
+    formatDate(str, format)
+    {
       var res = moment(str).locale('en').format(format);
       return res;
     },
@@ -124,6 +179,67 @@ export default {
         console.log( err.response.statusText );
         this.isLoading = false;
       });
+    },
+    modalAddOrUpdate( role )
+    {
+      if( role === undefined )
+      {
+        this.forms.userid = '';
+        this.forms.username = '';
+        this.forms.password = '';
+        this.forms.email = '';
+        this.forms.fullname = '';
+        this.forms.privilege = 'full';
+        this.forms.submit = 'Add';
+      }
+      else
+      {
+        this.forms.userid = role.userid;
+        this.forms.username = role.username;
+        this.forms.password = '';
+        this.forms.email = role.email;
+        this.forms.fullname = role.fullname;
+        this.forms.privilege = role.privilege;
+        this.forms.submit = 'Edit';
+      }
+      this.forms.error = '';
+      this.errors = {};
+      this.errorMessage = '';
+
+      console.log( this.forms );
+
+      UIkit.modal('#modal').show();
+    },
+    onAddOrUpdateRole()
+    {
+      this.errors = {};
+      this.errorMessage = '';
+      if( this.forms.username === '' )
+      {
+        this.errors.username = 'Username is required.';
+        this.forms.error = true;
+      }
+      if( this.forms.email === '' )
+      {
+        this.errors.email = 'Email is required.';
+        this.forms.error = true;
+      }
+      if( this.forms.password === '' )
+      {
+        this.errors.password = 'Password is required';
+        this.forms.error = true;
+      }
+      if( this.forms.password.length < 8 )
+      {
+        this.errors.password = 'Password must be at least 8 character(s)';
+        this.forms.error = true;
+      }
+
+      if( this.forms.error === true )
+      {
+        this.forms.error = false;
+        return false;
+      }
     }
   },
   mounted() {

@@ -253,3 +253,63 @@ html {
   border: 1px solid #da068c;
 }
 
+.content-data-modal {
+  border-radius: 6px;
+  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.content-data-modal h3 {
+  color: #666666;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+}
+
+.content-data-modal .form-modal-input,
+.content-data-modal .form-modal-select {
+  border: 1px solid #eeeeee;
+  border-radius: 4px;
+  color: #666666;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 12px;
+}
+
+.content-data-modal .form-modal-input:hover,
+.content-data-modal .form-modal-input:focus,
+.content-data-modal .form-modal-select:hover,
+.content-data-modal .form-modal-select:focus {
+  border: 1px solid #da068c;
+  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.content-data-modal .form-modal-button {
+  border: 1px solid #eeeeee;
+  border-radius: 4px;
+  color: #666666;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 11px;
+  background: #ffffff;
+  text-transform: capitalize;
+}
+
+.content-data-modal .form-modal-button:hover,
+.content-data-modal .form-modal-button:focus {
+  border: 1px solid #da068c;
+  background: #da068c;
+  color: #ffffff;
+  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+

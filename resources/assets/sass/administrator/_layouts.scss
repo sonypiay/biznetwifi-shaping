@@ -159,3 +159,41 @@ html {
     }
   }
 }
+.content-data-modal {
+  border-radius: 6px;
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  h3 {
+    color: #666666;
+    font-family: $font-primary;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+  }
+  .form-modal-input,
+  .form-modal-select {
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    color: #666666;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 12px;
+    &:hover, &:focus {
+      border: 1px solid $primary-color;
+      box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+  .form-modal-button {
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    color: #666666;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 11px;
+    background: #ffffff;
+    text-transform: capitalize;
+    &:hover, &:focus {
+      border: 1px solid $primary-color;
+      background: $primary-color;
+      color: #ffffff;
+      box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+}
