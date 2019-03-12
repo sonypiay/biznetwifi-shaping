@@ -31,9 +31,23 @@ class AdminRolesController extends Controller
     }
   }
 
-  public function data_admin_role( Request $request, AdminRoles $roles )
+  public function data_admin_roles( Request $request, AdminRoles $roles )
   {
     $keywords = $request->keywords;
-    
+    $rows = isset( $request->rows ) ? $request->rows : 10;
+
+    if( empty( $keywords ) )
+    {
+      $query = $roles->orderBy('userid')
+      ->paginate( $rows );
+    }
+    else
+    {
+      $query = $roles->where('username', 'like', '%' . $keywords . '%')
+      ->orWhere('fullname', 'like', '%' . $keywords . '%')
+      ->paginate( $rows );
+    }
+
+    return response()->json( $query, 200 );
   }
 }

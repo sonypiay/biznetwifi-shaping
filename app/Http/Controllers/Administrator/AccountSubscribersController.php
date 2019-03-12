@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Database\AccountSubscriber;
 use App\Database\AdminLogActivity;
-use App\Database\UsersPanel;
+use App\Database\AdminRoles;
 use App\CustomFunction;
 use DateTime;
 use DatePeriod;
@@ -95,7 +95,7 @@ class AccountSubscribersController extends Controller
     return response()->json( $res, $res['status'] );
   }
 
-  public function deleteDevice( Request $request, UsersPanel $users, AccountSubscriber $subscriber, AdminLogActivity $log, $account_id, $mac )
+  public function deleteDevice( Request $request, AdminRoles $users, AccountSubscriber $subscriber, AdminLogActivity $log, $account_id, $mac )
   {
     $query = $subscriber->where([
       ['account_id', '=', $account_id],

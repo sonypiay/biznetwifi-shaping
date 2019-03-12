@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Database\UsersPanel;
+use App\Database\AdminRoles;
 use App\Http\Controllers\Controller;
 use App\RadiusAPI;
 use App\CustomFunction;

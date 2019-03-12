@@ -81,11 +81,9 @@
 </template>
 
 <script>
-import VCalendar from 'v-calendar';
-import 'v-calendar/lib/v-calendar.min.css';
+
 export default {
   props: ['url'],
-  components: { VCalendar },
   data() {
     return {
       logs_activity: {
