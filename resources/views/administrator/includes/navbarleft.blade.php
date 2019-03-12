@@ -9,7 +9,7 @@
       <a href="#">Administration</a>
       <ul class="uk-nav-sub">
         <li><a href="{{ route('admin_log_activity_pages') }}">Admin Activities</a></li>
-        <li><a href="#">Admin Roles</a></li>
+        <li><a href="{{ route('admin_roles_page') }}">Admin Roles</a></li>
       </ul>
     </li>
     <li><a href="{{ route('admin_signout') }}">Log Out</a></li>

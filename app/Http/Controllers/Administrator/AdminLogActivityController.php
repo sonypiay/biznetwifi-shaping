@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Database\AccountSubscriber;
 use App\Database\AdminLogActivity;
-use App\Database\UsersPanel;
+use App\Database\AdminRoles;
 use App\CustomFunction;
 use DateTime;
 use DatePeriod;
@@ -17,7 +17,7 @@ class AdminLogActivityController extends Controller
 {
   use CustomFunction;
 
-  public function index( Request $request, UsersPanel $users )
+  public function index( Request $request, AdminRoles $users )
   {
     if( $request->session()->has('admin_login') )
     {
@@ -35,7 +35,7 @@ class AdminLogActivityController extends Controller
   public function data_log_activity( Request $request, AdminLogActivity $logs )
   {
     $keywords = $request->keywords;
-    $filterdevice = isset( $request->filterdevice ) ? $request->device : 'all';
+    $filterdevice = isset( $request->device ) ? $request->device : 'all';
     $rows = isset( $request->rows ) ? $request->rows : 10;
 
     if( empty( $keywords ) )

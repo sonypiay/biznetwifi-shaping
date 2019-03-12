@@ -38,7 +38,7 @@ class LoginController extends Controller
 
     if( preg_match( "/^[a-zA-Z+_]*$/", $username ) )
     {
-      $this->ldap_username = $username;
+      $this->ldap_username = strtolower( $username );
       $this->ldap_password = $password;
       $ldap = $this->auth_ldap();
 
@@ -46,7 +46,7 @@ class LoginController extends Controller
       if( $res['status'] == 200 )
       {
         $request->session()->put('displayname', $res['response']['displayname']);
-        $request->session()->put('username', $username);
+        $request->session()->put('username', $this->ldap_username);
         $request->session()->put('ip', $request->server('REMOTE_ADDR'));
         $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
         $request->session()->put('logintime', time());
@@ -104,7 +104,7 @@ class LoginController extends Controller
       $request->session()->forget('logintime');
       $request->session()->forget('agent');
       $request->session()->flush();
-      
+
       return redirect()->route('pagelogin_biznetwifi');
     }
     else

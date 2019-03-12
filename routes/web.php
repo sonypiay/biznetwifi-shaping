@@ -44,6 +44,8 @@ Route::group(['prefix' => 'admin'], function() {
   Route::get('/devices', 'Administrator\AccountSubscribersController@index')->name('admin_deviceconnected');
   Route::get('/log_admin', 'Administrator\AdminLogActivityController@index')->name('admin_log_activity_pages');
   Route::get('/log_data_admin', 'Administrator\AdminLogActivityController@data_log_activity');
+  Route::get('/roles', 'Administrator\AdminRolesController@index')->name('admin_roles_page');
+  Route::get('/data_admin_roles', 'Administrator\AdminRolesController@data_admin_roles');
   Route::get('/list_device_connected', 'Administrator\AccountSubscribersController@data_deviceconnected');
   Route::group(['prefix' => 'delete'], function() {
     Route::delete('devices/{account_id}/{mac}', 'Administrator\AccountSubscribersController@deleteDevice');

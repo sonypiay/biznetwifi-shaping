@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\CustomFunction;
-use App\Database\UsersPanel;
+use App\Database\AdminRoles;
 use App\Database\AdminLogActivity;
 use App\Http\Controllers\Controller;
 
@@ -13,7 +13,7 @@ class LoginController extends Controller
 {
   use CustomFunction;
 
-  public function index( Request $request, UsersPanel $users )
+  public function index( Request $request, AdminRoles $users )
   {
     $data = [
       'request' => $request->all(),
@@ -22,7 +22,7 @@ class LoginController extends Controller
     return response()->view('administrator.login', $data);
   }
 
-  public function dologin( Request $request, UsersPanel $users, AdminLogActivity $log )
+  public function dologin( Request $request, AdminRoles $users, AdminLogActivity $log )
   {
     $username = $request->username;
     $password = $request->password;
@@ -85,7 +85,7 @@ class LoginController extends Controller
     return response()->json($data, $data['status']);
   }
 
-  public function dologout( Request $request, UsersPanel $users, AdminLogActivity $log )
+  public function dologout( Request $request, AdminRoles $users, AdminLogActivity $log )
   {
     if( $request->session()->has('admin_login') )
     {

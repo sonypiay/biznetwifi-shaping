@@ -4,9 +4,9 @@ namespace App\Database;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UsersPanel extends Model
+class AdminRoles extends Model
 {
-  public $timestamps = false;
+  public $timestamps = true;
   protected $table = 'users';
   protected $primaryKey = 'username';
   public $incrementing = false;
