@@ -18,6 +18,7 @@ window.Vue = require('vue');
 Vue.component('section-login', require('./components/administrator/Login.vue'));
 Vue.component('device-connected', require('./components/administrator/DeviceConnected.vue'));
 Vue.component('admin-log-activity', require('./components/administrator/AdminLogActivity.vue'));
+Vue.component('admin-roles', require('./components/administrator/AdminRoles.vue'));
 
 const app = new Vue({
     el: '#app',

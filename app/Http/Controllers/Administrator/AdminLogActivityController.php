@@ -35,7 +35,7 @@ class AdminLogActivityController extends Controller
   public function data_log_activity( Request $request, AdminLogActivity $logs )
   {
     $keywords = $request->keywords;
-    $filterdevice = isset( $request->filterdevice ) ? $request->device : 'all';
+    $filterdevice = isset( $request->device ) ? $request->device : 'all';
     $rows = isset( $request->rows ) ? $request->rows : 10;
 
     if( empty( $keywords ) )
