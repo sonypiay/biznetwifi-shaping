@@ -1,5 +1,5 @@
 html {
-  background: #ffffff;
+  background: #f9f9f9;
 }
 
 // login layout
@@ -117,7 +117,7 @@ html {
       }
     }
   }
-  .table-overflow-content { border-top: 1px solid #eeeeee; }
+  .table-overflow-content {}
   .table-data-content {
     thead {
       tr {
@@ -194,6 +194,63 @@ html {
       background: $primary-color;
       color: #ffffff;
       box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+// dashbaord
+.dashboard-container {
+  .subheading-dashboard {
+    color: #888888;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 16px;
+  }
+  .heading-dashboard {
+    color: #444444;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 24px;
+  }
+  .card-overview-device {
+    text-align: center;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    border-radius: 5px;
+    &:hover {
+      box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    }
+    .card-overview-device-icon {
+      background: rgba(30, 136, 240, 0.1);
+      color: #1e88f0;
+      font-size: 26px;
+      padding: 8px 15px;
+      border-radius: 6px;
+    }
+    .card-overview-device-apple {
+      background: rgba(51,51,51,0.1);
+      color: #444444;
+    }
+    .card-overview-device-android {
+      background: rgba(212, 225, 87, 0.1);
+      color: #D4E157;
+    }
+    .card-overview-device-unknown {
+      background: rgba(233, 30, 99, 0.1);
+      color: #E91E63;
+    }
+    .card-overview-value {
+      margin-top: 15px;
+      font-size: 30px;
+      color: #444444;
+      @include globalfontstyle(600, normal, normal, 0.6px);
+      font-family: $font-primary;
+    }
+    .card-overview-subvalue {
+      color: #888888;
+      @include globalfontstyle(600, normal, normal, 0.6px);
+      font-family: $font-primary;
+      font-size: 14px;
     }
   }
 }

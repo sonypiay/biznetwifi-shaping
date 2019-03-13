@@ -32,7 +32,7 @@
           </div>
         </div>
 
-        <div class="uk-margin table-overflow-content">
+        <div class="uk-card uk-card-default uk-card-body uk-margin table-overflow-content">
           <div class="uk-overflow-auto">
             <div class="uk-height-medium">
               <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">

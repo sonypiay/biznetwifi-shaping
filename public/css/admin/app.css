@@ -49,7 +49,7 @@
 }
 
 html {
-  background: #ffffff;
+  background: #f9f9f9;
 }
 
 .login-container {
@@ -205,10 +205,6 @@ html {
   color: #333333;
 }
 
-.content-data .table-overflow-content {
-  border-top: 1px solid #eeeeee;
-}
-
 .content-data .table-data-content thead tr th {
   color: #666666;
   font-weight: 600;
@@ -311,5 +307,82 @@ html {
   color: #ffffff;
   -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
           box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-container .subheading-dashboard {
+  color: #888888;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+}
+
+.dashboard-container .heading-dashboard {
+  color: #444444;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+}
+
+.dashboard-container .card-overview-device {
+  text-align: center;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+.dashboard-container .card-overview-device:hover {
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container .card-overview-device .card-overview-device-icon {
+  background: rgba(30, 136, 240, 0.1);
+  color: #1e88f0;
+  font-size: 26px;
+  padding: 8px 15px;
+  border-radius: 6px;
+}
+
+.dashboard-container .card-overview-device .card-overview-device-apple {
+  background: rgba(51, 51, 51, 0.1);
+  color: #444444;
+}
+
+.dashboard-container .card-overview-device .card-overview-device-android {
+  background: rgba(212, 225, 87, 0.1);
+  color: #D4E157;
+}
+
+.dashboard-container .card-overview-device .card-overview-device-unknown {
+  background: rgba(233, 30, 99, 0.1);
+  color: #E91E63;
+}
+
+.dashboard-container .card-overview-device .card-overview-value {
+  margin-top: 15px;
+  font-size: 30px;
+  color: #444444;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.dashboard-container .card-overview-device .card-overview-subvalue {
+  color: #888888;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
 }
 

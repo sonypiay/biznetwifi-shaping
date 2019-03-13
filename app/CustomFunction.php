@@ -119,4 +119,10 @@ trait CustomFunction {
   	}
   	return 'Other';
   }
+
+  public function getroles( $roles, $id )
+  {
+    $getroles = $roles->where('userid', $id)->first();
+    return $getroles;
+  }
 }

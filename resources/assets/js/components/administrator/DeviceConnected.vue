@@ -47,7 +47,7 @@
           </div>
           <div v-if="devices.loading === true" class="uk-text-center" v-html="devices.loadingContent"></div>
         </div>
-        <div class="table-overflow-content">
+        <div class="uk-card uk-card-default uk-card-body table-overflow-content">
           <div class="uk-overflow-auto">
             <div class="uk-height-medium">
               <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
