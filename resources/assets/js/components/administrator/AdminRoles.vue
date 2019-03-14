@@ -54,7 +54,7 @@
 
     <div class="uk-margin-top uk-container">
       <h3 class="content-heading">Admin Roles</h3>
-      <div class="uk-card uk-card-body uk-card-small content-data">
+      <div class="uk-card uk-card-body uk-card-default content-data">
         <div class="uk-grid-small" uk-grid>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">
             <button @click="modalAddOrUpdate()" class="uk-width-1-1 uk-button uk-button-default form-content-button" name="button">Add New Roles</button>
@@ -69,47 +69,51 @@
               <option value="500">500 rows</option>
             </select>
           </div>
+          <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-3@m uk-width-1-1@s">
+            <div class="uk-width-1-1 uk-inline">
+              <a uk-icon="search" class="uk-form-icon" @click="getAdminRoles( pagination.path + '?page=1' )"></a>
+              <input @keyup.enter="getAdminRoles( pagination.path + '?page=1' )" type="text" placeholder="Search keywords..." v-model="forms.keywords" class="uk-width-1-1 uk-input form-content-input">
+            </div>
+          </div>
         </div>
 
-        <div class="uk-card uk-card-default uk-card-body uk-margin table-overflow-content">
+        <div class="uk-margin-top">
           <div v-if="isLoading === true" class="uk-text-center"> <span uk-spinner></span> </div>
           <div v-else-if="adminroles.total === 0">
             <div class="uk-alert-warning" uk-alert>No data are available...</div>
           </div>
           <div class="uk-overflow-auto" v-else>
-            <div class="uk-height-medium">
-              <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Username</th>
-                    <th>Fullname</th>
-                    <th>Email</th>
-                    <th>Privileges</th>
-                    <th>Last Updated</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="roles in adminroles.results">
-                    <td>
-                      <a @click="modalAddOrUpdate( roles )" class="uk-icon-button" uk-icon="pencil"></a>
-                      <a @click="onDeleteAdminRole( roles.userid, roles.username )" class="uk-icon-button" uk-icon="trash"></a>
-                    </td>
-                    <td>{{ roles.username }}</td>
-                    <td>{{ roles.fullname }}</td>
-                    <td>{{ roles.email }}</td>
-                    <td>
-                      <span v-if="roles.privilege === 'full'">Full Access</span>
-                      <span v-else-if="roles.privilege === 'write'">Read and Write</span>
-                      <span v-else>Read Only</span>
-                    </td>
-                    <td>
-                      {{ formatDate( roles.created_at, 'YYYY/MM/DD HH:mm' ) }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Username</th>
+                  <th>Fullname</th>
+                  <th>Email</th>
+                  <th>Privileges</th>
+                  <th>Last Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="roles in adminroles.results">
+                  <td>
+                    <a @click="modalAddOrUpdate( roles )" class="uk-icon-button" uk-icon="pencil"></a>
+                    <a @click="onDeleteAdminRole( roles.userid, roles.username )" class="uk-icon-button" uk-icon="trash"></a>
+                  </td>
+                  <td>{{ roles.username }}</td>
+                  <td>{{ roles.fullname }}</td>
+                  <td>{{ roles.email }}</td>
+                  <td>
+                    <span v-if="roles.privilege === 'full'">Full Access</span>
+                    <span v-else-if="roles.privilege === 'write'">Read and Write</span>
+                    <span v-else>Read Only</span>
+                  </td>
+                  <td>
+                    {{ formatDate( roles.created_at, 'YYYY/MM/DD HH:mm' ) }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

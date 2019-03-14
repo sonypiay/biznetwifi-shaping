@@ -68,40 +68,14 @@ html {
   font-size: 32px;
 }
 
-.navbarleft {
-  background: linear-gradient(97deg, #da068c, #982e7e);
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-}
-
-.navbarleft .navbarlogo {
-  width: 200px;
-}
-
-.navbarleft .navbarnav {
-  border-top: 1px solid #982e7e;
-}
-
-.navbarleft .navbarnav li a {
-  color: #ffffff;
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: 0.6px;
-  font-size: 13px;
-  padding: 10px 20px;
-}
-
-.navbarleft .navbarnav li a:hover {
-  background: #ffffff;
-  color: #da068c;
-}
-
 .headertop {
   background: #ffffff;
   -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
           box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.headertop .navbarlogo {
+  width: 150px;
 }
 
 .headertop .navbartop li a {
@@ -111,13 +85,41 @@ html {
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
-  font-size: 13px;
-  padding: 10px 20px;
+  font-size: 15px;
   text-transform: capitalize;
 }
 
 .headertop .navbartop li a:hover {
   color: #da068c;
+}
+
+.headertop .subheadertop {
+  background: #ffffff;
+  border-top: 1px solid #eeeeee;
+}
+
+.headertop .subheadertop .subnavbartop li a {
+  color: #666666;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.headertop .subheadertop .subnavbartop li a:hover {
+  color: #da068c;
+}
+
+.headertop .subheadertop .subnavbartop li .subnav-active {
+  color: #da068c;
+  border-bottom: 2px solid #da068c;
+}
+
+.headertop .subheadertop .subnavbartop li .nav-active-border {
+  border-top: 1px solid #da068c;
 }
 
 .content-heading {

@@ -22,9 +22,12 @@ class AccountSubscribersController extends Controller
   {
     if( $request->session()->has('admin_login') )
     {
+      $getroles = $this->getroles( new AdminRoles, $request->session()->get('admin_userid') );
       return response()->view('administrator.pages.device_connected', [
         'request' => $request,
-        'getsession' => $request->session()->all()
+        'getsession' => $request->session()->all(),
+        'roles' => $getroles
+
       ]);
     }
     else
@@ -36,6 +39,7 @@ class AccountSubscribersController extends Controller
   public function data_deviceconnected( Request $request, AccountSubscriber $subscriber )
   {
     $device = isset( $request->device ) ? $request->device : 'all';
+    $device = $device == 'Unknown' ? '' : $device;
     $keywords = $request->keywords;
     $searchby = isset( $request->searchby ) ? $request->searchby : 'account_id';
     $rows = $request->rows;

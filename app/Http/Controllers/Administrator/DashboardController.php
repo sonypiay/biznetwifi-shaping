@@ -22,9 +22,11 @@ class DashboardController extends Controller
   {
     if( $request->session()->has('admin_login') )
     {
+      $getroles = $this->getroles( new AdminRoles, $request->session()->get('admin_userid') );
       return response()->view('administrator.pages.dashboard', [
         'request' => $request,
-        'getsession' => $request->session()->all()
+        'getsession' => $request->session()->all(),
+        'roles' => $getroles
       ]);
     }
     else

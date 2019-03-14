@@ -63945,9 +63945,9 @@ window.Vue = __webpack_require__(163);
 
 Vue.component('section-login', __webpack_require__(192));
 Vue.component('device-connected', __webpack_require__(195));
-Vue.component('dashboard-admin', __webpack_require__(209));
-Vue.component('admin-log-activity', __webpack_require__(198));
-Vue.component('admin-roles', __webpack_require__(201));
+Vue.component('dashboard-admin', __webpack_require__(198));
+Vue.component('admin-log-activity', __webpack_require__(201));
+Vue.component('admin-roles', __webpack_require__(204));
 
 var app = new Vue({
   el: '#app',
@@ -64395,10 +64395,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
@@ -64527,14 +64523,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "uk-margin-top uk-container" }, [
+    _c("div", { staticClass: "uk-margin-top" }, [
       _c("h3", { staticClass: "content-heading" }, [
         _vm._v("Device Connected")
       ]),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "uk-card uk-card-body uk-card-small content-data" },
+        { staticClass: "uk-card uk-card-body uk-card-default content-data" },
         [
           _c(
             "div",
@@ -64655,9 +64651,7 @@ var render = function() {
                           },
                           function($event) {
                             _vm.getDeviceConnected(
-                              _vm.pagination.path +
-                                "?page=" +
-                                _vm.pagination.current
+                              _vm.pagination.path + "?page=1"
                             )
                           }
                         ]
@@ -64680,7 +64674,9 @@ var render = function() {
                         _vm._v("PC/Laptop")
                       ]),
                       _vm._v(" "),
-                      _c("option", { attrs: { value: "TV" } }, [_vm._v("TV")])
+                      _c("option", { attrs: { value: "Unknown" } }, [
+                        _vm._v("Unknown")
+                      ])
                     ]
                   )
                 ]
@@ -64818,10 +64814,6 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("span", { staticClass: "uk-label" }, [
-                _vm._v("TV: " + _vm._s(_vm.devices.device_total.tv))
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "uk-label" }, [
                 _vm._v("Unknown: " + _vm._s(_vm.devices.device_total.unknown))
               ])
             ]),
@@ -64834,72 +64826,61 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "uk-card uk-card-default uk-card-body table-overflow-content"
-            },
-            [
-              _c("div", { staticClass: "uk-overflow-auto" }, [
-                _c("div", { staticClass: "uk-height-medium" }, [
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
-                    },
-                    [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.devices.result, function(device) {
-                          return _c("tr", [
-                            _c("td", [
-                              _c("a", {
-                                staticClass:
-                                  "uk-button uk-button-default uk-button-small table-btn-action",
-                                attrs: {
-                                  "uk-tooltip": "title: Delete",
-                                  "uk-icon": "trash"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    _vm.deleteDevice(
-                                      device.account_id,
-                                      device.mac_address
-                                    )
-                                  }
-                                }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(device.account_id))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(device.mac_address))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(device.device_agent))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm.$root.formatDate(
-                                    device.login_date,
-                                    "MMM DD, YYYY HH:mm "
-                                  )
-                                )
+          _c("div", { staticClass: "uk-overflow-auto" }, [
+            _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.devices.result, function(device) {
+                    return _c("tr", [
+                      _c("td", [
+                        _c("a", {
+                          staticClass:
+                            "uk-button uk-button-default uk-button-small table-btn-action",
+                          attrs: {
+                            "uk-tooltip": "title: Delete",
+                            "uk-icon": "trash"
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.deleteDevice(
+                                device.account_id,
+                                device.mac_address
                               )
-                            ])
-                          ])
+                            }
+                          }
                         })
-                      )
-                    ]
-                  )
-                ])
-              ])
-            ]
-          ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(device.account_id))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(device.mac_address))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(device.device_agent))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.$root.formatDate(
+                              device.login_date,
+                              "MMM DD, YYYY HH:mm "
+                            )
+                          )
+                        )
+                      ])
+                    ])
+                  })
+                )
+              ]
+            )
+          ]),
           _vm._v(" "),
           _c("ul", { staticClass: "uk-pagination content-data-pagination" }, [
             _c("li", [
@@ -65007,6 +64988,338 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
+Component.options.__file = "resources/assets/js/components/administrator/Dashboard.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-425bc22a", Component.options)
+  } else {
+    hotAPI.reload("data-v-425bc22a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 199 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url'],
+  data: function data() {
+    return {
+      summarydevice: {
+        total: 0,
+        device: {
+          ios: 0,
+          android: 0,
+          pc: 0,
+          tv: 0,
+          unknown: 0
+        }
+      }
+    };
+  },
+
+  methods: {
+    getSummaryDevice: function getSummaryDevice() {
+      var _this = this;
+
+      axios({
+        method: 'get',
+        url: this.url + 'admin/summary_device'
+      }).then(function (res) {
+        var result = res.data;
+        _this.summarydevice = {
+          total: result.results.total,
+          device: {
+            ios: result.results.device.ios,
+            android: result.results.device.android,
+            pc: result.results.device.pc,
+            tv: result.results.device.tv,
+            unknown: result.results.device.unknown
+          }
+        };
+        console.log(_this.summarydevice);
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getSummaryDevice();
+  }
+});
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "uk-margin-top uk-container" }, [
+      _c("div", { staticClass: "dashboard-container" }, [
+        _c("div", { staticClass: "subheading-dashboard" }, [
+          _vm._v("Dashboard")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-dashboard" }, [_vm._v("Overview")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "uk-grid-small uk-margin-top",
+            attrs: { "uk-grid": "" }
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-card uk-card-body uk-card-default card-overview-device"
+                  },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-overview-value" }, [
+                      _vm._v(_vm._s(_vm.summarydevice.device.ios))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-overview-subvalue" }, [
+                      _vm._v("iOS")
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-card uk-card-body uk-card-default card-overview-device"
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-overview-value" }, [
+                      _vm._v(_vm._s(_vm.summarydevice.device.android))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-overview-subvalue" }, [
+                      _vm._v("Android")
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-card uk-card-body uk-card-default card-overview-device"
+                  },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-overview-value" }, [
+                      _vm._v(_vm._s(_vm.summarydevice.device.pc))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-overview-subvalue" }, [
+                      _vm._v("PC / Laptop")
+                    ])
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-card uk-card-body uk-card-default card-overview-device"
+                  },
+                  [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-overview-value" }, [
+                      _vm._v(_vm._s(_vm.summarydevice.device.unknown))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card-overview-subvalue" }, [
+                      _vm._v("Unknown Device")
+                    ])
+                  ]
+                )
+              ]
+            )
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "card-overview-device-icon card-overview-device-apple" },
+      [_c("span", { staticClass: "fab fa-apple" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "card-overview-device-icon card-overview-device-android" },
+      [_c("span", { staticClass: "fab fa-android" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "card-overview-device-icon" }, [
+      _c("span", { staticClass: "fas fa-laptop" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "card-overview-device-icon card-overview-device-unknown" },
+      [_c("span", { staticClass: "fas fa-question-circle" })]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-425bc22a", module.exports)
+  }
+}
+
+/***/ }),
+/* 201 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(202)
+/* template */
+var __vue_template__ = __webpack_require__(203)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
 Component.options.__file = "resources/assets/js/components/administrator/AdminLogActivity.vue"
 
 /* hot reload */
@@ -65029,16 +65342,11 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 199 */
+/* 202 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
 //
 //
 //
@@ -65179,7 +65487,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 200 */
+/* 203 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -65192,7 +65500,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "uk-card uk-card-body uk-card-small content-data" },
+        { staticClass: "uk-card uk-card-body uk-card-default content-data" },
         [
           _c(
             "div",
@@ -65237,11 +65545,7 @@ var render = function() {
                             )
                           },
                           function($event) {
-                            _vm.getLogActivity(
-                              _vm.pagination.path +
-                                "?page=" +
-                                _vm.pagination.current
-                            )
+                            _vm.getLogActivity(_vm.pagination.path + "?page=1")
                           }
                         ]
                       }
@@ -65314,11 +65618,7 @@ var render = function() {
                             )
                           },
                           function($event) {
-                            _vm.getLogActivity(
-                              _vm.pagination.path +
-                                "?page=" +
-                                _vm.pagination.current
-                            )
+                            _vm.getLogActivity(_vm.pagination.path + "?page=1")
                           }
                         ]
                       }
@@ -65365,11 +65665,7 @@ var render = function() {
                       attrs: { "uk-icon": "search" },
                       on: {
                         click: function($event) {
-                          _vm.getLogActivity(
-                            _vm.pagination.path +
-                              "?page=" +
-                              _vm.pagination.current
-                          )
+                          _vm.getLogActivity(_vm.pagination.path + "?page=1")
                         }
                       }
                     }),
@@ -65403,11 +65699,7 @@ var render = function() {
                           ) {
                             return null
                           }
-                          _vm.getLogActivity(
-                            _vm.pagination.path +
-                              "?page=" +
-                              _vm.pagination.current
-                          )
+                          _vm.getLogActivity(_vm.pagination.path + "?page=1")
                         },
                         input: function($event) {
                           if ($event.target.composing) {
@@ -65423,53 +65715,42 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "uk-card uk-card-default uk-card-body uk-margin table-overflow-content"
-            },
-            [
-              _c("div", { staticClass: "uk-overflow-auto" }, [
-                _c("div", { staticClass: "uk-height-medium" }, [
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
-                    },
-                    [
-                      _vm._m(0),
+          _c("div", { staticClass: "uk-margin-top uk-overflow-auto" }, [
+            _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover uk-table-striped table-data-content"
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.logs_activity.results, function(logs) {
+                    return _c("tr", [
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.formatDate(
+                              logs.created_at,
+                              "YYYY/MM/DD HH:mm:ss"
+                            )
+                          )
+                        )
+                      ]),
                       _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.logs_activity.results, function(logs) {
-                          return _c("tr", [
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm.formatDate(
-                                    logs.created_at,
-                                    "YYYY/MM/DD HH:mm:ss"
-                                  )
-                                )
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(logs.log_username))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(logs.log_ip))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(logs.log_type))])
-                          ])
-                        })
-                      )
-                    ]
-                  )
-                ])
-              ])
-            ]
-          ),
+                      _c("td", [_vm._v(_vm._s(logs.log_username))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(logs.log_ip))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(logs.log_type))])
+                    ])
+                  })
+                )
+              ]
+            )
+          ]),
           _vm._v(" "),
           _c("ul", { staticClass: "uk-pagination content-data-pagination" }, [
             _c("li", [
@@ -65550,15 +65831,15 @@ if (false) {
 }
 
 /***/ }),
-/* 201 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(202)
+var __vue_script__ = __webpack_require__(205)
 /* template */
-var __vue_template__ = __webpack_require__(203)
+var __vue_template__ = __webpack_require__(206)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -65597,11 +65878,15 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 202 */
+/* 205 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -65948,7 +66233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 203 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -66209,7 +66494,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "uk-card uk-card-body uk-card-small content-data" },
+        { staticClass: "uk-card uk-card-body uk-card-default content-data" },
         [
           _c(
             "div",
@@ -66314,107 +66599,159 @@ var render = function() {
                     ]
                   )
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-4@xl uk-width-1-4@l uk-width-1-3@m uk-width-1-1@s"
+                },
+                [
+                  _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                    _c("a", {
+                      staticClass: "uk-form-icon",
+                      attrs: { "uk-icon": "search" },
+                      on: {
+                        click: function($event) {
+                          _vm.getAdminRoles(_vm.pagination.path + "?page=1")
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.forms.keywords,
+                          expression: "forms.keywords"
+                        }
+                      ],
+                      staticClass: "uk-width-1-1 uk-input form-content-input",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Search keywords..."
+                      },
+                      domProps: { value: _vm.forms.keywords },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !("button" in $event) &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          _vm.getAdminRoles(_vm.pagination.path + "?page=1")
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.forms, "keywords", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]
               )
             ]
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "uk-card uk-card-default uk-card-body uk-margin table-overflow-content"
-            },
-            [
-              _vm.isLoading === true
-                ? _c("div", { staticClass: "uk-text-center" }, [
-                    _c("span", { attrs: { "uk-spinner": "" } })
+          _c("div", { staticClass: "uk-margin-top" }, [
+            _vm.isLoading === true
+              ? _c("div", { staticClass: "uk-text-center" }, [
+                  _c("span", { attrs: { "uk-spinner": "" } })
+                ])
+              : _vm.adminroles.total === 0
+                ? _c("div", [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "uk-alert-warning",
+                        attrs: { "uk-alert": "" }
+                      },
+                      [_vm._v("No data are available...")]
+                    )
                   ])
-                : _vm.adminroles.total === 0
-                  ? _c("div", [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "uk-alert-warning",
-                          attrs: { "uk-alert": "" }
-                        },
-                        [_vm._v("No data are available...")]
-                      )
-                    ])
-                  : _c("div", { staticClass: "uk-overflow-auto" }, [
-                      _c("div", { staticClass: "uk-height-medium" }, [
+                : _c("div", { staticClass: "uk-overflow-auto" }, [
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
+                      },
+                      [
+                        _vm._m(0),
+                        _vm._v(" "),
                         _c(
-                          "table",
-                          {
-                            staticClass:
-                              "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
-                          },
-                          [
-                            _vm._m(0),
-                            _vm._v(" "),
-                            _c(
-                              "tbody",
-                              _vm._l(_vm.adminroles.results, function(roles) {
-                                return _c("tr", [
-                                  _c("td", [
-                                    _c("a", {
-                                      staticClass: "uk-icon-button",
-                                      attrs: { "uk-icon": "pencil" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.modalAddOrUpdate(roles)
-                                        }
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("a", {
-                                      staticClass: "uk-icon-button",
-                                      attrs: { "uk-icon": "trash" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.onDeleteAdminRole(
-                                            roles.userid,
-                                            roles.username
-                                          )
-                                        }
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(roles.username))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(roles.fullname))]),
-                                  _vm._v(" "),
-                                  _c("td", [_vm._v(_vm._s(roles.email))]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    roles.privilege === "full"
-                                      ? _c("span", [_vm._v("Full Access")])
-                                      : roles.privilege === "write"
-                                        ? _c("span", [_vm._v("Read and Write")])
-                                        : _c("span", [_vm._v("Read Only")])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _vm._v(
-                                      "\n                    " +
-                                        _vm._s(
-                                          _vm.formatDate(
-                                            roles.created_at,
-                                            "YYYY/MM/DD HH:mm"
-                                          )
-                                        ) +
-                                        "\n                  "
-                                    )
-                                  ])
-                                ])
-                              })
-                            )
-                          ]
+                          "tbody",
+                          _vm._l(_vm.adminroles.results, function(roles) {
+                            return _c("tr", [
+                              _c("td", [
+                                _c("a", {
+                                  staticClass: "uk-icon-button",
+                                  attrs: { "uk-icon": "pencil" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.modalAddOrUpdate(roles)
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("a", {
+                                  staticClass: "uk-icon-button",
+                                  attrs: { "uk-icon": "trash" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.onDeleteAdminRole(
+                                        roles.userid,
+                                        roles.username
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(roles.username))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(roles.fullname))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(roles.email))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                roles.privilege === "full"
+                                  ? _c("span", [_vm._v("Full Access")])
+                                  : roles.privilege === "write"
+                                    ? _c("span", [_vm._v("Read and Write")])
+                                    : _c("span", [_vm._v("Read Only")])
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s(
+                                      _vm.formatDate(
+                                        roles.created_at,
+                                        "YYYY/MM/DD HH:mm"
+                                      )
+                                    ) +
+                                    "\n                "
+                                )
+                              ])
+                            ])
+                          })
                         )
-                      ])
-                    ])
-            ]
-          )
+                      ]
+                    )
+                  ])
+          ])
         ]
       )
     ])
@@ -66448,343 +66785,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-b3cee732", module.exports)
-  }
-}
-
-/***/ }),
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(210)
-/* template */
-var __vue_template__ = __webpack_require__(211)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/administrator/Dashboard.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-425bc22a", Component.options)
-  } else {
-    hotAPI.reload("data-v-425bc22a", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 210 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['url'],
-  data: function data() {
-    return {
-      summarydevice: {
-        total: 0,
-        device: {
-          ios: 0,
-          android: 0,
-          pc: 0,
-          tv: 0,
-          unknown: 0
-        }
-      }
-    };
-  },
-
-  methods: {
-    getSummaryDevice: function getSummaryDevice() {
-      var _this = this;
-
-      axios({
-        method: 'get',
-        url: this.url + 'admin/summary_device'
-      }).then(function (res) {
-        var result = res.data;
-        _this.summarydevice = {
-          total: result.results.total,
-          device: {
-            ios: result.results.device.ios,
-            android: result.results.device.android,
-            pc: result.results.device.pc,
-            tv: result.results.device.tv,
-            unknown: result.results.device.unknown
-          }
-        };
-        console.log(_this.summarydevice);
-      }).catch(function (err) {
-        console.log(err.response.statusText);
-      });
-    }
-  },
-  mounted: function mounted() {
-    this.getSummaryDevice();
-  }
-});
-
-/***/ }),
-/* 211 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "uk-margin-top uk-container" }, [
-      _c("div", { staticClass: "dashboard-container" }, [
-        _c("div", { staticClass: "subheading-dashboard" }, [
-          _vm._v("Dashboard")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "heading-dashboard" }, [_vm._v("Overview")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "uk-grid-small uk-margin-top",
-            attrs: { "uk-grid": "" }
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s"
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-card uk-card-body uk-card-default card-overview-device"
-                  },
-                  [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-overview-value" }, [
-                      _vm._v(_vm._s(_vm.summarydevice.device.ios))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-overview-subvalue" }, [
-                      _vm._v("iOS")
-                    ])
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s"
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-card uk-card-body uk-card-default card-overview-device"
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-overview-value" }, [
-                      _vm._v(_vm._s(_vm.summarydevice.device.android))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-overview-subvalue" }, [
-                      _vm._v("Android")
-                    ])
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s"
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-card uk-card-body uk-card-default card-overview-device"
-                  },
-                  [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-overview-value" }, [
-                      _vm._v(_vm._s(_vm.summarydevice.device.pc))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-overview-subvalue" }, [
-                      _vm._v("PC / Laptop")
-                    ])
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s"
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-card uk-card-body uk-card-default card-overview-device"
-                  },
-                  [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-overview-value" }, [
-                      _vm._v(_vm._s(_vm.summarydevice.device.unknown))
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "card-overview-subvalue" }, [
-                      _vm._v("Unknown Device")
-                    ])
-                  ]
-                )
-              ]
-            )
-          ]
-        )
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "card-overview-device-icon card-overview-device-apple" },
-      [_c("span", { staticClass: "fab fa-apple" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "card-overview-device-icon card-overview-device-android" },
-      [_c("span", { staticClass: "fab fa-android" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "card-overview-device-icon" }, [
-      _c("span", { staticClass: "fas fa-laptop" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "card-overview-device-icon card-overview-device-unknown" },
-      [_c("span", { staticClass: "fas fa-question-circle" })]
-    )
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-425bc22a", module.exports)
   }
 }
 

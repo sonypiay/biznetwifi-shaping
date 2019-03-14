@@ -16,43 +16,45 @@ html {
 // login layout
 
 // administrator
-.navbarleft {
-  background: linear-gradient(97deg, $primary-color, $secondary-color);
-  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-  .navbarlogo {
-    width: 200px;
-  }
-  .navbarnav {
-    border-top: 1px solid $secondary-color;
-    li {
-      a {
-        color: #ffffff;
-        font-family: $font-primary;
-        @include globalfontstyle(600, normal, normal, 0.6px);
-        font-size: 13px;
-        padding: 10px 20px;
-        &:hover {
-          background: #ffffff;
-          color: $primary-color;
-        }
-      }
-    }
-  }
-}
 .headertop {
   background: #ffffff;
   box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  .navbarlogo { width: 150px; }
   .navbartop {
     li {
       a {
         color: #666666;
         font-family: $font-primary;
         @include globalfontstyle(600, normal, normal, 0.6px);
-        font-size: 13px;
-        padding: 10px 20px;
+        font-size: 15px;
         text-transform: capitalize;
         &:hover {
           color: $primary-color;
+        }
+      }
+    }
+  }
+  .subheadertop {
+    background: #ffffff;
+    border-top: 1px solid #eeeeee;
+    .subnavbartop {
+      li {
+        a {
+          color: #666666;
+          font-family: $font-primary;
+          @include globalfontstyle(600, normal, normal, 0.6px);
+          font-size: 14px;
+          text-transform: capitalize;
+          &:hover {
+            color: $primary-color;
+          }
+        }
+        .subnav-active {
+          color: $primary-color;
+          border-bottom: 2px solid $primary-color;
+        }
+        .nav-active-border {
+          border-top: 1px solid $primary-color;
         }
       }
     }
