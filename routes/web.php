@@ -50,6 +50,7 @@ Route::group(['prefix' => 'admin'], function() {
   Route::get('/list_device_connected', 'Administrator\AccountSubscribersController@data_deviceconnected');
   Route::group(['prefix' => 'clients'], function() {
     Route::get('/as_visitor', 'Administrator\ClientAsVisitorController@index')->name('admin_client_visitor_page');
+    Route::get('/client_visitor', 'Administrator\ClientAsVisitorController@data_clientAsVisitor');
   });
 
   Route::group(['prefix' => 'create'], function() {

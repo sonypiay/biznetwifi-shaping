@@ -9,6 +9,9 @@ use App\Database\ClientsUsage;
 use App\CustomFunction;
 use App\RadiusAPI;
 use App\Http\Controllers\Controller;
+use DateTime;
+use DateInterval;
+use DatePeriod;
 
 class ClientAsVisitorController extends Controller
 {
@@ -34,5 +37,34 @@ class ClientAsVisitorController extends Controller
 
   public function data_clientAsVisitor( Request $request, ClientsUsage $clients )
   {
+    $keywords = $request->keywords;
+    $rows = isset( $request->rows ) ? $request->rows : 10;
+    $filterdate = isset( $request->filterdate ) ? $request->filterdate : 'today';
+    $startDate = isset( $request->startDate ) ? $request->startDate : date('Y-m-d');
+    $endDate = isset( $request->endDate ) ? $request->endDate : date('Y-m-d');
+
+    $beginDate = new DateTime( $startDate );
+    $endDate = new DateTime( $endDate );
+
+    if( isset( $request->filterdate ) )
+    {
+      if( $filterdate === 'today' )
+      {
+        $beginDate = $beginDate->format('Y-m-d');
+      }
+      else if( $filterdate === '7days' )
+      {
+        $endDate = $endDate->modify('7 days ago');
+      }
+    }
+    else
+    {
+      $res = [
+        'status' => 200,
+        'statusText' => 'customdate'
+      ];
+    }
+
+    return response()->json( $res );
   }
 }

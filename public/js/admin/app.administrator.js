@@ -67476,8 +67476,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       forms: {
         datepicker: {
-          start: new Date(),
-          end: new Date()
+          start: '',
+          end: ''
         },
         filterdate: {
           text: 'Today',
@@ -67486,6 +67486,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         selectedrows: 10,
         filterdevice: 'all',
         keywords: ''
+      },
+      pagination: {
+        current_page: 1,
+        last_page: 1,
+        prev_url: '',
+        next_url: '',
+        path: this.url + 'admin/clients/client_visitor'
       },
       datepicker: {
         props: {
@@ -67532,15 +67539,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         text: str,
         value: val
       };
+      this.getClientAsVisitors();
     },
-    getClientAsVisitors: function getClientAsVisitors() {
-      var start_date = this.formatDate(this.forms.datepicker.start, 'YYYY-MM-DD');
-      var end_date = this.formatDate(this.forms.datepicker.end, 'YYYY-MM-DD');
-      var r = {
-        start: start_date,
-        end: end_date
-      };
-      console.log(r);
+    getClientAsVisitors: function getClientAsVisitors(pages) {
+      var url, param;
+      if (this.forms.datepicker.start === '' || this.forms.datepicker.start === undefined) {
+        param = '&keywords=' + this.forms.keywords + '&filterdate=' + this.forms.filterdate.value + '&device=' + this.forms.filterdevice + '&rows=' + this.forms.selectedrows;
+      } else {
+        var startDate = this.formatDate(this.forms.datepicker.start, 'YYYY-MM-DD');
+        var endDate = this.formatDate(this.forms.datepicker.end, 'YYYY-MM-DD');
+        param = '&keywords=' + this.forms.keywords + '&startDate=' + startDate + '&endDate=' + endDate + '&device=' + this.forms.filterdevice + '&rows=' + this.forms.selectedrows;
+      }
+
+      if (pages === undefined) url = this.url + 'admin/clients/client_visitor?page=' + this.pagination.current_page + param;else url = pages + param;
+
+      axios({
+        method: 'get',
+        url: url,
+        headers: { 'Content-Type': 'application/json' }
+      }).then(function (res) {
+        var result = res.data;
+        console.log(result);
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
     }
   },
   mounted: function mounted() {}
@@ -67657,7 +67679,9 @@ var render = function() {
                             )
                           },
                           function($event) {
-                            _vm.getLogActivity(_vm.pagination.path + "?page=1")
+                            _vm.getClientAsVisitors(
+                              _vm.pagination.path + "?page=1"
+                            )
                           }
                         ]
                       }
@@ -67730,7 +67754,9 @@ var render = function() {
                             )
                           },
                           function($event) {
-                            _vm.getLogActivity(_vm.pagination.path + "?page=1")
+                            _vm.getClientAsVisitors(
+                              _vm.pagination.path + "?page=1"
+                            )
                           }
                         ]
                       }
@@ -68074,7 +68100,9 @@ var render = function() {
                       attrs: { "uk-icon": "search" },
                       on: {
                         click: function($event) {
-                          _vm.getClientAsVisitors()
+                          _vm.getClientAsVisitors(
+                            _vm.pagination.path + "?page=1"
+                          )
                         }
                       }
                     }),
@@ -68108,7 +68136,9 @@ var render = function() {
                           ) {
                             return null
                           }
-                          _vm.getClientAsVisitors()
+                          _vm.getClientAsVisitors(
+                            _vm.pagination.path + "?page=1"
+                          )
                         },
                         input: function($event) {
                           if ($event.target.composing) {

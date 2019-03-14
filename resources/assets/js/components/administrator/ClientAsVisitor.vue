@@ -5,7 +5,7 @@
       <div class="uk-card uk-card-body uk-card-default content-data">
         <div class="uk-grid-small" uk-grid>
           <div class="uk-width-1-5@xl uk-width-1-5@l uk-width-1-3@m uk-width-1-1@s">
-            <select class="uk-select form-content-select" v-model="forms.selectedrows" @change="getLogActivity( pagination.path + '?page=1' )">
+            <select class="uk-select form-content-select" v-model="forms.selectedrows" @change="getClientAsVisitors( pagination.path + '?page=1' )">
               <option value="10">10 rows</option>
               <option value="20">20 rows</option>
               <option value="50">50 rows</option>
@@ -15,7 +15,7 @@
             </select>
           </div>
           <div class="uk-width-1-5@xl uk-width-1-5@l uk-width-1-3@m uk-width-1-1@s">
-            <select class="uk-select form-content-select" v-model="forms.filterdevice" @change="getLogActivity( pagination.path + '?page=1' )">
+            <select class="uk-select form-content-select" v-model="forms.filterdevice" @change="getClientAsVisitors( pagination.path + '?page=1' )">
               <option value="all">All Devices</option>
               <option value="Windows">Windows</option>
               <option value="Linux">Linux</option>
@@ -70,8 +70,8 @@
           </div>
           <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-3@m uk-width-1-1@s">
             <div class="uk-width-1-1 uk-inline">
-              <a @click="getClientAsVisitors()" class="uk-form-icon" uk-icon="search"></a>
-              <input @keyup.enter="getClientAsVisitors()" type="search" placeholder="Search keywords..." class="uk-width-1-1 uk-input form-content-input" v-model="forms.keywords">
+              <a @click="getClientAsVisitors( pagination.path + '?page=1' )" class="uk-form-icon" uk-icon="search"></a>
+              <input @keyup.enter="getClientAsVisitors( pagination.path + '?page=1' )" type="search" placeholder="Search keywords..." class="uk-width-1-1 uk-input form-content-input" v-model="forms.keywords">
             </div>
           </div>
         </div>
@@ -90,8 +90,8 @@ export default {
     return {
       forms: {
         datepicker: {
-          start: new Date(),
-          end: new Date()
+          start: '',
+          end: ''
         },
         filterdate: {
           text: 'Today',
@@ -100,6 +100,13 @@ export default {
         selectedrows: 10,
         filterdevice: 'all',
         keywords: ''
+      },
+      pagination: {
+        current_page: 1,
+        last_page: 1,
+        prev_url: '',
+        next_url: '',
+        path: this.url + 'admin/clients/client_visitor'
       },
       datepicker: {
         props: {
@@ -145,16 +152,37 @@ export default {
         text: str,
         value: val
       };
+      this.getClientAsVisitors();
     },
-    getClientAsVisitors()
+    getClientAsVisitors( pages )
     {
-      var start_date = this.formatDate( this.forms.datepicker.start, 'YYYY-MM-DD' );
-      var end_date = this.formatDate( this.forms.datepicker.end, 'YYYY-MM-DD' );
-      var r = {
-        start: start_date,
-        end: end_date
-      };
-      console.log( r );
+      var url, param;
+      if( this.forms.datepicker.start === '' || this.forms.datepicker.start === undefined )
+      {
+        param = '&keywords=' + this.forms.keywords + '&filterdate=' + this.forms.filterdate.value + '&device=' + this.forms.filterdevice + '&rows=' + this.forms.selectedrows;
+      }
+      else
+      {
+        var startDate = this.formatDate( this.forms.datepicker.start, 'YYYY-MM-DD' );
+        var endDate = this.formatDate( this.forms.datepicker.end, 'YYYY-MM-DD' );
+        param = '&keywords=' + this.forms.keywords + '&startDate=' + startDate + '&endDate=' + endDate + '&device=' + this.forms.filterdevice + '&rows=' + this.forms.selectedrows;
+      }
+
+      if( pages === undefined )
+        url = this.url + 'admin/clients/client_visitor?page=' + this.pagination.current_page + param;
+      else
+        url = pages + param;
+
+      axios({
+        method: 'get',
+        url: url,
+        headers: { 'Content-Type': 'application/json' }
+      }).then( res => {
+        let result = res.data;
+        console.log( result );
+      }).catch( err => {
+        console.log( err.response.statusText );
+      });
     }
   },
   mounted() {
