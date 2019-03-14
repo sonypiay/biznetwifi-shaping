@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="uk-margin-top uk-container">
+    <div class="uk-margin-top">
       <div class="dashboard-container">
         <div class="subheading-dashboard">Dashboard</div>
         <div class="heading-dashboard">Overview</div>

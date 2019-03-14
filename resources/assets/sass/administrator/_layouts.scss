@@ -106,6 +106,34 @@ html {
       box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
     }
   }
+  .form-content-dropdown {
+    height: 200px;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      overflow-y: scroll;
+    }
+    ul {
+      li {
+        a {
+          color: #666666;
+          @include globalfontstyle(400, normal, normal, 0.6px);
+          font-family: $font-primary;
+          font-size: 12px;
+          padding: 8px 12px;
+          &:hover, &:focus {
+            border-left: 2px solid $primary-color;
+            color: $primary-color;
+          }
+        }
+        .form-content-dropdown-active {
+          border-left: 2px solid $primary-color;
+          color: $primary-color;
+        }
+      }
+    }
+  }
   .content-data-pagination {
     li {
       a {

@@ -121,16 +121,34 @@ class PortalController extends Controller
   public function afterlogin( Request $request, AccountSubscriber $subscriber, ClientsUsage $clientusage )
   {
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
-    $clientIfExists = $clientusage->where('client_mac', '=', $request->session()->get('client_mac'));
+    $clientIfExists = $clientusage->select(
+      'client_mac',
+      DB::raw('date_format(created_at, "%Y-%m-%d") as start_connected'),
+      DB::raw('date_format(updated_at, "%Y-%m-%d") as last_connected')
+    )
+    ->where('client_mac', '=', $request->session()->get('client_mac'));
     if( $clientIfExists->count() === 1 )
     {
       $clients = $clientIfExists->first();
-      $clients->client_ip = $request->session()->get('uip');
-      $clients->client_mac = $request->session()->get('client_mac');
-      $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
-      $clients->location_id = $request->session()->get('location_id');
-      $clients->connection_type = $connection_type;
-      $clients->ap = $request->session()->get('ap');
+      if( $clients->last_connected == date('Y-m-d') )
+      {
+        $clients->client_ip = $request->session()->get('uip');
+        $clients->client_mac = $request->session()->get('client_mac');
+        $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $clients->location_id = $request->session()->get('location_id');
+        $clients->connection_type = $connection_type;
+        $clients->ap = $request->session()->get('ap');
+      }
+      else
+      {
+        $clients = new $clientusage;
+        $clients->client_ip = $request->session()->get('uip');
+        $clients->client_mac = $request->session()->get('client_mac');
+        $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $clients->location_id = $request->session()->get('location_id');
+        $clients->connection_type = $connection_type;
+        $clients->ap = $request->session()->get('ap');
+      }
     }
     else
     {

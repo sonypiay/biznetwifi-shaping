@@ -192,6 +192,40 @@ html {
           box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
+.content-data .form-content-dropdown {
+  height: 200px;
+  overflow: hidden;
+  padding: 0;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.content-data .form-content-dropdown:hover {
+  overflow-y: scroll;
+}
+
+.content-data .form-content-dropdown ul li a {
+  color: #666666;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 12px;
+  padding: 8px 12px;
+}
+
+.content-data .form-content-dropdown ul li a:hover,
+.content-data .form-content-dropdown ul li a:focus {
+  border-left: 2px solid #da068c;
+  color: #da068c;
+}
+
+.content-data .form-content-dropdown ul li .form-content-dropdown-active {
+  border-left: 2px solid #da068c;
+  color: #da068c;
+}
+
 .content-data .content-data-pagination li a {
   color: #666666;
   font-weight: 400;

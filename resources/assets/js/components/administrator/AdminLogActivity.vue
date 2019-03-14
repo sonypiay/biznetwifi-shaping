@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="uk-margin-top uk-container">
+    <div class="uk-margin-top">
       <h3 class="content-heading">Admin Activity</h3>
       <div class="uk-card uk-card-body uk-card-default content-data">
         <div class="uk-grid-small" uk-grid>

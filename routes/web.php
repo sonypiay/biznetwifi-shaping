@@ -48,6 +48,9 @@ Route::group(['prefix' => 'admin'], function() {
   Route::get('/roles', 'Administrator\AdminRolesController@index')->name('admin_roles_page');
   Route::get('/data_admin_roles', 'Administrator\AdminRolesController@data_admin_roles');
   Route::get('/list_device_connected', 'Administrator\AccountSubscribersController@data_deviceconnected');
+  Route::group(['prefix' => 'clients'], function() {
+    Route::get('/as_visitor', 'Administrator\ClientAsVisitorController@index')->name('admin_client_visitor_page');
+  });
 
   Route::group(['prefix' => 'create'], function() {
     Route::post('admin_roles', 'Administrator\AdminRolesController@create_role');
