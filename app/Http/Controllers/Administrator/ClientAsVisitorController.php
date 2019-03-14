@@ -56,6 +56,7 @@ class ClientAsVisitorController extends Controller
       {
         $endDate = $endDate->modify('7 days ago');
       }
+      else if( $filterdate === '' )
     }
     else
     {
