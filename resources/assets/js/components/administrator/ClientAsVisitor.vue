@@ -36,14 +36,6 @@
                     <a v-else @click="onFilteringDate('Today', 'today')">Today</a>
                   </li>
                   <li>
-                    <a v-if="forms.filterdate.value == 'this_week'" class="form-content-dropdown-active" @click="onFilteringDate('This Week', 'this_week')">This Week</a>
-                    <a v-else @click="onFilteringDate('This Week', 'this_week')">This Week</a>
-                  </li>
-                  <li>
-                    <a v-if="forms.filterdate.value == 'last_week'" class="form-content-dropdown-active" @click="onFilteringDate('Last Week', 'last_week')">Last Week</a>
-                    <a v-else @click="onFilteringDate('Last Week', 'last_week')">Last Week</a>
-                  </li>
-                  <li>
                     <a v-if="forms.filterdate.value == '28days'" class="form-content-dropdown-active" @click="onFilteringDate('Last 28 days', '28days')">Last 28 days</a>
                     <a v-else @click="onFilteringDate('Last 28 days', '28days')">Last 28 days</a>
                   </li>
