@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="uk-margin-top uk-container">
+    <div class="uk-margin-top">
       <h3 class="content-heading">Device Connected</h3>
-      <div class="uk-card uk-card-body uk-card-small content-data">
+      <div class="uk-card uk-card-body uk-card-default content-data">
         <div class="uk-grid-small" uk-grid>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">
             <select class="uk-select form-content-select" v-model="forms.selectedrows" @change="getDeviceConnected( pagination.path + '?page=1' )">
@@ -15,12 +15,12 @@
             </select>
           </div>
           <div class="uk-width-1-5@xl uk-width-1-5@l uk-width-1-3@m uk-width-1-1@s">
-            <select class="uk-select form-content-select" v-model="forms.device" @change="getDeviceConnected( pagination.path + '?page=' + pagination.current )">
+            <select class="uk-select form-content-select" v-model="forms.device" @change="getDeviceConnected( pagination.path + '?page=1' )">
               <option value="all">All Devices</option>
               <option value="iOS">iOS</option>
               <option value="ANDROID">Android</option>
               <option value="PC/LAPTOP">PC/Laptop</option>
-              <option value="TV">TV</option>
+              <option value="Unknown">Unknown</option>
             </select>
           </div>
           <div class="uk-width-1-5@xl uk-width-1-5@l uk-width-1-3@m uk-width-1-1@s">
@@ -42,38 +42,34 @@
             <span class="uk-label">Android: {{ devices.device_total.android }}</span>
             <span class="uk-label">iOS: {{ devices.device_total.ios }}</span>
             <span class="uk-label">PC: {{ devices.device_total.pc }}</span>
-            <span class="uk-label">TV: {{ devices.device_total.tv }}</span>
+            <!--<span class="uk-label">TV: {{ devices.device_total.tv }}</span>-->
             <span class="uk-label">Unknown: {{ devices.device_total.unknown }}</span>
           </div>
           <div v-if="devices.loading === true" class="uk-text-center" v-html="devices.loadingContent"></div>
         </div>
-        <div class="table-overflow-content">
-          <div class="uk-overflow-auto">
-            <div class="uk-height-medium">
-              <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
-                <thead>
-                  <tr>
-                    <th class="uk-table-shrink">Action</th>
-                    <th>Account ID</th>
-                    <th>Mac Address</th>
-                    <th>Device</th>
-                    <th>Connected on</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="device in devices.result">
-                    <td>
-                      <a @click="deleteDevice(device.account_id, device.mac_address)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: Delete" uk-icon="trash"></a>
-                    </td>
-                    <td>{{ device.account_id }}</td>
-                    <td>{{ device.mac_address }}</td>
-                    <td>{{ device.device_agent }}</td>
-                    <td>{{ $root.formatDate(device.login_date, 'MMM DD, YYYY HH:mm ') }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        <div class="uk-overflow-auto">
+          <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
+            <thead>
+              <tr>
+                <th class="uk-table-shrink">Action</th>
+                <th>Account ID</th>
+                <th>Mac Address</th>
+                <th>Device</th>
+                <th>Connected on</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="device in devices.result">
+                <td>
+                  <a @click="deleteDevice(device.account_id, device.mac_address)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: Delete" uk-icon="trash"></a>
+                </td>
+                <td>{{ device.account_id }}</td>
+                <td>{{ device.mac_address }}</td>
+                <td>{{ device.device_agent }}</td>
+                <td>{{ $root.formatDate(device.login_date, 'MMM DD, YYYY HH:mm ') }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <ul class="uk-pagination content-data-pagination">
           <li>

@@ -5,21 +5,37 @@
 <title>BiznetWifi @yield('tag_admin_title')</title>
 </head>
 <body>
-<div class="uk-grid-collapse" uk-grid>
-  <section class="uk-width-1-5@xl uk-width-1-5@l uk-width-1-4@m uk-width-1-1@s">
-    @include('administrator.includes.navbarleft')
-  </section>
-  <section class="uk-width-expand">
-    <header class="uk-navbar headertop" uk-navbar>
+<header class="headertop">
+  <section class="uk-container">
+    <nav class="uk-navbar" uk-navbar>
+      <div class="uk-navbar-left">
+        <a href="{{ route('admin_dashboard') }}" class="uk-navbar-item uk-logo">
+          <img class="navbarlogo" src="{{ asset('images/logo/biznetwifi_primary.png') }}" alt="">
+        </a>
+      </div>
       <div class="uk-navbar-right">
         <ul class="uk-navbar-nav navbartop">
-          <li><a href="#">Hi, Administrator</a></li>
+          <li><a href="#">Hi, {{ $roles->fullname }} <span class="uk-float-right" uk-icon="chevron-down"></span></a>
+            <div class="uk-navbar-dropdown">
+              <ul class="uk-nav uk-navbar-dropdown-nav">
+                <li><a href="#">Settings</a></li>
+                <li><a href="{{ route('admin_signout') }}">Log Out</a></li>
+              </ul>
+            </div>
+          </li>
         </ul>
       </div>
-    </header>
-    <div class="uk-height-medium" id="app">@yield('main_section')</div>
-    <script type="text/javascript" src="{{ asset('js/admin/app.administrator.js') }}"></script>
+    </nav>
   </section>
+  <section class="subheadertop">
+    <div class="uk-container">
+      @include('administrator.includes.subnavbar')
+    </div>
+  </section>
+</header>
+<div class="uk-margin-top uk-container">
+  <div id="app">@yield('main_section')</div>
+  <script type="text/javascript" src="{{ asset('js/admin/app.administrator.js') }}"></script>
 </div>
 </body>
 </html>

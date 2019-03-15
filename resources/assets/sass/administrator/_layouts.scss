@@ -1,5 +1,5 @@
 html {
-  background: #ffffff;
+  background: #f9f9f9;
 }
 
 // login layout
@@ -16,43 +16,45 @@ html {
 // login layout
 
 // administrator
-.navbarleft {
-  background: linear-gradient(97deg, $primary-color, $secondary-color);
-  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-  .navbarlogo {
-    width: 200px;
-  }
-  .navbarnav {
-    border-top: 1px solid $secondary-color;
-    li {
-      a {
-        color: #ffffff;
-        font-family: $font-primary;
-        @include globalfontstyle(600, normal, normal, 0.6px);
-        font-size: 13px;
-        padding: 10px 20px;
-        &:hover {
-          background: #ffffff;
-          color: $primary-color;
-        }
-      }
-    }
-  }
-}
 .headertop {
   background: #ffffff;
   box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  .navbarlogo { width: 150px; }
   .navbartop {
     li {
       a {
         color: #666666;
         font-family: $font-primary;
         @include globalfontstyle(600, normal, normal, 0.6px);
-        font-size: 13px;
-        padding: 10px 20px;
+        font-size: 15px;
         text-transform: capitalize;
         &:hover {
           color: $primary-color;
+        }
+      }
+    }
+  }
+  .subheadertop {
+    background: #ffffff;
+    border-top: 1px solid #eeeeee;
+    .subnavbartop {
+      li {
+        a {
+          color: #666666;
+          font-family: $font-primary;
+          @include globalfontstyle(600, normal, normal, 0.6px);
+          font-size: 14px;
+          text-transform: capitalize;
+          &:hover {
+            color: $primary-color;
+          }
+        }
+        .subnav-active {
+          color: $primary-color;
+          border-bottom: 2px solid $primary-color;
+        }
+        .nav-active-border {
+          border-top: 1px solid $primary-color;
         }
       }
     }
@@ -104,6 +106,34 @@ html {
       box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
     }
   }
+  .form-content-dropdown {
+    height: 200px;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      overflow-y: scroll;
+    }
+    ul {
+      li {
+        a {
+          color: #666666;
+          @include globalfontstyle(400, normal, normal, 0.6px);
+          font-family: $font-primary;
+          font-size: 12px;
+          padding: 8px 12px;
+          &:hover, &:focus {
+            border-left: 2px solid $primary-color;
+            color: $primary-color;
+          }
+        }
+        .form-content-dropdown-active {
+          border-left: 2px solid $primary-color;
+          color: $primary-color;
+        }
+      }
+    }
+  }
   .content-data-pagination {
     li {
       a {
@@ -117,7 +147,7 @@ html {
       }
     }
   }
-  .table-overflow-content { border-top: 1px solid #eeeeee; }
+  .table-overflow-content {}
   .table-data-content {
     thead {
       tr {
@@ -194,6 +224,63 @@ html {
       background: $primary-color;
       color: #ffffff;
       box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+// dashbaord
+.dashboard-container {
+  .subheading-dashboard {
+    color: #888888;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 16px;
+  }
+  .heading-dashboard {
+    color: #444444;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 24px;
+  }
+  .card-overview-device {
+    text-align: center;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    border-radius: 5px;
+    &:hover {
+      box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    }
+    .card-overview-device-icon {
+      background: rgba(30, 136, 240, 0.1);
+      color: #1e88f0;
+      font-size: 26px;
+      padding: 8px 15px;
+      border-radius: 6px;
+    }
+    .card-overview-device-apple {
+      background: rgba(51,51,51,0.1);
+      color: #444444;
+    }
+    .card-overview-device-android {
+      background: rgba(212, 225, 87, 0.1);
+      color: #D4E157;
+    }
+    .card-overview-device-unknown {
+      background: rgba(233, 30, 99, 0.1);
+      color: #E91E63;
+    }
+    .card-overview-value {
+      margin-top: 15px;
+      font-size: 30px;
+      color: #444444;
+      @include globalfontstyle(600, normal, normal, 0.6px);
+      font-family: $font-primary;
+    }
+    .card-overview-subvalue {
+      color: #888888;
+      @include globalfontstyle(600, normal, normal, 0.6px);
+      font-family: $font-primary;
+      font-size: 14px;
     }
   }
 }

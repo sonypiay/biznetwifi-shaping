@@ -41,13 +41,27 @@ Route::group(['prefix' => 'admin'], function() {
   });
 
   Route::get('/dashboard', 'Administrator\DashboardController@index')->name('admin_dashboard');
+  Route::get('/summary_device', 'Administrator\DashboardController@device_connected');
   Route::get('/devices', 'Administrator\AccountSubscribersController@index')->name('admin_deviceconnected');
   Route::get('/log_admin', 'Administrator\AdminLogActivityController@index')->name('admin_log_activity_pages');
   Route::get('/log_data_admin', 'Administrator\AdminLogActivityController@data_log_activity');
   Route::get('/roles', 'Administrator\AdminRolesController@index')->name('admin_roles_page');
   Route::get('/data_admin_roles', 'Administrator\AdminRolesController@data_admin_roles');
   Route::get('/list_device_connected', 'Administrator\AccountSubscribersController@data_deviceconnected');
+  Route::group(['prefix' => 'clients'], function() {
+    Route::get('/as_visitor', 'Administrator\ClientAsVisitorController@index')->name('admin_client_visitor_page');
+    Route::get('/client_visitor', 'Administrator\ClientAsVisitorController@data_clientAsVisitor');
+  });
+
+  Route::group(['prefix' => 'create'], function() {
+    Route::post('admin_roles', 'Administrator\AdminRolesController@create_role');
+  });
+
+  Route::group(['prefix' => 'update'], function() {
+    Route::put('admin_roles/{userid}', 'Administrator\AdminRolesController@update_role');
+  });
   Route::group(['prefix' => 'delete'], function() {
     Route::delete('devices/{account_id}/{mac}', 'Administrator\AccountSubscribersController@deleteDevice');
+    Route::delete('admin_roles/{userid}', 'Administrator\AdminRolesController@delete_role');
   });
 });

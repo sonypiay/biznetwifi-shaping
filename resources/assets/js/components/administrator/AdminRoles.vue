@@ -54,7 +54,7 @@
 
     <div class="uk-margin-top uk-container">
       <h3 class="content-heading">Admin Roles</h3>
-      <div class="uk-card uk-card-body uk-card-small content-data">
+      <div class="uk-card uk-card-body uk-card-default content-data">
         <div class="uk-grid-small" uk-grid>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">
             <button @click="modalAddOrUpdate()" class="uk-width-1-1 uk-button uk-button-default form-content-button" name="button">Add New Roles</button>
@@ -69,41 +69,51 @@
               <option value="500">500 rows</option>
             </select>
           </div>
+          <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-3@m uk-width-1-1@s">
+            <div class="uk-width-1-1 uk-inline">
+              <a uk-icon="search" class="uk-form-icon" @click="getAdminRoles( pagination.path + '?page=1' )"></a>
+              <input @keyup.enter="getAdminRoles( pagination.path + '?page=1' )" type="text" placeholder="Search keywords..." v-model="forms.keywords" class="uk-width-1-1 uk-input form-content-input">
+            </div>
+          </div>
         </div>
 
-        <div class="uk-margin table-overflow-content">
+        <div class="uk-margin-top">
           <div v-if="isLoading === true" class="uk-text-center"> <span uk-spinner></span> </div>
           <div v-else-if="adminroles.total === 0">
             <div class="uk-alert-warning" uk-alert>No data are available...</div>
           </div>
           <div class="uk-overflow-auto" v-else>
-            <div class="uk-height-medium">
-              <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Username</th>
-                    <th>Fullname</th>
-                    <th>Email</th>
-                    <th>Last Updated</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="roles in adminroles.results">
-                    <td>
-                      <a @click="modalAddOrUpdate( roles )" class="uk-icon-button" uk-icon="pencil"></a>
-                      <a @click="" class="uk-icon-button" uk-icon="trash"></a>
-                    </td>
-                    <td>{{ roles.username }}</td>
-                    <td>{{ roles.fullname }}</td>
-                    <td>{{ roles.email }}</td>
-                    <td>
-                      {{ formatDate( roles.created_at, 'YYYY/MM/DD HH:mm' ) }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Username</th>
+                  <th>Fullname</th>
+                  <th>Email</th>
+                  <th>Privileges</th>
+                  <th>Last Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="roles in adminroles.results">
+                  <td>
+                    <a @click="modalAddOrUpdate( roles )" class="uk-icon-button" uk-icon="pencil"></a>
+                    <a @click="onDeleteAdminRole( roles.userid, roles.username )" class="uk-icon-button" uk-icon="trash"></a>
+                  </td>
+                  <td>{{ roles.username }}</td>
+                  <td>{{ roles.fullname }}</td>
+                  <td>{{ roles.email }}</td>
+                  <td>
+                    <span v-if="roles.privilege === 'full'">Full Access</span>
+                    <span v-else-if="roles.privilege === 'write'">Read and Write</span>
+                    <span v-else>Read Only</span>
+                  </td>
+                  <td>
+                    {{ formatDate( roles.created_at, 'YYYY/MM/DD HH:mm' ) }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -126,7 +136,8 @@ export default {
         fullname: '',
         privilege: 'full',
         error: false,
-        submit: 'Add'
+        submit: 'Add',
+        edit: false
       },
       errors: {},
       errorMessage: '',
@@ -175,6 +186,7 @@ export default {
           prev_url: result.prev_page_url
         };
         this.isLoading = false;
+        console.log( this.forms );
       }).catch( err => {
         console.log( err.response.statusText );
         this.isLoading = false;
@@ -201,13 +213,11 @@ export default {
         this.forms.fullname = role.fullname;
         this.forms.privilege = role.privilege;
         this.forms.submit = 'Edit';
+        this.forms.edit = true;
       }
       this.forms.error = '';
       this.errors = {};
       this.errorMessage = '';
-
-      console.log( this.forms );
-
       UIkit.modal('#modal').show();
     },
     onAddOrUpdateRole()
@@ -224,22 +234,138 @@ export default {
         this.errors.email = 'Email is required.';
         this.forms.error = true;
       }
-      if( this.forms.password === '' )
+
+      if( this.forms.edit === false )
       {
-        this.errors.password = 'Password is required';
-        this.forms.error = true;
+        if( this.forms.password === '' )
+        {
+          this.errors.password = 'Password is required';
+          this.forms.error = true;
+        }
+        else
+        {
+          if( this.forms.password.length < 8 )
+          {
+            this.errors.password = 'Password must be at least 8 character(s)';
+            this.forms.error = true;
+          }
+        }
       }
-      if( this.forms.password.length < 8 )
+      else
       {
-        this.errors.password = 'Password must be at least 8 character(s)';
-        this.forms.error = true;
+        if( this.forms.password !== '' )
+        {
+          if( this.forms.password.length < 8 )
+          {
+            this.errors.password = 'Password must be at least 8 character(s)';
+            this.forms.error = true;
+          }
+        }
       }
+
 
       if( this.forms.error === true )
       {
         this.forms.error = false;
         return false;
       }
+
+      var method, url;
+      if( this.forms.edit === true )
+      {
+        method = 'put';
+        url = this.url + 'admin/update/admin_roles/' + this.forms.userid;
+      }
+      else
+      {
+        method = 'post';
+        url = this.url + 'admin/create/admin_roles';
+      }
+      this.forms.submit = '<span uk-spinner><span>';
+      axios({
+        method: method,
+        url: url,
+        params: {
+          fullname: this.forms.fullname,
+          username: this.forms.username,
+          password: this.forms.password,
+          email: this.forms.email,
+          privilege: this.forms.privilege
+        },
+        headers: { 'Content-Type': 'application/json' }
+      }).then( res => {
+        swal({
+          title: 'Success',
+          text: res.data.statusText,
+          icon: 'success'
+        });
+        this.getAdminRoles();
+        setTimeout(function(){
+          UIkit.modal('#modal').hide();
+        }, 2000);
+      }).catch( err => {
+        if( err.response.status === 409 )
+        {
+          swal({
+            title: 'Whoops',
+            text: err.response.data.statusText,
+            icon: 'warning',
+            dangerMode: true
+          });
+        }
+        else
+        {
+          swal({
+            title: 'Whoops',
+            text: err.response.statusText,
+            icon: 'error',
+            dangerMode: true
+          });
+        }
+        if( this.forms.edit === true )
+          this.forms.submit = 'Edit';
+        else
+          this.forms.submit = 'Add';
+      });
+    },
+    onDeleteAdminRole(userid, username)
+    {
+      swal({
+        title: 'Are you sure?',
+        text: username + ' will be delete permanently.',
+        icon: 'warning',
+        dangerMode: true,
+        buttons: {
+          cancel: 'No',
+          confirm: {
+            text: 'Sure',
+            value: true
+          }
+        }
+      }).then( val => {
+        if( val )
+        {
+          axios({
+            method: 'delete',
+            url: this.url + 'admin/delete/admin_roles/' + userid,
+            headers: { 'Content-Type': 'application/json' }
+          }).then( res => {
+            swal({
+              title: 'Success',
+              text: res.data.statusText,
+              icon: 'success'
+            });
+            this.getAdminRoles();
+          }).catch( err => {
+            swal({
+              title: 'Whoops',
+              text: err.response.statusText,
+              icon: 'warning',
+              dangerMode: true
+            })
+          });
+        }
+      });
     }
   },
   mounted() {

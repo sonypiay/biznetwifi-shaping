@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Database\AccountSubscriber;
+use App\Database\ClientsUsage;
 use App\RadiusAPI;
 use App\CustomFunction;
 use Illuminate\Support\Facades\Cookie;
@@ -40,6 +42,8 @@ class PortalController extends Controller
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
+      $request->session()->put('ap', $ap);
+      $request->session()->put('location_id', $location);
       $request->session()->put('client_mac', $client_mac);
       $request->session()->put('uip', $uip);
       $request->session()->put('starturl', $startUrl);
@@ -86,6 +90,8 @@ class PortalController extends Controller
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
+      $request->session()->put('ap', $ap);
+      $request->session()->put('location_id', $location);
       $request->session()->put('client_mac', $client_mac);
       $request->session()->put('uip', $uip);
       $request->session()->put('starturl', $startUrl);
@@ -112,8 +118,50 @@ class PortalController extends Controller
     ->header('Access-Control-Allow-Headers', 'GET');
   }
 
-  public function afterlogin( Request $request, AccountSubscriber $subscriber )
+  public function afterlogin( Request $request, AccountSubscriber $subscriber, ClientsUsage $clientusage )
   {
+    $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
+    $clientIfExists = $clientusage->select(
+      'client_mac',
+      DB::raw('date_format(created_at, "%Y-%m-%d") as start_connected'),
+      DB::raw('date_format(updated_at, "%Y-%m-%d") as last_connected')
+    )
+    ->where('client_mac', '=', $request->session()->get('client_mac'));
+    if( $clientIfExists->count() === 1 )
+    {
+      $clients = $clientIfExists->first();
+      if( $clients->last_connected == date('Y-m-d') )
+      {
+        $clients->client_ip = $request->session()->get('uip');
+        $clients->client_mac = $request->session()->get('client_mac');
+        $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $clients->location_id = $request->session()->get('location_id');
+        $clients->connection_type = $connection_type;
+        $clients->ap = $request->session()->get('ap');
+      }
+      else
+      {
+        $clients = new $clientusage;
+        $clients->client_ip = $request->session()->get('uip');
+        $clients->client_mac = $request->session()->get('client_mac');
+        $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $clients->location_id = $request->session()->get('location_id');
+        $clients->connection_type = $connection_type;
+        $clients->ap = $request->session()->get('ap');
+      }
+    }
+    else
+    {
+      $clients = new $clientusage;
+      $clients->client_ip = $request->session()->get('uip');
+      $clients->client_mac = $request->session()->get('client_mac');
+      $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+      $clients->location_id = $request->session()->get('location_id');
+      $clients->connection_type = $connection_type;
+      $clients->ap = $request->session()->get('ap');
+    }
+    $clients->save();
+
     if( $request->session()->get('connect') == 'freehotspot' )
     {
       $fullUrl = $request->fullUrl();
@@ -165,6 +213,25 @@ class PortalController extends Controller
             $subscriber->device_agent = $this->userAgent( $agent );
             $subscriber->save();
             $subscriber->where([ ['username', '=', $username], ['mac_address', '=', $getuser->mac_address] ])->delete();
+          }
+          else
+          {
+            /*$this->timeout_socket = 2;
+            $radprimary = $this->check_connection('182.253.238.66', 3306);
+            $radbackup = $this->check_connection('202.169.53.9', 3306);
+
+            if( $radprimary['status'] == null )
+            {
+              $this->delete_radcheck( '182.253.238.66:8080', $mac );
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              $this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
+            }
+            else
+            {
+              $this->delete_radcheck( '202.169.53.9', $mac );
+              $this->add_radcheck( '202.169.53.9', $mac, $username );
+              $this->delete_radcheck( '202.169.53.9', $getuser->mac_address );
+            }*/
           }
         }
         else
@@ -234,6 +301,6 @@ class PortalController extends Controller
 
   public function testing( Request $request )
   {
-    
+
   }
 }

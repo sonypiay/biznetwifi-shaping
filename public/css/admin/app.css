@@ -49,7 +49,7 @@
 }
 
 html {
-  background: #ffffff;
+  background: #f9f9f9;
 }
 
 .login-container {
@@ -68,40 +68,14 @@ html {
   font-size: 32px;
 }
 
-.navbarleft {
-  background: linear-gradient(97deg, #da068c, #982e7e);
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-}
-
-.navbarleft .navbarlogo {
-  width: 200px;
-}
-
-.navbarleft .navbarnav {
-  border-top: 1px solid #982e7e;
-}
-
-.navbarleft .navbarnav li a {
-  color: #ffffff;
-  font-family: "Nunito Sans", sans-serif;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  letter-spacing: 0.6px;
-  font-size: 13px;
-  padding: 10px 20px;
-}
-
-.navbarleft .navbarnav li a:hover {
-  background: #ffffff;
-  color: #da068c;
-}
-
 .headertop {
   background: #ffffff;
   -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
           box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.headertop .navbarlogo {
+  width: 150px;
 }
 
 .headertop .navbartop li a {
@@ -111,13 +85,41 @@ html {
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.6px;
-  font-size: 13px;
-  padding: 10px 20px;
+  font-size: 15px;
   text-transform: capitalize;
 }
 
 .headertop .navbartop li a:hover {
   color: #da068c;
+}
+
+.headertop .subheadertop {
+  background: #ffffff;
+  border-top: 1px solid #eeeeee;
+}
+
+.headertop .subheadertop .subnavbartop li a {
+  color: #666666;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.headertop .subheadertop .subnavbartop li a:hover {
+  color: #da068c;
+}
+
+.headertop .subheadertop .subnavbartop li .subnav-active {
+  color: #da068c;
+  border-bottom: 2px solid #da068c;
+}
+
+.headertop .subheadertop .subnavbartop li .nav-active-border {
+  border-top: 1px solid #da068c;
 }
 
 .content-heading {
@@ -190,6 +192,40 @@ html {
           box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
+.content-data .form-content-dropdown {
+  height: 200px;
+  overflow: hidden;
+  padding: 0;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.content-data .form-content-dropdown:hover {
+  overflow-y: scroll;
+}
+
+.content-data .form-content-dropdown ul li a {
+  color: #666666;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 12px;
+  padding: 8px 12px;
+}
+
+.content-data .form-content-dropdown ul li a:hover,
+.content-data .form-content-dropdown ul li a:focus {
+  border-left: 2px solid #da068c;
+  color: #da068c;
+}
+
+.content-data .form-content-dropdown ul li .form-content-dropdown-active {
+  border-left: 2px solid #da068c;
+  color: #da068c;
+}
+
 .content-data .content-data-pagination li a {
   color: #666666;
   font-weight: 400;
@@ -203,10 +239,6 @@ html {
 .content-data .content-data-pagination li a:hover,
 .content-data .content-data-pagination li a:focus {
   color: #333333;
-}
-
-.content-data .table-overflow-content {
-  border-top: 1px solid #eeeeee;
 }
 
 .content-data .table-data-content thead tr th {
@@ -311,5 +343,82 @@ html {
   color: #ffffff;
   -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
           box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-container .subheading-dashboard {
+  color: #888888;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+}
+
+.dashboard-container .heading-dashboard {
+  color: #444444;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+}
+
+.dashboard-container .card-overview-device {
+  text-align: center;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+.dashboard-container .card-overview-device:hover {
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container .card-overview-device .card-overview-device-icon {
+  background: rgba(30, 136, 240, 0.1);
+  color: #1e88f0;
+  font-size: 26px;
+  padding: 8px 15px;
+  border-radius: 6px;
+}
+
+.dashboard-container .card-overview-device .card-overview-device-apple {
+  background: rgba(51, 51, 51, 0.1);
+  color: #444444;
+}
+
+.dashboard-container .card-overview-device .card-overview-device-android {
+  background: rgba(212, 225, 87, 0.1);
+  color: #D4E157;
+}
+
+.dashboard-container .card-overview-device .card-overview-device-unknown {
+  background: rgba(233, 30, 99, 0.1);
+  color: #E91E63;
+}
+
+.dashboard-container .card-overview-device .card-overview-value {
+  margin-top: 15px;
+  font-size: 30px;
+  color: #444444;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.dashboard-container .card-overview-device .card-overview-subvalue {
+  color: #888888;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
 }
 
