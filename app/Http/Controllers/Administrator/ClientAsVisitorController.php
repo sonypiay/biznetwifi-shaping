@@ -42,33 +42,457 @@ class ClientAsVisitorController extends Controller
     $filterdate = isset( $request->filterdate ) ? $request->filterdate : 'today';
     $startDate = isset( $request->startDate ) ? $request->startDate : date('Y-m-d');
     $endDate = isset( $request->endDate ) ? $request->endDate : date('Y-m-d');
-
-    $beginDate = new DateTime( $startDate );
-    $endDate = new DateTime( $endDate );
+    $filterdevice = isset( $request->device ) ? $request->device : 'all';
+    $filterap = isset( $request->ap ) ? $request->ap : 'all';
 
     if( isset( $request->filterdate ) )
     {
-      if( $filterdate === 'today' )
+      if( $filterdate == 'this_month' OR $filterdate == 'last_month' )
       {
-        $beginDate = $beginDate->format('Y-m-d');
+        $filtermonth = $filterdate == 'this_month' ? 'this month' : 'last month';
+        $getMonth = new DateTime( $filtermonth );
+
+        if( empty( $keywords ) )
+        {
+          if( $filterdevice == 'all' )
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                ['connection_type', '=', 'visitor']
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                ['ap', '=', $filterap],
+                ['connection_type', '=', 'visitor']
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+          else
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor']
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['ap', '=', $filterap],
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+        }
+        else
+        {
+          if( $filterdevice == 'all' )
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                ['client_mac', 'like', '%' . $keywords . '%'],
+                ['connection_type', '=', 'visitor']
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                ['client_mac', 'like', '%' . $keywords . '%'],
+                ['connection_type', '=', 'visitor'],
+                ['ap', '=', $filterap]
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+          else
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%']
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%'],
+                ['ap', '=', $filterap]
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+        }
       }
-      else if( $filterdate === '7days' )
+      else if( $filterdate == 'today' )
       {
-        $endDate = $endDate->modify('7 days ago');
+        $today = date('Y-m-d');
+        if( empty( $keywords ) )
+        {
+          if( $filterdevice == 'all' )
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['connection_type', '=', 'visitor']
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['connection_type', '=', 'visitor'],
+                ['ap', '=', $filterap]
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+          else
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor']
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['ap', '=', $filterap]
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+        }
+        else
+        {
+          if( $filterdevice == 'all' )
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%']
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%'],
+                ['ap', '=', $filterap]
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+          else
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%']
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%'],
+                ['ap', '=', $filterap]
+              ])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+        }
       }
-      else if( $filterdate === '' )
+      else
       {
-        
+        if( $filterdate == '7days' )
+        {
+          $previousDate = new DateTime('7 days ago');
+        }
+        else if( $filterdate == '28days' )
+        {
+          $previousDate = new DateTime('28 days ago');
+        }
+        else
+        {
+          $previousDate = new DateTime('30 days ago');
+        }
+
+        $currentDate = new DateTime('today');
+        $interval = new DateInterval('P1D');
+        $period = new DatePeriod( $previousDate, $interval, $currentDate );
+        $rangeDate = [];
+        foreach( $period as $date )
+        {
+          $rangeDate[] = $date->format('Y-m-d');
+        }
+        $beginDate = $rangeDate[0];
+        $lastDate = end( $rangeDate );
+
+        if( empty( $keywords ) )
+        {
+          if( $filterdevice == 'all' )
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where('connection_type', '=', 'visitor')
+              ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                ['connection_type', '=', 'visitor'],
+                ['ap', '=', $filterap]
+              ])
+              ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+          else
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor']
+              ])
+              ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['ap', '=', $filterap]
+              ])
+              ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+        }
+        else
+        {
+          if( $filterdevice == 'all' )
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%']
+              ])
+              ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%'],
+                ['ap', '=', $filterap]
+              ])
+              ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+          else
+          {
+            if( $filterap == 'all' )
+            {
+              $query = $clients->where([
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%'],
+                ['client_os', '=', $filterdevice]
+              ])
+              ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+            else
+            {
+              $query = $clients->where([
+                ['connection_type', '=', 'visitor'],
+                ['client_mac', 'like', '%' . $keywords . '%'],
+                ['client_os', '=', $filterdevice],
+                ['ap', '=', $filterap]
+              ])
+              ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+              ->orderBy('updated_at')
+              ->paginate( $rows );
+            }
+          }
+        }
       }
     }
     else
     {
-      $res = [
-        'status' => 200,
-        'statusText' => 'customdate'
-      ];
+      if( empty( $keywords ) )
+      {
+        if( $filterdevice == 'all' )
+        {
+          if( $filterap == 'all' )
+          {
+            $query = $clients->where('connection_type', '=', 'visitor')
+            ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+            ->orderBy('updated_at')
+            ->paginate( $rows );
+          }
+          else
+          {
+            $query = $clients->where([
+              ['connection_type', '=', 'visitor'],
+              ['ap', '=', $filterap]
+            ])
+            ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+            ->orderBy('updated_at')
+            ->paginate( $rows );
+          }
+        }
+        else
+        {
+          if( $filterap == 'all' )
+          {
+            $query = $clients->where([
+              ['client_os', '=', $filterdevice],
+              ['connection_type', '=', 'visitor']
+            ])
+            ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+            ->orderBy('updated_at')
+            ->paginate( $rows );
+          }
+          else
+          {
+            $query = $clients->where([
+              ['client_os', '=', $filterdevice],
+              ['connection_type', '=', 'visitor'],
+              ['ap', '=', $filterap]
+            ])
+            ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+            ->orderBy('updated_at')
+            ->paginate( $rows );
+          }
+        }
+      }
+      else
+      {
+        if( $filterdevice == 'all' )
+        {
+          if( $filterap == 'all' )
+          {
+            $query = $clients->where([
+              ['connection_type', '=', 'visitor'],
+              ['client_mac', 'like', '%' . $keywords . '%']
+            ])
+            ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+            ->orderBy('updated_at')
+            ->paginate( $rows );
+          }
+          else
+          {
+            $query = $clients->where([
+              ['connection_type', '=', 'visitor'],
+              ['client_mac', 'like', '%' . $keywords . '%'],
+              ['ap', '=', $filterap]
+            ])
+            ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+            ->orderBy('updated_at')
+            ->paginate( $rows );
+          }
+        }
+        else
+        {
+          if( $filterap == 'all' )
+          {
+            $query = $clients->where([
+              ['connection_type', '=', 'visitor'],
+              ['client_mac', 'like', '%' . $keywords . '%'],
+              ['client_os', '=', $device]
+            ])
+            ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+            ->orderBy('updated_at')
+            ->paginate( $rows );
+          }
+          else
+          {
+            $query = $clients->where([
+              ['connection_type', '=', 'visitor'],
+              ['client_mac', 'like', '%' . $keywords . '%'],
+              ['client_os', '=', $device],
+              ['ap', '=', $filterap]
+            ])
+            ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
+            ->orderBy('updated_at')
+            ->paginate( $rows );
+          }
+        }
+      }
     }
 
-    return response()->json( $res );
+    return response()->json( $query, 200 );
   }
 }

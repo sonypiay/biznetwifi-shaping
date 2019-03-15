@@ -67455,6 +67455,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -67474,6 +67517,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         selectedrows: 10,
         filterdevice: 'all',
+        filterap: 'all',
         keywords: ''
       },
       pagination: {
@@ -67482,6 +67526,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         prev_url: '',
         next_url: '',
         path: this.url + 'admin/clients/client_visitor'
+      },
+      clientasvisitor: {
+        total: 0,
+        results: [],
+        isLoading: false
       },
       datepicker: {
         props: {
@@ -67531,30 +67580,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.getClientAsVisitors();
     },
     getClientAsVisitors: function getClientAsVisitors(pages) {
+      var _this = this;
+
       var url, param;
       if (this.forms.datepicker.start === '' || this.forms.datepicker.start === undefined) {
-        param = '&keywords=' + this.forms.keywords + '&filterdate=' + this.forms.filterdate.value + '&device=' + this.forms.filterdevice + '&rows=' + this.forms.selectedrows;
+        param = '&keywords=' + this.forms.keywords + '&filterdate=' + this.forms.filterdate.value + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
       } else {
         var startDate = this.formatDate(this.forms.datepicker.start, 'YYYY-MM-DD');
         var endDate = this.formatDate(this.forms.datepicker.end, 'YYYY-MM-DD');
-        param = '&keywords=' + this.forms.keywords + '&startDate=' + startDate + '&endDate=' + endDate + '&device=' + this.forms.filterdevice + '&rows=' + this.forms.selectedrows;
+        param = '&keywords=' + this.forms.keywords + '&startDate=' + startDate + '&endDate=' + endDate + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
       }
 
       if (pages === undefined) url = this.url + 'admin/clients/client_visitor?page=' + this.pagination.current_page + param;else url = pages + param;
 
+      this.clientasvisitor.isLoading = true;
       axios({
         method: 'get',
         url: url,
         headers: { 'Content-Type': 'application/json' }
       }).then(function (res) {
         var result = res.data;
-        console.log(result);
+        _this.clientasvisitor.total = result.total;
+        _this.clientasvisitor.results = result.data;
+        _this.clientasvisitor.isLoading = false;
       }).catch(function (err) {
         console.log(err.response.statusText);
       });
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    this.getClientAsVisitors();
+  }
 });
 
 /***/ }),
@@ -67619,7 +67675,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "uk-margin-top" }, [
-      _c("h3", { staticClass: "content-heading" }, [_vm._v("Admin Activity")]),
+      _c("h3", { staticClass: "content-heading" }, [
+        _vm._v("Client as Visitor")
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -67633,7 +67691,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "uk-width-1-5@xl uk-width-1-5@l uk-width-1-3@m uk-width-1-1@s"
+                    "uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s"
                 },
                 [
                   _c(
@@ -67708,7 +67766,70 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "uk-width-1-5@xl uk-width-1-5@l uk-width-1-3@m uk-width-1-1@s"
+                    "uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s"
+                },
+                [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.forms.filterap,
+                          expression: "forms.filterap"
+                        }
+                      ],
+                      staticClass: "uk-select form-content-select",
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.forms,
+                              "filterap",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                          function($event) {
+                            _vm.getClientAsVisitors(
+                              _vm.pagination.path + "?page=1"
+                            )
+                          }
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "all" } }, [
+                        _vm._v("All Access Point")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "ruckus" } }, [
+                        _vm._v("Ruckus Wireless")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "mkt" } }, [
+                        _vm._v("Mikrotik")
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s"
                 },
                 [
                   _c(
@@ -67836,6 +67957,39 @@ var render = function() {
                                     }
                                   },
                                   [_vm._v("Today")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.forms.filterdate.value == "7days"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "form-content-dropdown-active",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last 7 days",
+                                          "7days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last 7 days")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last 7 days ",
+                                          "7days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last 7 days")]
                                 )
                           ]),
                           _vm._v(" "),
@@ -68010,78 +68164,154 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-width-1-4@xl uk-width-1-4@l uk-width-1-3@m uk-width-1-1@s"
-                },
-                [
-                  _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
-                    _c("a", {
-                      staticClass: "uk-form-icon",
-                      attrs: { "uk-icon": "search" },
-                      on: {
-                        click: function($event) {
-                          _vm.getClientAsVisitors(
-                            _vm.pagination.path + "?page=1"
-                          )
-                        }
+              _c("div", { staticClass: "uk-width-expand" }, [
+                _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                  _c("a", {
+                    staticClass: "uk-form-icon",
+                    attrs: { "uk-icon": "search" },
+                    on: {
+                      click: function($event) {
+                        _vm.getClientAsVisitors(_vm.pagination.path + "?page=1")
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.forms.keywords,
-                          expression: "forms.keywords"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.forms.keywords,
+                        expression: "forms.keywords"
+                      }
+                    ],
+                    staticClass: "uk-width-1-1 uk-input form-content-input",
+                    attrs: {
+                      type: "search",
+                      placeholder: "Search keywords..."
+                    },
+                    domProps: { value: _vm.forms.keywords },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
                         }
-                      ],
-                      staticClass: "uk-width-1-1 uk-input form-content-input",
-                      attrs: {
-                        type: "search",
-                        placeholder: "Search keywords..."
+                        _vm.getClientAsVisitors(_vm.pagination.path + "?page=1")
                       },
-                      domProps: { value: _vm.forms.keywords },
-                      on: {
-                        keyup: function($event) {
-                          if (
-                            !("button" in $event) &&
-                            _vm._k(
-                              $event.keyCode,
-                              "enter",
-                              13,
-                              $event.key,
-                              "Enter"
-                            )
-                          ) {
-                            return null
-                          }
-                          _vm.getClientAsVisitors(
-                            _vm.pagination.path + "?page=1"
-                          )
-                        },
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.forms, "keywords", $event.target.value)
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
                         }
+                        _vm.$set(_vm.forms, "keywords", $event.target.value)
                       }
-                    })
-                  ])
-                ]
-              )
+                    }
+                  })
+                ])
+              ])
             ]
-          )
+          ),
+          _vm._v(" "),
+          _vm.clientasvisitor.isLoading === true
+            ? _c("div", { staticClass: "uk-text-center uk-margin-top" }, [
+                _c("span", { attrs: { "uk-spinner": "" } }),
+                _vm._v(" Loading data...\n      ")
+              ])
+            : _vm.clientasvisitor.total === 0
+              ? _c("div", { staticClass: "uk-margin-top" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-alert-warning",
+                      attrs: { "uk-alert": "" }
+                    },
+                    [_vm._v("No record(s).")]
+                  )
+                ])
+              : _c("div", { staticClass: "uk-margin-top uk-overflow-auto" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.clientasvisitor.results, function(clients) {
+                          return _c("tr", [
+                            _c("td", [_vm._v(_vm._s(clients.client_mac))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(clients.client_os))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              clients.ap == "mkt"
+                                ? _c("span", [_vm._v("Mikrotik")])
+                                : _c("span", [_vm._v("Ruckus Wireless")])
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.formatDate(
+                                    clients.created_at,
+                                    "MMM DD, YYYY HH:mm "
+                                  )
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.formatDate(
+                                    clients.updated_at,
+                                    "MMM DD, YYYY HH:mm "
+                                  )
+                                )
+                              )
+                            ])
+                          ])
+                        })
+                      )
+                    ]
+                  )
+                ])
         ]
       )
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Mac Address")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Operating System")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Access Point")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("First Connected")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Last Connected")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
