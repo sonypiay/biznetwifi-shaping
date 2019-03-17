@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Database\AdminRoles;
 use App\Database\AccountSubscriber;
+use App\Database\ClientsUsage;
 use App\Http\Controllers\Controller;
 use App\RadiusAPI;
 use App\CustomFunction;
@@ -35,7 +36,7 @@ class DashboardController extends Controller
     }
   }
 
-  public function device_connected( Request $request, AccountSubscriber $subscriber)
+  public function summaryClientAsSubscribers( Request $request, AccountSubscriber $subscriber)
   {
     $ios = $subscriber->where('device_agent', '=', 'iOS')->count();
     $android = $subscriber->where('device_agent', '=', 'ANDROID')->count();
@@ -54,6 +55,24 @@ class DashboardController extends Controller
           'tv' => $tv,
           'unknown' => $unknown
         ]
+      ]
+    ];
+
+    return response()->json( $res );
+  }
+
+  public function summaryClientAsVisitor( Request $request, ClientsUsage $clients )
+  {
+    $totalDeviceConnected = $clients->select(
+      'client_os',
+      DB::raw('count(*) as total_device')
+    )->where('connection_type', '=', 'visitor')->groupBy('client_os')
+    ->orderBy(DB::raw('count(*)'), 'desc');
+
+    $res = [
+      'results' => [
+        'total' => $totalDeviceConnected->count(),
+        'data' => $totalDeviceConnected->get()
       ]
     ];
 

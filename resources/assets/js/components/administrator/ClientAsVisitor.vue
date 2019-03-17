@@ -86,13 +86,15 @@
           <div class="uk-alert-warning" uk-alert>No record(s).</div>
         </div>
         <div v-else class="uk-margin-top uk-overflow-auto">
+          <div class="uk-margin">
+            <span class="uk-label">Clients: {{ clientasvisitor.total }}</span>
+          </div>
           <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
             <thead>
               <tr>
                 <th>Mac Address</th>
                 <th>Operating System</th>
                 <th>Access Point</th>
-                <th>First Connected</th>
                 <th>Last Connected</th>
               </tr>
             </thead>
@@ -104,12 +106,31 @@
                   <span v-if="clients.ap == 'mkt'">Mikrotik</span>
                   <span v-else>Ruckus Wireless</span>
                 </td>
-                <td>{{ formatDate(clients.created_at, 'MMM DD, YYYY HH:mm ') }}</td>
                 <td>{{ formatDate(clients.updated_at, 'MMM DD, YYYY HH:mm ') }}</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <ul class="uk-pagination content-data-pagination">
+          <li>
+            <a v-if="pagination.prev_url" @click="getClientAsVisitors( pagination.prev_url )">
+              <span uk-pagination-previous></span>
+            </a>
+            <a v-else>
+              <span uk-pagination-previous></span>
+            </a>
+          </li>
+          <li><a>Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
+          <li>
+            <a v-if="pagination.next_url" @click="getClientAsVisitors( pagination.next_url )">
+              <span uk-pagination-next></span>
+            </a>
+            <a v-else>
+              <span uk-pagination-next></span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -118,6 +139,7 @@
 <script>
 import VCalendar from 'v-calendar';
 import 'v-calendar/lib/v-calendar.min.css';
+
 export default {
   props: ['url'],
   components: { VCalendar },
@@ -193,7 +215,7 @@ export default {
         text: str,
         value: val
       };
-      this.getClientAsVisitors();
+      this.getClientAsVisitors( this.pagination.path + '?page=1' );
     },
     getClientAsVisitors( pages )
     {
@@ -224,6 +246,13 @@ export default {
         this.clientasvisitor.total = result.total;
         this.clientasvisitor.results = result.data;
         this.clientasvisitor.isLoading = false;
+        this.pagination = {
+          current_page: result.current_page,
+          last_page: result.last_page,
+          prev_url: result.prev_page_url,
+          next_url: result.next_page_url,
+          path: result.path
+        };
       }).catch( err => {
         console.log( err.response.statusText );
       });

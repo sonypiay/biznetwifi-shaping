@@ -65592,12 +65592,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
   data: function data() {
     return {
-      summarydevice: {
+      summaryClientAsSubscribers: {
         total: 0,
         device: {
           ios: 0,
@@ -65606,20 +65623,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           tv: 0,
           unknown: 0
         }
+      },
+      summaryClientAsVisitors: {
+        total: [],
+        results: {}
       }
     };
   },
 
   methods: {
-    getSummaryDevice: function getSummaryDevice() {
+    getSummaryClientAsSubscriber: function getSummaryClientAsSubscriber() {
       var _this = this;
 
       axios({
         method: 'get',
-        url: this.url + 'admin/summary_device'
+        url: this.url + 'admin/clients/summary/subscribers'
       }).then(function (res) {
         var result = res.data;
-        _this.summarydevice = {
+        _this.summaryClientAsSubscribers = {
           total: result.results.total,
           device: {
             ios: result.results.device.ios,
@@ -65629,14 +65650,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             unknown: result.results.device.unknown
           }
         };
-        console.log(_this.summarydevice);
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
+    },
+    getSummaryClientAsVisitor: function getSummaryClientAsVisitor() {
+      var _this2 = this;
+
+      axios({
+        method: 'get',
+        url: this.url + 'admin/clients/summary/visitors'
+      }).then(function (res) {
+        var result = res.data;
+        _this2.summaryClientAsVisitors = {
+          total: result.results.total,
+          results: result.results.data
+        };
+        console.log(_this2.summaryClientAsVisitors);
       }).catch(function (err) {
         console.log(err.response.statusText);
       });
     }
   },
   mounted: function mounted() {
-    this.getSummaryDevice();
+    this.getSummaryClientAsSubscriber();
+    this.getSummaryClientAsVisitor();
   }
 });
 
@@ -65650,12 +65688,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "uk-margin-top" }, [
-      _c("div", { staticClass: "dashboard-container" }, [
+      _c("div", { staticClass: "uk-margin dashboard-container" }, [
         _c("div", { staticClass: "subheading-dashboard" }, [
-          _vm._v("Dashboard")
+          _vm._v("Summary Clients")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "heading-dashboard" }, [_vm._v("Overview")]),
+        _c("div", { staticClass: "heading-dashboard" }, [
+          _vm._v("As Subscribers")
+        ]),
         _vm._v(" "),
         _c(
           "div",
@@ -65681,7 +65721,7 @@ var render = function() {
                     _vm._m(0),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-overview-value" }, [
-                      _vm._v(_vm._s(_vm.summarydevice.device.ios))
+                      _vm._v(_vm._s(_vm.summaryClientAsSubscribers.device.ios))
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-overview-subvalue" }, [
@@ -65709,7 +65749,9 @@ var render = function() {
                     _vm._m(1),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-overview-value" }, [
-                      _vm._v(_vm._s(_vm.summarydevice.device.android))
+                      _vm._v(
+                        _vm._s(_vm.summaryClientAsSubscribers.device.android)
+                      )
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-overview-subvalue" }, [
@@ -65737,7 +65779,7 @@ var render = function() {
                     _vm._m(2),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-overview-value" }, [
-                      _vm._v(_vm._s(_vm.summarydevice.device.pc))
+                      _vm._v(_vm._s(_vm.summaryClientAsSubscribers.device.pc))
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-overview-subvalue" }, [
@@ -65765,7 +65807,9 @@ var render = function() {
                     _vm._m(3),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-overview-value" }, [
-                      _vm._v(_vm._s(_vm.summarydevice.device.unknown))
+                      _vm._v(
+                        _vm._s(_vm.summaryClientAsSubscribers.device.unknown)
+                      )
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "card-overview-subvalue" }, [
@@ -65777,6 +65821,53 @@ var render = function() {
             )
           ]
         )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-margin dashboard-container" }, [
+        _c("div", { staticClass: "subheading-dashboard" }, [
+          _vm._v("Summary Clients")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-dashboard" }, [_vm._v("As Visitor")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-width-1-5@xl uk-width-1-5@l uk-width-1-4@m uk-width-1-1@s"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-card uk-card-body uk-card-small uk-card-default card-overview-device"
+                },
+                _vm._l(_vm.summaryClientAsVisitors.results, function(visitors) {
+                  return _c("div", [
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c(
+                        "div",
+                        { staticClass: "uk-text-left card-overview-subvalue" },
+                        [_vm._v(_vm._s(visitors.client_os))]
+                      ),
+                      _vm._v(" "),
+                      _c("div", {
+                        style: {
+                          width: (visitors.total_device / 100) * 10 + "%",
+                          "background-color": "red",
+                          height: "10px",
+                          padding: "8px"
+                        }
+                      })
+                    ])
+                  ])
+                })
+              )
+            ]
+          )
+        ])
       ])
     ])
   ])
@@ -67498,6 +67589,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -67577,7 +67690,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         text: str,
         value: val
       };
-      this.getClientAsVisitors();
+      this.getClientAsVisitors(this.pagination.path + '?page=1');
     },
     getClientAsVisitors: function getClientAsVisitors(pages) {
       var _this = this;
@@ -67603,6 +67716,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this.clientasvisitor.total = result.total;
         _this.clientasvisitor.results = result.data;
         _this.clientasvisitor.isLoading = false;
+        _this.pagination = {
+          current_page: result.current_page,
+          last_page: result.last_page,
+          prev_url: result.prev_page_url,
+          next_url: result.next_page_url,
+          path: result.path
+        };
       }).catch(function (err) {
         console.log(err.response.statusText);
       });
@@ -68237,6 +68357,12 @@ var render = function() {
                   )
                 ])
               : _c("div", { staticClass: "uk-margin-top uk-overflow-auto" }, [
+                  _c("div", { staticClass: "uk-margin" }, [
+                    _c("span", { staticClass: "uk-label" }, [
+                      _vm._v("Clients: " + _vm._s(_vm.clientasvisitor.total))
+                    ])
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "table",
                     {
@@ -68264,17 +68390,6 @@ var render = function() {
                               _vm._v(
                                 _vm._s(
                                   _vm.formatDate(
-                                    clients.created_at,
-                                    "MMM DD, YYYY HH:mm "
-                                  )
-                                )
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm.formatDate(
                                     clients.updated_at,
                                     "MMM DD, YYYY HH:mm "
                                   )
@@ -68286,7 +68401,54 @@ var render = function() {
                       )
                     ]
                   )
-                ])
+                ]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "uk-pagination content-data-pagination" }, [
+            _c("li", [
+              _vm.pagination.prev_url
+                ? _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.getClientAsVisitors(_vm.pagination.prev_url)
+                        }
+                      }
+                    },
+                    [_c("span", { attrs: { "uk-pagination-previous": "" } })]
+                  )
+                : _c("a", [
+                    _c("span", { attrs: { "uk-pagination-previous": "" } })
+                  ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("a", [
+                _vm._v(
+                  "Page " +
+                    _vm._s(_vm.pagination.current_page) +
+                    " of " +
+                    _vm._s(_vm.pagination.last_page)
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _vm.pagination.next_url
+                ? _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.getClientAsVisitors(_vm.pagination.next_url)
+                        }
+                      }
+                    },
+                    [_c("span", { attrs: { "uk-pagination-next": "" } })]
+                  )
+                : _c("a", [_c("span", { attrs: { "uk-pagination-next": "" } })])
+            ])
+          ])
         ]
       )
     ])
@@ -68304,8 +68466,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Operating System")]),
         _vm._v(" "),
         _c("th", [_vm._v("Access Point")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("First Connected")]),
         _vm._v(" "),
         _c("th", [_vm._v("Last Connected")])
       ])

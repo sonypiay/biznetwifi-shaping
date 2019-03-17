@@ -50,7 +50,7 @@ class ClientAsVisitorController extends Controller
       if( $filterdate == 'this_month' OR $filterdate == 'last_month' )
       {
         $filtermonth = $filterdate == 'this_month' ? 'this month' : 'last month';
-        $getMonth = new DateTime( $filtermonth );
+        $currentMonth = new DateTime( $filtermonth );
 
         if( empty( $keywords ) )
         {
@@ -62,7 +62,7 @@ class ClientAsVisitorController extends Controller
                 [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
                 ['connection_type', '=', 'visitor']
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -72,7 +72,7 @@ class ClientAsVisitorController extends Controller
                 ['ap', '=', $filterap],
                 ['connection_type', '=', 'visitor']
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -85,7 +85,7 @@ class ClientAsVisitorController extends Controller
                 ['client_os', '=', $filterdevice],
                 ['connection_type', '=', 'visitor']
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -96,7 +96,7 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['ap', '=', $filterap],
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -112,7 +112,7 @@ class ClientAsVisitorController extends Controller
                 ['client_mac', 'like', '%' . $keywords . '%'],
                 ['connection_type', '=', 'visitor']
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -123,7 +123,7 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['ap', '=', $filterap]
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -137,7 +137,7 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%']
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -149,7 +149,7 @@ class ClientAsVisitorController extends Controller
                 ['client_mac', 'like', '%' . $keywords . '%'],
                 ['ap', '=', $filterap]
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -168,7 +168,7 @@ class ClientAsVisitorController extends Controller
                 [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
                 ['connection_type', '=', 'visitor']
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -178,7 +178,7 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['ap', '=', $filterap]
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -191,7 +191,7 @@ class ClientAsVisitorController extends Controller
                 ['client_os', '=', $filterdevice],
                 ['connection_type', '=', 'visitor']
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -202,7 +202,7 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['ap', '=', $filterap]
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -218,7 +218,7 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%']
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -229,7 +229,7 @@ class ClientAsVisitorController extends Controller
                 ['client_mac', 'like', '%' . $keywords . '%'],
                 ['ap', '=', $filterap]
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -243,7 +243,7 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%']
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -255,7 +255,7 @@ class ClientAsVisitorController extends Controller
                 ['client_mac', 'like', '%' . $keywords . '%'],
                 ['ap', '=', $filterap]
               ])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -295,7 +295,7 @@ class ClientAsVisitorController extends Controller
             {
               $query = $clients->where('connection_type', '=', 'visitor')
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -305,7 +305,7 @@ class ClientAsVisitorController extends Controller
                 ['ap', '=', $filterap]
               ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -318,7 +318,7 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor']
               ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -329,7 +329,7 @@ class ClientAsVisitorController extends Controller
                 ['ap', '=', $filterap]
               ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -345,7 +345,7 @@ class ClientAsVisitorController extends Controller
                 ['client_mac', 'like', '%' . $keywords . '%']
               ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -356,7 +356,7 @@ class ClientAsVisitorController extends Controller
                 ['ap', '=', $filterap]
               ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -370,7 +370,7 @@ class ClientAsVisitorController extends Controller
                 ['client_os', '=', $filterdevice]
               ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
             else
@@ -382,7 +382,7 @@ class ClientAsVisitorController extends Controller
                 ['ap', '=', $filterap]
               ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-              ->orderBy('updated_at')
+              ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
           }
@@ -399,7 +399,7 @@ class ClientAsVisitorController extends Controller
           {
             $query = $clients->where('connection_type', '=', 'visitor')
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-            ->orderBy('updated_at')
+            ->orderBy('updated_at','desc')
             ->paginate( $rows );
           }
           else
@@ -409,7 +409,7 @@ class ClientAsVisitorController extends Controller
               ['ap', '=', $filterap]
             ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-            ->orderBy('updated_at')
+            ->orderBy('updated_at','desc')
             ->paginate( $rows );
           }
         }
@@ -422,7 +422,7 @@ class ClientAsVisitorController extends Controller
               ['connection_type', '=', 'visitor']
             ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-            ->orderBy('updated_at')
+            ->orderBy('updated_at','desc')
             ->paginate( $rows );
           }
           else
@@ -433,7 +433,7 @@ class ClientAsVisitorController extends Controller
               ['ap', '=', $filterap]
             ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-            ->orderBy('updated_at')
+            ->orderBy('updated_at','desc')
             ->paginate( $rows );
           }
         }
@@ -449,7 +449,7 @@ class ClientAsVisitorController extends Controller
               ['client_mac', 'like', '%' . $keywords . '%']
             ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-            ->orderBy('updated_at')
+            ->orderBy('updated_at','desc')
             ->paginate( $rows );
           }
           else
@@ -460,7 +460,7 @@ class ClientAsVisitorController extends Controller
               ['ap', '=', $filterap]
             ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-            ->orderBy('updated_at')
+            ->orderBy('updated_at','desc')
             ->paginate( $rows );
           }
         }
@@ -474,7 +474,7 @@ class ClientAsVisitorController extends Controller
               ['client_os', '=', $device]
             ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-            ->orderBy('updated_at')
+            ->orderBy('updated_at','desc')
             ->paginate( $rows );
           }
           else
@@ -486,7 +486,7 @@ class ClientAsVisitorController extends Controller
               ['ap', '=', $filterap]
             ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
-            ->orderBy('updated_at')
+            ->orderBy('updated_at','desc')
             ->paginate( $rows );
           }
         }

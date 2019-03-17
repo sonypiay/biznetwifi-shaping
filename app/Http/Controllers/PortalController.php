@@ -120,7 +120,7 @@ class PortalController extends Controller
   public function afterlogin( Request $request, AccountSubscriber $subscriber, ClientsUsage $clientusage )
   {
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
-	$client_mac = strtoupper( $request->session()->get('client_mac') );
+    $client_mac = strtoupper( $request->session()->get('client_mac') );
     $clientIfExists = $clientusage->select(
       'client_mac',
       DB::raw('date_format(created_at, "%Y-%m-%d") as start_connected'),
@@ -133,14 +133,14 @@ class PortalController extends Controller
       $clients = $clientIfExists->first();
       if( $clients->last_connected == date('Y-m-d') )
       {
-		$updated = $clientusage->where('client_mac', '=', $client_mac)->first();
+        $updated = $clientusage->where('client_mac', '=', $client_mac)->first();
         $updated->client_ip = $request->session()->get('uip');
         $updated->client_mac = $request->session()->get('client_mac');
         $updated->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
         $updated->location_id = $request->session()->get('location_id');
         $updated->connection_type = $connection_type;
         $updated->ap = $request->session()->get('ap');
-		$updated->save();
+        $updated->save();
       }
       else
       {
@@ -151,7 +151,7 @@ class PortalController extends Controller
         $clients->location_id = $request->session()->get('location_id');
         $clients->connection_type = $connection_type;
         $clients->ap = $request->session()->get('ap');
-		$clients->save();
+        $clients->save();
       }
     }
     else
@@ -163,7 +163,7 @@ class PortalController extends Controller
       $clients->location_id = $request->session()->get('location_id');
       $clients->connection_type = $connection_type;
       $clients->ap = $request->session()->get('ap');
-	  $clients->save();
+      $clients->save();
     }
 
     if( $request->session()->get('connect') == 'freehotspot' )
