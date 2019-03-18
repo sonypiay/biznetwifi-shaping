@@ -81,7 +81,7 @@
                     </li>
                     <li>
                       <a v-if="forms.filterdate.value == 'last_month'" class="form-overview-dropdown-active" @click="onFilteringDate('Last Month', 'last_month')">Last Month</a>
-                      <a v-else @click="onFilteringDate('Last Month', 'this_month')">Last Month</a>
+                      <a v-else @click="onFilteringDate('Last Month', 'last_month')">Last Month</a>
                     </li>
                     <li>
                       <a v-if="forms.filterdate.value == '3month'" class="form-overview-dropdown-active" @click="onFilteringDate('Last 3 Months Ago', '3month')">Last 3 Months Ago</a>
@@ -120,8 +120,8 @@ export default {
       },
       forms: {
         filterdate: {
-          value: '7days',
-          text: 'Last 7 Days'
+          value: 'today',
+          text: 'Today'
         }
       }
     }
@@ -210,7 +210,8 @@ export default {
         url: this.url + 'admin/clients/summary/visitors_by_date?filterdate=' + this.forms.filterdate.value
       }).then( res => {
         let result = res.data;
-        if( this.forms.filterdate.value !== 'today' || this.forms.filterdate.value !== '3month' )
+        var ctx = document.getElementById('chartLineSummaryClientAsVisitor').getContext('2d');
+        if( this.forms.filterdate.value !== 'today' )
         {
           var labelDate = [];
           var ios = [], android = [], windows = [], linux = [], macos = [], other = [];
@@ -224,7 +225,6 @@ export default {
             macos[label] = result.records[label].os.macos.total;
             other[label] = result.records[label].os.other.total;
           }
-          var ctx = document.getElementById('chartLineSummaryClientAsVisitor').getContext('2d');
           var chart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -295,8 +295,51 @@ export default {
       			}
           });
         }
+        else
+        {
+          var barChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: [
+                    result.os.ios.label,
+                    result.os.android.label,
+                    result.os.windows.label,
+                    result.os.linux.label,
+                    result.os.macos.label,
+                    result.os.other.label
+                  ],
+                  datasets: [{
+                      label: '# of Devices OS',
+                      data: [
+                        result.os.ios.total,
+                        result.os.android.total,
+                        result.os.windows.total,
+                        result.os.linux.total,
+                        result.os.macos.total,
+                        result.os.other.total
+                      ],
+                      backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)',
+                        'rgba(255, 159, 64, 0.5)'
+                      ],
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                legend: {
+                  display: true
+                },
+                responsive: true,
+                aspectRatio: 2
+              }
+          });
+        }
       }).catch( err => {
-        console.log( err.response.status );
+        console.log( err );
       });
     }
   },
