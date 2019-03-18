@@ -49,7 +49,8 @@ Route::group(['prefix' => 'admin'], function() {
   Route::group(['prefix' => 'clients'], function() {
     Route::group(['prefix' => 'summary'], function() {
       Route::get('/subscribers', 'Administrator\DashboardController@summaryClientAsSubscribers');
-      Route::get('/visitors', 'Administrator\DashboardController@summaryClientAsVisitor');
+      Route::get('/visitors', 'Administrator\DashboardController@summaryDeviceClientAsVisitor');
+      Route::get('/visitors_by_date', 'Administrator\DashboardController@summaryDeviceClientAsVisitorByDate');
     });
     Route::get('/as_visitor', 'Administrator\ClientAsVisitorController@index')->name('admin_client_visitor_page');
     Route::get('/client_visitor', 'Administrator\ClientAsVisitorController@data_clientAsVisitor');

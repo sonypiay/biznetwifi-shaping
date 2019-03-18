@@ -422,3 +422,60 @@ html {
   font-size: 14px;
 }
 
+.dashboard-container .card-overview-device .form-overview-button {
+  border: 1px solid #eeeeee;
+  border-radius: 30px;
+  color: #666666;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 11px;
+  background: #ffffff;
+  text-transform: capitalize;
+}
+
+.dashboard-container .card-overview-device .form-overview-button:hover,
+.dashboard-container .card-overview-device .form-overview-button:focus {
+  border: 1px solid #da068c;
+  background: #da068c;
+  color: #ffffff;
+  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-container .card-overview-device .form-overview-dropdown {
+  height: 200px;
+  overflow: hidden;
+  padding: 0;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container .card-overview-device .form-overview-dropdown:hover {
+  overflow-y: scroll;
+}
+
+.dashboard-container .card-overview-device .form-overview-dropdown ul li a {
+  color: #666666;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 12px;
+  padding: 8px 12px;
+}
+
+.dashboard-container .card-overview-device .form-overview-dropdown ul li a:hover,
+.dashboard-container .card-overview-device .form-overview-dropdown ul li a:focus {
+  border-left: 2px solid #da068c;
+  color: #da068c;
+}
+
+.dashboard-container .card-overview-device .form-overview-dropdown ul li .form-overview-dropdown-active {
+  border-left: 2px solid #da068c;
+  color: #da068c;
+}
+
