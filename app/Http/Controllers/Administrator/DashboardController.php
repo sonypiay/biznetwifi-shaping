@@ -83,25 +83,52 @@ class DashboardController extends Controller
   public function summaryDeviceClientAsVisitorByDate( Request $request, ClientsUsage $clients )
   {
     $filterdate = isset( $request->filterdate ) ? $request->filterdate : 'today';
-
+    $dataset = [];
+    
     if( $filterdate == 'today' )
     {
-      $currentTime = new DateTime( '00:00' );
-      $updatedTime = date('H:i');
-
-      $query = $clients->select(
-        'client_os',
-        DB::raw('count(*) as total_device')
-      )->where([
+      $currentTime = new DateTime( 'today' );
+      $ios = $clients->where([
+        ['client_os', '=', 'ios'],
         ['connection_type', '=', 'visitor'],
-        [DB::raw('date_format(updated_at, "%H-%i")'), '>=', $currentTime->format('H:i')],
-        [DB::raw('date_format(updated_at, "%H-%i")'), '<=', $updatedTime]
-      ])->groupBy('client_os')
-      ->orderBy(DB::raw('count(*)'), 'desc')->get();
+        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
+      ])->count();
+      $android = $clients->where([
+        ['client_os', '=', 'Android'],
+        ['connection_type', '=', 'visitor'],
+        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
+      ])->count();
+      $windows = $clients->where([
+        ['client_os', '=', 'Windows'],
+        ['connection_type', '=', 'visitor'],
+        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
+      ])->count();
+      $linux = $clients->where([
+        ['client_os', '=', 'Linux'],
+        ['connection_type', '=', 'visitor'],
+        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
+      ])->count();
+      $macos = $clients->where([
+        ['client_os', '=', 'Mac OS'],
+        ['connection_type', '=', 'visitor'],
+        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
+      ])->count();
+      $other = $clients->where([
+        ['client_os', '=', 'Other'],
+        ['connection_type', '=', 'visitor'],
+        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
+      ])->count();
 
       $dataset = [
-        'date' => date('F d, Y'),
-        'results' => $query
+        'date' => $currentTime->format('F d, Y'),
+        'os' => [
+          'ios' => [ 'total' => $ios, 'label' => 'iOS' ],
+          'android' => [ 'total' => $android, 'label' => 'Android' ],
+          'windows' => [ 'total' => $windows, 'label' => 'Windows' ],
+          'linux' => [ 'total' => $linux, 'label' => 'Linux' ],
+          'macos' => [ 'total' => $macos, 'label' => 'Mac OS' ],
+          'other' => [ 'total' => $other, 'label' => 'Other' ]
+        ]
       ];
     }
     else if( $filterdate == 'this_month' OR $filterdate == 'last_month' )
@@ -114,7 +141,7 @@ class DashboardController extends Controller
       else if( $filterdate == 'last_month' )
       {
         $currentMonth = new DateTime( 'first day of last month' );
-        $endMonth = new DateTime( 'last day of this month' );
+        $endMonth = new DateTime( 'last day of last month' );
       }
 
       $interval = new DateInterval('P1D');
@@ -129,19 +156,6 @@ class DashboardController extends Controller
         ];
       }
 
-      $dataset = [
-        'records' => [],
-        'date' => '',
-        'os' => [
-          'ios' => [ 'total' => 0, 'label' => 'iOS' ],
-          'android' => [ 'total' => 0, 'label' => 'Android' ],
-          'windows' => [ 'total' => 0, 'label' => 'Windows' ],
-          'linux' => [ 'total' => 0, 'label' => 'Linux' ],
-          'macos' => [ 'total' => 0, 'label' => 'Mac OS' ],
-          'other' => [ 'total' => 0, 'label' => 'Other' ]
-        ]
-      ];
-      
       foreach( $rangeDate as $key => $value )
       {
         $ios = $clients->where([
@@ -190,10 +204,65 @@ class DashboardController extends Controller
     }
     else if( $filterdate == '3month' )
     {
-      $currentMonth = new DateTime( $filtermonth );
+      $currentMonth = new DateTime( '3 month ago' );
       $endMonth = new DateTime( 'this month' );
       $interval = new DateInterval('P1M');
       $period = new DatePeriod( $currentMonth, $interval, $endMonth );
+
+      $rangeDate = [];
+      foreach( $period as $date )
+      {
+        $rangeDate[] = [
+          'dateValue' => $date->format('Y-m'),
+          'formatDate' => $date->format('F, Y')
+        ];
+      }
+
+      foreach( $rangeDate as $key => $value )
+      {
+        $ios = $clients->where([
+          ['connection_type', '=', 'visitor'],
+          ['client_os', '=', 'iOS'],
+          [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $value['dateValue']]
+        ])->count();
+        $android = $clients->where([
+          ['connection_type', '=', 'visitor'],
+          ['client_os', '=', 'Android'],
+          [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $value['dateValue']]
+        ])->count();
+        $windows = $clients->where([
+          ['connection_type', '=', 'visitor'],
+          ['client_os', '=', 'Windows'],
+          [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $value['dateValue']]
+        ])->count();
+        $linux = $clients->where([
+          ['connection_type', '=', 'visitor'],
+          ['client_os', '=', 'Linux'],
+          [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $value['dateValue']]
+        ])->count();
+        $macos = $clients->where([
+          ['connection_type', '=', 'visitor'],
+          ['client_os', '=', 'Mac OS'],
+          [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $value['dateValue']]
+        ])->count();
+        $other = $clients->where([
+          ['connection_type', '=', 'visitor'],
+          ['client_os', '=', 'Other'],
+          [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $value['dateValue']]
+        ])->count();
+
+        $dataset['records'][] = [
+          'date' => $value['formatDate'],
+          'os' => [
+            'ios' => [ 'total' => $ios, 'label' => 'iOS' ],
+            'android' => [ 'total' => $android, 'label' => 'Android' ],
+            'windows' => [ 'total' => $windows, 'label' => 'Windows' ],
+            'linux' => [ 'total' => $linux, 'label' => 'Linux' ],
+            'macos' => [ 'total' => $macos, 'label' => 'Mac OS' ],
+            'other' => [ 'total' => $other, 'label' => 'Other' ]
+          ]
+        ];
+      }
     }
     else
     {
@@ -222,18 +291,6 @@ class DashboardController extends Controller
         ];
       }
 
-      $dataset = [
-        'records' => [],
-        'date' => '',
-        'os' => [
-          'ios' => [ 'total' => 0, 'label' => 'iOS' ],
-          'android' => [ 'total' => 0, 'label' => 'Android' ],
-          'windows' => [ 'total' => 0, 'label' => 'Windows' ],
-          'linux' => [ 'total' => 0, 'label' => 'Linux' ],
-          'macos' => [ 'total' => 0, 'label' => 'Mac OS' ],
-          'other' => [ 'total' => 0, 'label' => 'Other' ]
-        ]
-      ];
       foreach( $rangeDate as $key => $value )
       {
         $ios = $clients->where([
