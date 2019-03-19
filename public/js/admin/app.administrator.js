@@ -80238,16 +80238,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -80398,11 +80390,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       forms: {
         filterdate: {
           value: 'today',
-          text: 'today'
+          text: 'Today'
         },
         filterdevice: {
           value: 'all',
           text: 'All'
+        },
+        filterdate_pie: {
+          value: 'today',
+          text: 'Today'
         }
       }
     };
@@ -80415,10 +80411,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.getSummaryDeviceClientAsVisitorByDate();
     },
-    onFilteringDeviceByOS: function onFilteringDeviceByOS(str, val) {
-      this.forms.filterdevice.text = str;
-      this.forms.filterdevice.value = val;
-      this.getSummaryDeviceClientAsVisitorByDate();
+    onFilteringPieDeviceByOSByDate: function onFilteringPieDeviceByOSByDate(str, val) {
+      this.forms.filterdate_pie.text = str;
+      this.forms.filterdate_pie.value = val;
+
+      this.getSummaryDeviceClientAsVisitor();
     },
     getSummaryClientAsSubscriber: function getSummaryClientAsSubscriber() {
       var _this = this;
@@ -80447,7 +80444,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/summary/visitors'
+        url: this.url + 'admin/clients/summary/visitors?filterdate=' + this.forms.filterdate_pie.value
       }).then(function (res) {
         var result = res.data;
         _this2.summaryClientAsVisitors = {
@@ -80461,7 +80458,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         var ctx = document.getElementById('chartBarSummaryClientAsVisitors').getContext('2d');
-        var pieChart = new Chart(ctx, {
+        if (window.pieSummaryClientAsVisitors !== undefined) window.pieSummaryClientAsVisitors.destroy();
+
+        window.pieSummaryClientAsVisitors = new Chart(ctx, {
           type: 'doughnut',
           data: {
             labels: chartSummaryClientAsVisitors.label,
@@ -80481,7 +80480,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               display: true
             },
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             animation: {
               animateRotate: true,
               animateScale: true
@@ -80635,6 +80634,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           };
           window.bar = new Chart(ctx, context);
         } else {
+          var _options;
+
           var context = {
             type: 'bar',
             data: {
@@ -80646,25 +80647,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 borderWidth: 1
               }]
             },
-            options: {
+            options: (_options = {
               legend: {
                 display: true
               },
               responsive: true,
               aspectRatio: 2,
-              scales: {
-                yAxes: [{
-                  ticks: {
-                    beginAtZero: true,
-                    userCallback: function userCallback(label, index, labels) {
-                      if (Math.floor(label) === label) {
-                        return label;
-                      }
+              title: {
+                display: true,
+                text: 'All Devices'
+              },
+              tooltips: {
+                mode: 'index',
+                intersect: false
+              },
+              hover: {
+                mode: 'nearest',
+                intersect: true
+              }
+            }, _defineProperty(_options, 'legend', {
+              display: true
+            }), _defineProperty(_options, 'scales', {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: result.date
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  userCallback: function userCallback(label, index, labels) {
+                    if (Math.floor(label) === label) {
+                      return label;
                     }
                   }
-                }]
-              }
-            }
+                }
+              }]
+            }), _options)
           };
 
           if (window.bar !== undefined) window.bar.destroy();
@@ -80842,7 +80863,277 @@ var render = function() {
             attrs: { "uk-grid": "" }
           },
           [
-            _vm._m(4),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-card uk-card-body uk-card-small uk-card-default card-overview-device"
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "uk-width-1-1 uk-text-left uk-inline" },
+                      [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "uk-width-1-1 uk-button uk-button-default form-overview-button",
+                            attrs: { type: "button" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.forms.filterdate_pie.text) +
+                                " "
+                            ),
+                            _c("span", { attrs: { "uk-icon": "chevron-down" } })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "form-overview-dropdown",
+                            attrs: { "uk-dropdown": "mode: click" }
+                          },
+                          [
+                            _c(
+                              "ul",
+                              { staticClass: "uk-nav uk-dropdown-nav" },
+                              [
+                                _c("li", [
+                                  _vm.forms.filterdate_pie.value == "today"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "form-overview-dropdown-active",
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Today",
+                                                "today"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Today")]
+                                      )
+                                    : _c(
+                                        "a",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Today",
+                                                "today"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Today")]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _vm.forms.filterdate_pie.value == "7days"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "form-overview-dropdown-active",
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Last 7 days",
+                                                "7days"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Last 7 days")]
+                                      )
+                                    : _c(
+                                        "a",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Last 7 days ",
+                                                "7days"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Last 7 days")]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _vm.forms.filterdate_pie.value == "28days"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "form-overview-dropdown-active",
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Last 28 days",
+                                                "28days"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Last 28 days")]
+                                      )
+                                    : _c(
+                                        "a",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Last 28 days",
+                                                "28days"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Last 28 days")]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _vm.forms.filterdate_pie.value == "30days"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "form-overview-dropdown-active",
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Last 30 days",
+                                                "30days"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Last 30 days")]
+                                      )
+                                    : _c(
+                                        "a",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Last 30 days",
+                                                "30days"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Last 30 days")]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _vm.forms.filterdate_pie.value == "this_month"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "form-overview-dropdown-active",
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "This Month",
+                                                "this_month"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("This Month")]
+                                      )
+                                    : _c(
+                                        "a",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "This Month",
+                                                "this_month"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("This Month")]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _vm.forms.filterdate_pie.value == "last_month"
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "form-overview-dropdown-active",
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Last Month",
+                                                "last_month"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Last Month")]
+                                      )
+                                    : _c(
+                                        "a",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              _vm.onFilteringPieDeviceByOSByDate(
+                                                "Last Month",
+                                                "last_month"
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Last Month")]
+                                      )
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "canvas",
+                      {
+                        attrs: {
+                          id: "chartBarSummaryClientAsVisitors",
+                          width: "500",
+                          height: "500"
+                        }
+                      },
+                      [_vm._v("Unable to load chart")]
+                    )
+                  ]
+                )
+              ]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "uk-width-expand" }, [
               _c(
@@ -80854,289 +81145,273 @@ var render = function() {
                 [
                   _c(
                     "div",
-                    { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } },
+                    { staticClass: "uk-width-1-1 uk-text-left uk-inline" },
                     [
-                      _c("div", { staticClass: "uk-width-1-1" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "uk-width-1-1 uk-text-left uk-inline"
-                          },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "uk-button uk-button-default form-overview-button",
-                                attrs: { type: "button" }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                    " +
-                                    _vm._s(_vm.forms.filterdate.text) +
-                                    " "
-                                ),
-                                _c("span", {
-                                  attrs: { "uk-icon": "chevron-down" }
-                                })
-                              ]
-                            ),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "uk-button uk-button-default form-overview-button",
+                          attrs: { type: "button" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(_vm.forms.filterdate.text) +
+                              " "
+                          ),
+                          _c("span", { attrs: { "uk-icon": "chevron-down" } })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "form-overview-dropdown",
+                          attrs: { "uk-dropdown": "mode: click" }
+                        },
+                        [
+                          _c("ul", { staticClass: "uk-nav uk-dropdown-nav" }, [
+                            _c("li", [
+                              _vm.forms.filterdate.value == "today"
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "form-overview-dropdown-active",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Today",
+                                            "today"
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Today")]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Today",
+                                            "today"
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Today")]
+                                  )
+                            ]),
                             _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass: "form-overview-dropdown",
-                                attrs: { "uk-dropdown": "mode: click" }
-                              },
-                              [
-                                _c(
-                                  "ul",
-                                  { staticClass: "uk-nav uk-dropdown-nav" },
-                                  [
-                                    _c("li", [
-                                      _vm.forms.filterdate.value == "today"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "form-overview-dropdown-active",
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Today",
-                                                    "today"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Today")]
+                            _c("li", [
+                              _vm.forms.filterdate.value == "7days"
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "form-overview-dropdown-active",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last 7 days",
+                                            "7days"
                                           )
-                                        : _c(
-                                            "a",
-                                            {
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Today",
-                                                    "today"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Today")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 7 days")]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last 7 days ",
+                                            "7days"
                                           )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", [
-                                      _vm.forms.filterdate.value == "7days"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "form-overview-dropdown-active",
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last 7 days",
-                                                    "7days"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last 7 days")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 7 days")]
+                                  )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _vm.forms.filterdate.value == "28days"
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "form-overview-dropdown-active",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last 28 days",
+                                            "28days"
                                           )
-                                        : _c(
-                                            "a",
-                                            {
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last 7 days ",
-                                                    "7days"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last 7 days")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 28 days")]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last 28 days",
+                                            "28days"
                                           )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", [
-                                      _vm.forms.filterdate.value == "28days"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "form-overview-dropdown-active",
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last 28 days",
-                                                    "28days"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last 28 days")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 28 days")]
+                                  )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _vm.forms.filterdate.value == "30days"
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "form-overview-dropdown-active",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last 30 days",
+                                            "30days"
                                           )
-                                        : _c(
-                                            "a",
-                                            {
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last 28 days",
-                                                    "28days"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last 28 days")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 30 days")]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last 30 days",
+                                            "30days"
                                           )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", [
-                                      _vm.forms.filterdate.value == "30days"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "form-overview-dropdown-active",
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last 30 days",
-                                                    "30days"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last 30 days")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 30 days")]
+                                  )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _vm.forms.filterdate.value == "this_month"
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "form-overview-dropdown-active",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "This Month",
+                                            "this_month"
                                           )
-                                        : _c(
-                                            "a",
-                                            {
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last 30 days",
-                                                    "30days"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last 30 days")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("This Month")]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "This Month",
+                                            "this_month"
                                           )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", [
-                                      _vm.forms.filterdate.value == "this_month"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "form-overview-dropdown-active",
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "This Month",
-                                                    "this_month"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("This Month")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("This Month")]
+                                  )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _vm.forms.filterdate.value == "last_month"
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "form-overview-dropdown-active",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last Month",
+                                            "last_month"
                                           )
-                                        : _c(
-                                            "a",
-                                            {
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "This Month",
-                                                    "this_month"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("This Month")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last Month")]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last Month",
+                                            "last_month"
                                           )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", [
-                                      _vm.forms.filterdate.value == "last_month"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "form-overview-dropdown-active",
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last Month",
-                                                    "last_month"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last Month")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last Month")]
+                                  )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _vm.forms.filterdate.value == "3month"
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "form-overview-dropdown-active",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last 3 Months Ago",
+                                            "3month"
                                           )
-                                        : _c(
-                                            "a",
-                                            {
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last Month",
-                                                    "last_month"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last Month")]
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 3 Months Ago")]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.onFilteringDeviceByOSByDate(
+                                            "Last 3 Month Ago",
+                                            "3month"
                                           )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", [
-                                      _vm.forms.filterdate.value == "3month"
-                                        ? _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "form-overview-dropdown-active",
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last 3 Months Ago",
-                                                    "3month"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last 3 Months Ago")]
-                                          )
-                                        : _c(
-                                            "a",
-                                            {
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.onFilteringDeviceByOSByDate(
-                                                    "Last 3 Month Ago",
-                                                    "3month"
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [_vm._v("Last 3 Months Ago")]
-                                          )
-                                    ])
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      ])
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 3 Months Ago")]
+                                  )
+                            ])
+                          ])
+                        ]
+                      )
                     ]
                   ),
                   _vm._v(" "),
@@ -81144,7 +81419,7 @@ var render = function() {
                     attrs: {
                       id: "chartAllDeviceVisitor",
                       width: "300",
-                      height: "110"
+                      height: "95"
                     }
                   })
                 ]
@@ -81193,40 +81468,6 @@ var staticRenderFns = [
       "a",
       { staticClass: "card-overview-device-icon card-overview-device-unknown" },
       [_c("span", { staticClass: "fas fa-question-circle" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s"
-      },
-      [
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-card uk-card-body uk-card-small uk-card-default card-overview-device"
-          },
-          [
-            _c(
-              "canvas",
-              {
-                attrs: {
-                  id: "chartBarSummaryClientAsVisitors",
-                  width: "500",
-                  height: "500"
-                }
-              },
-              [_vm._v("Unable to load chart")]
-            )
-          ]
-        )
-      ]
     )
   }
 ]
