@@ -15,11 +15,18 @@ class LoginController extends Controller
 
   public function index( Request $request, AdminRoles $users )
   {
-    $data = [
-      'request' => $request->all(),
-      'session' => $request->session()->all()
-    ];
-    return response()->view('administrator.login', $data);
+    if( $request->session()->has('admin_login') )
+    {
+      return redirect()->route('admin_dashboard');
+    }
+    else
+    {
+      $data = [
+        'request' => $request->all(),
+        'session' => $request->session()->all()
+      ];
+      return response()->view('administrator.login', $data);
+    }
   }
 
   public function dologin( Request $request, AdminRoles $users, AdminLogActivity $log )
