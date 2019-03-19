@@ -39,58 +39,95 @@
       <div class="uk-margin dashboard-container">
         <div class="subheading-dashboard">Summary Clients</div>
         <div class="heading-dashboard">As Visitor</div>
-        <div class="uk-grid-small uk-grid-match" uk-grid>
+        <div class="uk-margin-top uk-grid-small uk-grid-match" uk-grid>
           <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s">
             <div class="uk-card uk-card-body uk-card-small uk-card-default card-overview-device">
-              <canvas id="chartBarSummaryClientAsVisitors" width="400" height="400">Unable to load chart</canvas>
-              <!--<div v-for="visitors in summaryClientAsVisitors.results">
-                <div class="uk-margin">
-                  <div class="uk-text-left card-overview-subvalue">{{ visitors.client_os }}</div>
-                  <div :style="{ width: (visitors.total_device / 100) * 10 + '%', 'background-color': 'red', height: '10px', padding: '8px' }"></div>
-                </div>
-              </div>-->
+              <canvas id="chartBarSummaryClientAsVisitors" width="500" height="500">Unable to load chart</canvas>
             </div>
           </div>
           <div class="uk-width-expand">
             <div class="uk-card uk-card-body uk-card-small uk-card-default card-overview-device">
-              <div class="uk-width-1-1 uk-text-left uk-inline">
-                <button class="uk-button uk-button-default form-overview-button" type="button">
-                  {{ forms.filterdate.text }} <span uk-icon="chevron-down"></span>
-                </button>
-                <div class="form-overview-dropdown" uk-dropdown="mode: click">
-                  <ul class="uk-nav uk-dropdown-nav">
-                    <li>
-                      <a v-if="forms.filterdate.value == 'today'" class="form-overview-dropdown-active" @click="onFilteringDate('Today', 'today')">Today</a>
-                      <a v-else @click="onFilteringDate('Today', 'today')">Today</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate.value == '7days'" class="form-overview-dropdown-active" @click="onFilteringDate('Last 7 days', '7days')">Last 7 days</a>
-                      <a v-else @click="onFilteringDate('Last 7 days ', '7days')">Last 7 days</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate.value == '28days'" class="form-overview-dropdown-active" @click="onFilteringDate('Last 28 days', '28days')">Last 28 days</a>
-                      <a v-else @click="onFilteringDate('Last 28 days', '28days')">Last 28 days</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate.value == '30days'" class="form-overview-dropdown-active" @click="onFilteringDate('Last 30 days', '30days')">Last 30 days</a>
-                      <a v-else @click="onFilteringDate('Last 30 days', '30days')">Last 30 days</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate.value == 'this_month'" class="form-overview-dropdown-active" @click="onFilteringDate('This Month', 'this_month')">This Month</a>
-                      <a v-else @click="onFilteringDate('This Month', 'this_month')">This Month</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate.value == 'last_month'" class="form-overview-dropdown-active" @click="onFilteringDate('Last Month', 'last_month')">Last Month</a>
-                      <a v-else @click="onFilteringDate('Last Month', 'last_month')">Last Month</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate.value == '3month'" class="form-overview-dropdown-active" @click="onFilteringDate('Last 3 Months Ago', '3month')">Last 3 Months Ago</a>
-                      <a v-else @click="onFilteringDate('Last 3 Month Ago', '3month')">Last 3 Months Ago</a>
-                    </li>
-                  </ul>
+              <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-1-1">
+                  <div class="uk-width-1-1 uk-text-left uk-inline">
+                    <button class="uk-button uk-button-default form-overview-button" type="button">
+                      {{ forms.filterdate.text }} <span uk-icon="chevron-down"></span>
+                    </button>
+                    <div class="form-overview-dropdown" uk-dropdown="mode: click">
+                      <ul class="uk-nav uk-dropdown-nav">
+                        <li>
+                          <a v-if="forms.filterdate.value == 'today'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
+                          <a v-else @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == '7days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 7 days', '7days')">Last 7 days</a>
+                          <a v-else @click="onFilteringDeviceByOSByDate('Last 7 days ', '7days')">Last 7 days</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == '28days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                          <a v-else @click="onFilteringDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == '30days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                          <a v-else @click="onFilteringDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'this_month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                          <a v-else @click="onFilteringDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'last_month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                          <a v-else @click="onFilteringDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == '3month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 3 Months Ago', '3month')">Last 3 Months Ago</a>
+                          <a v-else @click="onFilteringDeviceByOSByDate('Last 3 Month Ago', '3month')">Last 3 Months Ago</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
+                <!--<div class="uk-width-1-5@xl uk-width-1-5@l uk-width-1-5@m uk-width-1-1@s">
+                  <div class="uk-width-1-1 uk-inline">
+                    <button class="uk-width-1-1 uk-button uk-button-default form-overview-button">
+                      {{ forms.filterdevice.text }} <span uk-icon="chevron-down"></span>
+                    </button>
+                    <div class="form-overview-dropdown" uk-dropdown="mode: click">
+                      <ul class="uk-nav uk-dropdown-nav">
+                        <li>
+                          <a v-if="forms.filterdate.value == 'all'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('All', 'all')">All</a>
+                          <a v-else @click="onFilteringDeviceByOS('All', 'all')">All</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'iOS'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('All', 'all')">iOS</a>
+                          <a v-else @click="onFilteringDeviceByOS('iOS', 'iOS')">iOS</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'Android'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('All', 'all')">Android</a>
+                          <a v-else @click="onFilteringDeviceByOS('Android', 'Android')">Android</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'Windows'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Windows', 'Windows')">Windows</a>
+                          <a v-else @click="onFilteringDeviceByOS('Windows', 'Windows')">Windows</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'Linux'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Linux', 'Linux')">Linux</a>
+                          <a v-else @click="onFilteringDeviceByOS('Linux', 'Linux')">Linux</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'Mac OS'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Linux', 'Linux')">Mac OS</a>
+                          <a v-else @click="onFilteringDeviceByOS('Mac OS', 'Mac OS')">Mac OS</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'Other'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Other', 'Other')">Other</a>
+                          <a v-else @click="onFilteringDeviceByOS('Other', 'Other')">Other</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>-->
               </div>
-              <canvas id="chartLineSummaryClientAsVisitor" width="300" height="100"></canvas>
+              <canvas id="chartAllDeviceVisitor" width="300" height="110"></canvas>
             </div>
           </div>
         </div>
@@ -121,17 +158,26 @@ export default {
       forms: {
         filterdate: {
           value: 'today',
-          text: 'Today'
+          text: 'today'
+        },
+        filterdevice: {
+          value: 'all',
+          text: 'All'
         }
       }
     }
   },
   methods: {
-    onFilteringDate( str, val )
+    onFilteringDeviceByOSByDate( str, val )
     {
       this.forms.filterdate.text = str;
       this.forms.filterdate.value = val;
 
+      this.getSummaryDeviceClientAsVisitorByDate();
+    },
+    onFilteringDeviceByOS( str, val ) {
+      this.forms.filterdevice.text = str;
+      this.forms.filterdevice.value = val;
       this.getSummaryDeviceClientAsVisitorByDate();
     },
     getSummaryClientAsSubscriber()
@@ -174,29 +220,38 @@ export default {
 
         var ctx = document.getElementById('chartBarSummaryClientAsVisitors').getContext('2d');
         var pieChart = new Chart(ctx, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: chartSummaryClientAsVisitors.label,
                 datasets: [{
                     label: '# of Devices',
                     data: chartSummaryClientAsVisitors.data,
                     backgroundColor: [
-                      'rgba(255, 99, 132, 0.5)',
-                      'rgba(54, 162, 235, 0.5)',
-                      'rgba(255, 206, 86, 0.5)',
-                      'rgba(75, 192, 192, 0.5)',
-                      'rgba(153, 102, 255, 0.5)',
-                      'rgba(255, 159, 64, 0.5)'
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 1
                 }]
             },
             options: {
+              title: {
+                display: true,
+                text: 'All Devices'
+              },
               legend: {
                 display: true
               },
               responsive: true,
-              aspectRatio: 2
+              maintainAspectRatio: false,
+              animation: {
+                animateRotate: true,
+                animateScale: true
+              },
+              circumference: 2 * Math.PI
             }
         });
       }).catch( err => {
@@ -207,10 +262,10 @@ export default {
     {
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/summary/visitors_by_date?filterdate=' + this.forms.filterdate.value
+        url: this.url + 'admin/clients/summary/visitors_by_date?filterdate=' + this.forms.filterdate.value + '&filterdevice=' + this.forms.filterdevice.value
       }).then( res => {
         let result = res.data;
-        var ctx = document.getElementById('chartLineSummaryClientAsVisitor').getContext('2d');
+        var ctx = document.getElementById('chartAllDeviceVisitor').getContext('2d');
         if( this.forms.filterdate.value !== 'today' )
         {
           var labelDate = [];
@@ -225,7 +280,11 @@ export default {
             macos[label] = result.records[label].os.macos.total;
             other[label] = result.records[label].os.other.total;
           }
-          var chart = new Chart(ctx, {
+
+          if( window.bar !== undefined )
+            window.bar.destroy();
+
+          var context = {
             type: 'line',
             data: {
               labels: labelDate,
@@ -233,110 +292,177 @@ export default {
                 {
                   label: 'Android',
                   data: android,
-                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
                   borderColor: 'rgba(255, 99, 132, 1)',
-                  borderWidth: 1,
-                  fill: true,
-                  lineTension: 0.4
+                  borderWidth: 2,
+                  lineTension: 0.2,
+                  fill: false,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                  pointBorderColor: 'rgba(255, 99, 132, 1)',
+                  pointBorderWidth: 1
                 },
                 {
                   label: 'iOS',
                   data: ios,
-                  backgroundColor: 'rgba(54, 162, 235, 0.2)',
                   borderColor: 'rgba(54, 162, 235, 1)',
-                  borderWidth: 1,
-                  fill: true,
-                  lineTension: 0.4
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.2,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                  pointBorderColor: 'rgba(54, 162, 235, 1)',
+                  pointBorderWidth: 1
                 },
                 {
                   label: 'Windows',
                   data: windows,
-                  backgroundColor: 'rgba(255, 206, 86, 0.2)',
                   borderColor: 'rgba(255, 206, 86, 0.2)',
-                  borderWidth: 1,
-                  fill: true,
-                  lineTension: 0.4
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.2,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(255, 206, 86, 0.2)',
+                  pointBorderColor: 'rgba(255, 206, 86, 0.2)',
+                  pointBorderWidth: 1
                 },
                 {
                   label: 'Linux',
                   data: linux,
-                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
                   borderColor: 'rgba(75, 192, 192, 1)',
-                  borderWidth: 1,
-                  fill: true,
-                  lineTension: 0.4
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.2,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                  pointBorderColor: 'rgba(75, 192, 192, 1)',
+                  pointBorderWidth: 1
                 },
                 {
                   label: 'Mac OS',
                   data: macos,
-                  backgroundColor: 'rgba(153, 102, 255, 0.2)',
                   borderColor: 'rgba(153, 102, 255, 1)',
-                  borderWidth: 1,
-                  fill: true,
-                  lineTension: 0.4
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.2,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+                  pointBorderColor: 'rgba(153, 102, 255, 1)',
+                  pointBorderWidth: 1
                 },
                 {
                   label: 'Other',
                   data: other,
-                  backgroundColor: 'rgba(255, 159, 64, 0.2)',
                   borderColor: 'rgba(255, 159, 64, 1)',
-                  borderWidth: 1,
-                  fill: true,
-                  lineTension: 0.4
-                },
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.2,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(255, 159, 64, 1)',
+                  pointBorderColor: 'rgba(255, 159, 64, 1)',
+                  pointBorderWidth: 1
+                }
               ]
             },
             options: {
       				responsive: true,
+              maintainAspectRatio: true,
       				title: {
       					display: true,
-      					text: 'of Clients OS'
-      				}
+      					text: '# Operating Systems'
+      				},
+              tooltips: {
+                mode: 'index',
+                intersect: false
+              },
+              hover: {
+                mode: 'nearest',
+                intersect: true
+              },
+              legend: {
+                display: true
+              },
+              scales: {
+                xAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: this.forms.filterdate.text
+                  }
+                }],
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true,
+                    userCallback: function(label, index, labels) {
+                      if (Math.floor(label) === label) {
+                        return label;
+                      }
+                    },
+                  }
+                }],
+              }
       			}
-          });
+          };
+          window.bar = new Chart(ctx, context);
         }
         else
         {
-          var barChart = new Chart(ctx, {
-              type: 'bar',
-              data: {
-                  labels: [
-                    result.os.ios.label,
-                    result.os.android.label,
-                    result.os.windows.label,
-                    result.os.linux.label,
-                    result.os.macos.label,
-                    result.os.other.label
-                  ],
-                  datasets: [{
-                      label: '# of Devices OS',
-                      data: [
-                        result.os.ios.total,
-                        result.os.android.total,
-                        result.os.windows.total,
-                        result.os.linux.total,
-                        result.os.macos.total,
-                        result.os.other.total
-                      ],
-                      backgroundColor: [
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 206, 86, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(153, 102, 255, 0.5)',
-                        'rgba(255, 159, 64, 0.5)'
-                      ],
-                      borderWidth: 1
-                  }]
+          var context = {
+            type: 'bar',
+            data: {
+              labels: [
+                result.os.ios.label,
+                result.os.android.label,
+                result.os.windows.label,
+                result.os.linux.label,
+                result.os.macos.label,
+                result.os.other.label
+              ],
+              datasets: [{
+                label: '# Operating Systems',
+                data: [
+                  result.os.ios.total,
+                  result.os.android.total,
+                  result.os.windows.total,
+                  result.os.linux.total,
+                  result.os.macos.total,
+                  result.os.other.total
+                ],
+                backgroundColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              legend: {
+                display: true
               },
-              options: {
-                legend: {
-                  display: true
-                },
-                responsive: true,
-                aspectRatio: 2
+              responsive: true,
+              aspectRatio: 2,
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true,
+                    userCallback: function(label, index, labels) {
+                      if (Math.floor(label) === label) {
+                        return label;
+                      }
+                    },
+                  }
+                }],
               }
-          });
+            }
+          };
+
+          if( window.bar !== undefined )
+            window.bar.destroy();
+
+          window.bar = new Chart(ctx, context);
         }
       }).catch( err => {
         console.log( err );
