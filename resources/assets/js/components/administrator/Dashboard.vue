@@ -42,92 +42,82 @@
         <div class="uk-margin-top uk-grid-small uk-grid-match" uk-grid>
           <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s">
             <div class="uk-card uk-card-body uk-card-small uk-card-default card-overview-device">
+              <div class="uk-width-1-1 uk-text-left uk-inline">
+                <button class="uk-width-1-1 uk-button uk-button-default form-overview-button" type="button">
+                  {{ forms.filterdate_pie.text }} <span uk-icon="chevron-down"></span>
+                </button>
+                <div class="form-overview-dropdown" uk-dropdown="mode: click">
+                  <ul class="uk-nav uk-dropdown-nav">
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == 'today'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Today', 'today')">Today</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Today', 'today')">Today</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == '7days'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last 7 days', '7days')">Last 7 days</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last 7 days ', '7days')">Last 7 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == '28days'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == '30days'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == 'this_month'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == 'last_month'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
               <canvas id="chartBarSummaryClientAsVisitors" width="500" height="500">Unable to load chart</canvas>
             </div>
           </div>
           <div class="uk-width-expand">
             <div class="uk-card uk-card-body uk-card-small uk-card-default card-overview-device">
-              <div class="uk-grid-small" uk-grid>
-                <div class="uk-width-1-1">
-                  <div class="uk-width-1-1 uk-text-left uk-inline">
-                    <button class="uk-button uk-button-default form-overview-button" type="button">
-                      {{ forms.filterdate.text }} <span uk-icon="chevron-down"></span>
-                    </button>
-                    <div class="form-overview-dropdown" uk-dropdown="mode: click">
-                      <ul class="uk-nav uk-dropdown-nav">
-                        <li>
-                          <a v-if="forms.filterdate.value == 'today'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
-                          <a v-else @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == '7days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 7 days', '7days')">Last 7 days</a>
-                          <a v-else @click="onFilteringDeviceByOSByDate('Last 7 days ', '7days')">Last 7 days</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == '28days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
-                          <a v-else @click="onFilteringDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == '30days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
-                          <a v-else @click="onFilteringDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == 'this_month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('This Month', 'this_month')">This Month</a>
-                          <a v-else @click="onFilteringDeviceByOSByDate('This Month', 'this_month')">This Month</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == 'last_month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
-                          <a v-else @click="onFilteringDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == '3month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 3 Months Ago', '3month')">Last 3 Months Ago</a>
-                          <a v-else @click="onFilteringDeviceByOSByDate('Last 3 Month Ago', '3month')">Last 3 Months Ago</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+              <div class="uk-width-1-1 uk-text-left uk-inline">
+                <button class="uk-button uk-button-default form-overview-button" type="button">
+                  {{ forms.filterdate.text }} <span uk-icon="chevron-down"></span>
+                </button>
+                <div class="form-overview-dropdown" uk-dropdown="mode: click">
+                  <ul class="uk-nav uk-dropdown-nav">
+                    <li>
+                      <a v-if="forms.filterdate.value == 'today'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == '7days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 7 days', '7days')">Last 7 days</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last 7 days ', '7days')">Last 7 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == '28days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == '30days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == 'this_month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == 'last_month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == '3month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 3 Months Ago', '3month')">Last 3 Months Ago</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last 3 Month Ago', '3month')">Last 3 Months Ago</a>
+                    </li>
+                  </ul>
                 </div>
-                <!--<div class="uk-width-1-5@xl uk-width-1-5@l uk-width-1-5@m uk-width-1-1@s">
-                  <div class="uk-width-1-1 uk-inline">
-                    <button class="uk-width-1-1 uk-button uk-button-default form-overview-button">
-                      {{ forms.filterdevice.text }} <span uk-icon="chevron-down"></span>
-                    </button>
-                    <div class="form-overview-dropdown" uk-dropdown="mode: click">
-                      <ul class="uk-nav uk-dropdown-nav">
-                        <li>
-                          <a v-if="forms.filterdate.value == 'all'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('All', 'all')">All</a>
-                          <a v-else @click="onFilteringDeviceByOS('All', 'all')">All</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == 'iOS'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('All', 'all')">iOS</a>
-                          <a v-else @click="onFilteringDeviceByOS('iOS', 'iOS')">iOS</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == 'Android'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('All', 'all')">Android</a>
-                          <a v-else @click="onFilteringDeviceByOS('Android', 'Android')">Android</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == 'Windows'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Windows', 'Windows')">Windows</a>
-                          <a v-else @click="onFilteringDeviceByOS('Windows', 'Windows')">Windows</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == 'Linux'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Linux', 'Linux')">Linux</a>
-                          <a v-else @click="onFilteringDeviceByOS('Linux', 'Linux')">Linux</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == 'Mac OS'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Linux', 'Linux')">Mac OS</a>
-                          <a v-else @click="onFilteringDeviceByOS('Mac OS', 'Mac OS')">Mac OS</a>
-                        </li>
-                        <li>
-                          <a v-if="forms.filterdate.value == 'Other'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Other', 'Other')">Other</a>
-                          <a v-else @click="onFilteringDeviceByOS('Other', 'Other')">Other</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>-->
               </div>
-              <canvas id="chartAllDeviceVisitor" width="300" height="110"></canvas>
+              <canvas id="chartAllDeviceVisitor" width="300" height="95"></canvas>
             </div>
           </div>
         </div>
@@ -158,11 +148,15 @@ export default {
       forms: {
         filterdate: {
           value: 'today',
-          text: 'today'
+          text: 'Today'
         },
         filterdevice: {
           value: 'all',
           text: 'All'
+        },
+        filterdate_pie: {
+          value: 'today',
+          text: 'Today'
         }
       }
     }
@@ -175,10 +169,12 @@ export default {
 
       this.getSummaryDeviceClientAsVisitorByDate();
     },
-    onFilteringDeviceByOS( str, val ) {
-      this.forms.filterdevice.text = str;
-      this.forms.filterdevice.value = val;
-      this.getSummaryDeviceClientAsVisitorByDate();
+    onFilteringPieDeviceByOSByDate( str, val )
+    {
+      this.forms.filterdate_pie.text = str;
+      this.forms.filterdate_pie.value = val;
+
+      this.getSummaryDeviceClientAsVisitor();
     },
     getSummaryClientAsSubscriber()
     {
@@ -205,7 +201,7 @@ export default {
     {
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/summary/visitors'
+        url: this.url + 'admin/clients/summary/visitors?filterdate=' + this.forms.filterdate_pie.value
       }).then( res => {
         let result = res.data;
         this.summaryClientAsVisitors = {
@@ -219,7 +215,9 @@ export default {
         }
 
         var ctx = document.getElementById('chartBarSummaryClientAsVisitors').getContext('2d');
-        var pieChart = new Chart(ctx, {
+        if( window.pieSummaryClientAsVisitors !== undefined ) window.pieSummaryClientAsVisitors.destroy();
+
+        window.pieSummaryClientAsVisitors = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: chartSummaryClientAsVisitors.label,
@@ -246,7 +244,7 @@ export default {
                 display: true
               },
               responsive: true,
-              maintainAspectRatio: false,
+              maintainAspectRatio: true,
               animation: {
                 animateRotate: true,
                 animateScale: true
@@ -444,7 +442,29 @@ export default {
               },
               responsive: true,
               aspectRatio: 2,
+              title: {
+      					display: true,
+      					text: 'All Devices'
+      				},
+              tooltips: {
+                mode: 'index',
+                intersect: false
+              },
+              hover: {
+                mode: 'nearest',
+                intersect: true
+              },
+              legend: {
+                display: true
+              },
               scales: {
+                xAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: result.date
+                  }
+                }],
                 yAxes: [{
                   ticks: {
                     beginAtZero: true,

@@ -65,11 +65,77 @@ class DashboardController extends Controller
   {
     $filterdate = isset( $request->filterdate ) ? $request->filterdate : 'today';
 
-    $totalDeviceConnected = $clients->select(
-      'client_os',
-      DB::raw('count(*) as total_device')
-    )->where('connection_type', '=', 'visitor')->groupBy('client_os')
-    ->orderBy(DB::raw('count(*)'), 'desc');
+    if( $filterdate == 'today' )
+    {
+      $today = new DateTime('today');
+      $totalDeviceConnected = $clients->select(
+        'client_os',
+        DB::raw('count(*) as total_device')
+      )->where([
+        ['connection_type', '=', 'visitor'],
+        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today->format('Y-m-d')]
+      ])->groupBy('client_os')
+      ->orderBy(DB::raw('count(*)'), 'desc');
+    }
+    else
+    {
+      if( $filterdate == 'this_month' OR $filterdate == 'last_month' )
+      {
+        if( $filterdate == 'this_month' )
+        {
+          $currentMonth = new DateTime( 'first day of this month' );
+        }
+        else
+        {
+          $currentMonth = new DateTime( 'first day of last month' );
+        }
+
+        $totalDeviceConnected = $clients->select(
+          'client_os',
+          DB::raw('count(*) as total_device')
+        )->where([
+          ['connection_type', '=', 'visitor'],
+          [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')]
+        ])
+        ->groupBy('client_os')
+        ->orderBy(DB::raw('count(*)'), 'desc');
+      }
+      else
+      {
+        if( $filterdate == '7days' )
+        {
+          $previousDate = new DateTime('7 days ago');
+        }
+        else if( $filterdate == '28days' )
+        {
+          $previousDate = new DateTime('28 days ago');
+        }
+        else
+        {
+          $previousDate = new DateTime('30 days ago');
+        }
+        $currentDate = new DateTime('today');
+        $interval = new DateInterval('P1D');
+        $period = new DatePeriod( $previousDate, $interval, $currentDate );
+        $rangeDate = [];
+        foreach( $period as $date )
+        {
+          $rangeDate[] = [
+            'dateValue' => $date->format('Y-m-d'),
+            'formatDate' => $date->format('M d, Y')
+          ];
+        }
+        $getFirstDay = $rangeDate[0];
+        $getLastDay = end( $rangeDate );
+
+        $totalDeviceConnected = $clients->select(
+          'client_os',
+          DB::raw('count(*) as total_device')
+        )->where('connection_type', '=', 'visitor')->groupBy('client_os')
+        ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$getFirstDay, $getLastDay])
+        ->orderBy(DB::raw('count(*)'), 'desc');
+      }
+    }
 
     $res = [
       'results' => [
@@ -137,12 +203,15 @@ class DashboardController extends Controller
       {
         $currentMonth = new DateTime( 'first day of this month' );
         $endMonth = new DateTime( 'last day of this month' );
+        $endMonth->modify('+1 day');
       }
       else if( $filterdate == 'last_month' )
       {
         $currentMonth = new DateTime( 'first day of last month' );
         $endMonth = new DateTime( 'last day of last month' );
+        $endMonth->modify('+1 day');
       }
+
       $interval = new DateInterval('P1D');
       $period = new DatePeriod( $currentMonth, $interval, $endMonth );
       $rangeDate = [];
@@ -150,7 +219,7 @@ class DashboardController extends Controller
       {
         $rangeDate[] = [
           'dateValue' => $date->format('Y-m-d'),
-          'formatDate' => $date->format('F d, Y')
+          'formatDate' => $date->format('M d, Y')
         ];
       }
       foreach( $rangeDate as $key => $value )
@@ -279,7 +348,7 @@ class DashboardController extends Controller
       {
         $rangeDate[] = [
           'dateValue' => $date->format('Y-m-d'),
-          'formatDate' => $date->format('F d, Y')
+          'formatDate' => $date->format('M d, Y')
         ];
       }
       foreach( $rangeDate as $key => $value )
@@ -315,7 +384,7 @@ class DashboardController extends Controller
           [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $value['dateValue']]
         ])->count();
         $dataset['records'][] = [
-          'date' => $value['dateValue'],
+          'date' => $value['formatDate'],
           'os' => [
             'ios' => [ 'total' => $ios, 'label' => 'iOS' ],
             'android' => [ 'total' => $android, 'label' => 'Android' ],
