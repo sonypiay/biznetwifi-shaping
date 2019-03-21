@@ -53,7 +53,9 @@ Route::group(['prefix' => 'admin'], function() {
       Route::get('/visitors_by_date', 'Administrator\DashboardController@summaryDeviceClientAsVisitorByDate');
     });
     Route::get('/as_visitor', 'Administrator\ClientAsVisitorController@index')->name('admin_client_visitor_page');
+    Route::get('/as_subscriber', 'Administrator\ClientsAsSubscriberController@index')->name('admin_client_subscriber_page');
     Route::get('/client_visitor', 'Administrator\ClientAsVisitorController@data_clientAsVisitor');
+    Route::get('/client_subscriber', 'Administrator\ClientsAsSubscriberController@data_clientAsSubscriber');
   });
   Route::group(['prefix' => 'create'], function() {
     Route::post('admin_roles', 'Administrator\AdminRolesController@create_role');

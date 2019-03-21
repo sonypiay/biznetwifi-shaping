@@ -39,9 +39,9 @@
       <div class="uk-margin dashboard-container">
         <div class="subheading-dashboard">Summary Clients</div>
         <div class="heading-dashboard">As Visitor</div>
-        <div class="uk-margin-top uk-grid-small uk-grid-match" uk-grid>
+        <div class="uk-margin-top uk-grid-small" uk-grid>
           <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s">
-            <div class="uk-card uk-card-body uk-card-small uk-card-default card-overview-device">
+            <div class="uk-card uk-card-body uk-card-default card-overview-device">
               <div class="uk-width-1-1 uk-text-left uk-inline">
                 <button class="uk-width-1-1 uk-button uk-button-default form-overview-button" type="button">
                   {{ forms.filterdate_pie.text }} <span uk-icon="chevron-down"></span>
@@ -75,7 +75,7 @@
                   </ul>
                 </div>
               </div>
-              <canvas id="chartBarSummaryClientAsVisitors" width="500" height="500">Unable to load chart</canvas>
+              <canvas id="chartPieSummaryClientAsVisitors" width="400" height="400">Unable to load chart</canvas>
             </div>
           </div>
           <div class="uk-width-expand">
@@ -117,7 +117,7 @@
                   </ul>
                 </div>
               </div>
-              <canvas id="chartAllDeviceVisitor" width="300" height="95"></canvas>
+              <canvas id="chartAllDeviceVisitor" width="500" height="180"></canvas>
             </div>
           </div>
         </div>
@@ -166,14 +166,12 @@ export default {
     {
       this.forms.filterdate.text = str;
       this.forms.filterdate.value = val;
-
       this.getSummaryDeviceClientAsVisitorByDate();
     },
     onFilteringPieDeviceByOSByDate( str, val )
     {
       this.forms.filterdate_pie.text = str;
       this.forms.filterdate_pie.value = val;
-
       this.getSummaryDeviceClientAsVisitor();
     },
     getSummaryClientAsSubscriber()
@@ -214,7 +212,7 @@ export default {
           chartSummaryClientAsVisitors.data[os] = this.summaryClientAsVisitors.results[os].total_device;
         }
 
-        var ctx = document.getElementById('chartBarSummaryClientAsVisitors').getContext('2d');
+        var ctx = document.getElementById('chartPieSummaryClientAsVisitors').getContext('2d');
         if( window.pieSummaryClientAsVisitors !== undefined ) window.pieSummaryClientAsVisitors.destroy();
 
         window.pieSummaryClientAsVisitors = new Chart(ctx, {
@@ -292,11 +290,11 @@ export default {
                   data: android,
                   borderColor: 'rgba(255, 99, 132, 1)',
                   borderWidth: 2,
-                  lineTension: 0.2,
+                  lineTension: 0.4,
                   fill: false,
                   pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                  pointBorderColor: 'rgba(255, 99, 132, 1)',
+                  pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
+                  pointBorderColor: 'rgba(255, 99, 132, 1 )',
                   pointBorderWidth: 1
                 },
                 {
@@ -305,7 +303,7 @@ export default {
                   borderColor: 'rgba(54, 162, 235, 1)',
                   borderWidth: 2,
                   fill: false,
-                  lineTension: 0.2,
+                  lineTension: 0.4,
                   pointHitRadius: 1,
                   pointBackgroundColor: 'rgba(54, 162, 235, 1)',
                   pointBorderColor: 'rgba(54, 162, 235, 1)',
@@ -314,13 +312,13 @@ export default {
                 {
                   label: 'Windows',
                   data: windows,
-                  borderColor: 'rgba(255, 206, 86, 0.2)',
+                  borderColor: 'rgba(255, 206, 86, 1)',
                   borderWidth: 2,
                   fill: false,
-                  lineTension: 0.2,
+                  lineTension: 0.4,
                   pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(255, 206, 86, 0.2)',
-                  pointBorderColor: 'rgba(255, 206, 86, 0.2)',
+                  pointBackgroundColor: 'rgba(255, 206, 86, 1)',
+                  pointBorderColor: 'rgba(255, 206, 86, 1)',
                   pointBorderWidth: 1
                 },
                 {
@@ -329,7 +327,7 @@ export default {
                   borderColor: 'rgba(75, 192, 192, 1)',
                   borderWidth: 2,
                   fill: false,
-                  lineTension: 0.2,
+                  lineTension: 0.4,
                   pointHitRadius: 1,
                   pointBackgroundColor: 'rgba(75, 192, 192, 1)',
                   pointBorderColor: 'rgba(75, 192, 192, 1)',
@@ -341,9 +339,9 @@ export default {
                   borderColor: 'rgba(153, 102, 255, 1)',
                   borderWidth: 2,
                   fill: false,
-                  lineTension: 0.2,
+                  lineTension: 0.4,
                   pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+                  pointBackgroundColor: 'rgba(153, 102, 255, 0.1)',
                   pointBorderColor: 'rgba(153, 102, 255, 1)',
                   pointBorderWidth: 1
                 },
@@ -353,9 +351,9 @@ export default {
                   borderColor: 'rgba(255, 159, 64, 1)',
                   borderWidth: 2,
                   fill: false,
-                  lineTension: 0.2,
+                  lineTension: 0.4,
                   pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(255, 159, 64, 1)',
+                  pointBackgroundColor: 'rgba(255, 159, 64, 0.1)',
                   pointBorderColor: 'rgba(255, 159, 64, 1)',
                   pointBorderWidth: 1
                 }
