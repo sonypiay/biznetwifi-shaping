@@ -64485,6 +64485,7 @@ Vue.component('dashboard-admin', __webpack_require__(201));
 Vue.component('admin-log-activity', __webpack_require__(204));
 Vue.component('admin-roles', __webpack_require__(207));
 Vue.component('client-visitor', __webpack_require__(210));
+Vue.component('client-subscriber', __webpack_require__(219));
 
 var app = new Vue({
   el: '#app',
@@ -80408,13 +80409,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onFilteringDeviceByOSByDate: function onFilteringDeviceByOSByDate(str, val) {
       this.forms.filterdate.text = str;
       this.forms.filterdate.value = val;
-
       this.getSummaryDeviceClientAsVisitorByDate();
     },
     onFilteringPieDeviceByOSByDate: function onFilteringPieDeviceByOSByDate(str, val) {
       this.forms.filterdate_pie.text = str;
       this.forms.filterdate_pie.value = val;
-
       this.getSummaryDeviceClientAsVisitor();
     },
     getSummaryClientAsSubscriber: function getSummaryClientAsSubscriber() {
@@ -80457,7 +80456,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           chartSummaryClientAsVisitors.data[os] = _this2.summaryClientAsVisitors.results[os].total_device;
         }
 
-        var ctx = document.getElementById('chartBarSummaryClientAsVisitors').getContext('2d');
+        var ctx = document.getElementById('chartPieSummaryClientAsVisitors').getContext('2d');
         if (window.pieSummaryClientAsVisitors !== undefined) window.pieSummaryClientAsVisitors.destroy();
 
         window.pieSummaryClientAsVisitors = new Chart(ctx, {
@@ -80530,11 +80529,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 data: android,
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 2,
-                lineTension: 0.2,
+                lineTension: 0.4,
                 fill: false,
                 pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                pointBorderColor: 'rgba(255, 99, 132, 1)',
+                pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
+                pointBorderColor: 'rgba(255, 99, 132, 1 )',
                 pointBorderWidth: 1
               }, {
                 label: 'iOS',
@@ -80542,7 +80541,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 2,
                 fill: false,
-                lineTension: 0.2,
+                lineTension: 0.4,
                 pointHitRadius: 1,
                 pointBackgroundColor: 'rgba(54, 162, 235, 1)',
                 pointBorderColor: 'rgba(54, 162, 235, 1)',
@@ -80550,13 +80549,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               }, {
                 label: 'Windows',
                 data: windows,
-                borderColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
                 borderWidth: 2,
                 fill: false,
-                lineTension: 0.2,
+                lineTension: 0.4,
                 pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(255, 206, 86, 0.2)',
-                pointBorderColor: 'rgba(255, 206, 86, 0.2)',
+                pointBackgroundColor: 'rgba(255, 206, 86, 1)',
+                pointBorderColor: 'rgba(255, 206, 86, 1)',
                 pointBorderWidth: 1
               }, {
                 label: 'Linux',
@@ -80564,7 +80563,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
                 fill: false,
-                lineTension: 0.2,
+                lineTension: 0.4,
                 pointHitRadius: 1,
                 pointBackgroundColor: 'rgba(75, 192, 192, 1)',
                 pointBorderColor: 'rgba(75, 192, 192, 1)',
@@ -80575,9 +80574,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 borderColor: 'rgba(153, 102, 255, 1)',
                 borderWidth: 2,
                 fill: false,
-                lineTension: 0.2,
+                lineTension: 0.4,
                 pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+                pointBackgroundColor: 'rgba(153, 102, 255, 0.1)',
                 pointBorderColor: 'rgba(153, 102, 255, 1)',
                 pointBorderWidth: 1
               }, {
@@ -80586,9 +80585,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 borderColor: 'rgba(255, 159, 64, 1)',
                 borderWidth: 2,
                 fill: false,
-                lineTension: 0.2,
+                lineTension: 0.4,
                 pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(255, 159, 64, 1)',
+                pointBackgroundColor: 'rgba(255, 159, 64, 0.1)',
                 pointBorderColor: 'rgba(255, 159, 64, 1)',
                 pointBorderWidth: 1
               }]
@@ -80859,7 +80858,7 @@ var render = function() {
         _c(
           "div",
           {
-            staticClass: "uk-margin-top uk-grid-small uk-grid-match",
+            staticClass: "uk-margin-top uk-grid-small",
             attrs: { "uk-grid": "" }
           },
           [
@@ -80874,7 +80873,7 @@ var render = function() {
                   "div",
                   {
                     staticClass:
-                      "uk-card uk-card-body uk-card-small uk-card-default card-overview-device"
+                      "uk-card uk-card-body uk-card-default card-overview-device"
                   },
                   [
                     _c(
@@ -81123,9 +81122,9 @@ var render = function() {
                       "canvas",
                       {
                         attrs: {
-                          id: "chartBarSummaryClientAsVisitors",
-                          width: "500",
-                          height: "500"
+                          id: "chartPieSummaryClientAsVisitors",
+                          width: "400",
+                          height: "400"
                         }
                       },
                       [_vm._v("Unable to load chart")]
@@ -81418,8 +81417,8 @@ var render = function() {
                   _c("canvas", {
                     attrs: {
                       id: "chartAllDeviceVisitor",
-                      width: "300",
-                      height: "95"
+                      width: "500",
+                      height: "180"
                     }
                   })
                 ]
@@ -84037,6 +84036,1029 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-c3bd7230", module.exports)
+  }
+}
+
+/***/ }),
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(220)
+/* template */
+var __vue_template__ = __webpack_require__(221)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/administrator/ClientAsSubscriber.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-17aac0de", Component.options)
+  } else {
+    hotAPI.reload("data-v-17aac0de", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 220 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_v_calendar__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_v_calendar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_v_calendar__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_calendar_lib_v_calendar_min_css__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_v_calendar_lib_v_calendar_min_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_v_calendar_lib_v_calendar_min_css__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url'],
+  components: { VCalendar: __WEBPACK_IMPORTED_MODULE_0_v_calendar___default.a },
+  data: function data() {
+    return {
+      forms: {
+        datepicker: {
+          start: '',
+          end: ''
+        },
+        filterdate: {
+          text: 'Today',
+          value: 'today'
+        },
+        selectedrows: 10,
+        filterdevice: 'all',
+        filterap: 'all',
+        keywords: ''
+      },
+      pagination: {
+        current_page: 1,
+        last_page: 1,
+        prev_url: '',
+        next_url: '',
+        path: this.url + 'admin/clients/client_subscriber'
+      },
+      clientassubscriber: {
+        total: 0,
+        results: [],
+        isLoading: false
+      },
+      datepicker: {
+        props: {
+          class: "uk-width-1-1 uk-input form-content-input",
+          placeholder: "Enter date",
+          readonly: true
+        },
+        attributes: {
+          highlight: {
+            backgroundColor: '#da068c', // Red background
+            borderColor: '#da068c',
+            borderWidth: '2px',
+            borderStyle: 'solid'
+          }
+        },
+        themeStyles: {
+          wrapper: {
+            background: '#ffffff',
+            color: '#ffffff',
+            border: '0',
+            borderRadius: '5px',
+            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.14), 0 6px 20px 0 rgba(0, 0, 0, 0.13)'
+          }
+        },
+        formats: {
+          title: 'MMMM YYYY',
+          weekdays: 'W',
+          navMonths: 'MMM',
+          input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'], // Only for `v-date-picker`
+          dayPopover: 'L', // Only for `v-date-picker`
+          data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+        }
+      }
+    };
+  },
+
+  methods: {
+    formatDate: function formatDate(str, format) {
+      var res = moment(str).locale('id').format(format);
+      return res;
+    },
+    onFilteringDate: function onFilteringDate(str, val) {
+      this.forms.filterdate = {
+        text: str,
+        value: val
+      };
+      this.getClientAsSubscriber(this.pagination.path + '?page=1');
+    },
+    getClientAsSubscriber: function getClientAsSubscriber(pages) {
+      var _this = this;
+
+      var url, param;
+      if (this.forms.datepicker.start === '' || this.forms.datepicker.start === undefined) {
+        param = '&keywords=' + this.forms.keywords + '&filterdate=' + this.forms.filterdate.value + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
+      } else {
+        var startDate = this.formatDate(this.forms.datepicker.start, 'YYYY-MM-DD');
+        var endDate = this.formatDate(this.forms.datepicker.end, 'YYYY-MM-DD');
+        param = '&keywords=' + this.forms.keywords + '&startDate=' + startDate + '&endDate=' + endDate + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
+      }
+
+      if (pages === undefined) url = this.url + 'admin/clients/client_subscriber?page=' + this.pagination.current_page + param;else url = pages + param;
+
+      this.clientassubscriber.isLoading = true;
+      axios({
+        method: 'get',
+        url: url,
+        headers: { 'Content-Type': 'application/json' }
+      }).then(function (res) {
+        var result = res.data;
+        _this.clientassubscriber.total = result.total;
+        _this.clientassubscriber.results = result.data;
+        _this.clientassubscriber.isLoading = false;
+        _this.pagination = {
+          current_page: result.current_page,
+          last_page: result.last_page,
+          prev_url: result.prev_page_url,
+          next_url: result.next_page_url,
+          path: result.path
+        };
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getClientAsSubscriber();
+  }
+});
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "uk-margin-top" }, [
+      _c("h3", { staticClass: "content-heading" }, [
+        _vm._v("Client as Visitor")
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "uk-card uk-card-body uk-card-default content-data" },
+        [
+          _c(
+            "div",
+            { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s"
+                },
+                [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.forms.selectedrows,
+                          expression: "forms.selectedrows"
+                        }
+                      ],
+                      staticClass: "uk-select form-content-select",
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.forms,
+                              "selectedrows",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                          function($event) {
+                            _vm.getClientAsSubscriber(
+                              _vm.pagination.path + "?page=1"
+                            )
+                          }
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "10" } }, [
+                        _vm._v("10 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "20" } }, [
+                        _vm._v("20 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "50" } }, [
+                        _vm._v("50 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "100" } }, [
+                        _vm._v("100 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "200" } }, [
+                        _vm._v("200 rows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "500" } }, [
+                        _vm._v("500 rows")
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s"
+                },
+                [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.forms.filterap,
+                          expression: "forms.filterap"
+                        }
+                      ],
+                      staticClass: "uk-select form-content-select",
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.forms,
+                              "filterap",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                          function($event) {
+                            _vm.getClientAsSubscriber(
+                              _vm.pagination.path + "?page=1"
+                            )
+                          }
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "all" } }, [
+                        _vm._v("All Access Point")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "ruckus" } }, [
+                        _vm._v("Ruckus Wireless")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "mkt" } }, [
+                        _vm._v("Mikrotik")
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s"
+                },
+                [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.forms.filterdevice,
+                          expression: "forms.filterdevice"
+                        }
+                      ],
+                      staticClass: "uk-select form-content-select",
+                      on: {
+                        change: [
+                          function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.forms,
+                              "filterdevice",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          },
+                          function($event) {
+                            _vm.getClientAsSubscriber(
+                              _vm.pagination.path + "?page=1"
+                            )
+                          }
+                        ]
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "all" } }, [
+                        _vm._v("All Devices")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "Windows" } }, [
+                        _vm._v("Windows")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "Linux" } }, [
+                        _vm._v("Linux")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "Android" } }, [
+                        _vm._v("Android")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "iOS" } }, [
+                        _vm._v("iOS")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "Mac OS" } }, [
+                        _vm._v("Mac OS")
+                      ])
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s"
+                },
+                [
+                  _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "uk-width-1-1 uk-button uk-button-default form-content-button",
+                        attrs: { type: "button" }
+                      },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(_vm.forms.filterdate.text) +
+                            " "
+                        ),
+                        _c("span", { attrs: { "uk-icon": "chevron-down" } })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-content-dropdown",
+                        attrs: { "uk-dropdown": "mode: click" }
+                      },
+                      [
+                        _c("ul", { staticClass: "uk-nav uk-dropdown-nav" }, [
+                          _c("li", [
+                            _vm.forms.filterdate.value == "today"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "form-content-dropdown-active",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate("Today", "today")
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Today")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate("Today", "today")
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Today")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.forms.filterdate.value == "7days"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "form-content-dropdown-active",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last 7 days",
+                                          "7days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last 7 days")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last 7 days ",
+                                          "7days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last 7 days")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.forms.filterdate.value == "28days"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "form-content-dropdown-active",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last 28 days",
+                                          "28days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last 28 days")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last 28 days",
+                                          "28days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last 28 days")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.forms.filterdate.value == "30days"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "form-content-dropdown-active",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last 30 days",
+                                          "30days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last 30 days")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last 30 days",
+                                          "30days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last 30 days")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.forms.filterdate.value == "this_month"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "form-content-dropdown-active",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "This Month",
+                                          "this_month"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("This Month")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "This Month",
+                                          "this_month"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("This Month")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.forms.filterdate.value == "last_month"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "form-content-dropdown-active",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last Month",
+                                          "last_month"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last Month")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Last Month",
+                                          "last_month"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Last Month")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.forms.filterdate.value == "custom"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "form-content-dropdown-active",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Custom Date",
+                                          "custom"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Custom Date")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.onFilteringDate(
+                                          "Custom Date",
+                                          "custom"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Custom Date")]
+                                )
+                          ])
+                        ])
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-width-expand" }, [
+                _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                  _c("a", {
+                    staticClass: "uk-form-icon",
+                    attrs: { "uk-icon": "search" },
+                    on: {
+                      click: function($event) {
+                        _vm.getClientAsSubscriber(
+                          _vm.pagination.path + "?page=1"
+                        )
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.forms.keywords,
+                        expression: "forms.keywords"
+                      }
+                    ],
+                    staticClass: "uk-width-1-1 uk-input form-content-input",
+                    attrs: {
+                      type: "search",
+                      placeholder: "Search keywords..."
+                    },
+                    domProps: { value: _vm.forms.keywords },
+                    on: {
+                      keyup: function($event) {
+                        if (
+                          !("button" in $event) &&
+                          _vm._k(
+                            $event.keyCode,
+                            "enter",
+                            13,
+                            $event.key,
+                            "Enter"
+                          )
+                        ) {
+                          return null
+                        }
+                        _vm.getClientAsSubscriber(
+                          _vm.pagination.path + "?page=1"
+                        )
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.forms, "keywords", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _vm.clientassubscriber.isLoading === true
+            ? _c("div", { staticClass: "uk-text-center uk-margin-top" }, [
+                _c("span", { attrs: { "uk-spinner": "" } }),
+                _vm._v(" Loading data...\n      ")
+              ])
+            : _vm.clientassubscriber.total === 0
+              ? _c("div", { staticClass: "uk-margin-top" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-alert-warning",
+                      attrs: { "uk-alert": "" }
+                    },
+                    [_vm._v("No record(s).")]
+                  )
+                ])
+              : _c("div", { staticClass: "uk-margin-top uk-overflow-auto" }, [
+                  _c("div", { staticClass: "uk-margin" }, [
+                    _c("span", { staticClass: "uk-label" }, [
+                      _vm._v("Clients: " + _vm._s(_vm.clientassubscriber.total))
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
+                    },
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.clientassubscriber.results, function(
+                          clients
+                        ) {
+                          return _c("tr", [
+                            _c("td", [_vm._v(_vm._s(clients.client_mac))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(clients.client_os))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              clients.ap == "mkt"
+                                ? _c("span", [_vm._v("Mikrotik")])
+                                : _c("span", [_vm._v("Ruckus Wireless")])
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.formatDate(
+                                    clients.updated_at,
+                                    "MMM DD, YYYY HH:mm "
+                                  )
+                                )
+                              )
+                            ])
+                          ])
+                        })
+                      )
+                    ]
+                  )
+                ]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "uk-pagination content-data-pagination" }, [
+            _c("li", [
+              _vm.pagination.prev_url
+                ? _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.getClientAsSubscriber(_vm.pagination.prev_url)
+                        }
+                      }
+                    },
+                    [_c("span", { attrs: { "uk-pagination-previous": "" } })]
+                  )
+                : _c("a", [
+                    _c("span", { attrs: { "uk-pagination-previous": "" } })
+                  ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("a", [
+                _vm._v(
+                  "Page " +
+                    _vm._s(_vm.pagination.current_page) +
+                    " of " +
+                    _vm._s(_vm.pagination.last_page)
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _vm.pagination.next_url
+                ? _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.getClientAsSubscriber(_vm.pagination.next_url)
+                        }
+                      }
+                    },
+                    [_c("span", { attrs: { "uk-pagination-next": "" } })]
+                  )
+                : _c("a", [_c("span", { attrs: { "uk-pagination-next": "" } })])
+            ])
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Mac Address")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Operating System")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Access Point")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Last Connected")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-17aac0de", module.exports)
   }
 }
 
