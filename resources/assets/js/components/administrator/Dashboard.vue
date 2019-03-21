@@ -1,36 +1,123 @@
 <template>
   <div>
     <div class="uk-margin-top">
-      <div class="dashboard-container">
-        <div class="subheading-dashboard">Dashboard</div>
-        <div class="heading-dashboard">Overview</div>
+      <div class="uk-margin dashboard-container">
+        <div class="subheading-dashboard">Summary Clients</div>
+        <div class="heading-dashboard">As Subscribers</div>
         <div class="uk-grid-small uk-margin-top" uk-grid>
           <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s">
             <div class="uk-card uk-card-body uk-card-default card-overview-device">
               <a class="card-overview-device-icon card-overview-device-apple"><span class="fab fa-apple"></span></a>
-              <div class="card-overview-value">{{ summarydevice.device.ios }}</div>
+              <div class="card-overview-value">{{ summaryClientAsSubscribers.device.ios }}</div>
               <div class="card-overview-subvalue">iOS</div>
             </div>
           </div>
           <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s">
             <div class="uk-card uk-card-body uk-card-default card-overview-device">
               <a class="card-overview-device-icon card-overview-device-android"><span class="fab fa-android"></span></a>
-              <div class="card-overview-value">{{ summarydevice.device.android }}</div>
+              <div class="card-overview-value">{{ summaryClientAsSubscribers.device.android }}</div>
               <div class="card-overview-subvalue">Android</div>
             </div>
           </div>
           <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s">
             <div class="uk-card uk-card-body uk-card-default card-overview-device">
               <a class="card-overview-device-icon"><span class="fas fa-laptop"></span></a>
-              <div class="card-overview-value">{{ summarydevice.device.pc }}</div>
+              <div class="card-overview-value">{{ summaryClientAsSubscribers.device.pc }}</div>
               <div class="card-overview-subvalue">PC / Laptop</div>
             </div>
           </div>
           <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-4@s">
             <div class="uk-card uk-card-body uk-card-default card-overview-device">
               <a class="card-overview-device-icon card-overview-device-unknown"><span class="fas fa-question-circle"></span></a>
-              <div class="card-overview-value">{{ summarydevice.device.unknown }}</div>
+              <div class="card-overview-value">{{ summaryClientAsSubscribers.device.unknown }}</div>
               <div class="card-overview-subvalue">Unknown Device</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-margin dashboard-container">
+        <div class="subheading-dashboard">Summary Clients</div>
+        <div class="heading-dashboard">As Visitor</div>
+        <div class="uk-margin-top uk-grid-small" uk-grid>
+          <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s">
+            <div class="uk-card uk-card-body uk-card-default card-overview-device">
+              <div class="uk-width-1-1 uk-text-left uk-inline">
+                <button class="uk-width-1-1 uk-button uk-button-default form-overview-button" type="button">
+                  {{ forms.filterdate_pie.text }} <span uk-icon="chevron-down"></span>
+                </button>
+                <div class="form-overview-dropdown" uk-dropdown="mode: click">
+                  <ul class="uk-nav uk-dropdown-nav">
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == 'today'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Today', 'today')">Today</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Today', 'today')">Today</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == '7days'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last 7 days', '7days')">Last 7 days</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last 7 days ', '7days')">Last 7 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == '28days'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == '30days'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == 'this_month'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate_pie.value == 'last_month'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <canvas id="chartPieSummaryClientAsVisitors" width="400" height="400">Unable to load chart</canvas>
+            </div>
+          </div>
+          <div class="uk-width-expand">
+            <div class="uk-card uk-card-body uk-card-small uk-card-default card-overview-device">
+              <div class="uk-width-1-1 uk-text-left uk-inline">
+                <button class="uk-button uk-button-default form-overview-button" type="button">
+                  {{ forms.filterdate.text }} <span uk-icon="chevron-down"></span>
+                </button>
+                <div class="form-overview-dropdown" uk-dropdown="mode: click">
+                  <ul class="uk-nav uk-dropdown-nav">
+                    <li>
+                      <a v-if="forms.filterdate.value == 'today'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == '7days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 7 days', '7days')">Last 7 days</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last 7 days ', '7days')">Last 7 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == '28days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == '30days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == 'this_month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('This Month', 'this_month')">This Month</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == 'last_month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == '3month'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 3 Months Ago', '3month')">Last 3 Months Ago</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last 3 Month Ago', '3month')">Last 3 Months Ago</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <canvas id="chartAllDeviceVisitor" width="500" height="180"></canvas>
             </div>
           </div>
         </div>
@@ -44,7 +131,7 @@ export default {
   props: ['url'],
   data() {
     return {
-      summarydevice: {
+      summaryClientAsSubscribers: {
         total: 0,
         device: {
           ios: 0,
@@ -53,18 +140,48 @@ export default {
           tv: 0,
           unknown: 0
         }
+      },
+      summaryClientAsVisitors: {
+        total: [],
+        results: {}
+      },
+      forms: {
+        filterdate: {
+          value: 'today',
+          text: 'Today'
+        },
+        filterdevice: {
+          value: 'all',
+          text: 'All'
+        },
+        filterdate_pie: {
+          value: 'today',
+          text: 'Today'
+        }
       }
     }
   },
   methods: {
-    getSummaryDevice()
+    onFilteringDeviceByOSByDate( str, val )
+    {
+      this.forms.filterdate.text = str;
+      this.forms.filterdate.value = val;
+      this.getSummaryDeviceClientAsVisitorByDate();
+    },
+    onFilteringPieDeviceByOSByDate( str, val )
+    {
+      this.forms.filterdate_pie.text = str;
+      this.forms.filterdate_pie.value = val;
+      this.getSummaryDeviceClientAsVisitor();
+    },
+    getSummaryClientAsSubscriber()
     {
       axios({
         method: 'get',
-        url: this.url + 'admin/summary_device'
+        url: this.url + 'admin/clients/summary/subscribers'
       }).then( res => {
         let result = res.data;
-        this.summarydevice = {
+        this.summaryClientAsSubscribers = {
           total: result.results.total,
           device: {
             ios: result.results.device.ios,
@@ -74,14 +191,306 @@ export default {
             unknown: result.results.device.unknown
           }
         };
-        console.log(this.summarydevice);
       }).catch( err => {
         console.log( err.response.statusText );
+      });
+    },
+    getSummaryDeviceClientAsVisitor()
+    {
+      axios({
+        method: 'get',
+        url: this.url + 'admin/clients/summary/visitors?filterdate=' + this.forms.filterdate_pie.value
+      }).then( res => {
+        let result = res.data;
+        this.summaryClientAsVisitors = {
+          total: result.results.total_device,
+          results: result.results.data_device
+        };
+        let chartSummaryClientAsVisitors = { label: [], data: [] };
+        for( var os = 0; os < this.summaryClientAsVisitors.results.length; os++ ) {
+          chartSummaryClientAsVisitors.label[os] = this.summaryClientAsVisitors.results[os].client_os;
+          chartSummaryClientAsVisitors.data[os] = this.summaryClientAsVisitors.results[os].total_device;
+        }
+
+        var ctx = document.getElementById('chartPieSummaryClientAsVisitors').getContext('2d');
+        if( window.pieSummaryClientAsVisitors !== undefined ) window.pieSummaryClientAsVisitors.destroy();
+
+        window.pieSummaryClientAsVisitors = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: chartSummaryClientAsVisitors.label,
+                datasets: [{
+                    label: '# of Devices',
+                    data: chartSummaryClientAsVisitors.data,
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                      'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'All Devices'
+              },
+              legend: {
+                display: true
+              },
+              responsive: true,
+              maintainAspectRatio: true,
+              animation: {
+                animateRotate: true,
+                animateScale: true
+              },
+              circumference: 2 * Math.PI
+            }
+        });
+      }).catch( err => {
+        console.log( err.response.statusText );
+      });
+    },
+    getSummaryDeviceClientAsVisitorByDate()
+    {
+      axios({
+        method: 'get',
+        url: this.url + 'admin/clients/summary/visitors_by_date?filterdate=' + this.forms.filterdate.value + '&filterdevice=' + this.forms.filterdevice.value
+      }).then( res => {
+        let result = res.data;
+        var ctx = document.getElementById('chartAllDeviceVisitor').getContext('2d');
+        if( this.forms.filterdate.value !== 'today' )
+        {
+          var labelDate = [];
+          var ios = [], android = [], windows = [], linux = [], macos = [], other = [];
+          for( var label = 0; label < result.records.length; label++ )
+          {
+            labelDate[label] = result.records[label].date;
+            ios[label] = result.records[label].os.ios.total;
+            android[label] = result.records[label].os.android.total;
+            windows[label] = result.records[label].os.windows.total;
+            linux[label] = result.records[label].os.linux.total;
+            macos[label] = result.records[label].os.macos.total;
+            other[label] = result.records[label].os.other.total;
+          }
+
+          if( window.bar !== undefined )
+            window.bar.destroy();
+
+          var context = {
+            type: 'line',
+            data: {
+              labels: labelDate,
+              datasets: [
+                {
+                  label: 'Android',
+                  data: android,
+                  borderColor: 'rgba(255, 99, 132, 1)',
+                  borderWidth: 2,
+                  lineTension: 0.4,
+                  fill: false,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
+                  pointBorderColor: 'rgba(255, 99, 132, 1 )',
+                  pointBorderWidth: 1
+                },
+                {
+                  label: 'iOS',
+                  data: ios,
+                  borderColor: 'rgba(54, 162, 235, 1)',
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.4,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                  pointBorderColor: 'rgba(54, 162, 235, 1)',
+                  pointBorderWidth: 1
+                },
+                {
+                  label: 'Windows',
+                  data: windows,
+                  borderColor: 'rgba(255, 206, 86, 1)',
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.4,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(255, 206, 86, 1)',
+                  pointBorderColor: 'rgba(255, 206, 86, 1)',
+                  pointBorderWidth: 1
+                },
+                {
+                  label: 'Linux',
+                  data: linux,
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.4,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                  pointBorderColor: 'rgba(75, 192, 192, 1)',
+                  pointBorderWidth: 1
+                },
+                {
+                  label: 'Mac OS',
+                  data: macos,
+                  borderColor: 'rgba(153, 102, 255, 1)',
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.4,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(153, 102, 255, 0.1)',
+                  pointBorderColor: 'rgba(153, 102, 255, 1)',
+                  pointBorderWidth: 1
+                },
+                {
+                  label: 'Other',
+                  data: other,
+                  borderColor: 'rgba(255, 159, 64, 1)',
+                  borderWidth: 2,
+                  fill: false,
+                  lineTension: 0.4,
+                  pointHitRadius: 1,
+                  pointBackgroundColor: 'rgba(255, 159, 64, 0.1)',
+                  pointBorderColor: 'rgba(255, 159, 64, 1)',
+                  pointBorderWidth: 1
+                }
+              ]
+            },
+            options: {
+      				responsive: true,
+              maintainAspectRatio: true,
+      				title: {
+      					display: true,
+      					text: '# Operating Systems'
+      				},
+              tooltips: {
+                mode: 'index',
+                intersect: false
+              },
+              hover: {
+                mode: 'nearest',
+                intersect: true
+              },
+              legend: {
+                display: true
+              },
+              scales: {
+                xAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: this.forms.filterdate.text
+                  }
+                }],
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true,
+                    userCallback: function(label, index, labels) {
+                      if (Math.floor(label) === label) {
+                        return label;
+                      }
+                    },
+                  }
+                }],
+              }
+      			}
+          };
+          window.bar = new Chart(ctx, context);
+        }
+        else
+        {
+          var context = {
+            type: 'bar',
+            data: {
+              labels: [
+                result.os.ios.label,
+                result.os.android.label,
+                result.os.windows.label,
+                result.os.linux.label,
+                result.os.macos.label,
+                result.os.other.label
+              ],
+              datasets: [{
+                label: '# Operating Systems',
+                data: [
+                  result.os.ios.total,
+                  result.os.android.total,
+                  result.os.windows.total,
+                  result.os.linux.total,
+                  result.os.macos.total,
+                  result.os.other.total
+                ],
+                backgroundColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              legend: {
+                display: true
+              },
+              responsive: true,
+              aspectRatio: 2,
+              title: {
+      					display: true,
+      					text: 'All Devices'
+      				},
+              tooltips: {
+                mode: 'index',
+                intersect: false
+              },
+              hover: {
+                mode: 'nearest',
+                intersect: true
+              },
+              legend: {
+                display: true
+              },
+              scales: {
+                xAxes: [{
+                  display: true,
+                  scaleLabel: {
+                    display: true,
+                    labelString: result.date
+                  }
+                }],
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true,
+                    userCallback: function(label, index, labels) {
+                      if (Math.floor(label) === label) {
+                        return label;
+                      }
+                    },
+                  }
+                }],
+              }
+            }
+          };
+
+          if( window.bar !== undefined )
+            window.bar.destroy();
+
+          window.bar = new Chart(ctx, context);
+        }
+      }).catch( err => {
+        console.log( err );
       });
     }
   },
   mounted() {
-    this.getSummaryDevice();
+    this.getSummaryClientAsSubscriber();
+    this.getSummaryDeviceClientAsVisitor();
+    this.getSummaryDeviceClientAsVisitorByDate();
   }
 }
 </script>

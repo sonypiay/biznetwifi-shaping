@@ -8,6 +8,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.chartjs = require('chart.js');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -21,6 +22,7 @@ Vue.component('dashboard-admin', require('./components/administrator/Dashboard.v
 Vue.component('admin-log-activity', require('./components/administrator/AdminLogActivity.vue'));
 Vue.component('admin-roles', require('./components/administrator/AdminRoles.vue'));
 Vue.component('client-visitor', require('./components/administrator/ClientAsVisitor.vue'));
+Vue.component('client-subscriber', require('./components/administrator/ClientAsSubscriber.vue'));
 
 const app = new Vue({
     el: '#app',

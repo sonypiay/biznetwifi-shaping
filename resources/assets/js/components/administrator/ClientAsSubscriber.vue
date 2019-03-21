@@ -5,7 +5,7 @@
       <div class="uk-card uk-card-body uk-card-default content-data">
         <div class="uk-grid-small" uk-grid>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">
-            <select class="uk-select form-content-select" v-model="forms.selectedrows" @change="getClientAsVisitors( pagination.path + '?page=1' )">
+            <select class="uk-select form-content-select" v-model="forms.selectedrows" @change="getClientAsSubscriber( pagination.path + '?page=1' )">
               <option value="10">10 rows</option>
               <option value="20">20 rows</option>
               <option value="50">50 rows</option>
@@ -15,14 +15,14 @@
             </select>
           </div>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">
-            <select class="uk-select form-content-select" v-model="forms.filterap" @change="getClientAsVisitors( pagination.path + '?page=1' )">
+            <select class="uk-select form-content-select" v-model="forms.filterap" @change="getClientAsSubscriber( pagination.path + '?page=1' )">
               <option value="all">All Access Point</option>
               <option value="ruckus">Ruckus Wireless</option>
               <option value="mkt">Mikrotik</option>
             </select>
           </div>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">
-            <select class="uk-select form-content-select" v-model="forms.filterdevice" @change="getClientAsVisitors( pagination.path + '?page=1' )">
+            <select class="uk-select form-content-select" v-model="forms.filterdevice" @change="getClientAsSubscriber( pagination.path + '?page=1' )">
               <option value="all">All Devices</option>
               <option value="Windows">Windows</option>
               <option value="Linux">Linux</option>
@@ -73,21 +73,21 @@
           </div>
           <div class="uk-width-expand">
             <div class="uk-width-1-1 uk-inline">
-              <a @click="getClientAsVisitors( pagination.path + '?page=1' )" class="uk-form-icon" uk-icon="search"></a>
-              <input @keyup.enter="getClientAsVisitors( pagination.path + '?page=1' )" type="search" placeholder="Search keywords..." class="uk-width-1-1 uk-input form-content-input" v-model="forms.keywords">
+              <a @click="getClientAsSubscriber( pagination.path + '?page=1' )" class="uk-form-icon" uk-icon="search"></a>
+              <input @keyup.enter="getClientAsSubscriber( pagination.path + '?page=1' )" type="search" placeholder="Search keywords..." class="uk-width-1-1 uk-input form-content-input" v-model="forms.keywords">
             </div>
           </div>
         </div>
 
-        <div v-if="clientasvisitor.isLoading === true" class="uk-text-center uk-margin-top">
+        <div v-if="clientassubscriber.isLoading === true" class="uk-text-center uk-margin-top">
           <span uk-spinner></span> Loading data...
         </div>
-        <div v-else-if="clientasvisitor.total === 0" class="uk-margin-top">
+        <div v-else-if="clientassubscriber.total === 0" class="uk-margin-top">
           <div class="uk-alert-warning" uk-alert>No record(s).</div>
         </div>
         <div v-else class="uk-margin-top uk-overflow-auto">
           <div class="uk-margin">
-            <span class="uk-label">Clients: {{ clientasvisitor.total }}</span>
+            <span class="uk-label">Clients: {{ clientassubscriber.total }}</span>
           </div>
           <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
             <thead>
@@ -99,7 +99,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="clients in clientasvisitor.results">
+              <tr v-for="clients in clientassubscriber.results">
                 <td>{{ clients.client_mac }}</td>
                 <td>{{ clients.client_os }}</td>
                 <td>
@@ -114,7 +114,7 @@
 
         <ul class="uk-pagination content-data-pagination">
           <li>
-            <a v-if="pagination.prev_url" @click="getClientAsVisitors( pagination.prev_url )">
+            <a v-if="pagination.prev_url" @click="getClientAsSubscriber( pagination.prev_url )">
               <span uk-pagination-previous></span>
             </a>
             <a v-else>
@@ -123,7 +123,7 @@
           </li>
           <li><a>Page {{ pagination.current_page }} of {{ pagination.last_page }}</a></li>
           <li>
-            <a v-if="pagination.next_url" @click="getClientAsVisitors( pagination.next_url )">
+            <a v-if="pagination.next_url" @click="getClientAsSubscriber( pagination.next_url )">
               <span uk-pagination-next></span>
             </a>
             <a v-else>
@@ -164,9 +164,9 @@ export default {
         last_page: 1,
         prev_url: '',
         next_url: '',
-        path: this.url + 'admin/clients/client_visitor'
+        path: this.url + 'admin/clients/client_subscriber'
       },
-      clientasvisitor: {
+      clientassubscriber: {
         total: 0,
         results: [],
         isLoading: false
@@ -215,9 +215,9 @@ export default {
         text: str,
         value: val
       };
-      this.getClientAsVisitors( this.pagination.path + '?page=1' );
+      this.getClientAsSubscriber( this.pagination.path + '?page=1' );
     },
-    getClientAsVisitors( pages )
+    getClientAsSubscriber( pages )
     {
       var url, param;
       if( this.forms.datepicker.start === '' || this.forms.datepicker.start === undefined )
@@ -232,20 +232,20 @@ export default {
       }
 
       if( pages === undefined )
-        url = this.url + 'admin/clients/client_visitor?page=' + this.pagination.current_page + param;
+        url = this.url + 'admin/clients/client_subscriber?page=' + this.pagination.current_page + param;
       else
         url = pages + param;
 
-      this.clientasvisitor.isLoading = true;
+      this.clientassubscriber.isLoading = true;
       axios({
         method: 'get',
         url: url,
         headers: { 'Content-Type': 'application/json' }
       }).then( res => {
         let result = res.data;
-        this.clientasvisitor.total = result.total;
-        this.clientasvisitor.results = result.data;
-        this.clientasvisitor.isLoading = false;
+        this.clientassubscriber.total = result.total;
+        this.clientassubscriber.results = result.data;
+        this.clientassubscriber.isLoading = false;
         this.pagination = {
           current_page: result.current_page,
           last_page: result.last_page,
@@ -259,7 +259,7 @@ export default {
     }
   },
   mounted() {
-    this.getClientAsVisitors();
+    this.getClientAsSubscriber();
   }
 }
 </script>

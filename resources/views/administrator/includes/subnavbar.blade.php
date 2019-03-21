@@ -40,7 +40,7 @@
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
             <li><a href="{{ route('admin_client_visitor_page') }}">As Visitor</a></li>
-            <li><a href="#">As Subscribers</a></li>
+            <li><a href="{{ route('admin_client_subscriber_page') }}">As Subscribers</a></li>
           </ul>
         </div>
       </li>
