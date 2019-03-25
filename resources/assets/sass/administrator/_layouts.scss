@@ -4,7 +4,8 @@ html {
 
 // login layout
 .login-container {
-  box-shadow: none;
+  border-radius: 4px;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.06);
   .login-heading {
     color: $primary-color;
     font-family: $font-primary;
