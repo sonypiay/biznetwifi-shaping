@@ -2,21 +2,25 @@
   <div>
     <div class="uk-modal-full" id="modal" uk-modal>
       <div class="uk-modal-dialog">
-        <div class="uk-modal-body uk-height-viewport">
+        <a class="uk-modal-close-full uk-close" uk-close></a>
+        <div class="uk-modal-body modal-body-analytic uk-height-viewport">
           <div class="uk-container">
             <h3>Analytic Data</h3>
-            <div class="uk-margin uk-grid-small" uk-grid>
+            <div class="uk-margin uk-grid-small uk-flex-center" uk-grid>
               <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s">
-                <div class="uk-card uk-card-default uk-card-body">
+                <div class="uk-card uk-card-body">
                   <div class="uk-card-title">Total Bandwidth Usage</div>
-                  <canvas id="canvas_total_bandwidth_usage" width="200" height="200"></canvas>
+                  <canvas id="canvas_total_bandwidth_usage"></canvas>
                 </div>
               </div>
               <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s">
-                <div class="uk-card uk-card-body uk-card-default">
+                <div class="uk-card uk-card-body">
                   <div class="uk-card-title">Current Bandwidth Usage</div>
-                  <canvas id="canvas_current_bandwidth_usage" width="200" height="200"></canvas>
+                  <canvas id="canvas_current_bandwidth_usage"></canvas>
                 </div>
+              </div>
+              <div class="uk-width-1-1">
+                <canvas id="canvas_bandwidth_usage_perday"></canvas>
               </div>
             </div>
           </div>
@@ -261,18 +265,16 @@ export default {
       }).then( res => {
         let result = res.data;
         this.devices.bandwidth.current_usage = {
-          download: result.currentUsage.downloadusage,
-          upload: result.currentUsage.uploadusage
+          download: result.currentUsage.download,
+          upload: result.currentUsage.upload
         };
 
         this.devices.bandwidth.total_usage = {
-          download: result.totalUsage.downloadusage,
-          upload: result.totalUsage.uploadusage
+          download: result.totalUsage.download,
+          upload: result.totalUsage.upload
         };
 
         this.devices.bandwidth.results = result.usagePerDay;
-
-        console.log(this.devices.bandwidth.total_usage);
 
         if( window.totalBandwidth !== undefined ) window.totalBandwidth.destroy();
         if( window.currentBandwidth !== undefined ) window.currentBandwidth.destroy();
@@ -280,8 +282,18 @@ export default {
 
         var totalBandwidth = document.getElementById('canvas_total_bandwidth_usage').getContext('2d');
         var currentBandwidth = document.getElementById('canvas_current_bandwidth_usage').getContext('2d');
+        var bandwidthPerDay = document.getElementById('canvas_bandwidth_usage_perday').getContext('2d');
+
+        totalBandwidth.width = 200;
+        totalBandwidth.height = 200;
         totalBandwidth.textAlign = 'center';
         totalBandwidth.textBaseline = 'middle';
+        currentBandwidth.width = 200;
+        currentBandwidth.height = 200;
+        currentBandwidth.textAlign = 'center';
+        currentBandwidth.textBaseline = 'middle';
+        bandwidthPerDay.width = 200;
+        bandwidthPerDay.height = 200;
 
         window.totalBandwidth = new Chart(totalBandwidth, {
           type: 'doughnut',
@@ -370,6 +382,13 @@ export default {
             }
           }
         });
+
+        var labels = [], uploadUsage = [], downloadUsage = [];
+        for( var i = 0; i < this.devices.usagePerDay.length; i++ )
+        {
+          labels[i] = result[i].date.text;
+        }
+        console.log('error');
       }).catch( err => {
         /*swal({
           title: 'Whoops',

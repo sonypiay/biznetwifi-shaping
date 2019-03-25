@@ -80705,6 +80705,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
@@ -80847,18 +80851,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).then(function (res) {
         var result = res.data;
         _this3.devices.bandwidth.current_usage = {
-          download: result.currentUsage.downloadusage,
-          upload: result.currentUsage.uploadusage
+          download: result.currentUsage.download,
+          upload: result.currentUsage.upload
         };
 
         _this3.devices.bandwidth.total_usage = {
-          download: result.totalUsage.downloadusage,
-          upload: result.totalUsage.uploadusage
+          download: result.totalUsage.download,
+          upload: result.totalUsage.upload
         };
 
         _this3.devices.bandwidth.results = result.usagePerDay;
-
-        console.log(_this3.devices.bandwidth.total_usage);
 
         if (window.totalBandwidth !== undefined) window.totalBandwidth.destroy();
         if (window.currentBandwidth !== undefined) window.currentBandwidth.destroy();
@@ -80866,8 +80868,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         var totalBandwidth = document.getElementById('canvas_total_bandwidth_usage').getContext('2d');
         var currentBandwidth = document.getElementById('canvas_current_bandwidth_usage').getContext('2d');
+        var bandwidthPerDay = document.getElementById('canvas_bandwidth_usage_perday').getContext('2d');
+
+        totalBandwidth.width = 200;
+        totalBandwidth.height = 200;
         totalBandwidth.textAlign = 'center';
         totalBandwidth.textBaseline = 'middle';
+        currentBandwidth.width = 200;
+        currentBandwidth.height = 200;
+        currentBandwidth.textAlign = 'center';
+        currentBandwidth.textBaseline = 'middle';
+        bandwidthPerDay.width = 200;
+        bandwidthPerDay.height = 200;
 
         window.totalBandwidth = new Chart(totalBandwidth, {
           type: 'doughnut',
@@ -80944,6 +80956,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
           }
         });
+
+        var labels = [],
+            uploadUsage = [],
+            downloadUsage = [];
+        for (var i = 0; i < _this3.devices.usagePerDay.length; i++) {
+          labels[i] = result[i].date.text;
+        }
+        console.log('error');
       }).catch(function (err) {
         /*swal({
           title: 'Whoops',
@@ -81401,74 +81421,76 @@ var staticRenderFns = [
       { staticClass: "uk-modal-full", attrs: { id: "modal", "uk-modal": "" } },
       [
         _c("div", { staticClass: "uk-modal-dialog" }, [
-          _c("div", { staticClass: "uk-modal-body uk-height-viewport" }, [
-            _c("div", { staticClass: "uk-container" }, [
-              _c("h3", [_vm._v("Analytic Data")]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "uk-margin uk-grid-small",
-                  attrs: { "uk-grid": "" }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "uk-card uk-card-default uk-card-body" },
-                        [
+          _c("a", {
+            staticClass: "uk-modal-close-full uk-close",
+            attrs: { "uk-close": "" }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-modal-body modal-body-analytic uk-height-viewport"
+            },
+            [
+              _c("div", { staticClass: "uk-container" }, [
+                _c("h3", [_vm._v("Analytic Data")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-margin uk-grid-small uk-flex-center",
+                    attrs: { "uk-grid": "" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
+                      },
+                      [
+                        _c("div", { staticClass: "uk-card uk-card-body" }, [
                           _c("div", { staticClass: "uk-card-title" }, [
                             _vm._v("Total Bandwidth Usage")
                           ]),
                           _vm._v(" "),
                           _c("canvas", {
-                            attrs: {
-                              id: "canvas_total_bandwidth_usage",
-                              width: "200",
-                              height: "200"
-                            }
+                            attrs: { id: "canvas_total_bandwidth_usage" }
                           })
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "uk-card uk-card-body uk-card-default" },
-                        [
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
+                      },
+                      [
+                        _c("div", { staticClass: "uk-card uk-card-body" }, [
                           _c("div", { staticClass: "uk-card-title" }, [
                             _vm._v("Current Bandwidth Usage")
                           ]),
                           _vm._v(" "),
                           _c("canvas", {
-                            attrs: {
-                              id: "canvas_current_bandwidth_usage",
-                              width: "200",
-                              height: "200"
-                            }
+                            attrs: { id: "canvas_current_bandwidth_usage" }
                           })
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ])
-          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-width-1-1" }, [
+                      _c("canvas", {
+                        attrs: { id: "canvas_bandwidth_usage_perday" }
+                      })
+                    ])
+                  ]
+                )
+              ])
+            ]
+          )
         ])
       ]
     )
