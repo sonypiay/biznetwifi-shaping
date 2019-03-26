@@ -85008,6 +85008,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -85019,8 +85023,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       forms: {
         datepicker: {
-          start: '',
-          end: ''
+          start: new Date(),
+          end: new Date()
         },
         filterdate: {
           text: 'Today',
@@ -85065,23 +85069,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           placeholder: "Enter date",
           readonly: true
         },
-        attributes: {
-          highlight: {
-            backgroundColor: '#da068c', // Red background
-            borderColor: '#da068c',
-            borderWidth: '2px',
-            borderStyle: 'solid'
-          }
-        },
-        themeStyles: {
-          wrapper: {
-            background: '#ffffff',
-            color: '#ffffff',
-            border: '0',
-            borderRadius: '5px',
-            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.14), 0 6px 20px 0 rgba(0, 0, 0, 0.13)'
-          }
-        },
+        attributes: {},
+        themeStyles: {},
         formats: {
           title: 'MMMM YYYY',
           weekdays: 'W',
@@ -85105,22 +85094,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.getBandwidthUsageClient(this.bandwidth.mac_address);
     },
     onFilteringDate: function onFilteringDate(str, val) {
-      this.forms.filterdate = {
-        text: str,
-        value: val
-      };
-      this.getClientAsVisitors(this.pagination.path + '?page=1');
+      this.forms.filterdate.text = str;
+      this.forms.filterdate.value = val;
+      if (val === 'custom') {
+        UIkit.modal('#modal-filterdate').show();
+      } else {
+        this.getClientAsVisitors(this.pagination.path + '?page=1');
+      }
     },
     getClientAsVisitors: function getClientAsVisitors(pages) {
       var _this = this;
 
       var url, param;
-      if (this.forms.datepicker.start === '' || this.forms.datepicker.start === undefined) {
-        param = '&keywords=' + this.forms.keywords + '&filterdate=' + this.forms.filterdate.value + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
-      } else {
+      if (this.forms.filterdate.value === 'custom') {
         var startDate = this.formatDate(this.forms.datepicker.start, 'YYYY-MM-DD');
         var endDate = this.formatDate(this.forms.datepicker.end, 'YYYY-MM-DD');
         param = '&keywords=' + this.forms.keywords + '&startDate=' + startDate + '&endDate=' + endDate + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
+      } else {
+        param = '&keywords=' + this.forms.keywords + '&filterdate=' + this.forms.filterdate.value + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
       }
 
       if (pages === undefined) url = this.url + 'admin/clients/client_visitor?page=' + this.pagination.current_page + param;else url = pages + param;
@@ -85709,6 +85700,47 @@ var render = function() {
         ])
       ]
     ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "modal-filterdate", "uk-modal": "" } }, [
+      _c(
+        "div",
+        { staticClass: "uk-modal-dialog uk-modal-body modal-body-analytic" },
+        [
+          _c("v-date-picker", {
+            attrs: {
+              formats: _vm.datepicker.formats,
+              mode: "range",
+              "select-attribute": _vm.datepicker.attributes,
+              "input-props": _vm.datepicker.props,
+              "theme-styles": _vm.datepicker.themeStyles,
+              "show-caps": ""
+            },
+            model: {
+              value: _vm.forms.datepicker,
+              callback: function($$v) {
+                _vm.$set(_vm.forms, "datepicker", $$v)
+              },
+              expression: "forms.datepicker"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass:
+                "uk-margin uk-button uk-button-default modal-button-analytic",
+              on: {
+                click: function($event) {
+                  _vm.getClientAsVisitors(_vm.pagination.path + "?page=1")
+                }
+              }
+            },
+            [_vm._v("Apply")]
+          )
+        ],
+        1
+      )
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "uk-margin-top" }, [
       _c("h3", { staticClass: "content-heading" }, [
