@@ -333,4 +333,78 @@ html {
 // analytic
 .modal-body-analytic {
   background: #f9f9f9;
+  .modal-heading-analytic {
+    color: #666666;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 20px;
+  }
+  .modal-button-analytic {
+    border-radius: 4px;
+    box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+    border: 0;
+    color: #666666;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-family: $font-primary;
+    &:hover, &:focus {
+      background: $primary-color;
+      color: #ffffff;
+    }
+  }
+  .modal-card-analytic {
+    border-radius: 4px;
+    box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  }
+  .modal-card-analytic-title {
+    color: #666666;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 16px;
+    text-align: center;
+  }
+  .modal-button-form-analytic {
+    border: 1px solid #eeeeee;
+    border-radius: 30px;
+    color: #666666;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 11px;
+    background: #ffffff;
+    text-transform: capitalize;
+    &:hover, &:focus {
+      border: 1px solid $primary-color;
+      background: $primary-color;
+      color: #ffffff;
+      box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+  .modal-dropdown-analytic-form {
+    height: 200px;
+    overflow: hidden;
+    padding: 0;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+      overflow-y: scroll;
+    }
+    ul {
+      li {
+        a {
+          color: #666666;
+          @include globalfontstyle(400, normal, normal, 0.6px);
+          font-family: $font-primary;
+          font-size: 12px;
+          padding: 8px 12px;
+          &:hover, &:focus {
+            border-left: 2px solid $primary-color;
+            color: $primary-color;
+          }
+        }
+        .modal-button-form-analytic-active {
+          border-left: 2px solid $primary-color;
+          color: $primary-color;
+        }
+      }
+    }
+  }
 }

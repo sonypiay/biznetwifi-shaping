@@ -2,25 +2,64 @@
   <div>
     <div class="uk-modal-full" id="modal" uk-modal>
       <div class="uk-modal-dialog">
-        <a class="uk-modal-close-full uk-close" uk-close></a>
+        <!--<a class="uk-modal-close-full uk-close" uk-close></a>-->
         <div class="uk-modal-body modal-body-analytic uk-height-viewport">
           <div class="uk-container">
-            <h3>Analytic Data</h3>
-            <div class="uk-margin uk-grid-small uk-flex-center" uk-grid>
+            <div class="modal-heading-analytic">Analytic Data - <span class="uk-text-uppercase">{{ devices.bandwidth.mac_address }}</span></div>
+            <div class="uk-margin">
+              <button class="uk-margin-small-left uk-button uk-button-default uk-button-small modal-button-analytic" @click="getBandwidthUsageClient(devices.bandwidth.mac_address)"><i class="fas fa-sync-alt"></i></button>
+              <button class="uk-button uk-button-default uk-button-small uk-modal-close modal-button-analytic"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="uk-margin uk-grid-medium uk-flex-center" uk-grid>
               <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s">
-                <div class="uk-card uk-card-body">
-                  <div class="uk-card-title">Total Bandwidth Usage</div>
+                <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
+                  <div class="uk-card-title modal-card-analytic-title">Total Bandwidth Usage</div>
                   <canvas id="canvas_total_bandwidth_usage"></canvas>
                 </div>
               </div>
               <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s">
-                <div class="uk-card uk-card-body">
-                  <div class="uk-card-title">Current Bandwidth Usage</div>
+                <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
+                  <div class="uk-card-title modal-card-analytic-title">Current Bandwidth Usage</div>
                   <canvas id="canvas_current_bandwidth_usage"></canvas>
                 </div>
               </div>
               <div class="uk-width-1-1">
-                <canvas id="canvas_bandwidth_usage_perday"></canvas>
+                <div class="uk-card uk-card-default uk-card-body">
+                  <div class="uk-width-1-1 uk-text-left uk-inline">
+                    <button class="uk-button uk-button-default modal-button-form-analytic" type="button">
+                      {{ forms.filterdate.text }} <span uk-icon="chevron-down"></span>
+                    </button>
+                    <div class="modal-dropdown-analytic-form" uk-dropdown="mode: click">
+                      <ul class="uk-nav uk-dropdown-nav">
+                        <li>
+                          <a v-if="forms.filterdate.value == '7days'" class="modal-button-form-analytic-active" @click="onFilteringBandwidthPerDay('Last 7 days', '7days')">Last 7 days</a>
+                          <a v-else @click="onFilteringBandwidthPerDay('Last 7 days ', '7days')">Last 7 days</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == '14days'" class="modal-button-form-analytic-active" @click="onFilteringBandwidthPerDay('Last 14 days', '14days')">Last 14 days</a>
+                          <a v-else @click="onFilteringBandwidthPerDay('Last 14 days ', '14days')">Last 14 days</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == '28days'" class="modal-button-form-analytic-active" @click="onFilteringBandwidthPerDay('Last 28 days', '28days')">Last 28 days</a>
+                          <a v-else @click="onFilteringBandwidthPerDay('Last 28 days', '28days')">Last 28 days</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == '30days'" class="modal-button-form-analytic-active" @click="onFilteringBandwidthPerDay('Last 30 days', '30days')">Last 30 days</a>
+                          <a v-else @click="onFilteringBandwidthPerDay('Last 30 days', '30days')">Last 30 days</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'this_month'" class="modal-button-form-analytic-active" @click="onFilteringBandwidthPerDay('This Month', 'this_month')">This Month</a>
+                          <a v-else @click="onFilteringBandwidthPerDay('This Month', 'this_month')">This Month</a>
+                        </li>
+                        <li>
+                          <a v-if="forms.filterdate.value == 'last_month'" class="modal-button-form-analytic-active" @click="onFilteringBandwidthPerDay('Last Month', 'last_month')">Last Month</a>
+                          <a v-else @click="onFilteringBandwidthPerDay('Last Month', 'last_month')">Last Month</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <canvas id="canvas_bandwidth_usage_perday" width="200" height="70"></canvas>
+                </div>
               </div>
             </div>
           </div>
@@ -134,7 +173,7 @@ export default {
         searchby: 'account_id',
         selectedrows: 10,
         filterdate: {
-          text: '7 days ago',
+          text: 'Last 7 days ago',
           value: '7days'
         }
       },
@@ -156,6 +195,7 @@ export default {
           unknown: 0
         },
         bandwidth: {
+          mac_address: '',
           total_usage: {
             download: 0,
             upload: 0
@@ -174,8 +214,14 @@ export default {
   },
   methods: {
     formatSize(bytes) {
-      let sizes = numeral(bytes).format('0b');
+      let sizes = numeral(bytes).format('0.00 b');
       return sizes;
+    },
+    onFilteringBandwidthPerDay( str, val )
+    {
+      this.forms.filterdate.text = str;
+      this.forms.filterdate.value = val;
+      this.getBandwidthUsageClient( this.devices.bandwidth.mac_address );
     },
     deleteDevice(account_id, mac_address)
     {
@@ -258,22 +304,21 @@ export default {
     },
     getBandwidthUsageClient(mac)
     {
+      this.devices.bandwidth.mac_address = mac;
       UIkit.modal('#modal').show();
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/bandwidth/' + mac
+        url: this.url + 'admin/clients/bandwidth/' + mac + '?filterdate=' + this.forms.filterdate.value
       }).then( res => {
         let result = res.data;
         this.devices.bandwidth.current_usage = {
           download: result.currentUsage.download,
           upload: result.currentUsage.upload
         };
-
         this.devices.bandwidth.total_usage = {
           download: result.totalUsage.download,
           upload: result.totalUsage.upload
         };
-
         this.devices.bandwidth.results = result.usagePerDay;
 
         if( window.totalBandwidth !== undefined ) window.totalBandwidth.destroy();
@@ -330,7 +375,7 @@ export default {
                 label: function(tooltipItem, data) {
                   var index = tooltipItem.index;
                   var label = data.labels[index];
-                  var sizes = numeral(data.datasets[0].data[index]).format('0 b');
+                  var sizes = numeral(data.datasets[0].data[index]).format('0.00 b');
                   var results = label + ': ' + sizes;
                   return results;
                 }
@@ -374,7 +419,7 @@ export default {
                 label: function(tooltipItem, data) {
                   var index = tooltipItem.index;
                   var label = data.labels[index];
-                  var sizes = numeral(data.datasets[0].data[index]).format('0 b');
+                  var sizes = numeral(data.datasets[0].data[index]).format('0.00 b');
                   var results = label + ': ' + sizes;
                   return results;
                 }
@@ -384,18 +429,100 @@ export default {
         });
 
         var labels = [], uploadUsage = [], downloadUsage = [];
-        for( var i = 0; i < this.devices.usagePerDay.length; i++ )
+        for( var i = 0; i < this.devices.bandwidth.results.length; i++ )
         {
-          labels[i] = result[i].date.text;
+          labels[i] = this.devices.bandwidth.results[i].date.text;
+          uploadUsage[i] = this.devices.bandwidth.results[i].upload;
+          downloadUsage[i] = this.devices.bandwidth.results[i].download;
         }
-        console.log('error');
+        window.totalBandwidthPerDay = new Chart(bandwidthPerDay, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Upload',
+                data: uploadUsage,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2,
+                lineTension: 0.4,
+                fill: false,
+                pointHitRadius: 1,
+                pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
+                pointBorderColor: 'rgba(255, 99, 132, 1 )',
+                pointBorderWidth: 1
+              },
+              {
+                label: 'Download',
+                data: downloadUsage,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2,
+                fill: false,
+                lineTension: 0.4,
+                pointHitRadius: 1,
+                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                pointBorderColor: 'rgba(54, 162, 235, 1)',
+                pointBorderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+              display: true,
+              text: '# Bandwidth Usage'
+            },
+            tooltips: {
+              mode: 'index',
+              intersect: false,
+              enabled: true,
+              callbacks: {
+                label: function(tooltipItem, data) {
+                  var index = tooltipItem.index;
+                  var datasetIndex = tooltipItem.datasetIndex;
+                  var label = data.datasets[datasetIndex].label;
+                  var sizes = numeral(data.datasets[datasetIndex].data[index]).format('0.00 b');
+                  var results = label + ': ' + sizes;
+                  return results;
+                }
+              }
+            },
+            hover: {
+              mode: 'nearest',
+              intersect: true
+            },
+            legend: {
+              display: true
+            },
+            scales: {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: this.forms.filterdate.text
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  userCallback: function(label, index, labels) {
+                    if (Math.floor(label) === label) {
+                      return numeral(label).format('0.0 b');
+                    }
+                  },
+                }
+              }],
+            }
+          }
+        });
       }).catch( err => {
-        /*swal({
+        swal({
           title: 'Whoops',
           text: err.response.statusText,
           icon: 'warning',
           dangerMode: true
-        });*/
+        });
       });
     }
   },

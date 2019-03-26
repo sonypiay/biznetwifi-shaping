@@ -80709,6 +80709,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
@@ -80720,7 +80759,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         searchby: 'account_id',
         selectedrows: 10,
         filterdate: {
-          text: '7 days ago',
+          text: 'Last 7 days ago',
           value: '7days'
         }
       },
@@ -80742,6 +80781,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           unknown: 0
         },
         bandwidth: {
+          mac_address: '',
           total_usage: {
             download: 0,
             upload: 0
@@ -80761,8 +80801,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     formatSize: function formatSize(bytes) {
-      var sizes = numeral(bytes).format('0b');
+      var sizes = numeral(bytes).format('0.00 b');
       return sizes;
+    },
+    onFilteringBandwidthPerDay: function onFilteringBandwidthPerDay(str, val) {
+      this.forms.filterdate.text = str;
+      this.forms.filterdate.value = val;
+      this.getBandwidthUsageClient(this.devices.bandwidth.mac_address);
     },
     deleteDevice: function deleteDevice(account_id, mac_address) {
       var _this = this;
@@ -80844,22 +80889,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getBandwidthUsageClient: function getBandwidthUsageClient(mac) {
       var _this3 = this;
 
+      this.devices.bandwidth.mac_address = mac;
       UIkit.modal('#modal').show();
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/bandwidth/' + mac
+        url: this.url + 'admin/clients/bandwidth/' + mac + '?filterdate=' + this.forms.filterdate.value
       }).then(function (res) {
         var result = res.data;
         _this3.devices.bandwidth.current_usage = {
           download: result.currentUsage.download,
           upload: result.currentUsage.upload
         };
-
         _this3.devices.bandwidth.total_usage = {
           download: result.totalUsage.download,
           upload: result.totalUsage.upload
         };
-
         _this3.devices.bandwidth.results = result.usagePerDay;
 
         if (window.totalBandwidth !== undefined) window.totalBandwidth.destroy();
@@ -80910,7 +80954,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 label: function label(tooltipItem, data) {
                   var index = tooltipItem.index;
                   var label = data.labels[index];
-                  var sizes = numeral(data.datasets[0].data[index]).format('0 b');
+                  var sizes = numeral(data.datasets[0].data[index]).format('0.00 b');
                   var results = label + ': ' + sizes;
                   return results;
                 }
@@ -80948,7 +80992,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 label: function label(tooltipItem, data) {
                   var index = tooltipItem.index;
                   var label = data.labels[index];
-                  var sizes = numeral(data.datasets[0].data[index]).format('0 b');
+                  var sizes = numeral(data.datasets[0].data[index]).format('0.00 b');
                   var results = label + ': ' + sizes;
                   return results;
                 }
@@ -80960,17 +81004,96 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var labels = [],
             uploadUsage = [],
             downloadUsage = [];
-        for (var i = 0; i < _this3.devices.usagePerDay.length; i++) {
-          labels[i] = result[i].date.text;
+        for (var i = 0; i < _this3.devices.bandwidth.results.length; i++) {
+          labels[i] = _this3.devices.bandwidth.results[i].date.text;
+          uploadUsage[i] = _this3.devices.bandwidth.results[i].upload;
+          downloadUsage[i] = _this3.devices.bandwidth.results[i].download;
         }
-        console.log('error');
+        window.totalBandwidthPerDay = new Chart(bandwidthPerDay, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Upload',
+              data: uploadUsage,
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 2,
+              lineTension: 0.4,
+              fill: false,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
+              pointBorderColor: 'rgba(255, 99, 132, 1 )',
+              pointBorderWidth: 1
+            }, {
+              label: 'Download',
+              data: downloadUsage,
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 2,
+              fill: false,
+              lineTension: 0.4,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+              pointBorderColor: 'rgba(54, 162, 235, 1)',
+              pointBorderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+              display: true,
+              text: '# Bandwidth Usage'
+            },
+            tooltips: {
+              mode: 'index',
+              intersect: false,
+              enabled: true,
+              callbacks: {
+                label: function label(tooltipItem, data) {
+                  var index = tooltipItem.index;
+                  var datasetIndex = tooltipItem.datasetIndex;
+                  var label = data.datasets[datasetIndex].label;
+                  var sizes = numeral(data.datasets[datasetIndex].data[index]).format('0.00 b');
+                  var results = label + ': ' + sizes;
+                  return results;
+                }
+              }
+            },
+            hover: {
+              mode: 'nearest',
+              intersect: true
+            },
+            legend: {
+              display: true
+            },
+            scales: {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: _this3.forms.filterdate.text
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  userCallback: function userCallback(label, index, labels) {
+                    if (Math.floor(label) === label) {
+                      return numeral(label).format('0.0 b');
+                    }
+                  }
+                }
+              }]
+            }
+          }
+        });
       }).catch(function (err) {
-        /*swal({
+        swal({
           title: 'Whoops',
           text: err.response.statusText,
           icon: 'warning',
           dangerMode: true
-        });*/
+        });
       });
     }
   },
@@ -80988,7 +81111,328 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c(
+      "div",
+      { staticClass: "uk-modal-full", attrs: { id: "modal", "uk-modal": "" } },
+      [
+        _c("div", { staticClass: "uk-modal-dialog" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-modal-body modal-body-analytic uk-height-viewport"
+            },
+            [
+              _c("div", { staticClass: "uk-container" }, [
+                _c("div", { staticClass: "modal-heading-analytic" }, [
+                  _vm._v("Analytic Data - "),
+                  _c("span", { staticClass: "uk-text-uppercase" }, [
+                    _vm._v(_vm._s(_vm.devices.bandwidth.mac_address))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-margin" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "uk-margin-small-left uk-button uk-button-default uk-button-small modal-button-analytic",
+                      on: {
+                        click: function($event) {
+                          _vm.getBandwidthUsageClient(
+                            _vm.devices.bandwidth.mac_address
+                          )
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-sync-alt" })]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(0)
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-margin uk-grid-medium uk-flex-center",
+                    attrs: { "uk-grid": "" }
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-width-1-1" }, [
+                      _c(
+                        "div",
+                        { staticClass: "uk-card uk-card-default uk-card-body" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "uk-width-1-1 uk-text-left uk-inline"
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "uk-button uk-button-default modal-button-form-analytic",
+                                  attrs: { type: "button" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(_vm.forms.filterdate.text) +
+                                      " "
+                                  ),
+                                  _c("span", {
+                                    attrs: { "uk-icon": "chevron-down" }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "modal-dropdown-analytic-form",
+                                  attrs: { "uk-dropdown": "mode: click" }
+                                },
+                                [
+                                  _c(
+                                    "ul",
+                                    { staticClass: "uk-nav uk-dropdown-nav" },
+                                    [
+                                      _c("li", [
+                                        _vm.forms.filterdate.value == "7days"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 7 days",
+                                                      "7days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 7 days")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 7 days ",
+                                                      "7days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 7 days")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.forms.filterdate.value == "14days"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 14 days",
+                                                      "14days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 14 days")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 14 days ",
+                                                      "14days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 14 days")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.forms.filterdate.value == "28days"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 28 days",
+                                                      "28days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 28 days")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 28 days",
+                                                      "28days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 28 days")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.forms.filterdate.value == "30days"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 30 days",
+                                                      "30days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 30 days")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 30 days",
+                                                      "30days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 30 days")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.forms.filterdate.value ==
+                                        "this_month"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "This Month",
+                                                      "this_month"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("This Month")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "This Month",
+                                                      "this_month"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("This Month")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.forms.filterdate.value ==
+                                        "last_month"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last Month",
+                                                      "last_month"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last Month")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last Month",
+                                                      "last_month"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last Month")]
+                                            )
+                                      ])
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("canvas", {
+                            attrs: {
+                              id: "canvas_bandwidth_usage_perday",
+                              width: "200",
+                              height: "70"
+                            }
+                          })
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ]
+          )
+        ])
+      ]
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "uk-margin-top" }, [
       _c("h3", { staticClass: "content-heading" }, [
@@ -81297,7 +81741,7 @@ var render = function() {
                   "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
               },
               [
-                _vm._m(1),
+                _vm._m(3),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -81417,81 +81861,71 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
+      "button",
+      {
+        staticClass:
+          "uk-button uk-button-default uk-button-small uk-modal-close modal-button-analytic"
+      },
+      [_c("i", { staticClass: "fas fa-times" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
       "div",
-      { staticClass: "uk-modal-full", attrs: { id: "modal", "uk-modal": "" } },
+      {
+        staticClass:
+          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
+      },
       [
-        _c("div", { staticClass: "uk-modal-dialog" }, [
-          _c("a", {
-            staticClass: "uk-modal-close-full uk-close",
-            attrs: { "uk-close": "" }
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "uk-modal-body modal-body-analytic uk-height-viewport"
-            },
-            [
-              _c("div", { staticClass: "uk-container" }, [
-                _c("h3", [_vm._v("Analytic Data")]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "uk-margin uk-grid-small uk-flex-center",
-                    attrs: { "uk-grid": "" }
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
-                      },
-                      [
-                        _c("div", { staticClass: "uk-card uk-card-body" }, [
-                          _c("div", { staticClass: "uk-card-title" }, [
-                            _vm._v("Total Bandwidth Usage")
-                          ]),
-                          _vm._v(" "),
-                          _c("canvas", {
-                            attrs: { id: "canvas_total_bandwidth_usage" }
-                          })
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
-                      },
-                      [
-                        _c("div", { staticClass: "uk-card uk-card-body" }, [
-                          _c("div", { staticClass: "uk-card-title" }, [
-                            _vm._v("Current Bandwidth Usage")
-                          ]),
-                          _vm._v(" "),
-                          _c("canvas", {
-                            attrs: { id: "canvas_current_bandwidth_usage" }
-                          })
-                        ])
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "uk-width-1-1" }, [
-                      _c("canvas", {
-                        attrs: { id: "canvas_bandwidth_usage_perday" }
-                      })
-                    ])
-                  ]
-                )
-              ])
-            ]
-          )
-        ])
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-card uk-card-default uk-card-body modal-card-analytic"
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "uk-card-title modal-card-analytic-title" },
+              [_vm._v("Total Bandwidth Usage")]
+            ),
+            _vm._v(" "),
+            _c("canvas", { attrs: { id: "canvas_total_bandwidth_usage" } })
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-card uk-card-default uk-card-body modal-card-analytic"
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "uk-card-title modal-card-analytic-title" },
+              [_vm._v("Current Bandwidth Usage")]
+            ),
+            _vm._v(" "),
+            _c("canvas", { attrs: { id: "canvas_current_bandwidth_usage" } })
+          ]
+        )
       ]
     )
   },
@@ -84505,6 +84939,76 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -84539,6 +85043,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         total: 0,
         results: [],
         isLoading: false
+      },
+      bandwidth: {
+        mac_address: '',
+        filterdate: {
+          text: 'Last 7 Days Ago',
+          value: '7days'
+        },
+        total_usage: {
+          download: 0,
+          upload: 0
+        },
+        current_usage: {
+          download: 0,
+          upload: 0
+        },
+        results: []
       },
       datepicker: {
         props: {
@@ -84579,6 +85099,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     formatDate: function formatDate(str, format) {
       var res = moment(str).locale('id').format(format);
       return res;
+    },
+    onFilteringBandwidthPerDay: function onFilteringBandwidthPerDay(str, val) {
+      this.bandwidth.filterdate.text = str;
+      this.bandwidth.filterdate.value = val;
+      this.getBandwidthUsageClient(this.bandwidth.mac_address);
     },
     onFilteringDate: function onFilteringDate(str, val) {
       this.forms.filterdate = {
@@ -84621,6 +85146,216 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }).catch(function (err) {
         console.log(err.response.statusText);
       });
+    },
+    getBandwidthUsageClient: function getBandwidthUsageClient(mac) {
+      var _this2 = this;
+
+      this.bandwidth.mac_address = mac;
+      UIkit.modal('#modal').show();
+      axios({
+        method: 'get',
+        url: this.url + 'admin/clients/bandwidth/' + mac + '?filterdate=' + this.bandwidth.filterdate.value
+      }).then(function (res) {
+        var result = res.data;
+        _this2.bandwidth.current_usage = {
+          download: result.currentUsage.download,
+          upload: result.currentUsage.upload
+        };
+        _this2.bandwidth.total_usage = {
+          download: result.totalUsage.download,
+          upload: result.totalUsage.upload
+        };
+        _this2.bandwidth.results = result.usagePerDay;
+
+        if (window.totalBandwidth !== undefined) window.totalBandwidth.destroy();
+        if (window.currentBandwidth !== undefined) window.currentBandwidth.destroy();
+        if (window.totalBandwidthPerDay !== undefined) window.totalBandwidthPerDay.destroy();
+
+        var totalBandwidth = document.getElementById('canvas_total_bandwidth_usage').getContext('2d');
+        var currentBandwidth = document.getElementById('canvas_current_bandwidth_usage').getContext('2d');
+        var bandwidthPerDay = document.getElementById('canvas_bandwidth_usage_perday').getContext('2d');
+
+        totalBandwidth.width = 200;
+        totalBandwidth.height = 200;
+        totalBandwidth.textAlign = 'center';
+        totalBandwidth.textBaseline = 'middle';
+        currentBandwidth.width = 200;
+        currentBandwidth.height = 200;
+        currentBandwidth.textAlign = 'center';
+        currentBandwidth.textBaseline = 'middle';
+        bandwidthPerDay.width = 200;
+        bandwidthPerDay.height = 200;
+
+        window.totalBandwidth = new Chart(totalBandwidth, {
+          type: 'doughnut',
+          data: {
+            labels: ['Upload', 'Download'],
+            datasets: [{
+              data: [_this2.bandwidth.total_usage.upload, _this2.bandwidth.total_usage.download],
+              backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            legend: {
+              display: true,
+              onHover: function onHover(event, legendItem) {
+                return legendItem.text;
+              }
+            },
+            animation: {
+              animateRotate: true,
+              animateScale: true
+            },
+            circumference: 2 * Math.PI,
+
+            tooltips: {
+              enabled: true,
+              callbacks: {
+                label: function label(tooltipItem, data) {
+                  var index = tooltipItem.index;
+                  var label = data.labels[index];
+                  var sizes = numeral(data.datasets[0].data[index]).format('0.00 b');
+                  var results = label + ': ' + sizes;
+                  return results;
+                }
+              }
+            }
+          }
+        });
+
+        window.currentBandwidth = new Chart(currentBandwidth, {
+          type: 'doughnut',
+          data: {
+            labels: ['Upload', 'Download'],
+            datasets: [{
+              data: [_this2.bandwidth.current_usage.upload, _this2.bandwidth.current_usage.download],
+              backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            legend: {
+              display: true,
+              onHover: function onHover(event, legendItem) {
+                return legendItem.text;
+              }
+            },
+            animation: {
+              animateRotate: true,
+              animateScale: true
+            },
+            circumference: 2 * Math.PI,
+
+            tooltips: {
+              enabled: true,
+              callbacks: {
+                label: function label(tooltipItem, data) {
+                  var index = tooltipItem.index;
+                  var label = data.labels[index];
+                  var sizes = numeral(data.datasets[0].data[index]).format('0.00 b');
+                  var results = label + ': ' + sizes;
+                  return results;
+                }
+              }
+            }
+          }
+        });
+
+        var labels = [],
+            uploadUsage = [],
+            downloadUsage = [];
+        for (var i = 0; i < _this2.bandwidth.results.length; i++) {
+          labels[i] = _this2.bandwidth.results[i].date.text;
+          uploadUsage[i] = _this2.bandwidth.results[i].upload;
+          downloadUsage[i] = _this2.bandwidth.results[i].download;
+        }
+        window.totalBandwidthPerDay = new Chart(bandwidthPerDay, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Upload',
+              data: uploadUsage,
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 2,
+              lineTension: 0.4,
+              fill: false,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
+              pointBorderColor: 'rgba(255, 99, 132, 1 )',
+              pointBorderWidth: 1
+            }, {
+              label: 'Download',
+              data: downloadUsage,
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 2,
+              fill: false,
+              lineTension: 0.4,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+              pointBorderColor: 'rgba(54, 162, 235, 1)',
+              pointBorderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+              display: true,
+              text: '# Bandwidth Usage'
+            },
+            tooltips: {
+              mode: 'index',
+              intersect: false,
+              enabled: true,
+              callbacks: {
+                label: function label(tooltipItem, data) {
+                  var index = tooltipItem.index;
+                  var datasetIndex = tooltipItem.datasetIndex;
+                  var label = data.datasets[datasetIndex].label;
+                  var sizes = numeral(data.datasets[datasetIndex].data[index]).format('0.00 b');
+                  var results = label + ': ' + sizes;
+                  return results;
+                }
+              }
+            },
+            hover: {
+              mode: 'nearest',
+              intersect: true
+            },
+            legend: {
+              display: true
+            },
+            scales: {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: _this2.bandwidth.filterdate.text
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  userCallback: function userCallback(label, index, labels) {
+                    if (Math.floor(label) === label) {
+                      return numeral(label).format('0.0 b');
+                    }
+                  }
+                }
+              }]
+            }
+          }
+        });
+      }).catch(function (err) {
+        swal({
+          title: 'Whoops',
+          text: err.response.statusText,
+          icon: 'warning',
+          dangerMode: true
+        });
+      });
     }
   },
   mounted: function mounted() {
@@ -84651,6 +85386,331 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c(
+      "div",
+      { staticClass: "uk-modal-full", attrs: { id: "modal", "uk-modal": "" } },
+      [
+        _c("div", { staticClass: "uk-modal-dialog" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-modal-body modal-body-analytic uk-height-viewport"
+            },
+            [
+              _c("div", { staticClass: "uk-container" }, [
+                _c("div", { staticClass: "modal-heading-analytic" }, [
+                  _vm._v("Analytic Data - "),
+                  _c("span", { staticClass: "uk-text-uppercase" }, [
+                    _vm._v(_vm._s(_vm.bandwidth.mac_address))
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-margin" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "uk-margin-small-left uk-button uk-button-default uk-button-small modal-button-analytic",
+                      on: {
+                        click: function($event) {
+                          _vm.getBandwidthUsageClient(_vm.bandwidth.mac_address)
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-sync-alt" })]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(0)
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-margin uk-grid-medium uk-flex-center",
+                    attrs: { "uk-grid": "" }
+                  },
+                  [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-width-1-1" }, [
+                      _c(
+                        "div",
+                        { staticClass: "uk-card uk-card-default uk-card-body" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "uk-width-1-1 uk-text-left uk-inline"
+                            },
+                            [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "uk-button uk-button-default modal-button-form-analytic",
+                                  attrs: { type: "button" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                    " +
+                                      _vm._s(_vm.bandwidth.filterdate.text) +
+                                      " "
+                                  ),
+                                  _c("span", {
+                                    attrs: { "uk-icon": "chevron-down" }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "modal-dropdown-analytic-form",
+                                  attrs: { "uk-dropdown": "mode: click" }
+                                },
+                                [
+                                  _c(
+                                    "ul",
+                                    { staticClass: "uk-nav uk-dropdown-nav" },
+                                    [
+                                      _c("li", [
+                                        _vm.bandwidth.filterdate.value ==
+                                        "7days"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 7 days",
+                                                      "7days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 7 days")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 7 days ",
+                                                      "7days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 7 days")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.bandwidth.filterdate.value ==
+                                        "14days"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 14 days",
+                                                      "14days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 14 days")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 14 days ",
+                                                      "14days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 14 days")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.bandwidth.filterdate.value ==
+                                        "28days"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 28 days",
+                                                      "28days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 28 days")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 28 days",
+                                                      "28days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 28 days")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.bandwidth.filterdate.value ==
+                                        "30days"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 30 days",
+                                                      "30days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 30 days")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last 30 days",
+                                                      "30days"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last 30 days")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.bandwidth.filterdate.value ==
+                                        "this_month"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "This Month",
+                                                      "this_month"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("This Month")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "This Month",
+                                                      "this_month"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("This Month")]
+                                            )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _vm.bandwidth.filterdate.value ==
+                                        "last_month"
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "modal-button-form-analytic-active",
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last Month",
+                                                      "last_month"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last Month")]
+                                            )
+                                          : _c(
+                                              "a",
+                                              {
+                                                on: {
+                                                  click: function($event) {
+                                                    _vm.onFilteringBandwidthPerDay(
+                                                      "Last Month",
+                                                      "last_month"
+                                                    )
+                                                  }
+                                                }
+                                              },
+                                              [_vm._v("Last Month")]
+                                            )
+                                      ])
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("canvas", {
+                            attrs: {
+                              id: "canvas_bandwidth_usage_perday",
+                              width: "200",
+                              height: "70"
+                            }
+                          })
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ]
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
     _c("div", { staticClass: "uk-margin-top" }, [
       _c("h3", { staticClass: "content-heading" }, [
         _vm._v("Client as Visitor")
@@ -85227,12 +86287,35 @@ var render = function() {
                         "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
                     },
                     [
-                      _vm._m(0),
+                      _vm._m(3),
                       _vm._v(" "),
                       _c(
                         "tbody",
                         _vm._l(_vm.clientasvisitor.results, function(clients) {
                           return _c("tr", [
+                            _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "uk-button uk-button-default uk-button-small table-btn-action",
+                                  attrs: { "uk-tooltip": "title: View" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getBandwidthUsageClient(
+                                        clients.client_mac
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("span", {
+                                    staticClass: "fas fa-chart-bar"
+                                  })
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(clients.client_mac))]),
                             _vm._v(" "),
                             _c("td", [_vm._v(_vm._s(clients.client_os))]),
@@ -85316,8 +86399,83 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "uk-button uk-button-default uk-button-small uk-modal-close modal-button-analytic"
+      },
+      [_c("i", { staticClass: "fas fa-times" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-card uk-card-default uk-card-body modal-card-analytic"
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "uk-card-title modal-card-analytic-title" },
+              [_vm._v("Total Bandwidth Usage")]
+            ),
+            _vm._v(" "),
+            _c("canvas", { attrs: { id: "canvas_total_bandwidth_usage" } })
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-card uk-card-default uk-card-body modal-card-analytic"
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "uk-card-title modal-card-analytic-title" },
+              [_vm._v("Current Bandwidth Usage")]
+            ),
+            _vm._v(" "),
+            _c("canvas", { attrs: { id: "canvas_current_bandwidth_usage" } })
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
+        _c("th", { staticClass: "uk-width-small" }, [_vm._v("Action")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Mac Address")]),
         _vm._v(" "),
         _c("th", [_vm._v("Operating System")]),

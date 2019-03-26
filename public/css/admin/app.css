@@ -484,3 +484,107 @@ html {
   background: #f9f9f9;
 }
 
+.modal-body-analytic .modal-heading-analytic {
+  color: #666666;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 20px;
+}
+
+.modal-body-analytic .modal-button-analytic {
+  border-radius: 4px;
+  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border: 0;
+  color: #666666;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.modal-body-analytic .modal-button-analytic:hover,
+.modal-body-analytic .modal-button-analytic:focus {
+  background: #da068c;
+  color: #ffffff;
+}
+
+.modal-body-analytic .modal-card-analytic {
+  border-radius: 4px;
+  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.modal-body-analytic .modal-card-analytic-title {
+  color: #666666;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+.modal-body-analytic .modal-button-form-analytic {
+  border: 1px solid #eeeeee;
+  border-radius: 30px;
+  color: #666666;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 11px;
+  background: #ffffff;
+  text-transform: capitalize;
+}
+
+.modal-body-analytic .modal-button-form-analytic:hover,
+.modal-body-analytic .modal-button-form-analytic:focus {
+  border: 1px solid #da068c;
+  background: #da068c;
+  color: #ffffff;
+  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.modal-body-analytic .modal-dropdown-analytic-form {
+  height: 200px;
+  overflow: hidden;
+  padding: 0;
+  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.modal-body-analytic .modal-dropdown-analytic-form:hover {
+  overflow-y: scroll;
+}
+
+.modal-body-analytic .modal-dropdown-analytic-form ul li a {
+  color: #666666;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 12px;
+  padding: 8px 12px;
+}
+
+.modal-body-analytic .modal-dropdown-analytic-form ul li a:hover,
+.modal-body-analytic .modal-dropdown-analytic-form ul li a:focus {
+  border-left: 2px solid #da068c;
+  color: #da068c;
+}
+
+.modal-body-analytic .modal-dropdown-analytic-form ul li .modal-button-form-analytic-active {
+  border-left: 2px solid #da068c;
+  color: #da068c;
+}
+
