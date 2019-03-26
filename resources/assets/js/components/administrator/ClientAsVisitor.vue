@@ -2,7 +2,6 @@
   <div>
     <div class="uk-modal-full" id="modal" uk-modal>
       <div class="uk-modal-dialog">
-        <!--<a class="uk-modal-close-full uk-close" uk-close></a>-->
         <div class="uk-modal-body modal-body-analytic uk-height-viewport">
           <div class="uk-container">
             <div class="modal-heading-analytic">Analytic Data - <span class="uk-text-uppercase">{{ bandwidth.mac_address }}</span></div>
@@ -64,6 +63,12 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div id="modal-filterdate" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body modal-body-analytic">
+        <v-date-picker :formats="datepicker.formats" mode="range" v-model="forms.datepicker" :select-attribute="datepicker.attributes" :input-props="datepicker.props" :theme-styles="datepicker.themeStyles" show-caps></v-date-picker>
+        <button class="uk-margin uk-button uk-button-default modal-button-analytic" @click="getClientAsVisitors( pagination.path + '?page=1' )">Apply</button>
       </div>
     </div>
     <div class="uk-margin-top">
@@ -135,7 +140,6 @@
                 </ul>
               </div>
             </div>
-            <!--<v-date-picker :formats="datepicker.formats" mode="range" v-model="forms.datepicker" :select-attribute="datepicker.attributes" :input-props="datepicker.props" :theme-styles="datepicker.themeStyles" show-caps></v-date-picker>-->
           </div>
           <div class="uk-width-expand">
             <div class="uk-width-1-1 uk-inline">
@@ -217,8 +221,8 @@ export default {
     return {
       forms: {
         datepicker: {
-          start: '',
-          end: ''
+          start: new Date(),
+          end: new Date()
         },
         filterdate: {
           text: 'Today',
@@ -264,21 +268,10 @@ export default {
           readonly: true
         },
         attributes: {
-          highlight: {
-            backgroundColor: '#da068c',     // Red background
-            borderColor: '#da068c',
-            borderWidth: '2px',
-            borderStyle: 'solid',
-          }
+          
         },
         themeStyles: {
-          wrapper: {
-            background: '#ffffff',
-            color: '#ffffff',
-            border: '0',
-            borderRadius: '5px',
-            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.14), 0 6px 20px 0 rgba(0, 0, 0, 0.13)'
-          }
+
         },
         formats: {
           title: 'MMMM YYYY',
@@ -303,24 +296,29 @@ export default {
       this.getBandwidthUsageClient( this.bandwidth.mac_address );
     },
     onFilteringDate(str, val) {
-      this.forms.filterdate = {
-        text: str,
-        value: val
-      };
-      this.getClientAsVisitors( this.pagination.path + '?page=1' );
+      this.forms.filterdate.text = str;
+      this.forms.filterdate.value = val;
+      if( val === 'custom' )
+      {
+        UIkit.modal('#modal-filterdate').show();
+      }
+      else
+      {
+        this.getClientAsVisitors( this.pagination.path + '?page=1' );
+      }
     },
     getClientAsVisitors( pages )
     {
       var url, param;
-      if( this.forms.datepicker.start === '' || this.forms.datepicker.start === undefined )
-      {
-        param = '&keywords=' + this.forms.keywords + '&filterdate=' + this.forms.filterdate.value + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
-      }
-      else
+      if( this.forms.filterdate.value === 'custom' )
       {
         var startDate = this.formatDate( this.forms.datepicker.start, 'YYYY-MM-DD' );
         var endDate = this.formatDate( this.forms.datepicker.end, 'YYYY-MM-DD' );
         param = '&keywords=' + this.forms.keywords + '&startDate=' + startDate + '&endDate=' + endDate + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
+      }
+      else
+      {
+        param = '&keywords=' + this.forms.keywords + '&filterdate=' + this.forms.filterdate.value + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
       }
 
       if( pages === undefined )
