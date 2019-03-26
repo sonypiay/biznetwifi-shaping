@@ -23,6 +23,7 @@ try {
 window.moment = require('moment');
 window.axios = require('axios');
 window.swal = require('sweetalert');
+window.numeral = require('numeral');
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

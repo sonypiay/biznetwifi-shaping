@@ -9,6 +9,7 @@ use App\Database\AccountSubscriber;
 use App\Database\AdminLogActivity;
 use App\Database\AdminRoles;
 use App\CustomFunction;
+use App\RadiusAPI;
 use DateTime;
 use DatePeriod;
 use DateInterval;
@@ -17,17 +18,17 @@ use App\Http\Controllers\Controller;
 class AccountSubscribersController extends Controller
 {
   use CustomFunction;
+  use RadiusAPI;
 
   public function index( Request $request )
   {
     if( $request->session()->has('admin_login') )
     {
       $getroles = $this->getroles( new AdminRoles, $request->session()->get('admin_userid') );
-      return response()->view('administrator.pages.device_connected', [
+      return response()->view('administrator.pages.account_subscribers', [
         'request' => $request,
         'getsession' => $request->session()->all(),
         'roles' => $getroles
-
       ]);
     }
     else
@@ -36,7 +37,7 @@ class AccountSubscribersController extends Controller
     }
   }
 
-  public function data_deviceconnected( Request $request, AccountSubscriber $subscriber )
+  public function data_accountsubscribers( Request $request, AccountSubscriber $subscriber )
   {
     $device = isset( $request->device ) ? $request->device : 'all';
     $device = $device == 'Unknown' ? '' : $device;
@@ -105,7 +106,7 @@ class AccountSubscribersController extends Controller
       ['account_id', '=', $account_id],
       ['mac_address', '=', $mac]
     ]);
-    if( $query->count() === 1 )
+    if( $query->count() !== 0 )
     {
       $result = $users->where('userid', $request->session()->get('admin_userid'))->first();
       $logs = new $log;
@@ -117,11 +118,35 @@ class AccountSubscribersController extends Controller
       $logs->log_type = 'Delete';
       $logs->save();
 
-      $query->delete();
-      $res = [
-        'status' => 200,
-        'statusText' => $mac . ' deleted.'
-      ];
+      $this->timeout_socket = 3;
+      $radprimary = $this->check_connection('182.253.238.66', 3306);
+      $radbackup = $this->check_connection('202.169.53.9', 3306);
+
+      if( $radprimary['status'] == null )
+      {
+        $this->delete_radcheck( '182.253.238.66:8080', $mac );
+        $query->delete();
+        $res = [
+          'status' => 200,
+          'statusText' => $mac . ' deleted.'
+        ];
+      }
+      else if( $radbackup['status'] == null )
+      {
+        $this->delete_radcheck( '202.169.53.9', $mac );
+        $query->delete();
+        $res = [
+          'status' => 200,
+          'statusText' => $mac . ' deleted.'
+        ];
+      }
+      else
+      {
+        $res = [
+          'status' => 500,
+          'statusText' => $radbackup['statusText']
+        ];
+      }
     }
     else
     {
@@ -132,5 +157,11 @@ class AccountSubscribersController extends Controller
     }
 
     return response()->json( $res, $res['status'] );
+  }
+
+  public function bw_client_usage( Request $request, $mac )
+  {
+    $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
+    return response()->json( $data_bandwidth );
   }
 }

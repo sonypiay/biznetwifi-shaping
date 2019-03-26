@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="uk-margin-top">
-      <h3 class="content-heading">Client as Visitor</h3>
+      <h3 class="content-heading">Client as Subscribers</h3>
       <div class="uk-card uk-card-body uk-card-default content-data">
         <div class="uk-grid-small" uk-grid>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">

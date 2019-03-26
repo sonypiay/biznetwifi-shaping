@@ -16,7 +16,7 @@ window.chartjs = require('chart.js');
  */
 
 Vue.component('section-login', require('./components/administrator/Login.vue'));
-Vue.component('device-connected', require('./components/administrator/DeviceConnected.vue'));
+Vue.component('account-subscriber', require('./components/administrator/AccountSubscribers.vue'));
 Vue.component('dashboard-admin', require('./components/administrator/Dashboard.vue'));
 Vue.component('admin-log-activity', require('./components/administrator/AdminLogActivity.vue'));
 Vue.component('admin-roles', require('./components/administrator/AdminRoles.vue'));
