@@ -186,85 +186,71 @@ class PortalController extends Controller
         $agent = $request->session()->get('agent');
 
         $checksubs = $subscriber->where('account_id', '=', $username);
-        if( $checksubs->count() === 4 )
+        $checkmacaddress = $subscriber->select('mac_address')->where([
+          ['account_id', $username],
+          ['mac_address', $mac]
+        ]);
+        $getlastmac = $checksubs->orderBy('login_date', 'asc')->first();
+
+        if( $checksubs->count() == 0 )
         {
-          $getuser = $checksubs->orderBy('login_date', 'asc')->first();
-          $getcurrentmac = $subscriber->select('mac_address')->where([
-            ['account_id', $username],
-            ['mac_address', $mac]
-          ]);
-
-          if( $getcurrentmac->count() == 0 )
+          $this->timeout_socket = 2;
+          $radprimary = $this->check_connection('182.253.238.66', 3306);
+          $radbackup = $this->check_connection('202.169.53.9', 3306);
+          if( $radprimary['status'] == null )
           {
-            $this->timeout_socket = 2;
-            $radprimary = $this->check_connection('182.253.238.66', 3306);
-            $radbackup = $this->check_connection('202.169.53.9', 3306);
-
-            if( $radprimary['status'] == null )
-            {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              $this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
-            }
-            else
-            {
-              $this->add_radcheck( '202.169.53.9', $mac, $username );
-              $this->delete_radcheck( '202.169.53.9', $getuser->mac_address );
-            }
-
-            $subscriber->account_id = $username;
-            $subscriber->mac_address = $mac;
-            $subscriber->login_date = date('Y-m-d H:i:s');
-            $subscriber->device_agent = $this->userAgent( $agent );
-            $subscriber->save();
-            $subscriber->where([ ['username', '=', $username], ['mac_address', '=', $getuser->mac_address] ])->delete();
+            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+            //$this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
           }
           else
           {
-            /*$this->timeout_socket = 2;
-            $radprimary = $this->check_connection('182.253.238.66', 3306);
-            $radbackup = $this->check_connection('202.169.53.9', 3306);
-
-            if( $radprimary['status'] == null )
-            {
-              $this->delete_radcheck( '182.253.238.66:8080', $mac );
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              $this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
-            }
-            else
-            {
-              $this->delete_radcheck( '202.169.53.9', $mac );
-              $this->add_radcheck( '202.169.53.9', $mac, $username );
-              $this->delete_radcheck( '202.169.53.9', $getuser->mac_address );
-            }*/
+            $this->add_radcheck( '202.169.53.9', $mac, $username );
+            //$this->delete_radcheck( '202.169.53.9', $getlastmac->mac_address );
           }
-        }
-        else
-        {
-          $getcurrentmac = $subscriber->select('mac_address')->where([
-            ['account_id', $username],
-            ['mac_address', $mac]
-          ]);
 
-          if( $getcurrentmac->count() == 0 )
+          if( $checkmacaddress->count() == 0 )
           {
-            $this->timeout_socket = 2;
-            $radprimary = $this->check_connection('182.253.238.66', 3306);
-            $radbackup = $this->check_connection('202.169.53.9', 3306);
-
-            if( $radprimary['status'] == null )
-            {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-            }
-            else
-            {
-              $this->add_radcheck( '202.169.53.9', $mac, $username );
-            }
-
             $subscriber->account_id = $username;
             $subscriber->mac_address = $mac;
             $subscriber->login_date = date('Y-m-d H:i:s');
             $subscriber->device_agent = $this->userAgent( $agent );
             $subscriber->save();
+          }
+          $subscriber->where([
+            ['username', '=', $username],
+            ['mac_address', '=', $getlastmac->mac_address]
+          ])->delete();
+        }
+        else
+        {
+          if( $checksubs->count() >= 4 )
+          {
+            $this->timeout_socket = 2;
+            $radprimary = $this->check_connection('182.253.238.66', 3306);
+            $radbackup = $this->check_connection('202.169.53.9', 3306);
+            if( $radprimary['status'] == null )
+            {
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
+            }
+            else
+            {
+              $this->add_radcheck( '202.169.53.9', $mac, $username );
+              $this->delete_radcheck( '202.169.53.9', $getlastmac->mac_address );
+            }
+
+            if( $checkmacaddress->count() == 0 )
+            {
+              $subscriber->account_id = $username;
+              $subscriber->mac_address = $mac;
+              $subscriber->login_date = date('Y-m-d H:i:s');
+              $subscriber->device_agent = $this->userAgent( $agent );
+              $subscriber->save();
+            }
+            $subscriber->where([
+              ['username', '=', $username],
+              ['mac_address', '=', $getlastmac->mac_address]
+            ])->delete();
           }
         }
         return redirect()->route('hmpgcustomer');
@@ -299,7 +285,7 @@ class PortalController extends Controller
     $ssid = $request->ssid;
     $starturl = 'http://biznethotspot.qeon.co.id';
     $location = $request->loc;
-    $redirect = 'http://biznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1&shaping=true';
+    $redirect = 'http://biznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1';
     return redirect( $redirect );
   }
 
