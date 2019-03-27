@@ -165,7 +165,14 @@ class AccountSubscribersController extends Controller
     $radprimary = $this->check_connection('182.253.238.66', 3306);
     $radbackup = $this->check_connection('202.169.53.9', 3306);
 
-    $data_bandwidth = $this->bandwidthClientUsage( '202.169.53.9', $mac, $request );
+    if( $radbackup['status'] == null )
+    {
+      $data_bandwidth = $this->bandwidthClientUsage( '202.169.53.9', $mac, $request );
+    }
+    else
+    {
+      $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
+    }
     return response()->json( $data_bandwidth );
   }
 }
