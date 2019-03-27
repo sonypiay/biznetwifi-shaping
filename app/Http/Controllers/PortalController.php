@@ -122,6 +122,12 @@ class PortalController extends Controller
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
     $client_mac = strtoupper( $request->session()->get('client_mac') );
 
+    $clientIfExists = $clientusage->select(
+      'client_mac',
+      DB::raw('date_format(created_at, "%Y-%m-%d") as start_connected'),
+      DB::raw('date_format(updated_at, "%Y-%m-%d") as last_connected')
+    )
+    ->where('client_mac', '=', $client_mac);
     if( $clientIfExists->count() != 0 )
     {
       $clients = $clientIfExists->first();
