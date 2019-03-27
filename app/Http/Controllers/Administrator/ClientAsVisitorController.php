@@ -50,7 +50,7 @@ class ClientAsVisitorController extends Controller
       if( $filterdate == 'this_month' OR $filterdate == 'last_month' )
       {
         $filtermonth = $filterdate == 'this_month' ? 'this month' : 'last month';
-        $currentMonth = new DateTime( $filtermonth );
+        $currentMonth = new DateTime( 'first day of ' . $filtermonth );
 
         if( empty( $keywords ) )
         {
@@ -59,7 +59,7 @@ class ClientAsVisitorController extends Controller
             if( $filterap == 'all' )
             {
               $query = $clients->where([
-                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
                 ['connection_type', '=', 'visitor']
               ])
               ->orderBy('updated_at','desc')
@@ -68,7 +68,7 @@ class ClientAsVisitorController extends Controller
             else
             {
               $query = $clients->where([
-                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
                 ['ap', '=', $filterap],
                 ['connection_type', '=', 'visitor']
               ])
@@ -81,7 +81,7 @@ class ClientAsVisitorController extends Controller
             if( $filterap == 'all' )
             {
               $query = $clients->where([
-                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
                 ['client_os', '=', $filterdevice],
                 ['connection_type', '=', 'visitor']
               ])
@@ -91,7 +91,7 @@ class ClientAsVisitorController extends Controller
             else
             {
               $query = $clients->where([
-                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
                 ['client_os', '=', $filterdevice],
                 ['connection_type', '=', 'visitor'],
                 ['ap', '=', $filterap],
@@ -108,8 +108,13 @@ class ClientAsVisitorController extends Controller
             if( $filterap == 'all' )
             {
               $query = $clients->where([
-                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
                 ['client_mac', 'like', '%' . $keywords . '%'],
+                ['connection_type', '=', 'visitor']
+              ])
+              ->orWhere([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
+                ['client_ip', 'like', '%' . $keywords . '%'],
                 ['connection_type', '=', 'visitor']
               ])
               ->orderBy('updated_at','desc')
@@ -118,8 +123,14 @@ class ClientAsVisitorController extends Controller
             else
             {
               $query = $clients->where([
-                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
                 ['client_mac', 'like', '%' . $keywords . '%'],
+                ['connection_type', '=', 'visitor'],
+                ['ap', '=', $filterap]
+              ])
+              ->orWhere([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
+                ['client_ip', 'like', '%' . $keywords . '%'],
                 ['connection_type', '=', 'visitor'],
                 ['ap', '=', $filterap]
               ])
@@ -132,10 +143,16 @@ class ClientAsVisitorController extends Controller
             if( $filterap == 'all' )
             {
               $query = $clients->where([
-                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
                 ['client_os', '=', $filterdevice],
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%']
+              ])
+              ->orWhere([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%']
               ])
               ->orderBy('updated_at','desc')
               ->paginate( $rows );
@@ -143,10 +160,17 @@ class ClientAsVisitorController extends Controller
             else
             {
               $query = $clients->where([
-                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth],
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
                 ['client_os', '=', $filterdevice],
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%'],
+                ['ap', '=', $filterap]
+              ])
+              ->orWhere([
+                [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%'],
                 ['ap', '=', $filterap]
               ])
               ->orderBy('updated_at','desc')
@@ -218,6 +242,11 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%']
               ])
+              ->orWhere([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%']
+              ])
               ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
@@ -227,6 +256,12 @@ class ClientAsVisitorController extends Controller
                 [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%'],
+                ['ap', '=', $filterap]
+              ])
+              ->orWhere([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%'],
                 ['ap', '=', $filterap]
               ])
               ->orderBy('updated_at','desc')
@@ -243,6 +278,12 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%']
               ])
+              ->orWhere([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%']
+              ])
               ->orderBy('updated_at','desc')
               ->paginate( $rows );
             }
@@ -253,6 +294,13 @@ class ClientAsVisitorController extends Controller
                 ['client_os', '=', $filterdevice],
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%'],
+                ['ap', '=', $filterap]
+              ])
+              ->orWhere([
+                [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today],
+                ['client_os', '=', $filterdevice],
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%'],
                 ['ap', '=', $filterap]
               ])
               ->orderBy('updated_at','desc')
@@ -344,6 +392,10 @@ class ClientAsVisitorController extends Controller
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%']
               ])
+              ->orWhere([
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%']
+              ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
               ->orderBy('updated_at','desc')
               ->paginate( $rows );
@@ -353,6 +405,11 @@ class ClientAsVisitorController extends Controller
               $query = $clients->where([
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%'],
+                ['ap', '=', $filterap]
+              ])
+              ->orWhere([
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%'],
                 ['ap', '=', $filterap]
               ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
@@ -369,6 +426,11 @@ class ClientAsVisitorController extends Controller
                 ['client_mac', 'like', '%' . $keywords . '%'],
                 ['client_os', '=', $filterdevice]
               ])
+              ->orWhere([
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%'],
+                ['client_os', '=', $filterdevice]
+              ])
               ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$beginDate, $lastDate])
               ->orderBy('updated_at','desc')
               ->paginate( $rows );
@@ -378,6 +440,12 @@ class ClientAsVisitorController extends Controller
               $query = $clients->where([
                 ['connection_type', '=', 'visitor'],
                 ['client_mac', 'like', '%' . $keywords . '%'],
+                ['client_os', '=', $filterdevice],
+                ['ap', '=', $filterap]
+              ])
+              ->orWhere([
+                ['connection_type', '=', 'visitor'],
+                ['client_ip', 'like', '%' . $keywords . '%'],
                 ['client_os', '=', $filterdevice],
                 ['ap', '=', $filterap]
               ])
@@ -448,6 +516,10 @@ class ClientAsVisitorController extends Controller
               ['connection_type', '=', 'visitor'],
               ['client_mac', 'like', '%' . $keywords . '%']
             ])
+            ->orWhere([
+              ['connection_type', '=', 'visitor'],
+              ['client_ip', 'like', '%' . $keywords . '%']
+            ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$startDate, $endDate])
             ->orderBy('updated_at','desc')
             ->paginate( $rows );
@@ -457,6 +529,11 @@ class ClientAsVisitorController extends Controller
             $query = $clients->where([
               ['connection_type', '=', 'visitor'],
               ['client_mac', 'like', '%' . $keywords . '%'],
+              ['ap', '=', $filterap]
+            ])
+            ->orWhere([
+              ['connection_type', '=', 'visitor'],
+              ['client_ip', 'like', '%' . $keywords . '%'],
               ['ap', '=', $filterap]
             ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$startDate, $endDate])
@@ -473,6 +550,11 @@ class ClientAsVisitorController extends Controller
               ['client_mac', 'like', '%' . $keywords . '%'],
               ['client_os', '=', $device]
             ])
+            ->orWhere([
+              ['connection_type', '=', 'visitor'],
+              ['client_ip', 'like', '%' . $keywords . '%'],
+              ['client_os', '=', $device]
+            ])
             ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$startDate, $endDate])
             ->orderBy('updated_at','desc')
             ->paginate( $rows );
@@ -482,6 +564,12 @@ class ClientAsVisitorController extends Controller
             $query = $clients->where([
               ['connection_type', '=', 'visitor'],
               ['client_mac', 'like', '%' . $keywords . '%'],
+              ['client_os', '=', $device],
+              ['ap', '=', $filterap]
+            ])
+            ->orWhere([
+              ['connection_type', '=', 'visitor'],
+              ['client_ip', 'like', '%' . $keywords . '%'],
               ['client_os', '=', $device],
               ['ap', '=', $filterap]
             ])

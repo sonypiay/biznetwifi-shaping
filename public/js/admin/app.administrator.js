@@ -85012,6 +85012,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -86357,6 +86359,8 @@ var render = function() {
                                 : _c("span", [_vm._v("Ruckus Wireless")])
                             ]),
                             _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(clients.client_ip))]),
+                            _vm._v(" "),
                             _c("td", [
                               _vm._v(
                                 _vm._s(
@@ -86512,6 +86516,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Operating System")]),
         _vm._v(" "),
         _c("th", [_vm._v("Access Point")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("IP")]),
         _vm._v(" "),
         _c("th", [_vm._v("Last Connected")])
       ])

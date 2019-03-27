@@ -166,6 +166,7 @@
                 <th>Mac Address</th>
                 <th>Operating System</th>
                 <th>Access Point</th>
+                <th>IP</th>
                 <th>Last Connected</th>
               </tr>
             </thead>
@@ -180,6 +181,7 @@
                   <span v-if="clients.ap == 'mkt'">Mikrotik</span>
                   <span v-else>Ruckus Wireless</span>
                 </td>
+                <td>{{ clients.client_ip }}</td>
                 <td>{{ formatDate(clients.updated_at, 'MMM DD, YYYY HH:mm ') }}</td>
               </tr>
             </tbody>
@@ -268,7 +270,7 @@ export default {
           readonly: true
         },
         attributes: {
-          
+
         },
         themeStyles: {
 
