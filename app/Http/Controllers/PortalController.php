@@ -184,15 +184,13 @@ class PortalController extends Controller
           $this->timeout_socket = 2;
           $radprimary = $this->check_connection('182.253.238.66', 3306);
           $radbackup = $this->check_connection('202.169.53.9', 3306);
-          if( $radprimary['status'] == null )
+          if( $radbackup['status'] == null )
           {
-            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-            //$this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
+            $this->add_radcheck( '202.169.53.9', $mac, $username );
           }
           else
           {
-            $this->add_radcheck( '202.169.53.9', $mac, $username );
-            //$this->delete_radcheck( '202.169.53.9', $getlastmac->mac_address );
+            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
           }
 
           if( $checkmacaddress->count() == 0 )
@@ -215,15 +213,15 @@ class PortalController extends Controller
             $this->timeout_socket = 2;
             $radprimary = $this->check_connection('182.253.238.66', 3306);
             $radbackup = $this->check_connection('202.169.53.9', 3306);
-            if( $radprimary['status'] == null )
-            {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
-            }
-            else
+            if( $radbackup['status'] == null )
             {
               $this->add_radcheck( '202.169.53.9', $mac, $username );
               $this->delete_radcheck( '202.169.53.9', $getlastmac->mac_address );
+            }
+            else
+            {
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
             }
 
             if( $checkmacaddress->count() == 0 )
