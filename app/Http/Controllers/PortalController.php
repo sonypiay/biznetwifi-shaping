@@ -121,25 +121,36 @@ class PortalController extends Controller
   {
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
     $client_mac = strtoupper( $request->session()->get('client_mac') );
-    $clientIfExists = $clientusage->select('client_mac')
-    ->where([
-      ['client_mac', '=', $client_mac],
-      [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', date('Y-m-d')]
-    ]);
 
-    if( $clientIfExists->count() == 1 )
+    if( $clientIfExists->count() != 0 )
     {
-      $updated = $clientusage->where([
-        ['client_mac', '=', $client_mac],
-        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', date('Y-m-d')]
-      ])->first();
-      $updated->client_ip = $request->session()->get('uip');
-      $updated->client_mac = $request->session()->get('client_mac');
-      $updated->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
-      $updated->location_id = $request->session()->get('location_id');
-      $updated->connection_type = $connection_type;
-      $updated->ap = $request->session()->get('ap');
-      $updated->save();
+      $clients = $clientIfExists->first();
+      if( $clients->last_connected == date('Y-m-d') )
+      {
+        $updated = $clientusage->where([
+          ['client_mac', '=', $client_mac],
+          [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', date('Y-m-d')]
+        ])->first();
+        $updated->client_ip = $request->session()->get('uip');
+        $updated->client_mac = $request->session()->get('client_mac');
+        $updated->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $updated->location_id = $request->session()->get('location_id');
+        $updated->connection_type = $connection_type;
+        $updated->ap = $request->session()->get('ap');
+        $updated->updated_at = date('Y-m-d H:i:s');
+        $updated->save();
+      }
+      else
+      {
+        $clients = new $clientusage;
+        $clients->client_ip = $request->session()->get('uip');
+        $clients->client_mac = $request->session()->get('client_mac');
+        $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $clients->location_id = $request->session()->get('location_id');
+        $clients->connection_type = $connection_type;
+        $clients->ap = $request->session()->get('ap');
+        $clients->save();
+      }
     }
     else
     {
