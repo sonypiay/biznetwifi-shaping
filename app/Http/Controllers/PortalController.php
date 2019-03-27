@@ -121,38 +121,25 @@ class PortalController extends Controller
   {
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
     $client_mac = strtoupper( $request->session()->get('client_mac') );
-    $clientIfExists = $clientusage->select(
-      'client_mac',
-      DB::raw('date_format(created_at, "%Y-%m-%d") as start_connected'),
-      DB::raw('date_format(updated_at, "%Y-%m-%d") as last_connected')
-    )
-    ->where('client_mac', '=', $client_mac);
+    $clientIfExists = $clientusage->select('client_mac')
+    ->where([
+      ['client_mac', '=', $client_mac],
+      [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', date('Y-m-d')]
+    ]);
 
-    if( $clientIfExists->count() === 1 )
+    if( $clientIfExists->count() == 1 )
     {
-      $clients = $clientIfExists->first();
-      if( $clients->last_connected == date('Y-m-d') )
-      {
-        $updated = $clientusage->where('client_mac', '=', $client_mac)->first();
-        $updated->client_ip = $request->session()->get('uip');
-        $updated->client_mac = $request->session()->get('client_mac');
-        $updated->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
-        $updated->location_id = $request->session()->get('location_id');
-        $updated->connection_type = $connection_type;
-        $updated->ap = $request->session()->get('ap');
-        $updated->save();
-      }
-      else
-      {
-        $clients = new $clientusage;
-        $clients->client_ip = $request->session()->get('uip');
-        $clients->client_mac = $request->session()->get('client_mac');
-        $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
-        $clients->location_id = $request->session()->get('location_id');
-        $clients->connection_type = $connection_type;
-        $clients->ap = $request->session()->get('ap');
-        $clients->save();
-      }
+      $updated = $clientusage->where([
+        ['client_mac', '=', $client_mac],
+        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', date('Y-m-d')]
+      ])->first();
+      $updated->client_ip = $request->session()->get('uip');
+      $updated->client_mac = $request->session()->get('client_mac');
+      $updated->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+      $updated->location_id = $request->session()->get('location_id');
+      $updated->connection_type = $connection_type;
+      $updated->ap = $request->session()->get('ap');
+      $updated->save();
     }
     else
     {
@@ -197,15 +184,13 @@ class PortalController extends Controller
           $this->timeout_socket = 2;
           $radprimary = $this->check_connection('182.253.238.66', 3306);
           $radbackup = $this->check_connection('202.169.53.9', 3306);
-          if( $radprimary['status'] == null )
+          if( $radbackup['status'] == null )
           {
-            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-            //$this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
+            $this->add_radcheck( '202.169.53.9', $mac, $username );
           }
           else
           {
-            $this->add_radcheck( '202.169.53.9', $mac, $username );
-            //$this->delete_radcheck( '202.169.53.9', $getlastmac->mac_address );
+            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
           }
 
           if( $checkmacaddress->count() == 0 )
@@ -228,15 +213,15 @@ class PortalController extends Controller
             $this->timeout_socket = 2;
             $radprimary = $this->check_connection('182.253.238.66', 3306);
             $radbackup = $this->check_connection('202.169.53.9', 3306);
-            if( $radprimary['status'] == null )
-            {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
-            }
-            else
+            if( $radbackup['status'] == null )
             {
               $this->add_radcheck( '202.169.53.9', $mac, $username );
               $this->delete_radcheck( '202.169.53.9', $getlastmac->mac_address );
+            }
+            else
+            {
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
             }
 
             if( $checkmacaddress->count() == 0 )
