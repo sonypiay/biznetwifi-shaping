@@ -18,12 +18,12 @@
     <div class="uk-grid-collapse uk-grid-match" uk-grid>
       <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s uk-visible@s">
         <div class="uk-tile uk-tile-default">
-          <a :href="'https://www.biznethome.net/' + $root.getLocale"><img class="uk-width-4-5 uk-box-shadow-large uk-align-center" :src="url + '/images/banner/biznethome.jpg'" alt="" uk-scrollspy="cls: uk-animation-fade"></a>
+          <a :href="'https://www.biznethome.net/' + $root.getLocale"><img class="uk-width-4-5 uk-box-shadow-large uk-align-center" :src="url + '/images/banner/Biznet_Home_Web_Banner_620x620px_ID.jpg'" alt="" uk-scrollspy="cls: uk-animation-fade"></a>
         </div>
       </div>
       <div class="uk-width-1-1 uk-hidden@s">
         <div class="uk-tile uk-tile-default">
-          <a :href="'https://www.biznethome.net/' + $root.getLocale"><img class="uk-width-4-5 uk-box-shadow-large uk-align-center" :src="url + '/images/banner/biznethome.jpg'" alt="" uk-scrollspy="cls: uk-animation-fade"></a>
+          <a :href="'https://www.biznethome.net/' + $root.getLocale"><img class="uk-width-4-5 uk-box-shadow-large uk-align-center" :src="url + '/images/banner/Biznet_Home_Web_Banner_620x620px_ID.jpg'" alt="" uk-scrollspy="cls: uk-animation-fade"></a>
         </div>
       </div>
       <div class="uk-width-expand">
@@ -58,7 +58,7 @@
       </div>
       <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
         <div class="uk-tile uk-tile-default">
-          <a :href="'http://www.biznetnetworks.com/' + $root.getLocale + '/business/internet/biznet-metronet/'"><img class="uk-width-4-5 uk-box-shadow-large uk-align-center" :src="url + '/images/banner/biznetmetronet.jpg'" alt="" uk-scrollspy="cls: uk-animation-fade"></a>
+          <a :href="'http://www.biznetnetworks.com/' + $root.getLocale + '/business/internet/biznet-metronet/'"><img class="uk-width-4-5 uk-box-shadow-large uk-align-center" :src="url + '/images/banner/Biznet_Metronet_Web_Banner_620x620px_ID.jpg'" alt="" uk-scrollspy="cls: uk-animation-fade"></a>
         </div>
       </div>
       <div class="uk-width-1-1 uk-hidden@s">

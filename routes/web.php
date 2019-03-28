@@ -40,12 +40,12 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('/logout', 'Administrator\LoginController@dologout')->name('admin_signout');
   });
   Route::get('/dashboard', 'Administrator\DashboardController@index')->name('admin_dashboard');
-  Route::get('/devices', 'Administrator\AccountSubscribersController@index')->name('admin_deviceconnected');
+  Route::get('/subscribers', 'Administrator\AccountSubscribersController@index')->name('admin_accountsubscriber');
   Route::get('/log_admin', 'Administrator\AdminLogActivityController@index')->name('admin_log_activity_pages');
   Route::get('/log_data_admin', 'Administrator\AdminLogActivityController@data_log_activity');
   Route::get('/roles', 'Administrator\AdminRolesController@index')->name('admin_roles_page');
   Route::get('/data_admin_roles', 'Administrator\AdminRolesController@data_admin_roles');
-  Route::get('/list_device_connected', 'Administrator\AccountSubscribersController@data_deviceconnected');
+  Route::get('/list_account_subscribers', 'Administrator\AccountSubscribersController@data_accountsubscribers');
   Route::group(['prefix' => 'clients'], function() {
     Route::group(['prefix' => 'summary'], function() {
       Route::get('/subscribers', 'Administrator\DashboardController@summaryClientAsSubscribers');
@@ -56,6 +56,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('/as_subscriber', 'Administrator\ClientsAsSubscriberController@index')->name('admin_client_subscriber_page');
     Route::get('/client_visitor', 'Administrator\ClientAsVisitorController@data_clientAsVisitor');
     Route::get('/client_subscriber', 'Administrator\ClientsAsSubscriberController@data_clientAsSubscriber');
+    Route::get('/bandwidth/{mac}', 'Administrator\AccountSubscribersController@bw_client_usage');
   });
   Route::group(['prefix' => 'create'], function() {
     Route::post('admin_roles', 'Administrator\AdminRolesController@create_role');
