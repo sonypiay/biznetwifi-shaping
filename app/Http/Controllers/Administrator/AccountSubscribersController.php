@@ -122,18 +122,18 @@ class AccountSubscribersController extends Controller
       $radprimary = $this->check_connection('182.253.238.66', 3306);
       $radbackup = $this->check_connection('202.169.53.9', 3306);
 
-      if( $radbackup['status'] == null )
+      if( $radprimary['status'] == null )
       {
-        $this->delete_radcheck( '202.169.53.9', $mac );
+        $this->delete_radcheck( '182.253.238.66:8080', $mac );
         $query->delete();
         $res = [
           'status' => 200,
           'statusText' => $mac . ' deleted.'
         ];
       }
-      else if( $radprimary['status'] == null )
+      else if( $radbackup['status'] == null )
       {
-        $this->delete_radcheck( '182.253.238.66:8080', $mac );
+        $this->delete_radcheck( '202.169.53.9', $mac );
         $query->delete();
         $res = [
           'status' => 200,
@@ -167,11 +167,11 @@ class AccountSubscribersController extends Controller
 
     if( $radbackup['status'] == null )
     {
-      $data_bandwidth = $this->bandwidthClientUsage( '202.169.53.9', $mac, $request );
+      $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
     }
     else
     {
-      $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
+      $data_bandwidth = $this->bandwidthClientUsage( '202.169.53.9', $mac, $request );
     }
     return response()->json( $data_bandwidth );
   }
