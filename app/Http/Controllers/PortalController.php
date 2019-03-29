@@ -216,6 +216,12 @@ class PortalController extends Controller
                 $subscriber->login_date = date('Y-m-d H:i:s');
                 $subscriber->device_agent = $this->userAgent( $agent );
                 $subscriber->save();
+
+                $deletedevice = $subscriber->where('mac_address', '=', $getlastmac->mac_address);
+                if( $deletedevice->count() != 0 )
+                {
+                  $deletedevice->delete();
+                }
               }
             }
             else
@@ -229,6 +235,11 @@ class PortalController extends Controller
                 $subscriber->login_date = date('Y-m-d H:i:s');
                 $subscriber->device_agent = $this->userAgent( $agent );
                 $subscriber->save();
+                $deletedevice = $subscriber->where('mac_address', '=', $getlastmac->mac_address);
+                if( $deletedevice->count() != 0 )
+                {
+                  $deletedevice->delete();
+                }
               }
             }
           }
