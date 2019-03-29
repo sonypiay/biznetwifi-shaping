@@ -16,9 +16,9 @@ window.Vue = require('vue');
  */
 
 Vue.component('connect-section', require('./components/biznetwifi/Connect.vue').default);
-Vue.component('customers-dashboard', require('./components/biznetwifi/CustomersDashboard.vue'));
-Vue.component('login-biznetwifi', require('./components/biznetwifi/Login.vue'));
-Vue.component('homepage', require('./components/biznetwifi/Homepage.vue'));
+Vue.component('customers-dashboard', require('./components/biznetwifi/CustomersDashboard.vue').default);
+Vue.component('login-biznetwifi', require('./components/biznetwifi/Login.vue').default);
+Vue.component('homepage', require('./components/biznetwifi/Homepage.vue').default);
 
 const app = new Vue({
     el: '#app',
