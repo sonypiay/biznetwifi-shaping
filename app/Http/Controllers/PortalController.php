@@ -228,7 +228,7 @@ class PortalController extends Controller
         }
         else
         {
-          if( $checksubs->count() >= 4 )
+          if( $checksubs->count() > 0 AND $checksubs->count() <= 4 )
           {
             $this->timeout_socket = 2;
             $radprimary = $this->check_connection('182.253.238.66', 3306);
