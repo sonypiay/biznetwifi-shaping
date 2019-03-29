@@ -65878,9 +65878,9 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 
 Vue.component('connect-section', __webpack_require__(/*! ./components/biznetwifi/Connect.vue */ "./resources/js/components/biznetwifi/Connect.vue").default);
-Vue.component('customers-dashboard', __webpack_require__(/*! ./components/biznetwifi/CustomersDashboard.vue */ "./resources/js/components/biznetwifi/CustomersDashboard.vue"));
-Vue.component('login-biznetwifi', __webpack_require__(/*! ./components/biznetwifi/Login.vue */ "./resources/js/components/biznetwifi/Login.vue"));
-Vue.component('homepage', __webpack_require__(/*! ./components/biznetwifi/Homepage.vue */ "./resources/js/components/biznetwifi/Homepage.vue"));
+Vue.component('customers-dashboard', __webpack_require__(/*! ./components/biznetwifi/CustomersDashboard.vue */ "./resources/js/components/biznetwifi/CustomersDashboard.vue").default);
+Vue.component('login-biznetwifi', __webpack_require__(/*! ./components/biznetwifi/Login.vue */ "./resources/js/components/biznetwifi/Login.vue").default);
+Vue.component('homepage', __webpack_require__(/*! ./components/biznetwifi/Homepage.vue */ "./resources/js/components/biznetwifi/Homepage.vue").default);
 var app = new Vue({
   el: '#app',
   data: {
