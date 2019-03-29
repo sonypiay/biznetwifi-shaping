@@ -85569,13 +85569,13 @@ window.chartjs = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/di
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('section-login', __webpack_require__(/*! ./components/administrator/Login.vue */ "./resources/js/components/administrator/Login.vue"));
-Vue.component('account-subscriber', __webpack_require__(/*! ./components/administrator/AccountSubscribers.vue */ "./resources/js/components/administrator/AccountSubscribers.vue"));
-Vue.component('dashboard-admin', __webpack_require__(/*! ./components/administrator/Dashboard.vue */ "./resources/js/components/administrator/Dashboard.vue"));
-Vue.component('admin-log-activity', __webpack_require__(/*! ./components/administrator/AdminLogActivity.vue */ "./resources/js/components/administrator/AdminLogActivity.vue"));
-Vue.component('admin-roles', __webpack_require__(/*! ./components/administrator/AdminRoles.vue */ "./resources/js/components/administrator/AdminRoles.vue"));
-Vue.component('client-visitor', __webpack_require__(/*! ./components/administrator/ClientAsVisitor.vue */ "./resources/js/components/administrator/ClientAsVisitor.vue"));
-Vue.component('client-subscriber', __webpack_require__(/*! ./components/administrator/ClientAsSubscriber.vue */ "./resources/js/components/administrator/ClientAsSubscriber.vue"));
+Vue.component('section-login', __webpack_require__(/*! ./components/administrator/Login.vue */ "./resources/js/components/administrator/Login.vue").default);
+Vue.component('account-subscriber', __webpack_require__(/*! ./components/administrator/AccountSubscribers.vue */ "./resources/js/components/administrator/AccountSubscribers.vue").default);
+Vue.component('dashboard-admin', __webpack_require__(/*! ./components/administrator/Dashboard.vue */ "./resources/js/components/administrator/Dashboard.vue").default);
+Vue.component('admin-log-activity', __webpack_require__(/*! ./components/administrator/AdminLogActivity.vue */ "./resources/js/components/administrator/AdminLogActivity.vue").default);
+Vue.component('admin-roles', __webpack_require__(/*! ./components/administrator/AdminRoles.vue */ "./resources/js/components/administrator/AdminRoles.vue").default);
+Vue.component('client-visitor', __webpack_require__(/*! ./components/administrator/ClientAsVisitor.vue */ "./resources/js/components/administrator/ClientAsVisitor.vue").default);
+Vue.component('client-subscriber', __webpack_require__(/*! ./components/administrator/ClientAsSubscriber.vue */ "./resources/js/components/administrator/ClientAsSubscriber.vue").default);
 var app = new Vue({
   el: '#app',
   data: {
