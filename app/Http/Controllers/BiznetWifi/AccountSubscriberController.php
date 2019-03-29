@@ -42,12 +42,12 @@ class AccountSubscriberController extends Controller
 
       if( $radprimary['status'] == null )
       {
-        $this->delete_radcheck( '182.253.238.66:8080', $getuser->mac_address );
+        $this->delete_radcheck( '182.253.238.66:8080', $getsubscriber->mac_address );
         $subscriber->delete();
       }
       else
       {
-        $this->delete_radcheck( '202.169.53.9', $getuser->mac_address );
+        $this->delete_radcheck( '202.169.53.9', $getsubscriber->mac_address );
         $subscriber->delete();
       }
       return response()->json([ 'statusText' => strtoupper( $mac ) . ' berhasil dihapus.' ], 200);
