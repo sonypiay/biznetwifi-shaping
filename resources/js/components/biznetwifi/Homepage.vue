@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 <div>
   <div class="uk-cover-container coverbannerhomepage">
     <img :src="url + '/images/banner/Banner1.jpg'" alt="banner_hotspot_1" uk-cover>
