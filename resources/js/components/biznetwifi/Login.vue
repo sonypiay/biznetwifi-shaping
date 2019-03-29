@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 <div class="bzw-content-login" uk-height-viewport>
   <!--<div class="uk-cover-container">
     <div uk-slideshow="autoplay: true; animation: fade">

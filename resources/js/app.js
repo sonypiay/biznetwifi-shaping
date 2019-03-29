@@ -15,7 +15,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('connect-section', require('./components/biznetwifi/Connect.vue'));
+Vue.component('connect-section', require('./components/biznetwifi/Connect.vue').default);
 Vue.component('customers-dashboard', require('./components/biznetwifi/CustomersDashboard.vue'));
 Vue.component('login-biznetwifi', require('./components/biznetwifi/Login.vue'));
 Vue.component('homepage', require('./components/biznetwifi/Homepage.vue'));
