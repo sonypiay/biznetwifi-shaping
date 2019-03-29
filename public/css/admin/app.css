@@ -20,6 +20,10 @@
   color: #aaaaaa;
 }
 
+.loginform:-ms-input-placeholder {
+  color: #aaaaaa;
+}
+
 .loginform::-ms-input-placeholder {
   color: #aaaaaa;
 }
@@ -54,8 +58,7 @@ html {
 
 .login-container {
   border-radius: 4px;
-  -webkit-box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.06);
-          box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.06);
 }
 
 .login-container .login-heading {
@@ -71,8 +74,7 @@ html {
 
 .headertop {
   background: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .headertop .navbarlogo {
@@ -147,8 +149,7 @@ html {
 .content-data .form-content-select:hover,
 .content-data .form-content-select:focus {
   border: 1px solid #da068c;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data .form-content-input {
@@ -166,8 +167,7 @@ html {
 .content-data .form-content-input:hover,
 .content-data .form-content-input:focus {
   border: 1px solid #da068c;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data .form-content-button {
@@ -189,16 +189,14 @@ html {
   border: 1px solid #da068c;
   background: #da068c;
   color: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data .form-content-dropdown {
   height: 200px;
   overflow: hidden;
   padding: 0;
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .content-data .form-content-dropdown:hover {
@@ -266,8 +264,7 @@ html {
   text-decoration: none;
   border-radius: 4px !important;
   background: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
   color: #666666;
   border: 1px solid #eeeeee;
   font-weight: 400;
@@ -288,8 +285,7 @@ html {
 
 .content-data-modal {
   border-radius: 6px;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data-modal h3 {
@@ -319,8 +315,7 @@ html {
 .content-data-modal .form-modal-select:hover,
 .content-data-modal .form-modal-select:focus {
   border: 1px solid #da068c;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data-modal .form-modal-button {
@@ -342,8 +337,7 @@ html {
   border: 1px solid #da068c;
   background: #da068c;
   color: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .dashboard-container .subheading-dashboard {
@@ -368,15 +362,13 @@ html {
 
 .dashboard-container .card-overview-device {
   text-align: center;
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
   background: #ffffff;
   border-radius: 5px;
 }
 
 .dashboard-container .card-overview-device:hover {
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-container .card-overview-device .card-overview-device-icon {
@@ -442,16 +434,14 @@ html {
   border: 1px solid #da068c;
   background: #da068c;
   color: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .dashboard-container .card-overview-device .form-overview-dropdown {
   height: 200px;
   overflow: hidden;
   padding: 0;
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-container .card-overview-device .form-overview-dropdown:hover {
@@ -496,8 +486,7 @@ html {
 
 .modal-body-analytic .modal-button-analytic {
   border-radius: 4px;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
   background: #ffffff;
   border: 0;
   color: #666666;
@@ -516,8 +505,7 @@ html {
 
 .modal-body-analytic .modal-card-analytic {
   border-radius: 4px;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .modal-body-analytic .modal-card-analytic-title {
@@ -550,16 +538,14 @@ html {
   border: 1px solid #da068c;
   background: #da068c;
   color: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .modal-body-analytic .modal-dropdown-analytic-form {
   height: 200px;
   overflow: hidden;
   padding: 0;
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .modal-body-analytic .modal-dropdown-analytic-form:hover {

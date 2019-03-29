@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 <div>
   <!-- desktop -->
   <section class="uk-cover-container uk-visible@s banner-hmpg-customer">
