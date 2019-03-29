@@ -18,7 +18,7 @@ class AccountSubscriberController extends Controller
   {
     $subscriber = $subscriber->select('account_id',DB::raw('date_format(login_date, "%b %d, %Y %H:%i") as logindate'),'mac_address','device_agent')
     ->where('account_id', $customerid)
-    ->orderBy('login_date');
+    ->orderBy('login_date', 'desc');
     $data = [
       'total' => $subscriber->count(),
       'data' => $subscriber->get()
