@@ -212,11 +212,6 @@ class PortalController extends Controller
               $subscriber->device_agent = $this->userAgent( $agent );
               $subscriber->save();
             }
-
-            $subscriber->where([
-              ['username', '=', $username],
-              ['mac_address', '=', $getlastmac->mac_address]
-            ])->delete();
           }
           else
           {
@@ -229,11 +224,6 @@ class PortalController extends Controller
               $subscriber->device_agent = $this->userAgent( $agent );
               $subscriber->save();
             }
-
-            $subscriber->where([
-              ['username', '=', $username],
-              ['mac_address', '=', $getlastmac->mac_address]
-            ])->delete();
           }
         }
         else
