@@ -194,6 +194,8 @@ class PortalController extends Controller
           ['account_id', $username],
           ['mac_address', $mac]
         ]);
+        $getlastmac = $subscriber->where('account_id', $username)
+        ->orderBy('login_date', 'asc')->first();
 
         if( $checkmacaddress->count() == 0 )
         {
@@ -206,7 +208,7 @@ class PortalController extends Controller
             if( $radprimary['status'] == null )
             {
               $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              $this->delete_radcheck( '182.253.238.66:8080', $mac, $username );
+              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
               if( $checkmacaddress->count() == 0 )
               {
                 $subscriber->account_id = $username;
@@ -219,7 +221,7 @@ class PortalController extends Controller
             else
             {
               $this->add_radcheck( '202.169.53.9', $mac, $username );
-              $this->delete_radcheck( '202.169.53.9', $mac, $username );
+              $this->delete_radcheck( '202.169.53.9', $getlastmac->mac_address );
               if( $checkmacaddress->count() == 0 )
               {
                 $subscriber->account_id = $username;
