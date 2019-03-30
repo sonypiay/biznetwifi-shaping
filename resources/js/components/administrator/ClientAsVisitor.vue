@@ -635,7 +635,7 @@ export default {
                   beginAtZero: true,
                   userCallback: function(label, index, labels) {
                     if (Math.floor(label) === label) {
-                      return numeral(label).format('0.0 b');
+                      return numeral(label).format('0.00 b');
                     }
                   },
                 }
