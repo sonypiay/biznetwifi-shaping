@@ -1927,6 +1927,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
   data: function data() {
@@ -1959,7 +2010,6 @@ __webpack_require__.r(__webpack_exports__);
           unknown: 0
         },
         bandwidth: {
-          mac_address: '',
           total_usage: {
             download: 0,
             upload: 0
@@ -1973,6 +2023,12 @@ __webpack_require__.r(__webpack_exports__);
         loading: false,
         loadingContent: ''
       },
+      clients_detail: {
+        account_id: '',
+        mac_address: '',
+        device_agent: '',
+        login_date: new Date()
+      },
       errors: {}
     };
   },
@@ -1984,7 +2040,7 @@ __webpack_require__.r(__webpack_exports__);
     onFilteringBandwidthPerDay: function onFilteringBandwidthPerDay(str, val) {
       this.forms.filterdate.text = str;
       this.forms.filterdate.value = val;
-      this.getBandwidthUsageClient(this.devices.bandwidth.mac_address);
+      this.getBandwidthUsageClient(this.clients_detail);
     },
     deleteDevice: function deleteDevice(account_id, mac_address) {
       var _this = this;
@@ -2067,14 +2123,17 @@ __webpack_require__.r(__webpack_exports__);
         _this2.errors.load_data = err.response.statusText;
       });
     },
-    getBandwidthUsageClient: function getBandwidthUsageClient(mac) {
+    getBandwidthUsageClient: function getBandwidthUsageClient(clients) {
       var _this3 = this;
 
-      this.devices.bandwidth.mac_address = mac;
+      this.clients_detail.account_id = clients.account_id;
+      this.clients_detail.device_agent = clients.device_agent;
+      this.clients_detail.mac_address = clients.mac_address;
+      this.clients_detail.date_registered = clients.login_date;
       UIkit.modal('#modal').show();
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/bandwidth/' + mac + '?filterdate=' + this.forms.filterdate.value
+        url: this.url + 'admin/clients/bandwidth/' + clients.mac_address + '?filterdate=' + this.forms.filterdate.value
       }).then(function (res) {
         var result = res.data;
         _this3.devices.bandwidth.current_usage = {
@@ -2108,7 +2167,7 @@ __webpack_require__.r(__webpack_exports__);
             labels: ['Upload', 'Download'],
             datasets: [{
               data: [_this3.devices.bandwidth.total_usage.upload, _this3.devices.bandwidth.total_usage.download],
-              backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+              backgroundColor: ['#f15854', '#5ba1e0'],
               borderWidth: 1
             }]
           },
@@ -2144,7 +2203,7 @@ __webpack_require__.r(__webpack_exports__);
             labels: ['Upload', 'Download'],
             datasets: [{
               data: [_this3.devices.bandwidth.current_usage.upload, _this3.devices.bandwidth.current_usage.download],
-              backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+              backgroundColor: ['#f15854', '#5ba1e0'],
               borderWidth: 1
             }]
           },
@@ -2191,24 +2250,24 @@ __webpack_require__.r(__webpack_exports__);
             datasets: [{
               label: 'Upload',
               data: uploadUsage,
-              borderColor: 'rgba(255, 99, 132, 1)',
+              borderColor: '#f15854',
               borderWidth: 2,
               lineTension: 0.4,
               fill: false,
               pointHitRadius: 1,
-              pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
-              pointBorderColor: 'rgba(255, 99, 132, 1 )',
+              pointBackgroundColor: '#f15854',
+              pointBorderColor: '#f15854',
               pointBorderWidth: 1
             }, {
               label: 'Download',
               data: downloadUsage,
-              borderColor: 'rgba(54, 162, 235, 1)',
+              borderColor: '#5ba1e0',
               borderWidth: 2,
               fill: false,
               lineTension: 0.4,
               pointHitRadius: 1,
-              pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-              pointBorderColor: 'rgba(54, 162, 235, 1)',
+              pointBackgroundColor: '#5ba1e0',
+              pointBorderColor: '#5ba1e0',
               pointBorderWidth: 1
             }]
           },
@@ -2254,7 +2313,7 @@ __webpack_require__.r(__webpack_exports__);
                   beginAtZero: true,
                   userCallback: function userCallback(label, index, labels) {
                     if (Math.floor(label) === label) {
-                      return numeral(label).format('0.0 b');
+                      return numeral(label).format('0.00 b');
                     }
                   }
                 }
@@ -3704,7 +3763,7 @@ __webpack_require__.r(__webpack_exports__);
                   beginAtZero: true,
                   userCallback: function userCallback(label, index, labels) {
                     if (Math.floor(label) === label) {
-                      return numeral(label).format('0.0 b');
+                      return numeral(label).format('0.00 b');
                     }
                   }
                 }
@@ -68915,10 +68974,7 @@ var render = function() {
             [
               _c("div", { staticClass: "uk-container" }, [
                 _c("div", { staticClass: "modal-heading-analytic" }, [
-                  _vm._v("Analytic Data - "),
-                  _c("span", { staticClass: "uk-text-uppercase" }, [
-                    _vm._v(_vm._s(_vm.devices.bandwidth.mac_address))
-                  ])
+                  _vm._v("Client Details Report")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "uk-margin" }, [
@@ -68929,9 +68985,7 @@ var render = function() {
                         "uk-margin-small-left uk-button uk-button-default uk-button-small modal-button-analytic",
                       on: {
                         click: function($event) {
-                          return _vm.getBandwidthUsageClient(
-                            _vm.devices.bandwidth.mac_address
-                          )
+                          return _vm.getBandwidthUsageClient(_vm.clients_detail)
                         }
                       }
                     },
@@ -68944,15 +68998,242 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: "uk-margin uk-grid-medium uk-flex-center",
+                    staticClass: "uk-margin uk-grid-small uk-grid-match",
                     attrs: { "uk-grid": "" }
                   },
                   [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
                     _c("div", { staticClass: "uk-width-1-1" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "uk-grid-small uk-flex-center",
+                          attrs: { "uk-grid": "" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-width-2-3@xl uk-width-2-3@l uk-width-1-2@m uk-width-1-2@s"
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "uk-card uk-card-body uk-card-default modal-card-detailclients"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "uk-card-title uk-margin-bottom modal-card-detailclients-heading"
+                                    },
+                                    [_vm._v("Detail Client")]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "uk-grid-match uk-grid-small",
+                                      attrs: { "uk-grid": "" }
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-width-1-2@s"
+                                        },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "uk-tile uk-tile-default uk-padding-small uk-text-center modal-card-detailclients-icon"
+                                            },
+                                            [
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass:
+                                                    "uk-position-center"
+                                                },
+                                                [
+                                                  _vm.clients_detail
+                                                    .device_agent === "ANDROID"
+                                                    ? _c("span", {
+                                                        staticClass:
+                                                          "fab fa-android"
+                                                      })
+                                                    : _vm.clients_detail
+                                                        .device_agent === "iOS"
+                                                    ? _c("span", {
+                                                        staticClass:
+                                                          "fab fa-apple"
+                                                      })
+                                                    : _vm.clients_detail
+                                                        .device_agent ===
+                                                      "PC/LAPTOP"
+                                                    ? _c("span", {
+                                                        staticClass:
+                                                          "fas fa-laptop"
+                                                      })
+                                                    : _c("span", {
+                                                        staticClass:
+                                                          "fas fa-question-circle"
+                                                      }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "modal-card-detailclients-osname"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.clients_detail
+                                                            .device_agent
+                                                        )
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "uk-width-expand" },
+                                        [
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "uk-grid-small",
+                                              attrs: { "uk-grid": "" }
+                                            },
+                                            [
+                                              _vm._m(1),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "uk-width-expand"
+                                                },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "modal-card-detailclients-value"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.clients_detail
+                                                            .account_id
+                                                        )
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "uk-grid-small",
+                                              attrs: { "uk-grid": "" }
+                                            },
+                                            [
+                                              _vm._m(2),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "uk-width-expand"
+                                                },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "modal-card-detailclients-value"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.clients_detail
+                                                            .mac_address
+                                                        )
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass: "uk-grid-small",
+                                              attrs: { "uk-grid": "" }
+                                            },
+                                            [
+                                              _vm._m(3),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "uk-width-expand"
+                                                },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "modal-card-detailclients-value"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          _vm.$root.formatDate(
+                                                            _vm.clients_detail
+                                                              .login_date,
+                                                            "MMM DD, YYYY HH:mm"
+                                                          )
+                                                        )
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-width-expand" }, [
                       _c(
                         "div",
                         { staticClass: "uk-card uk-card-default uk-card-body" },
@@ -69208,8 +69489,8 @@ var render = function() {
                           _c("canvas", {
                             attrs: {
                               id: "canvas_bandwidth_usage_perday",
-                              width: "200",
-                              height: "70"
+                              width: "300",
+                              height: "150"
                             }
                           })
                         ]
@@ -69531,7 +69812,7 @@ var render = function() {
                   "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
               },
               [
-                _vm._m(3),
+                _vm._m(5),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -69563,9 +69844,7 @@ var render = function() {
                             attrs: { "uk-tooltip": "title: View" },
                             on: {
                               click: function($event) {
-                                return _vm.getBandwidthUsageClient(
-                                  device.mac_address
-                                )
+                                return _vm.getBandwidthUsageClient(device)
                               }
                             }
                           },
@@ -69674,25 +69953,12 @@ var staticRenderFns = [
       "div",
       {
         staticClass:
-          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
+          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s"
       },
       [
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-card uk-card-default uk-card-body modal-card-analytic"
-          },
-          [
-            _c(
-              "div",
-              { staticClass: "uk-card-title modal-card-analytic-title" },
-              [_vm._v("Total Bandwidth Usage")]
-            ),
-            _vm._v(" "),
-            _c("canvas", { attrs: { id: "canvas_total_bandwidth_usage" } })
-          ]
-        )
+        _c("div", { staticClass: "modal-card-detailclients-label" }, [
+          _vm._v("Account ID:")
+        ])
       ]
     )
   },
@@ -69704,25 +69970,84 @@ var staticRenderFns = [
       "div",
       {
         staticClass:
-          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s"
+          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s"
       },
       [
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-card uk-card-default uk-card-body modal-card-analytic"
-          },
-          [
+        _c("div", { staticClass: "modal-card-detailclients-label" }, [
+          _vm._v("Mac Address:")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s"
+      },
+      [
+        _c("div", { staticClass: "modal-card-detailclients-label" }, [
+          _vm._v("Last Connected:")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "uk-width-1-3@xl uk-width-1-3@l uk-width-1-1@m uk-width-1-1@s"
+      },
+      [
+        _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
+          _c("div", { staticClass: "uk-width-1-1" }, [
             _c(
               "div",
-              { staticClass: "uk-card-title modal-card-analytic-title" },
-              [_vm._v("Current Bandwidth Usage")]
-            ),
-            _vm._v(" "),
-            _c("canvas", { attrs: { id: "canvas_current_bandwidth_usage" } })
-          ]
-        )
+              {
+                staticClass:
+                  "uk-card uk-card-default uk-card-body modal-card-analytic"
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "uk-card-title modal-card-analytic-title" },
+                  [_vm._v("Total Bandwidth Usage")]
+                ),
+                _vm._v(" "),
+                _c("canvas", { attrs: { id: "canvas_total_bandwidth_usage" } })
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-width-1-1" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-card uk-card-default uk-card-body modal-card-analytic"
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "uk-card-title modal-card-analytic-title" },
+                  [_vm._v("Current Bandwidth Usage")]
+                ),
+                _vm._v(" "),
+                _c("canvas", {
+                  attrs: { id: "canvas_current_bandwidth_usage" }
+                })
+              ]
+            )
+          ])
+        ])
       ]
     )
   },
