@@ -4,25 +4,97 @@
       <div class="uk-modal-dialog">
         <div class="uk-modal-body modal-body-analytic uk-height-viewport">
           <div class="uk-container">
-            <div class="modal-heading-analytic">Analytic Data - <span class="uk-text-uppercase">{{ bandwidth.mac_address }}</span></div>
+            <div class="modal-heading-analytic">Client Details Report</div>
             <div class="uk-margin">
-              <button class="uk-margin-small-left uk-button uk-button-default uk-button-small modal-button-analytic" @click="getBandwidthUsageClient(bandwidth.mac_address)"><i class="fas fa-sync-alt"></i></button>
+              <button class="uk-margin-small-left uk-button uk-button-default uk-button-small modal-button-analytic" @click="getBandwidthUsageClient(clients_detail)"><i class="fas fa-sync-alt"></i></button>
               <button class="uk-button uk-button-default uk-button-small uk-modal-close modal-button-analytic"><i class="fas fa-times"></i></button>
             </div>
-            <div class="uk-margin uk-grid-medium uk-flex-center" uk-grid>
-              <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s">
-                <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
-                  <div class="uk-card-title modal-card-analytic-title">Total Bandwidth Usage</div>
-                  <canvas id="canvas_total_bandwidth_usage"></canvas>
-                </div>
-              </div>
-              <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s">
-                <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
-                  <div class="uk-card-title modal-card-analytic-title">Current Bandwidth Usage</div>
-                  <canvas id="canvas_current_bandwidth_usage"></canvas>
-                </div>
-              </div>
+            <div class="uk-margin uk-grid-small uk-grid-match" uk-grid>
               <div class="uk-width-1-1">
+                <div class="uk-grid-small uk-flex-center" uk-grid>
+                  <div class="uk-width-2-3@xl uk-width-2-3@l uk-width-1-2@m uk-width-1-2@s">
+                    <div class="uk-card uk-card-body uk-card-default modal-card-detailclients">
+                      <div class="uk-card-title uk-margin-bottom modal-card-detailclients-heading">Detail Client</div>
+                      <div class="uk-grid-match uk-grid-small" uk-grid>
+                        <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-width-1-2@s">
+                          <div class="uk-tile uk-tile-default uk-padding-small uk-text-center modal-card-detailclients-icon">
+                            <div class="uk-position-center">
+                              <span v-if="clients_detail.client_os === 'Android'" class="fab fa-android"></span>
+                              <span v-else-if="clients_detail.client_os === 'iOS' || clients_detail.client_os === 'Mac OS'" class="fab fa-apple"></span>
+                              <span v-else-if="clients_detail.client_os === 'Windows'" class="fab fa-windows"></span>
+                              <span v-else-if="clients_detail.client_os === 'Linux'" class="fab fa-linux"></span>
+                              <span v-else class="fas fa-question-circle"></span>
+                              <div class="modal-card-detailclients-osname">{{ clients_detail.client_os }}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="uk-width-expand">
+                          <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s">
+                              <div class="modal-card-detailclients-label">IP Address:</div>
+                            </div>
+                            <div class="uk-width-expand">
+                              <div class="modal-card-detailclients-value">{{ clients_detail.client_ip }}</div>
+                            </div>
+                          </div>
+                          <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s">
+                              <div class="modal-card-detailclients-label">Mac Address:</div>
+                            </div>
+                            <div class="uk-width-expand">
+                              <div class="modal-card-detailclients-value">{{ clients_detail.client_mac }}</div>
+                            </div>
+                          </div>
+                          <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s">
+                              <div class="modal-card-detailclients-label">AP:</div>
+                            </div>
+                            <div class="uk-width-expand">
+                              <div class="modal-card-detailclients-value">
+                                <span v-if="clients_detail.ap === 'mikrotik'">Mikrotik</span>
+                                <span v-if="clients_detail.ap === 'ruckus'">Ruckus Wireless</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s">
+                              <div class="modal-card-detailclients-label">Location:</div>
+                            </div>
+                            <div class="uk-width-expand">
+                              <div class="modal-card-detailclients-value">{{ clients_detail.location_id }}</div>
+                            </div>
+                          </div>
+                          <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s">
+                              <div class="modal-card-detailclients-label">Last Connected:</div>
+                            </div>
+                            <div class="uk-width-expand">
+                              <div class="modal-card-detailclients-value">{{ $root.formatDate( clients_detail.last_connected, 'MMM DD, YYYY HH:mm' ) }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-1@m uk-width-1-1@s">
+                <div class="uk-grid-small" uk-grid>
+                  <div class="uk-width-1-1">
+                    <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
+                      <div class="uk-card-title modal-card-analytic-title">Total Bandwidth Usage</div>
+                      <canvas id="canvas_total_bandwidth_usage"></canvas>
+                    </div>
+                  </div>
+                  <div class="uk-width-1-1">
+                    <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
+                      <div class="uk-card-title modal-card-analytic-title">Current Bandwidth Usage</div>
+                      <canvas id="canvas_current_bandwidth_usage"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="uk-width-expand">
                 <div class="uk-card uk-card-default uk-card-body">
                   <div class="uk-width-1-1 uk-text-left uk-inline">
                     <button class="uk-button uk-button-default modal-button-form-analytic" type="button">
@@ -57,7 +129,7 @@
                       </ul>
                     </div>
                   </div>
-                  <canvas id="canvas_bandwidth_usage_perday" width="200" height="70"></canvas>
+                  <canvas id="canvas_bandwidth_usage_perday" width="300" height="150"></canvas>
                 </div>
               </div>
             </div>
@@ -173,7 +245,7 @@
             <tbody>
               <tr v-for="clients in clientasvisitor.results">
                 <td>
-                  <a @click="getBandwidthUsageClient(clients.client_mac)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: View"><span class="fas fa-chart-bar"></span></a>
+                  <a @click="getBandwidthUsageClient(clients)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: View"><span class="fas fa-chart-bar"></span></a>
                 </td>
                 <td>{{ clients.client_mac }}</td>
                 <td>{{ clients.client_os }}</td>
@@ -182,7 +254,7 @@
                   <span v-else>Ruckus Wireless</span>
                 </td>
                 <td>{{ clients.client_ip }}</td>
-                <td>{{ formatDate(clients.updated_at, 'MMM DD, YYYY HH:mm ') }}</td>
+                <td>{{ $root.formatDate(clients.updated_at, 'MMM DD, YYYY HH:mm ') }}</td>
               </tr>
             </tbody>
           </table>
@@ -248,7 +320,6 @@ export default {
         isLoading: false
       },
       bandwidth: {
-        mac_address: '',
         filterdate: {
           text: 'Last 7 Days Ago',
           value: '7days'
@@ -263,18 +334,22 @@ export default {
         },
         results: []
       },
+      clients_detail: {
+        client_ip: '::1',
+        client_os: 'Unknown',
+        client_mac: '',
+        location_id: '',
+        last_connected: new Date(),
+        ap: ''
+      },
       datepicker: {
         props: {
           class: "uk-width-1-1 uk-input form-content-input",
           placeholder: "Enter date",
           readonly: true
         },
-        attributes: {
-
-        },
-        themeStyles: {
-
-        },
+        attributes: {},
+        themeStyles: {},
         formats: {
           title: 'MMMM YYYY',
           weekdays: 'W',
@@ -287,15 +362,11 @@ export default {
     }
   },
   methods: {
-    formatDate(str, format) {
-      var res = moment(str).locale('id').format(format);
-      return res;
-    },
     onFilteringBandwidthPerDay( str, val )
     {
       this.bandwidth.filterdate.text = str;
       this.bandwidth.filterdate.value = val;
-      this.getBandwidthUsageClient( this.bandwidth.mac_address );
+      this.getBandwidthUsageClient( this.clients_detail );
     },
     onFilteringDate(str, val) {
       this.forms.filterdate.text = str;
@@ -314,8 +385,8 @@ export default {
       var url, param;
       if( this.forms.filterdate.value === 'custom' )
       {
-        var startDate = this.formatDate( this.forms.datepicker.start, 'YYYY-MM-DD' );
-        var endDate = this.formatDate( this.forms.datepicker.end, 'YYYY-MM-DD' );
+        var startDate = this.$root.formatDate( this.forms.datepicker.start, 'YYYY-MM-DD' );
+        var endDate = this.$root.formatDate( this.forms.datepicker.end, 'YYYY-MM-DD' );
         param = '&keywords=' + this.forms.keywords + '&startDate=' + startDate + '&endDate=' + endDate + '&device=' + this.forms.filterdevice + '&ap=' + this.forms.filterap + '&rows=' + this.forms.selectedrows;
       }
       else
@@ -349,13 +420,22 @@ export default {
         console.log( err.response.statusText );
       });
     },
-    getBandwidthUsageClient(mac)
+    getBandwidthUsageClient(clients)
     {
-      this.bandwidth.mac_address = mac;
+      this.clients_detail.client_ip = clients.client_ip;
+      this.clients_detail.client_os = clients.client_os;
+      this.clients_detail.client_mac = clients.client_mac;
+      this.clients_detail.ap = clients.ap;
+      this.clients_detail.last_connected = clients.updated_at;
+      if( this.$root.isHexadecimal( clients.location_id ) )
+        this.clients_detail.location_id = this.$root.hexToAscii( clients.location_id );
+      else
+        this.clients_detail.location_id = clients.location_id;
+
       UIkit.modal('#modal').show();
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/bandwidth/' + mac + '?filterdate=' + this.bandwidth.filterdate.value
+        url: this.url + 'admin/clients/bandwidth/' + clients.client_mac + '?filterdate=' + this.bandwidth.filterdate.value
       }).then( res => {
         let result = res.data;
         this.bandwidth.current_usage = {
@@ -397,8 +477,8 @@ export default {
                 this.bandwidth.total_usage.download
               ],
               backgroundColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)'
+                '#f15854',
+                '#5ba1e0'
               ],
               borderWidth: 1
             }]
@@ -441,8 +521,8 @@ export default {
                 this.bandwidth.current_usage.download
               ],
               backgroundColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)'
+                '#f15854',
+                '#5ba1e0'
               ],
               borderWidth: 1
             }]
@@ -490,25 +570,25 @@ export default {
               {
                 label: 'Upload',
                 data: uploadUsage,
-                borderColor: 'rgba(255, 99, 132, 1)',
+                borderColor: '#f15854',
                 borderWidth: 2,
                 lineTension: 0.4,
                 fill: false,
                 pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
-                pointBorderColor: 'rgba(255, 99, 132, 1 )',
+                pointBackgroundColor: '#f15854',
+                pointBorderColor: '#f15854',
                 pointBorderWidth: 1
               },
               {
                 label: 'Download',
                 data: downloadUsage,
-                borderColor: 'rgba(54, 162, 235, 1)',
+                borderColor: '#5ba1e0',
                 borderWidth: 2,
                 fill: false,
                 lineTension: 0.4,
                 pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-                pointBorderColor: 'rgba(54, 162, 235, 1)',
+                pointBackgroundColor: '#5ba1e0',
+                pointBorderColor: '#5ba1e0',
                 pointBorderWidth: 1
               }
             ]

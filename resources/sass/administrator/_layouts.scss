@@ -408,3 +408,35 @@ html {
     }
   }
 }
+.modal-card-detailclients {
+  background: #5ba1e0;
+  .modal-card-detailclients-icon {
+    background: none;
+    span { font-size: 52px; color: #666666; }
+    .modal-card-detailclients-osname {
+      color: #ffffff;
+      @include globalfontstyle(600, normal, normal, 0.6px);
+      font-family: $font-primary;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  }
+  .modal-card-detailclients-heading {
+    color: #ffffff;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 24px;
+  }
+  .modal-card-detailclients-label {
+    color: #dddddd;
+    @include globalfontstyle(700, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 16px;
+  }
+  .modal-card-detailclients-value {
+    color: #ffffff;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 14px;
+  }
+}

@@ -574,3 +574,57 @@ html {
   color: #da068c;
 }
 
+.modal-card-detailclients {
+  background: #5ba1e0;
+}
+
+.modal-card-detailclients .modal-card-detailclients-icon {
+  background: none;
+}
+
+.modal-card-detailclients .modal-card-detailclients-icon span {
+  font-size: 52px;
+  color: #666666;
+}
+
+.modal-card-detailclients .modal-card-detailclients-icon .modal-card-detailclients-osname {
+  color: #ffffff;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.modal-card-detailclients .modal-card-detailclients-heading {
+  color: #ffffff;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+}
+
+.modal-card-detailclients .modal-card-detailclients-label {
+  color: #dddddd;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+}
+
+.modal-card-detailclients .modal-card-detailclients-value {
+  color: #ffffff;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
+}
+
