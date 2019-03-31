@@ -250,7 +250,7 @@
                 <td>{{ clients.client_mac }}</td>
                 <td>{{ clients.client_os }}</td>
                 <td>
-                  <span v-if="clients.ap == 'mkt'">Mikrotik</span>
+                  <span v-if="clients.ap == 'mikrotik'">Mikrotik</span>
                   <span v-else>Ruckus Wireless</span>
                 </td>
                 <td>{{ clients.client_ip }}</td>
