@@ -163,7 +163,7 @@ class PortalController extends Controller
     {
       $clients = new $clientusage;
       $clients->client_ip = $request->session()->get('uip');
-      $clients->client_mac = $request->session()->get('client_mac');
+      $clients->client_mac = $client_mac;
       $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
       $clients->location_id = $request->session()->get('location_id');
       $clients->connection_type = $connection_type;
