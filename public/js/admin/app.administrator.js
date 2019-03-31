@@ -73021,7 +73021,7 @@ var render = function() {
                           _c("td", [_vm._v(_vm._s(clients.client_os))]),
                           _vm._v(" "),
                           _c("td", [
-                            clients.ap == "mkt"
+                            clients.ap == "mikrotik"
                               ? _c("span", [_vm._v("Mikrotik")])
                               : _c("span", [_vm._v("Ruckus Wireless")])
                           ]),
