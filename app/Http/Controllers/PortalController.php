@@ -156,6 +156,7 @@ class PortalController extends Controller
         $clients->location_id = $request->session()->get('location_id');
         $clients->connection_type = $connection_type;
         $clients->ap = $request->session()->get('ap');
+        $clients->updated_at = date('Y-m-d H:i:s');
         $clients->save();
       }
     }
@@ -168,6 +169,7 @@ class PortalController extends Controller
       $clients->location_id = $request->session()->get('location_id');
       $clients->connection_type = $connection_type;
       $clients->ap = $request->session()->get('ap');
+      $clients->updated_at = date('Y-m-d H:i:s');
       $clients->save();
     }
 
