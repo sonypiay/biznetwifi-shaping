@@ -255,7 +255,7 @@ class DashboardController extends Controller
           [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $value['dateValue']]
         ])->count();
         $dataset['records'][] = [
-          'date' => $value['dateValue'],
+          'date' => $value['formatDate'],
           'os' => [
             'ios' => [ 'total' => $ios, 'label' => 'iOS' ],
             'android' => [ 'total' => $android, 'label' => 'Android' ],
