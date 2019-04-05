@@ -23,6 +23,7 @@ Vue.component('admin-log-activity', require('./components/administrator/AdminLog
 Vue.component('admin-roles', require('./components/administrator/AdminRoles.vue').default);
 Vue.component('client-visitor', require('./components/administrator/ClientAsVisitor.vue').default);
 Vue.component('client-subscriber', require('./components/administrator/ClientAsSubscriber.vue').default);
+Vue.component('bandwidth-usage', require('./components/administrator/BandwidthUsage.vue').default);
 
 const app = new Vue({
     el: '#app',

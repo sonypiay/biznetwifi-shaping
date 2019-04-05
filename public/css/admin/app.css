@@ -134,6 +134,50 @@ html {
   letter-spacing: 0.6px;
 }
 
+<<<<<<< HEAD
+=======
+.content-data .nav-datepicker li a {
+  background: #f9f9f9;
+  color: #666666;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  padding: 6px 12px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-size: 12px;
+}
+
+.content-data .nav-datepicker li .nav-active {
+  background: #da068c;
+  color: #ffffff;
+}
+
+.content-data .button-datepicker {
+  background: #f9f9f9;
+  color: #666666;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-size: 12px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  text-transform: capitalize;
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.content-data .button-datepicker:hover,
+.content-data .button-datepicker:focus {
+  background: #da068c;
+  color: #ffffff;
+  border: 1px solid #da068c;
+}
+
+>>>>>>> dev2019
 .content-data .form-content-select {
   border: 1px solid #eeeeee;
   border-radius: 30px;
@@ -170,6 +214,27 @@ html {
   box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
+<<<<<<< HEAD
+=======
+.content-data .form-content-datepicker {
+  border: 1px solid #eeeeee;
+  border-radius: 3px;
+  color: #666666;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 12px;
+}
+
+.content-data .form-content-datepicker:hover,
+.content-data .form-content-datepicker:focus {
+  border: 1px solid #da068c;
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+>>>>>>> dev2019
 .content-data .form-content-button {
   border: 1px solid #eeeeee;
   border-radius: 30px;

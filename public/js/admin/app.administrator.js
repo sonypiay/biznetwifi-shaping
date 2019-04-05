@@ -2858,6 +2858,217 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/administrator/BandwidthUsage.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/administrator/BandwidthUsage.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url'],
+  data: function data() {
+    return {
+      datepicker: {
+        filterdate: {
+          start: new Date(),
+          end: new Date()
+        },
+        props: {
+          class: "uk-width-1-1 uk-input form-content-datepicker",
+          placeholder: "Enter date",
+          readonly: true
+        },
+        attributes: {},
+        themeStyles: {},
+        formats: {
+          title: 'MMMM YYYY',
+          weekdays: 'W',
+          navMonths: 'MMM',
+          input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
+          // Only for `v-date-picker`
+          dayPopover: 'L',
+          // Only for `v-date-picker`
+          data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+
+        }
+      },
+      bandwidth_summary: {
+        filterdate: {
+          value: 'today',
+          text: this.$root.formatDate(new Date(), 'MMM DD, YYYY'),
+          start: new Date(),
+          end: new Date()
+        },
+        bandwidth: {
+          total_usage: {
+            upload: 0,
+            download: 0
+          },
+          freehotspot: {
+            total_usage: {
+              upload: 0,
+              download: 0
+            }
+          },
+          subscriber: {
+            total_usage: {
+              upload: 0,
+              download: 0
+            }
+          }
+        }
+      }
+    };
+  },
+  methods: {
+    onFilteringDate: function onFilteringDate(str, val) {
+      this.bandwidth_summary.filterdate.text = str;
+      this.bandwidth_summary.filterdate.value = val;
+
+      if (val === 'today') {
+        this.datepicker.filterdate.start = new Date();
+        this.datepicker.filterdate.end = new Date();
+        this.bandwidth_summary.filterdate.text = this.$root.formatDate(new Date(), 'MMM DD, YYYY');
+      } else if (this.bandwidth_summary.filterdate.value === 'yesterday') {
+        var dt = new Date();
+        var yesterday = dt.setDate(dt.getDate() - 1);
+        this.bandwidth_summary.filterdate.text = this.$root.formatDate(new Date(yesterday), 'MMM DD, YYYY');
+        this.datepicker.filterdate.start = new Date(yesterday);
+        this.datepicker.filterdate.end = new Date(yesterday);
+      } else {
+        var dt = new Date(),
+            startDate = new Date(),
+            endDate = new Date();
+        var dateArr = [];
+
+        if (val === '7days') {
+          startDate = dt.setDate(dt.getDate() - 7);
+          dt = new Date();
+          endDate = dt.setDate(dt.getDate() - 1);
+        } else if (val === '14days') {
+          startDate = dt.setDate(dt.getDate() - 14);
+          dt = new Date();
+          endDate = dt.setDate(dt.getDate() - 1);
+        } else {
+          startDate = dt.setDate(dt.getDate() - 28);
+          dt = new Date();
+          endDate = dt.setDate(dt.getDate() - 1);
+        }
+
+        var startDate = new Date(startDate);
+        var endDate = new Date(endDate);
+        this.datepicker.filterdate = {
+          start: startDate,
+          end: endDate
+        };
+        this.bandwidth_summary.filterdate.text = this.$root.formatDate(startDate, 'MMM DD, YYYY') + ' - ' + this.$root.formatDate(endDate, 'MMM DD, YYYY');
+      }
+    },
+    getSummaryBandwidthUsage: function getSummaryBandwidthUsage() {
+      var _this = this;
+
+      var startDate = this.$root.formatDate(this.datepicker.filterdate.start, 'YYYY-MM-DD');
+      var endDate = this.$root.formatDate(this.datepicker.filterdate.end, 'YYYY-MM-DD');
+      axios({
+        method: 'get',
+        url: this.url + 'admin/bandwidth/total_usage?startDate=' + startDate + '&endDate=' + endDate,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(function (res) {
+        var results = res.data;
+        _this.bandwidth_summary.bandwidth.freehotspot.total_usage = {
+          upload: results.freehotspot.total_usage.upload,
+          download: results.freehotspot.total_usage.download
+        };
+        _this.bandwidth_summary.bandwidth.subscriber.total_usage = {
+          upload: results.subscribers.total_usage.upload,
+          download: results.subscribers.total_usage.download
+        };
+        _this.bandwidth_summary.bandwidth.total_usage = {
+          upload: results.total_usage.upload,
+          download: results.total_usage.download
+        };
+        console.log(_this.bandwidth_summary.bandwidth);
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.getSummaryBandwidthUsage();
+  }
+});
+
+/***/ }),
+
+>>>>>>> dev2019
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/administrator/ClientAsSubscriber.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/administrator/ClientAsSubscriber.vue?vue&type=script&lang=js& ***!
@@ -3583,7 +3794,11 @@ __webpack_require__.r(__webpack_exports__);
       UIkit.modal('#modal').show();
       axios({
         method: 'get',
+<<<<<<< HEAD
         url: this.url + 'admin/clients/bandwidth/' + clients.client_mac + '?filterdate=' + this.bandwidth.filterdate.value
+=======
+        url: this.url + 'admin/clients/summary/bandwidth/' + clients.client_mac + '?filterdate=' + this.bandwidth.filterdate.value
+>>>>>>> dev2019
       }).then(function (res) {
         var result = res.data;
         _this2.bandwidth.current_usage = {
@@ -70998,6 +71213,345 @@ render._withStripped = true
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/administrator/BandwidthUsage.vue?vue&type=template&id=42bf1bdd&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/administrator/BandwidthUsage.vue?vue&type=template&id=42bf1bdd& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "uk-margin-top" }, [
+      _c("h3", { staticClass: "content-heading" }, [_vm._v("Bandwidth Usage")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-margin uk-card content-data" }, [
+        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default form-content-button",
+              attrs: { type: "button" }
+            },
+            [
+              _vm._v(
+                "\n          " +
+                  _vm._s(_vm.bandwidth_summary.filterdate.text) +
+                  " "
+              ),
+              _c("span", { attrs: { "uk-icon": "chevron-down" } })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "uk-width-2-3",
+              attrs: { "uk-dropdown": "mode: click; pos: right-center" }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "uk-dropdown-grid uk-grid-small",
+                  attrs: { "uk-grid": "" }
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "uk-width-expand" },
+                    [
+                      _c("v-date-picker", {
+                        attrs: {
+                          formats: _vm.datepicker.formats,
+                          mode: "range",
+                          "is-inline": true,
+                          "select-attribute": _vm.datepicker.attributes,
+                          "input-props": _vm.datepicker.props,
+                          "theme-styles": _vm.datepicker.themeStyles,
+                          "show-caps": "",
+                          "is-double-paned": ""
+                        },
+                        model: {
+                          value: _vm.datepicker.filterdate,
+                          callback: function($$v) {
+                            _vm.$set(_vm.datepicker, "filterdate", $$v)
+                          },
+                          expression: "datepicker.filterdate"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-3@s"
+                    },
+                    [
+                      _c(
+                        "ul",
+                        {
+                          staticClass: "uk-nav uk-dropdown-nav nav-datepicker"
+                        },
+                        [
+                          _c("li", [
+                            _vm.bandwidth_summary.filterdate.value === "today"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "nav-active",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "Today",
+                                          "today"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Today")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "Today",
+                                          "today"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Today")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.bandwidth_summary.filterdate.value ===
+                            "yesterday"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "nav-active",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "Yesterday",
+                                          "yesterday"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Yesterday")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "Yesterday",
+                                          "yesterday"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Yesterday")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.bandwidth_summary.filterdate.value === "7days"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "nav-active",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "7 days ago",
+                                          "7days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("7 days ago")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "7 days ago",
+                                          "7days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("7 days ago")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.bandwidth_summary.filterdate.value === "14days"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "nav-active",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "14 days ago",
+                                          "14days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("14 days ago")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "14 days ago",
+                                          "14days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("14 days ago")]
+                                )
+                          ]),
+                          _vm._v(" "),
+                          _c("li", [
+                            _vm.bandwidth_summary.filterdate.value === "28days"
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "nav-active",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "28 days ago",
+                                          "28days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("28 days ago")]
+                                )
+                              : _c(
+                                  "a",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.onFilteringDate(
+                                          "28 days ago",
+                                          "28days"
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("28 days ago")]
+                                )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "uk-width-1-1 uk-button uk-button-default button-datepicker",
+                          on: {
+                            click: function($event) {
+                              return _vm.getSummaryBandwidthUsage()
+                            }
+                          }
+                        },
+                        [_vm._v("Apply")]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-margin" }, [
+      _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-card uk-card-body uk-card-default card-bandwidth"
+              },
+              [
+                _c("div", {
+                  staticClass: "uk-card-title card-bandwidth-heading"
+                })
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
+          },
+          [
+            _c("div", {
+              staticClass: "uk-card uk-card-body uk-card-default card-bandwidth"
+            })
+          ]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+>>>>>>> dev2019
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/administrator/ClientAsSubscriber.vue?vue&type=template&id=99ddfddc&":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/administrator/ClientAsSubscriber.vue?vue&type=template&id=99ddfddc& ***!
@@ -86367,6 +86921,10 @@ Vue.component('admin-log-activity', __webpack_require__(/*! ./components/adminis
 Vue.component('admin-roles', __webpack_require__(/*! ./components/administrator/AdminRoles.vue */ "./resources/js/components/administrator/AdminRoles.vue").default);
 Vue.component('client-visitor', __webpack_require__(/*! ./components/administrator/ClientAsVisitor.vue */ "./resources/js/components/administrator/ClientAsVisitor.vue").default);
 Vue.component('client-subscriber', __webpack_require__(/*! ./components/administrator/ClientAsSubscriber.vue */ "./resources/js/components/administrator/ClientAsSubscriber.vue").default);
+<<<<<<< HEAD
+=======
+Vue.component('bandwidth-usage', __webpack_require__(/*! ./components/administrator/BandwidthUsage.vue */ "./resources/js/components/administrator/BandwidthUsage.vue").default);
+>>>>>>> dev2019
 var app = new Vue({
   el: '#app',
   data: {
@@ -86661,6 +87219,78 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./resources/js/components/administrator/BandwidthUsage.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/administrator/BandwidthUsage.vue ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BandwidthUsage_vue_vue_type_template_id_42bf1bdd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BandwidthUsage.vue?vue&type=template&id=42bf1bdd& */ "./resources/js/components/administrator/BandwidthUsage.vue?vue&type=template&id=42bf1bdd&");
+/* harmony import */ var _BandwidthUsage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BandwidthUsage.vue?vue&type=script&lang=js& */ "./resources/js/components/administrator/BandwidthUsage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BandwidthUsage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BandwidthUsage_vue_vue_type_template_id_42bf1bdd___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BandwidthUsage_vue_vue_type_template_id_42bf1bdd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/administrator/BandwidthUsage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/administrator/BandwidthUsage.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/administrator/BandwidthUsage.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BandwidthUsage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./BandwidthUsage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/administrator/BandwidthUsage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BandwidthUsage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/administrator/BandwidthUsage.vue?vue&type=template&id=42bf1bdd&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/administrator/BandwidthUsage.vue?vue&type=template&id=42bf1bdd& ***!
+  \*************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BandwidthUsage_vue_vue_type_template_id_42bf1bdd___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./BandwidthUsage.vue?vue&type=template&id=42bf1bdd& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/administrator/BandwidthUsage.vue?vue&type=template&id=42bf1bdd&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BandwidthUsage_vue_vue_type_template_id_42bf1bdd___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BandwidthUsage_vue_vue_type_template_id_42bf1bdd___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+>>>>>>> dev2019
 /***/ "./resources/js/components/administrator/ClientAsSubscriber.vue":
 /*!**********************************************************************!*\
   !*** ./resources/js/components/administrator/ClientAsSubscriber.vue ***!

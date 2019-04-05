@@ -10,14 +10,6 @@
           <div class="nav-active-border"></div>
         </a>
       </li>
-      <!--<li>
-        <a @if( $request->route()->getName() === 'admin_accountsubscriber' ) class="subnav-active" @endif href="{{ route('admin_accountsubscriber') }}">
-          <div>
-            <span class="uk-margin-small-right" uk-icon="laptop"></span>
-            Account Subscribers
-          </div>
-        </a>
-      </li>-->
       <li>
         <a href="#">
           <div>
@@ -30,6 +22,14 @@
             <li><a href="{{ route('admin_accountsubscriber') }}">Clients Subscribers</a></li>
           </ul>
         </div>
+      </li>
+      <li>
+        <a @if( $request->route()->getName() === 'bandwidth_dashboard_page' ) class="subnav-active" @endif href="{{ route('bandwidth_dashboard_page') }}">
+          <div>
+            <span class="uk-margin-small-right" uk-icon="server"></span>
+            Bandwidth Usage
+          </div>
+        </a>
       </li>
       <li>
         <a @if( $request->route()->getName() === 'admin_log_activity_pages' || $request->route()->getName() === 'admin_roles_page' ) class="subnav-active" @endif>

@@ -18,6 +18,7 @@ use DateInterval;
 class DashboardController extends Controller
 {
   use CustomFunction;
+  use RadiusAPI;
 
   public function index( Request $request )
   {
@@ -396,7 +397,6 @@ class DashboardController extends Controller
         ];
       }
     }
-
     return response()->json( $dataset );
   }
 }
