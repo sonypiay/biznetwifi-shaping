@@ -161,7 +161,7 @@
             <select class="uk-select form-content-select" v-model="forms.filterap" @change="getClientAsVisitors( pagination.path + '?page=1' )">
               <option value="all">All Access Point</option>
               <option value="ruckus">Ruckus Wireless</option>
-              <option value="mkt">Mikrotik</option>
+              <option value="mikrotik">Mikrotik</option>
             </select>
           </div>
           <div class="uk-width-1-6@xl uk-width-1-6@l uk-width-1-3@m uk-width-1-1@s">
@@ -435,7 +435,7 @@ export default {
       UIkit.modal('#modal').show();
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/bandwidth/' + clients.client_mac + '?filterdate=' + this.bandwidth.filterdate.value
+        url: this.url + 'admin/clients/summary/bandwidth/' + clients.client_mac + '?filterdate=' + this.bandwidth.filterdate.value
       }).then( res => {
         let result = res.data;
         this.bandwidth.current_usage = {

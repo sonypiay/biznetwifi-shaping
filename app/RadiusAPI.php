@@ -101,4 +101,25 @@ trait RadiusAPI {
 
     return json_decode( $res, true );
   }
+
+  public function summaryBandwidthUsage( $ip, $request )
+  {
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_URL => 'http://' .  $ip . '/api/bandwidth/total_usage?filterdate=' . $request->filterdate . '&startDate=' . $request->startDate . '&endDate=' . $request->endDate,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_HTTPHEADER => [
+        'Content-Type: application/json',
+        'Accepts: application/json'
+      ]
+    ]);
+    curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
+    curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+
+    $res = curl_exec( $ch );
+    curl_close( $ch );
+
+    return json_decode( $res, true );
+  }
 }

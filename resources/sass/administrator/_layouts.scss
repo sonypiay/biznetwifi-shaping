@@ -67,6 +67,40 @@ html {
   @include globalfontstyle(600, normal, normal, 0.6px);
 }
 .content-data {
+  .nav-datepicker {
+    li {
+      a {
+        background: #f9f9f9;
+        color: #666666;
+        border-radius: 4px;
+        margin-bottom: 5px;
+        padding: 6px 12px;
+        font-family: $font-primary;
+        @include globalfontstyle(400, normal, normal, 0.6px);
+        font-size: 12px;
+      }
+      .nav-active {
+        background: $primary-color;
+        color: #ffffff;
+      }
+    }
+  }
+  .button-datepicker {
+    background: #f9f9f9;
+    color: #666666;
+    font-family: $font-primary;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-size: 12px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    text-transform: capitalize;
+    box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    &:hover, &:focus {
+      background: $primary-color;
+      color: #ffffff;
+      border: 1px solid $primary-color;
+    }
+  }
   .form-content-select {
     border: 1px solid #eeeeee;
     border-radius: 30px;
@@ -82,6 +116,18 @@ html {
   .form-content-input {
     border: 1px solid #eeeeee;
     border-radius: 30px;
+    color: #666666;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 12px;
+    &:hover, &:focus {
+      border: 1px solid $primary-color;
+      box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+  .form-content-datepicker {
+    border: 1px solid #eeeeee;
+    border-radius: 3px;
     color: #666666;
     @include globalfontstyle(400, normal, normal, 0.6px);
     font-family: $font-primary;

@@ -134,18 +134,17 @@ class PortalController extends Controller
       $clients = $clientIfExists->first();
       if( $clients->last_connected == date('Y-m-d') )
       {
-        /*$updated = $clientusage->where([
+        $updated = $clientusage->where([
           ['client_mac', '=', $client_mac],
           [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', date('Y-m-d')]
-        ])->first();*/
-        $clients->client_ip = $request->session()->get('uip');
-        $clients->client_mac = $client_mac;
-        $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
-        $clients->location_id = $request->session()->get('location_id');
-        $clients->connection_type = $connection_type;
-        $clients->ap = $request->session()->get('ap');
-        $clients->updated_at = date('Y-m-d H:i:s');
-        $clients->save();
+        ])->first();
+        $updated->client_ip = $request->session()->get('uip');
+        $updated->client_mac = $client_mac;
+        $updated->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $updated->location_id = $request->session()->get('location_id');
+        $updated->connection_type = $connection_type;
+        $updated->ap = $request->session()->get('ap');
+        $updated->save();
       }
       else
       {
