@@ -28,6 +28,9 @@ Vue.component('bandwidth-usage', require('./components/administrator/BandwidthUs
 const app = new Vue({
     el: '#app',
     data: {
+      formatNumeral(str, format) {
+        return numeral(str).format(format);
+      },
       formatDate(str, format) {
         var res = moment(str).locale('en').format(format);
         return res;

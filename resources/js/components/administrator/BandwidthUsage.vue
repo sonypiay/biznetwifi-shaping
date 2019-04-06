@@ -43,14 +43,94 @@
       </div>
       <div class="uk-margin">
         <div class="uk-grid-small" uk-grid>
-          <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
-            <div class="uk-card uk-card-body uk-card-default card-bandwidth">
-              <div class="uk-card-title card-bandwidth-heading"></div>
+          <div class="uk-width-1-1">
+            <div class="uk-grid-small uk-grid-match" uk-grid>
+              <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s">
+                <div class="uk-card uk-card-body uk-card-default card-bandwidth card-bandwidth-upload">
+                  <div class="uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading">Upload</div>
+                  <div class="card-bandwidth-icon">
+                    <span uk-icon="icon: cloud-upload; ratio: 2"></span>
+                  </div>
+                  <div class="card-bandwidth-text">
+                    {{ $root.formatNumeral( bandwidth_summary.bandwidth.total_usage.upload, '0.00b' ) }}
+                  </div>
+                  <div class="card-bandwidth-subtext">Usaged data</div>
+                </div>
+              </div>
+              <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s">
+                <div class="uk-card uk-card-body uk-card-default card-bandwidth card-bandwidth-download">
+                  <div class="uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading">Download</div>
+                  <div class="card-bandwidth-icon">
+                    <span uk-icon="icon: cloud-download; ratio: 2"></span>
+                  </div>
+                  <div class="card-bandwidth-text">
+                    {{ $root.formatNumeral( bandwidth_summary.bandwidth.total_usage.download, '0.00b' ) }}
+                  </div>
+                  <div class="card-bandwidth-subtext">Usaged data</div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
             <div class="uk-card uk-card-body uk-card-default card-bandwidth">
-
+              <div class="uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading">Usaged Data as Visitors</div>
+              <div class="uk-grid-small uk-grid-divider uk-grid-match" uk-grid>
+                <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s">
+                  <div class="uk-card card-bandwidth">
+                    <div class="uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading">Upload</div>
+                    <div class="card-bandwidth-icon">
+                      <span class="icon-upload" uk-icon="icon: cloud-upload; ratio: 2"></span>
+                    </div>
+                    <div class="card-bandwidth-text">
+                      <span class="card-bandwidth-text-upload">{{ $root.formatNumeral( bandwidth_summary.bandwidth.freehotspot.total_usage.upload, '0.00b' ) }}</span>
+                    </div>
+                    <div class="card-bandwidth-subtext">Usaged data</div>
+                  </div>
+                </div>
+                <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s">
+                  <div class="uk-card card-bandwidth">
+                    <div class="uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading">Download</div>
+                    <div class="card-bandwidth-icon">
+                      <span class="icon-download" uk-icon="icon: cloud-download; ratio: 2"></span>
+                    </div>
+                    <div class="card-bandwidth-text">
+                      <span class="card-bandwidth-text-download">{{ $root.formatNumeral( bandwidth_summary.bandwidth.freehotspot.total_usage.download, '0.00b' ) }}</span>
+                    </div>
+                    <div class="card-bandwidth-subtext">Usaged data</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
+            <div class="uk-card uk-card-body uk-card-default card-bandwidth">
+              <div class="uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading">Usaged Data as Subscriber</div>
+              <div class="uk-grid-small uk-grid-divider uk-grid-match" uk-grid>
+                <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s">
+                  <div class="uk-card card-bandwidth">
+                    <div class="uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading">Upload</div>
+                    <div class="card-bandwidth-icon">
+                      <span class="icon-upload" uk-icon="icon: cloud-upload; ratio: 2"></span>
+                    </div>
+                    <div class="card-bandwidth-text">
+                      <span class="card-bandwidth-text-upload">{{ $root.formatNumeral( bandwidth_summary.bandwidth.subscriber.total_usage.upload, '0.00b' ) }}</span>
+                    </div>
+                    <div class="card-bandwidth-subtext">Usaged data</div>
+                  </div>
+                </div>
+                <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s">
+                  <div class="uk-card card-bandwidth">
+                    <div class="uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading">Download</div>
+                    <div class="card-bandwidth-icon">
+                      <span class="icon-download" uk-icon="icon: cloud-download; ratio: 2"></span>
+                    </div>
+                    <div class="card-bandwidth-text">
+                      <span class="card-bandwidth-text-download">{{ $root.formatNumeral( bandwidth_summary.bandwidth.subscriber.total_usage.download, '0.00b' ) }}</span>
+                    </div>
+                    <div class="card-bandwidth-subtext">Usaged data</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -174,6 +254,10 @@ export default {
         headers: { 'Content-Type': 'application/json' }
       }).then( res => {
         let results = res.data;
+        this.bandwidth_summary.bandwidth.total_usage = {
+          upload: results.total_usage.upload,
+          download: results.total_usage.download
+        };
         this.bandwidth_summary.bandwidth.freehotspot.total_usage = {
           upload: results.freehotspot.total_usage.upload,
           download: results.freehotspot.total_usage.download
@@ -182,11 +266,6 @@ export default {
           upload: results.subscribers.total_usage.upload,
           download: results.subscribers.total_usage.download
         };
-        this.bandwidth_summary.bandwidth.total_usage = {
-          upload: results.total_usage.upload,
-          download: results.total_usage.download
-        };
-        console.log( this.bandwidth_summary.bandwidth );
       }).catch( err => {
         console.log( err.response.statusText );
       });

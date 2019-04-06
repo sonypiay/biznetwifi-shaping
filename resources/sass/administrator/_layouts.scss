@@ -486,3 +486,49 @@ html {
     font-size: 14px;
   }
 }
+
+.card-bandwidth {
+  border-radius: 4px;
+  .card-bandwidth-heading {
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 16px;
+    color: #666666;
+  }
+  .card-bandwidth-icon {
+    text-align: center;
+    color: #333333;
+    .icon-upload { color: #f15854; }
+    .icon-download { color: #5ba1e0; }
+  }
+  .card-bandwidth-text {
+    text-align: center;
+    @include globalfontstyle(300, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 32px;
+    color: #666666;
+    .card-bandwidth-text-upload { color: #f15854 !important; }
+    .card-bandwidth-text-download { color: #5ba1e0 !important; }
+  }
+  .card-bandwidth-subtext {
+    text-align: center;
+    @include globalfontstyle(300, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 16px;
+    color: #999999;
+  }
+}
+.card-bandwidth-upload {
+  background: #f15854;
+  .card-bandwidth-heading { color: #ffffff; }
+  .card-bandwidth-text { color: #ffffff !important; }
+  .card-bandwidth-subtext { color: #ffffff; }
+  .card-bandwidth-icon { color: #ffffff; }
+}
+.card-bandwidth-download {
+  background: #5ba1e0;
+  .card-bandwidth-heading { color: #ffffff; }
+  .card-bandwidth-text { color: #ffffff !important; }
+  .card-bandwidth-subtext { color: #ffffff; }
+  .card-bandwidth-icon { color: #ffffff; }
+}
