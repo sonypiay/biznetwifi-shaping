@@ -368,7 +368,7 @@ export default {
       UIkit.modal('#modal').show();
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/bandwidth/' + clients.mac_address + '?filterdate=' + this.forms.filterdate.value
+        url: this.url + 'admin/clients/summary/bandwidth/' + clients.mac_address + '?filterdate=' + this.forms.filterdate.value
       }).then( res => {
         let result = res.data;
         this.devices.bandwidth.current_usage = {

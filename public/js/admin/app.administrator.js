@@ -2133,7 +2133,7 @@ __webpack_require__.r(__webpack_exports__);
       UIkit.modal('#modal').show();
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/bandwidth/' + clients.mac_address + '?filterdate=' + this.forms.filterdate.value
+        url: this.url + 'admin/clients/summary/bandwidth/' + clients.mac_address + '?filterdate=' + this.forms.filterdate.value
       }).then(function (res) {
         var result = res.data;
         _this3.devices.bandwidth.current_usage = {
