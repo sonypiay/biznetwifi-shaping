@@ -2928,6 +2928,86 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
   data: function data() {
@@ -3041,6 +3121,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         var results = res.data;
+        _this.bandwidth_summary.bandwidth.total_usage = {
+          upload: results.total_usage.upload,
+          download: results.total_usage.download
+        };
         _this.bandwidth_summary.bandwidth.freehotspot.total_usage = {
           upload: results.freehotspot.total_usage.upload,
           download: results.freehotspot.total_usage.download
@@ -3049,11 +3133,6 @@ __webpack_require__.r(__webpack_exports__);
           upload: results.subscribers.total_usage.upload,
           download: results.subscribers.total_usage.download
         };
-        _this.bandwidth_summary.bandwidth.total_usage = {
-          upload: results.total_usage.upload,
-          download: results.total_usage.download
-        };
-        console.log(_this.bandwidth_summary.bandwidth);
       }).catch(function (err) {
         console.log(err.response.statusText);
       });
@@ -71487,7 +71566,372 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "uk-margin" }, [
+        _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
+          _c("div", { staticClass: "uk-width-1-1" }, [
+            _c(
+              "div",
+              {
+                staticClass: "uk-grid-small uk-grid-match",
+                attrs: { "uk-grid": "" }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "uk-card uk-card-body uk-card-default card-bandwidth card-bandwidth-upload"
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading"
+                          },
+                          [_vm._v("Upload")]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-bandwidth-text" }, [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(
+                                _vm.$root.formatNumeral(
+                                  _vm.bandwidth_summary.bandwidth.total_usage
+                                    .upload,
+                                  "0.00b"
+                                )
+                              ) +
+                              "\n                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-bandwidth-subtext" }, [
+                          _vm._v("Usaged data")
+                        ])
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "uk-card uk-card-body uk-card-default card-bandwidth card-bandwidth-download"
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading"
+                          },
+                          [_vm._v("Download")]
+                        ),
+                        _vm._v(" "),
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-bandwidth-text" }, [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(
+                                _vm.$root.formatNumeral(
+                                  _vm.bandwidth_summary.bandwidth.total_usage
+                                    .download,
+                                  "0.00b"
+                                )
+                              ) +
+                              "\n                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-bandwidth-subtext" }, [
+                          _vm._v("Usaged data")
+                        ])
+                      ]
+                    )
+                  ]
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-card uk-card-body uk-card-default card-bandwidth"
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading"
+                    },
+                    [_vm._v("Usaged Data as Visitors")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-grid-small uk-grid-divider uk-grid-match",
+                      attrs: { "uk-grid": "" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s"
+                        },
+                        [
+                          _c("div", { staticClass: "uk-card card-bandwidth" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading"
+                              },
+                              [_vm._v("Upload")]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "card-bandwidth-text" }, [
+                              _c(
+                                "span",
+                                { staticClass: "card-bandwidth-text-upload" },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.$root.formatNumeral(
+                                        _vm.bandwidth_summary.bandwidth
+                                          .freehotspot.total_usage.upload,
+                                        "0.00b"
+                                      )
+                                    )
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "card-bandwidth-subtext" },
+                              [_vm._v("Usaged data")]
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s"
+                        },
+                        [
+                          _c("div", { staticClass: "uk-card card-bandwidth" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading"
+                              },
+                              [_vm._v("Download")]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(3),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "card-bandwidth-text" }, [
+                              _c(
+                                "span",
+                                { staticClass: "card-bandwidth-text-download" },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.$root.formatNumeral(
+                                        _vm.bandwidth_summary.bandwidth
+                                          .freehotspot.total_usage.download,
+                                        "0.00b"
+                                      )
+                                    )
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "card-bandwidth-subtext" },
+                              [_vm._v("Usaged data")]
+                            )
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-card uk-card-body uk-card-default card-bandwidth"
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading"
+                    },
+                    [_vm._v("Usaged Data as Subscriber")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-grid-small uk-grid-divider uk-grid-match",
+                      attrs: { "uk-grid": "" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s"
+                        },
+                        [
+                          _c("div", { staticClass: "uk-card card-bandwidth" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading"
+                              },
+                              [_vm._v("Upload")]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(4),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "card-bandwidth-text" }, [
+                              _c(
+                                "span",
+                                { staticClass: "card-bandwidth-text-upload" },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.$root.formatNumeral(
+                                        _vm.bandwidth_summary.bandwidth
+                                          .subscriber.total_usage.upload,
+                                        "0.00b"
+                                      )
+                                    )
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "card-bandwidth-subtext" },
+                              [_vm._v("Usaged data")]
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-1@s"
+                        },
+                        [
+                          _c("div", { staticClass: "uk-card card-bandwidth" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-card-title uk-margin-bottom uk-text-center card-bandwidth-heading"
+                              },
+                              [_vm._v("Download")]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(5),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "card-bandwidth-text" }, [
+                              _c(
+                                "span",
+                                { staticClass: "card-bandwidth-text-download" },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.$root.formatNumeral(
+                                        _vm.bandwidth_summary.bandwidth
+                                          .subscriber.total_usage.download,
+                                        "0.00b"
+                                      )
+                                    )
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "card-bandwidth-subtext" },
+                              [_vm._v("Usaged data")]
+                            )
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        ])
+      ])
     ])
   ])
 }
@@ -71496,43 +71940,60 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-margin" }, [
-      _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-card uk-card-body uk-card-default card-bandwidth"
-              },
-              [
-                _c("div", {
-                  staticClass: "uk-card-title card-bandwidth-heading"
-                })
-              ]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
-          },
-          [
-            _c("div", {
-              staticClass: "uk-card uk-card-body uk-card-default card-bandwidth"
-            })
-          ]
-        )
-      ])
+    return _c("div", { staticClass: "card-bandwidth-icon" }, [
+      _c("span", { attrs: { "uk-icon": "icon: cloud-upload; ratio: 2" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-bandwidth-icon" }, [
+      _c("span", { attrs: { "uk-icon": "icon: cloud-download; ratio: 2" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-bandwidth-icon" }, [
+      _c("span", {
+        staticClass: "icon-upload",
+        attrs: { "uk-icon": "icon: cloud-upload; ratio: 2" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-bandwidth-icon" }, [
+      _c("span", {
+        staticClass: "icon-download",
+        attrs: { "uk-icon": "icon: cloud-download; ratio: 2" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-bandwidth-icon" }, [
+      _c("span", {
+        staticClass: "icon-upload",
+        attrs: { "uk-icon": "icon: cloud-upload; ratio: 2" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-bandwidth-icon" }, [
+      _c("span", {
+        staticClass: "icon-download",
+        attrs: { "uk-icon": "icon: cloud-download; ratio: 2" }
+      })
     ])
   }
 ]
@@ -86915,6 +87376,9 @@ Vue.component('bandwidth-usage', __webpack_require__(/*! ./components/administra
 var app = new Vue({
   el: '#app',
   data: {
+    formatNumeral: function formatNumeral(str, format) {
+      return numeral(str).format(format);
+    },
     formatDate: function formatDate(str, format) {
       var res = moment(str).locale('en').format(format);
       return res;
