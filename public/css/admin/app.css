@@ -687,3 +687,100 @@ html {
   font-size: 14px;
 }
 
+.card-bandwidth {
+  border-radius: 4px;
+}
+
+.card-bandwidth .card-bandwidth-heading {
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  color: #666666;
+}
+
+.card-bandwidth .card-bandwidth-icon {
+  text-align: center;
+  color: #333333;
+}
+
+.card-bandwidth .card-bandwidth-icon .icon-upload {
+  color: #f15854;
+}
+
+.card-bandwidth .card-bandwidth-icon .icon-download {
+  color: #5ba1e0;
+}
+
+.card-bandwidth .card-bandwidth-text {
+  text-align: center;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 32px;
+  color: #666666;
+}
+
+.card-bandwidth .card-bandwidth-text .card-bandwidth-text-upload {
+  color: #f15854 !important;
+}
+
+.card-bandwidth .card-bandwidth-text .card-bandwidth-text-download {
+  color: #5ba1e0 !important;
+}
+
+.card-bandwidth .card-bandwidth-subtext {
+  text-align: center;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  color: #999999;
+}
+
+.card-bandwidth-upload {
+  background: #f15854;
+}
+
+.card-bandwidth-upload .card-bandwidth-heading {
+  color: #ffffff;
+}
+
+.card-bandwidth-upload .card-bandwidth-text {
+  color: #ffffff !important;
+}
+
+.card-bandwidth-upload .card-bandwidth-subtext {
+  color: #ffffff;
+}
+
+.card-bandwidth-upload .card-bandwidth-icon {
+  color: #ffffff;
+}
+
+.card-bandwidth-download {
+  background: #5ba1e0;
+}
+
+.card-bandwidth-download .card-bandwidth-heading {
+  color: #ffffff;
+}
+
+.card-bandwidth-download .card-bandwidth-text {
+  color: #ffffff !important;
+}
+
+.card-bandwidth-download .card-bandwidth-subtext {
+  color: #ffffff;
+}
+
+.card-bandwidth-download .card-bandwidth-icon {
+  color: #ffffff;
+}
+
