@@ -28,6 +28,7 @@ change_locale.change = function(lang) {
   });
 };
 </script>
+
 <nav class="uk-navbar uk-box-shadow-medium navbar" uk-navbar>
    <div class="uk-navbar-left">
      <a class="uk-navbar-item uk-logo" href="#">

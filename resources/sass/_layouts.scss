@@ -29,6 +29,7 @@ body { background: #f9f9f9; font-family: $font-secondary; }
     }
   }
 }
+
 .navbar {
   background: #ffffff;
   ul {
@@ -77,30 +78,33 @@ body { background: #f9f9f9; font-family: $font-secondary; }
 // homepage customer
 .offcanvas-bar {
   background: #ffffff;
-  .logo-offcanvas {
-    width: 140px;
-  }
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  padding: 0;
   .lang-offcanvas {
     color: #da068c;
     text-decoration: none;
     font-family: $font-secondary;
     font-size: 12px;
     @include globalfontstyle(600, normal, normal, 0.4px);
+    border-bottom: 1px solid #dddddd;
+    padding: 8px 15px;
     &:hover {
       color: #da068c;
     }
   }
   .lang-dropdown-offcanvas {
     margin: 5em !important;
-    border: 1px solid #e9e9e9;
+    //box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
     box-shadow: none;
+    border-bottom: 1px solid #dddddd;
     ul {
       li {
         a {
-          color: #ffffff;
+          color: #666666;
           font-family: $font-secondary;
-          font-size: 16px;
-          @include globalfontstyle(600, normal, normal, 0.4px);
+          font-size: 14px;
+          @include globalfontstyle(400, normal, normal, 0.4px);
+          text-transform: uppercase;
           &:hover {
             color: #da068c;
           }
@@ -122,16 +126,16 @@ body { background: #f9f9f9; font-family: $font-secondary; }
       }
     }
   }
-  .lang-dropdown-offcanvas {
-
-  }
   .nav-offcanvas-bar {
     li {
       a {
         color: #666666;
         font-family: $font-secondary;
-        font-size: 14px;
+        font-size: 12px;
         @include globalfontstyle(600, normal, normal, 0.4px);
+        text-transform: uppercase;
+        border-bottom: 1px solid #e9e9e9;
+        padding: 12px 15px;
         &:hover {
           //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
           color: #da068c;

@@ -23,22 +23,22 @@ change_locale.change = function(lang) {
 <!-- nav offcanvas -->
 <section id="offcanvas-mobile" uk-offcanvas="overlay: true">
   <div class="uk-offcanvas-bar offcanvas-bar">
-    <div class="uk-inline">
-      <a class="uk-text-uppercase uk-display-block lang-offcanvas"><div class="uk-float-right">{{ session()->get('session_locale') }} <span uk-icon="chevron-down"></span></div></a>
-      <div uk-dropdown="mode: click; pos: bottom" class="uk-margin-top lang-dropdown-offcanvas">
+    <div class="uk-width-1-1 uk-inline">
+      <a class="uk-text-uppercase uk-display-block lang-offcanvas">{{ session()->get('session_locale') }} <span uk-icon="chevron-down"></span></a>
+      <div uk-dropdown="mode: click; pos: bottom" class="uk-width-1-1 lang-dropdown-offcanvas">
         <ul class="uk-nav uk-dropdown-nav">
           <li class="lang-sub">
             @if( session()->get('session_locale') == 'id' )
-            <a class="lang-active-sub" onclick="change_locale.change('id')">ID</a>
+            <a class="lang-active-sub" onclick="change_locale.change('id')">Indonesia</a>
             @else
-            <a onclick="change_locale.change('id')">ID</a>
+            <a onclick="change_locale.change('id')">Indonesia</a>
             @endif
           </li>
           <li class="lang-sub">
             @if( session()->get('session_locale') == 'en' )
-            <a class="lang-active-sub" onclick="change_locale.change('en')">EN</a>
+            <a class="lang-active-sub" onclick="change_locale.change('en')">English</a>
             @else
-            <a onclick="change_locale.change('en')">EN</a>
+            <a onclick="change_locale.change('en')">English</a>
             @endif
           </li>
         </ul>
