@@ -29,6 +29,7 @@ body { background: #f9f9f9; font-family: $font-secondary; }
     }
   }
 }
+
 .navbar {
   background: #ffffff;
   ul {
@@ -77,30 +78,33 @@ body { background: #f9f9f9; font-family: $font-secondary; }
 // homepage customer
 .offcanvas-bar {
   background: #ffffff;
-  .logo-offcanvas {
-    width: 140px;
-  }
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  padding: 0;
   .lang-offcanvas {
     color: #da068c;
     text-decoration: none;
     font-family: $font-secondary;
     font-size: 12px;
     @include globalfontstyle(600, normal, normal, 0.4px);
+    border-bottom: 1px solid #dddddd;
+    padding: 8px 15px;
     &:hover {
       color: #da068c;
     }
   }
   .lang-dropdown-offcanvas {
     margin: 5em !important;
-    border: 1px solid #e9e9e9;
+    //box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
     box-shadow: none;
+    border-bottom: 1px solid #dddddd;
     ul {
       li {
         a {
-          color: #ffffff;
+          color: #666666;
           font-family: $font-secondary;
-          font-size: 16px;
-          @include globalfontstyle(600, normal, normal, 0.4px);
+          font-size: 14px;
+          @include globalfontstyle(400, normal, normal, 0.4px);
+          text-transform: uppercase;
           &:hover {
             color: #da068c;
           }
@@ -122,16 +126,16 @@ body { background: #f9f9f9; font-family: $font-secondary; }
       }
     }
   }
-  .lang-dropdown-offcanvas {
-
-  }
   .nav-offcanvas-bar {
     li {
       a {
         color: #666666;
         font-family: $font-secondary;
-        font-size: 14px;
+        font-size: 12px;
         @include globalfontstyle(600, normal, normal, 0.4px);
+        text-transform: uppercase;
+        border-bottom: 1px solid #e9e9e9;
+        padding: 12px 15px;
         &:hover {
           //background: linear-gradient(97deg, #da068c, #982e7e)  !important;
           color: #da068c;
@@ -273,56 +277,34 @@ body { background: #f9f9f9; font-family: $font-secondary; }
   }
 }
 
-.banner-hmpg-overlay {
-  background: rgba(0,0,0,0.4666);
-}
-.banner-icon-customer {
-  font-size: 72px;
-}
-.welcome-customer-name {
-  font-family: $font-secondary;
-  @include globalfontstyle(400, normal, normal, 0.4px);
-}
-
 .banner-hmpg-customer {
-  color: #ffffff;
   background: #ffffff !important;
-  @media screen and(min-width: 640px)
-  {
-    height: 360px;
-    background: none !important;
-    border-bottom: 0;
-    .banner-icon-customer {
-      margin-top: -2em;
-      color: #f2f2f2;
-      font-size: 56px;
-    }
-    .welcome-customer-name {
-      font-size: 28px;
-      color: #f2f2f2;
-    }
-    .desktop-customer-id {
-      color: #f2f2f2;
-      font-size: 18px;
-      font-family: $font-secondary;
-      @include globalfontstyle(400, normal, normal, 0.4px);
-    }
+  height: 360px;
+  border-bottom: 0;
+  .banner-hmpg-overlay {
+    //background: rgba(0,0,0,0.4666);
+    background: linear-gradient(97deg, #da068c, #982e7e)  !important;
   }
-  @media screen and(min-width: 1024px)
-  {
-    .banner-icon-customer {
-      color: #f2f2f2;
-    }
-    .welcome-customer-name {
-      font-size: 28px;
-      color: #f2f2f2;
-    }
-    .desktop-customer-id {
-      color: #f2f2f2;
-      font-size: 14px;
-      font-family: $font-secondary;
-      @include globalfontstyle(400, normal, normal, 0.4px);
-    }
+  .banner-icon-customer {
+    margin-top: -1.5em;
+    color: #f2f2f2;
+    font-size: 56px;
+  }
+  .welcome-customer-name {
+    font-family: $font-primary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
+    color: #ffffff;
+    font-size: 16px;
+  }
+  .desktop-customer-id {
+    color: #da068c;
+    font-size: 12px;
+    font-family: $font-primary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.3);
+    padding: 12px 50px;
+    border-radius: 30px;
+    background: #ffffff;
   }
 }
 .device-using {
@@ -668,7 +650,7 @@ body { background: #f9f9f9; font-family: $font-secondary; }
   .banner_ovlay_homepage {
     //background: linear-gradient(97deg, rgba(1,160,255,0.1), rgba(1,160,255,0.1), rgba(0,204,255,0.2), rgba(0,204,255,0.2)) !important;
     //background: linear-gradient(108deg, rgba(246, 161, 146, 0.1), rgba(246, 207, 146, 0.5), rgba(246, 176, 146, 0.3)) !important;
-    background: linear-gradient(97deg, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+    background: rgba(0,0,0,0.6);
   }
   .banner_ovlay_content {
     h1,h2,h3 {
@@ -756,6 +738,36 @@ body { background: #f9f9f9; font-family: $font-secondary; }
         font-size: 18px;
         text-align: left;
       }
+    }
+  }
+}
+
+.section-howto-use {
+  .section-heading-howto {
+    color: #666666;
+    font-family: $font-primary;
+    font-size: 24px;
+    @include globalfontstyle(700, normal, normal, 0.6px);
+    text-align: center;
+  }
+  .section-grid-howto {
+    border-radius: 1px;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    .section-howto-icon {
+      color: #666666;
+      font-size: 36px;
+    }
+    .section-howto-title {
+      color: #666666;
+      font-size: 16px;
+      @include globalfontstyle(700, normal, normal, 0.6px);
+      font-family: $font-secondary;
+    }
+    .section-howto-subtitle {
+      color: #666666;
+      font-size: 14px;
+      @include globalfontstyle(400, normal, normal, 0.6px);
+      font-family: $font-secondary;
     }
   }
 }

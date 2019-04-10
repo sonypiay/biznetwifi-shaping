@@ -7,18 +7,6 @@ $font-secondary: "Arimo", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
-// Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #a9168e;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
-
 @mixin globalfontstyle( $weight, $stretch, $style, $spacing )
 {
   font-weight: $weight;
