@@ -917,7 +917,7 @@ body {
 }
 
 .coverbannerhomepage .banner_ovlay_homepage {
-  background: linear-gradient(97deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2));
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .coverbannerhomepage .banner_ovlay_content h1,
@@ -1034,6 +1034,47 @@ body {
     font-size: 18px;
     text-align: left;
   }
+}
+
+.section-howto-use .section-heading-howto {
+  color: #666666;
+  font-family: "Univers", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  text-align: center;
+}
+
+.section-howto-use .section-grid-howto {
+  border-radius: 1px;
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.section-howto-use .section-grid-howto .section-howto-icon {
+  color: #666666;
+  font-size: 36px;
+}
+
+.section-howto-use .section-grid-howto .section-howto-title {
+  color: #666666;
+  font-size: 16px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Arimo", sans-serif;
+}
+
+.section-howto-use .section-grid-howto .section-howto-subtitle {
+  color: #666666;
+  font-size: 14px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Arimo", sans-serif;
 }
 
 .section-banner-biznethome .section-banner-context-right {

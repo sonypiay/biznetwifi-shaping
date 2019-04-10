@@ -2317,6 +2317,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'homepagelocale'],
   data: function data() {
@@ -53204,7 +53235,7 @@ var render = function() {
     _c("div", { staticClass: "uk-cover-container coverbannerhomepage" }, [
       _c("img", {
         attrs: {
-          src: _vm.url + "/images/banner/Banner1.jpg",
+          src: _vm.url + "/images/banner/Banner2.jpg",
           alt: "banner_hotspot_1",
           "uk-cover": ""
         }
@@ -53212,10 +53243,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        {
-          staticClass:
-            "uk-overlay uk-overlay-primary uk-position-cover banner_ovlay_homepage"
-        },
+        { staticClass: "uk-overlay uk-position-cover banner_ovlay_homepage" },
         [
           _c("div", { staticClass: "uk-position-top-left" }, [
             _c(

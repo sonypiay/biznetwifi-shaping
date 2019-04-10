@@ -668,7 +668,7 @@ body { background: #f9f9f9; font-family: $font-secondary; }
   .banner_ovlay_homepage {
     //background: linear-gradient(97deg, rgba(1,160,255,0.1), rgba(1,160,255,0.1), rgba(0,204,255,0.2), rgba(0,204,255,0.2)) !important;
     //background: linear-gradient(108deg, rgba(246, 161, 146, 0.1), rgba(246, 207, 146, 0.5), rgba(246, 176, 146, 0.3)) !important;
-    background: linear-gradient(97deg, rgba(0,0,0,0.8), rgba(0,0,0,0.2));
+    background: rgba(0,0,0,0.6);
   }
   .banner_ovlay_content {
     h1,h2,h3 {
@@ -756,6 +756,36 @@ body { background: #f9f9f9; font-family: $font-secondary; }
         font-size: 18px;
         text-align: left;
       }
+    }
+  }
+}
+
+.section-howto-use {
+  .section-heading-howto {
+    color: #666666;
+    font-family: $font-primary;
+    font-size: 24px;
+    @include globalfontstyle(700, normal, normal, 0.6px);
+    text-align: center;
+  }
+  .section-grid-howto {
+    border-radius: 1px;
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    .section-howto-icon {
+      color: #666666;
+      font-size: 36px;
+    }
+    .section-howto-title {
+      color: #666666;
+      font-size: 16px;
+      @include globalfontstyle(700, normal, normal, 0.6px);
+      font-family: $font-secondary;
+    }
+    .section-howto-subtitle {
+      color: #666666;
+      font-size: 14px;
+      @include globalfontstyle(400, normal, normal, 0.6px);
+      font-family: $font-secondary;
     }
   }
 }
