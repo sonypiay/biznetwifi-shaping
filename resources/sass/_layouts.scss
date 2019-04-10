@@ -277,56 +277,34 @@ body { background: #f9f9f9; font-family: $font-secondary; }
   }
 }
 
-.banner-hmpg-overlay {
-  background: rgba(0,0,0,0.4666);
-}
-.banner-icon-customer {
-  font-size: 72px;
-}
-.welcome-customer-name {
-  font-family: $font-secondary;
-  @include globalfontstyle(400, normal, normal, 0.4px);
-}
-
 .banner-hmpg-customer {
-  color: #ffffff;
   background: #ffffff !important;
-  @media screen and(min-width: 640px)
-  {
-    height: 360px;
-    background: none !important;
-    border-bottom: 0;
-    .banner-icon-customer {
-      margin-top: -2em;
-      color: #f2f2f2;
-      font-size: 56px;
-    }
-    .welcome-customer-name {
-      font-size: 28px;
-      color: #f2f2f2;
-    }
-    .desktop-customer-id {
-      color: #f2f2f2;
-      font-size: 18px;
-      font-family: $font-secondary;
-      @include globalfontstyle(400, normal, normal, 0.4px);
-    }
+  height: 360px;
+  border-bottom: 0;
+  .banner-hmpg-overlay {
+    //background: rgba(0,0,0,0.4666);
+    background: linear-gradient(97deg, #da068c, #982e7e)  !important;
   }
-  @media screen and(min-width: 1024px)
-  {
-    .banner-icon-customer {
-      color: #f2f2f2;
-    }
-    .welcome-customer-name {
-      font-size: 28px;
-      color: #f2f2f2;
-    }
-    .desktop-customer-id {
-      color: #f2f2f2;
-      font-size: 14px;
-      font-family: $font-secondary;
-      @include globalfontstyle(400, normal, normal, 0.4px);
-    }
+  .banner-icon-customer {
+    margin-top: -1.5em;
+    color: #f2f2f2;
+    font-size: 56px;
+  }
+  .welcome-customer-name {
+    font-family: $font-primary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
+    color: #ffffff;
+    font-size: 16px;
+  }
+  .desktop-customer-id {
+    color: #da068c;
+    font-size: 12px;
+    font-family: $font-primary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.3);
+    padding: 12px 50px;
+    border-radius: 30px;
+    background: #ffffff;
   }
 }
 .device-using {

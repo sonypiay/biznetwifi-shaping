@@ -348,75 +348,44 @@ body {
   box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.3);
 }
 
-.banner-hmpg-overlay {
-  background: rgba(0, 0, 0, 0.4666);
+.banner-hmpg-customer {
+  background: #ffffff !important;
+  height: 360px;
+  border-bottom: 0;
 }
 
-.banner-icon-customer {
-  font-size: 72px;
+.banner-hmpg-customer .banner-hmpg-overlay {
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
 }
 
-.welcome-customer-name {
-  font-family: "Arimo", sans-serif;
+.banner-hmpg-customer .banner-icon-customer {
+  margin-top: -1.5em;
+  color: #f2f2f2;
+  font-size: 56px;
+}
+
+.banner-hmpg-customer .welcome-customer-name {
+  font-family: "Univers", sans-serif;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
   letter-spacing: 0.4px;
-}
-
-.banner-hmpg-customer {
   color: #ffffff;
-  background: #ffffff !important;
+  font-size: 16px;
 }
 
-@media screen and (min-width: 640px) {
-  .banner-hmpg-customer {
-    height: 360px;
-    background: none !important;
-    border-bottom: 0;
-  }
-
-  .banner-hmpg-customer .banner-icon-customer {
-    margin-top: -2em;
-    color: #f2f2f2;
-    font-size: 56px;
-  }
-
-  .banner-hmpg-customer .welcome-customer-name {
-    font-size: 28px;
-    color: #f2f2f2;
-  }
-
-  .banner-hmpg-customer .desktop-customer-id {
-    color: #f2f2f2;
-    font-size: 18px;
-    font-family: "Arimo", sans-serif;
-    font-weight: 400;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: 0.4px;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .banner-hmpg-customer .banner-icon-customer {
-    color: #f2f2f2;
-  }
-
-  .banner-hmpg-customer .welcome-customer-name {
-    font-size: 28px;
-    color: #f2f2f2;
-  }
-
-  .banner-hmpg-customer .desktop-customer-id {
-    color: #f2f2f2;
-    font-size: 14px;
-    font-family: "Arimo", sans-serif;
-    font-weight: 400;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: 0.4px;
-  }
+.banner-hmpg-customer .desktop-customer-id {
+  color: #da068c;
+  font-size: 12px;
+  font-family: "Univers", sans-serif;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.3);
+  padding: 12px 50px;
+  border-radius: 30px;
+  background: #ffffff;
 }
 
 .device-using {

@@ -2135,9 +2135,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'datauser', 'connectlocale', 'custdash'],
   data: function data() {
@@ -52831,14 +52828,6 @@ var render = function() {
       "section",
       { staticClass: "uk-cover-container uk-visible@s banner-hmpg-customer" },
       [
-        _c("img", {
-          attrs: {
-            src: _vm.url + "/images/banner/banner3.jpg",
-            alt: "banner 3",
-            "uk-cover": ""
-          }
-        }),
-        _vm._v(" "),
         _c(
           "div",
           {
@@ -52859,22 +52848,9 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.datauser.customer_id,
-                        expression: "datauser.customer_id"
-                      }
-                    ]
+                    staticClass: "uk-text-center uk-margin desktop-customer-id"
                   },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "uk-text-center desktop-customer-id" },
-                      [_vm._v(_vm._s(_vm.datauser.customer_id))]
-                    )
-                  ]
+                  [_vm._v(_vm._s(_vm.connectlocale.biznetwifi.connected))]
                 )
               ])
             ])
