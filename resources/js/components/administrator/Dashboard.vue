@@ -42,39 +42,6 @@
         <div class="uk-margin-top uk-grid-small" uk-grid>
           <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s">
             <div class="uk-card uk-card-body uk-card-default card-overview-device">
-              <div class="uk-width-1-1 uk-text-left uk-inline">
-                <button class="uk-width-1-1 uk-button uk-button-default form-overview-button" type="button">
-                  {{ forms.filterdate_pie.text }} <span uk-icon="chevron-down"></span>
-                </button>
-                <div class="form-overview-dropdown" uk-dropdown="mode: click">
-                  <ul class="uk-nav uk-dropdown-nav">
-                    <li>
-                      <a v-if="forms.filterdate_pie.value == 'today'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Today', 'today')">Today</a>
-                      <a v-else @click="onFilteringPieDeviceByOSByDate('Today', 'today')">Today</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate_pie.value == '7days'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last 7 days', '7days')">Last 7 days</a>
-                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last 7 days ', '7days')">Last 7 days</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate_pie.value == '28days'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
-                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate_pie.value == '30days'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
-                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last 30 days', '30days')">Last 30 days</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate_pie.value == 'this_month'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('This Month', 'this_month')">This Month</a>
-                      <a v-else @click="onFilteringPieDeviceByOSByDate('This Month', 'this_month')">This Month</a>
-                    </li>
-                    <li>
-                      <a v-if="forms.filterdate_pie.value == 'last_month'" class="form-overview-dropdown-active" @click="onFilteringPieDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
-                      <a v-else @click="onFilteringPieDeviceByOSByDate('Last Month', 'last_month')">Last Month</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
               <canvas id="chartPieSummaryClientAsVisitors" width="400" height="400">Unable to load chart</canvas>
             </div>
           </div>
@@ -87,12 +54,12 @@
                 <div class="form-overview-dropdown" uk-dropdown="mode: click">
                   <ul class="uk-nav uk-dropdown-nav">
                     <li>
-                      <a v-if="forms.filterdate.value == 'today'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
-                      <a v-else @click="onFilteringDeviceByOSByDate('Today', 'today')">Today</a>
-                    </li>
-                    <li>
                       <a v-if="forms.filterdate.value == '7days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 7 days', '7days')">Last 7 days</a>
                       <a v-else @click="onFilteringDeviceByOSByDate('Last 7 days ', '7days')">Last 7 days</a>
+                    </li>
+                    <li>
+                      <a v-if="forms.filterdate.value == '14days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 14 days', '14days')">Last 14 days</a>
+                      <a v-else @click="onFilteringDeviceByOSByDate('Last 14 days ', '14days')">Last 14 days</a>
                     </li>
                     <li>
                       <a v-if="forms.filterdate.value == '28days'" class="form-overview-dropdown-active" @click="onFilteringDeviceByOSByDate('Last 28 days', '28days')">Last 28 days</a>
@@ -147,16 +114,12 @@ export default {
       },
       forms: {
         filterdate: {
-          value: 'today',
-          text: 'Today'
+          value: '7days',
+          text: 'Last 7 Days'
         },
         filterdevice: {
           value: 'all',
           text: 'All'
-        },
-        filterdate_pie: {
-          value: 'today',
-          text: 'Today'
         }
       }
     }
@@ -199,7 +162,7 @@ export default {
     {
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/summary/visitors?filterdate=' + this.forms.filterdate_pie.value
+        url: this.url + 'admin/clients/summary/current_visitors'
       }).then( res => {
         let result = res.data;
         this.summaryClientAsVisitors = {
@@ -262,226 +225,141 @@ export default {
       }).then( res => {
         let result = res.data;
         var ctx = document.getElementById('chartAllDeviceVisitor').getContext('2d');
-        if( this.forms.filterdate.value !== 'today' )
+        var labelDate = [];
+        var ios = [], android = [], windows = [], linux = [], macos = [], other = [];
+        for( var label = 0; label < result.records.length; label++ )
         {
-          var labelDate = [];
-          var ios = [], android = [], windows = [], linux = [], macos = [], other = [];
-          for( var label = 0; label < result.records.length; label++ )
-          {
-            labelDate[label] = result.records[label].date;
-            ios[label] = result.records[label].os.ios.total;
-            android[label] = result.records[label].os.android.total;
-            windows[label] = result.records[label].os.windows.total;
-            linux[label] = result.records[label].os.linux.total;
-            macos[label] = result.records[label].os.macos.total;
-            other[label] = result.records[label].os.other.total;
-          }
+          labelDate[label] = result.records[label].date;
+          ios[label] = result.records[label].os.ios.total;
+          android[label] = result.records[label].os.android.total;
+          windows[label] = result.records[label].os.windows.total;
+          linux[label] = result.records[label].os.linux.total;
+          macos[label] = result.records[label].os.macos.total;
+          other[label] = result.records[label].os.other.total;
+        }
 
-          if( window.bar !== undefined )
-            window.bar.destroy();
+        if( window.bar !== undefined )
+          window.bar.destroy();
 
-          var context = {
-            type: 'line',
-            data: {
-              labels: labelDate,
-              datasets: [
-                {
-                  label: 'Android',
-                  data: android,
-                  borderColor: 'rgba(255, 99, 132, 1)',
-                  borderWidth: 2,
-                  lineTension: 0.4,
-                  fill: false,
-                  pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
-                  pointBorderColor: 'rgba(255, 99, 132, 1 )',
-                  pointBorderWidth: 1
-                },
-                {
-                  label: 'iOS',
-                  data: ios,
-                  borderColor: 'rgba(54, 162, 235, 1)',
-                  borderWidth: 2,
-                  fill: false,
-                  lineTension: 0.4,
-                  pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-                  pointBorderColor: 'rgba(54, 162, 235, 1)',
-                  pointBorderWidth: 1
-                },
-                {
-                  label: 'Windows',
-                  data: windows,
-                  borderColor: 'rgba(255, 206, 86, 1)',
-                  borderWidth: 2,
-                  fill: false,
-                  lineTension: 0.4,
-                  pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(255, 206, 86, 1)',
-                  pointBorderColor: 'rgba(255, 206, 86, 1)',
-                  pointBorderWidth: 1
-                },
-                {
-                  label: 'Linux',
-                  data: linux,
-                  borderColor: 'rgba(75, 192, 192, 1)',
-                  borderWidth: 2,
-                  fill: false,
-                  lineTension: 0.4,
-                  pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-                  pointBorderColor: 'rgba(75, 192, 192, 1)',
-                  pointBorderWidth: 1
-                },
-                {
-                  label: 'Mac OS',
-                  data: macos,
-                  borderColor: 'rgba(153, 102, 255, 1)',
-                  borderWidth: 2,
-                  fill: false,
-                  lineTension: 0.4,
-                  pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(153, 102, 255, 0.1)',
-                  pointBorderColor: 'rgba(153, 102, 255, 1)',
-                  pointBorderWidth: 1
-                },
-                {
-                  label: 'Other',
-                  data: other,
-                  borderColor: 'rgba(255, 159, 64, 1)',
-                  borderWidth: 2,
-                  fill: false,
-                  lineTension: 0.4,
-                  pointHitRadius: 1,
-                  pointBackgroundColor: 'rgba(255, 159, 64, 0.1)',
-                  pointBorderColor: 'rgba(255, 159, 64, 1)',
-                  pointBorderWidth: 1
+        var context = {
+          type: 'line',
+          data: {
+            labels: labelDate,
+            datasets: [
+              {
+                label: 'Android',
+                data: android,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 2,
+                lineTension: 0.4,
+                fill: false,
+                pointHitRadius: 1,
+                pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
+                pointBorderColor: 'rgba(255, 99, 132, 1 )',
+                pointBorderWidth: 1
+              },
+              {
+                label: 'iOS',
+                data: ios,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2,
+                fill: false,
+                lineTension: 0.4,
+                pointHitRadius: 1,
+                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                pointBorderColor: 'rgba(54, 162, 235, 1)',
+                pointBorderWidth: 1
+              },
+              {
+                label: 'Windows',
+                data: windows,
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 2,
+                fill: false,
+                lineTension: 0.4,
+                pointHitRadius: 1,
+                pointBackgroundColor: 'rgba(255, 206, 86, 1)',
+                pointBorderColor: 'rgba(255, 206, 86, 1)',
+                pointBorderWidth: 1
+              },
+              {
+                label: 'Linux',
+                data: linux,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false,
+                lineTension: 0.4,
+                pointHitRadius: 1,
+                pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                pointBorderColor: 'rgba(75, 192, 192, 1)',
+                pointBorderWidth: 1
+              },
+              {
+                label: 'Mac OS',
+                data: macos,
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 2,
+                fill: false,
+                lineTension: 0.4,
+                pointHitRadius: 1,
+                pointBackgroundColor: 'rgba(153, 102, 255, 0.1)',
+                pointBorderColor: 'rgba(153, 102, 255, 1)',
+                pointBorderWidth: 1
+              },
+              {
+                label: 'Other',
+                data: other,
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 2,
+                fill: false,
+                lineTension: 0.4,
+                pointHitRadius: 1,
+                pointBackgroundColor: 'rgba(255, 159, 64, 0.1)',
+                pointBorderColor: 'rgba(255, 159, 64, 1)',
+                pointBorderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+              display: true,
+              text: '# Operating Systems'
+            },
+            tooltips: {
+              mode: 'index',
+              intersect: false
+            },
+            hover: {
+              mode: 'nearest',
+              intersect: true
+            },
+            legend: {
+              display: true
+            },
+            scales: {
+              xAxes: [{
+                display: true,
+                scaleLabel: {
+                  display: true,
+                  labelString: this.forms.filterdate.text
                 }
-              ]
-            },
-            options: {
-      				responsive: true,
-              maintainAspectRatio: true,
-      				title: {
-      					display: true,
-      					text: '# Operating Systems'
-      				},
-              tooltips: {
-                mode: 'index',
-                intersect: false
-              },
-              hover: {
-                mode: 'nearest',
-                intersect: true
-              },
-              legend: {
-                display: true
-              },
-              scales: {
-                xAxes: [{
-                  display: true,
-                  scaleLabel: {
-                    display: true,
-                    labelString: this.forms.filterdate.text
-                  }
-                }],
-                yAxes: [{
-                  ticks: {
-                    beginAtZero: true,
-                    userCallback: function(label, index, labels) {
-                      if (Math.floor(label) === label) {
-                        return label;
-                      }
-                    },
-                  }
-                }],
-              }
-      			}
-          };
-          window.bar = new Chart(ctx, context);
-        }
-        else
-        {
-          var context = {
-            type: 'bar',
-            data: {
-              labels: [
-                result.os.ios.label,
-                result.os.android.label,
-                result.os.windows.label,
-                result.os.linux.label,
-                result.os.macos.label,
-                result.os.other.label
-              ],
-              datasets: [{
-                label: '# Operating Systems',
-                data: [
-                  result.os.ios.total,
-                  result.os.android.total,
-                  result.os.windows.total,
-                  result.os.linux.total,
-                  result.os.macos.total,
-                  result.os.other.total
-                ],
-                backgroundColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
-                  'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              legend: {
-                display: true
-              },
-              responsive: true,
-              aspectRatio: 2,
-              title: {
-      					display: true,
-      					text: 'All Devices'
-      				},
-              tooltips: {
-                mode: 'index',
-                intersect: false
-              },
-              hover: {
-                mode: 'nearest',
-                intersect: true
-              },
-              legend: {
-                display: true
-              },
-              scales: {
-                xAxes: [{
-                  display: true,
-                  scaleLabel: {
-                    display: true,
-                    labelString: result.date
-                  }
-                }],
-                yAxes: [{
-                  ticks: {
-                    beginAtZero: true,
-                    userCallback: function(label, index, labels) {
-                      if (Math.floor(label) === label) {
-                        return label;
-                      }
-                    },
-                  }
-                }],
-              }
+              }],
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  userCallback: function(label, index, labels) {
+                    if (Math.floor(label) === label) {
+                      return label;
+                    }
+                  },
+                }
+              }],
             }
-          };
-
-          if( window.bar !== undefined )
-            window.bar.destroy();
-
-          window.bar = new Chart(ctx, context);
-        }
+          }
+        };
+        window.bar = new Chart(ctx, context);
       }).catch( err => {
         console.log( err );
       });

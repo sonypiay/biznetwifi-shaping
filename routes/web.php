@@ -49,7 +49,7 @@ Route::group(['prefix' => 'admin'], function() {
   Route::group(['prefix' => 'clients'], function() {
     Route::group(['prefix' => 'summary'], function() {
       Route::get('/subscribers', 'Administrator\DashboardController@summaryClientAsSubscribers');
-      Route::get('/visitors', 'Administrator\DashboardController@summaryDeviceClientAsVisitor');
+      Route::get('/current_visitors', 'Administrator\DashboardController@summaryDeviceClientCurrentVisitor');
       Route::get('/visitors_by_date', 'Administrator\DashboardController@summaryDeviceClientAsVisitorByDate');
       Route::get('/bandwidth/{mac}', 'Administrator\AccountSubscribersController@bw_client_usage');
     });
