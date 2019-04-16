@@ -4084,41 +4084,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4234,16 +4199,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       forms: {
         filterdate: {
-          value: 'today',
-          text: 'Today'
+          value: '7days',
+          text: 'Last 7 Days'
         },
         filterdevice: {
           value: 'all',
           text: 'All'
-        },
-        filterdate_pie: {
-          value: 'today',
-          text: 'Today'
         }
       }
     };
@@ -4286,7 +4247,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/summary/visitors?filterdate=' + this.forms.filterdate_pie.value
+        url: this.url + 'admin/clients/summary/current_visitors'
       }).then(function (res) {
         var result = res.data;
         _this2.summaryClientAsVisitors = {
@@ -4346,179 +4307,121 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (res) {
         var result = res.data;
         var ctx = document.getElementById('chartAllDeviceVisitor').getContext('2d');
+        var labelDate = [];
+        var ios = [],
+            android = [],
+            windows = [],
+            linux = [],
+            macos = [],
+            other = [];
 
-        if (_this3.forms.filterdate.value !== 'today') {
-          var labelDate = [];
-          var ios = [],
-              android = [],
-              windows = [],
-              linux = [],
-              macos = [],
-              other = [];
+        for (var label = 0; label < result.records.length; label++) {
+          labelDate[label] = result.records[label].date;
+          ios[label] = result.records[label].os.ios.total;
+          android[label] = result.records[label].os.android.total;
+          windows[label] = result.records[label].os.windows.total;
+          linux[label] = result.records[label].os.linux.total;
+          macos[label] = result.records[label].os.macos.total;
+          other[label] = result.records[label].os.other.total;
+        }
 
-          for (var label = 0; label < result.records.length; label++) {
-            labelDate[label] = result.records[label].date;
-            ios[label] = result.records[label].os.ios.total;
-            android[label] = result.records[label].os.android.total;
-            windows[label] = result.records[label].os.windows.total;
-            linux[label] = result.records[label].os.linux.total;
-            macos[label] = result.records[label].os.macos.total;
-            other[label] = result.records[label].os.other.total;
-          }
-
-          if (window.bar !== undefined) window.bar.destroy();
-          var context = {
-            type: 'line',
-            data: {
-              labels: labelDate,
-              datasets: [{
-                label: 'Android',
-                data: android,
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 2,
-                lineTension: 0.4,
-                fill: false,
-                pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
-                pointBorderColor: 'rgba(255, 99, 132, 1 )',
-                pointBorderWidth: 1
-              }, {
-                label: 'iOS',
-                data: ios,
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 2,
-                fill: false,
-                lineTension: 0.4,
-                pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-                pointBorderColor: 'rgba(54, 162, 235, 1)',
-                pointBorderWidth: 1
-              }, {
-                label: 'Windows',
-                data: windows,
-                borderColor: 'rgba(255, 206, 86, 1)',
-                borderWidth: 2,
-                fill: false,
-                lineTension: 0.4,
-                pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(255, 206, 86, 1)',
-                pointBorderColor: 'rgba(255, 206, 86, 1)',
-                pointBorderWidth: 1
-              }, {
-                label: 'Linux',
-                data: linux,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: false,
-                lineTension: 0.4,
-                pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-                pointBorderColor: 'rgba(75, 192, 192, 1)',
-                pointBorderWidth: 1
-              }, {
-                label: 'Mac OS',
-                data: macos,
-                borderColor: 'rgba(153, 102, 255, 1)',
-                borderWidth: 2,
-                fill: false,
-                lineTension: 0.4,
-                pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(153, 102, 255, 0.1)',
-                pointBorderColor: 'rgba(153, 102, 255, 1)',
-                pointBorderWidth: 1
-              }, {
-                label: 'Other',
-                data: other,
-                borderColor: 'rgba(255, 159, 64, 1)',
-                borderWidth: 2,
-                fill: false,
-                lineTension: 0.4,
-                pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(255, 159, 64, 0.1)',
-                pointBorderColor: 'rgba(255, 159, 64, 1)',
-                pointBorderWidth: 1
-              }]
+        if (window.bar !== undefined) window.bar.destroy();
+        var context = {
+          type: 'line',
+          data: {
+            labels: labelDate,
+            datasets: [{
+              label: 'Android',
+              data: android,
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 2,
+              lineTension: 0.4,
+              fill: false,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
+              pointBorderColor: 'rgba(255, 99, 132, 1 )',
+              pointBorderWidth: 1
+            }, {
+              label: 'iOS',
+              data: ios,
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 2,
+              fill: false,
+              lineTension: 0.4,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+              pointBorderColor: 'rgba(54, 162, 235, 1)',
+              pointBorderWidth: 1
+            }, {
+              label: 'Windows',
+              data: windows,
+              borderColor: 'rgba(255, 206, 86, 1)',
+              borderWidth: 2,
+              fill: false,
+              lineTension: 0.4,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(255, 206, 86, 1)',
+              pointBorderColor: 'rgba(255, 206, 86, 1)',
+              pointBorderWidth: 1
+            }, {
+              label: 'Linux',
+              data: linux,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 2,
+              fill: false,
+              lineTension: 0.4,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+              pointBorderColor: 'rgba(75, 192, 192, 1)',
+              pointBorderWidth: 1
+            }, {
+              label: 'Mac OS',
+              data: macos,
+              borderColor: 'rgba(153, 102, 255, 1)',
+              borderWidth: 2,
+              fill: false,
+              lineTension: 0.4,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(153, 102, 255, 0.1)',
+              pointBorderColor: 'rgba(153, 102, 255, 1)',
+              pointBorderWidth: 1
+            }, {
+              label: 'Other',
+              data: other,
+              borderColor: 'rgba(255, 159, 64, 1)',
+              borderWidth: 2,
+              fill: false,
+              lineTension: 0.4,
+              pointHitRadius: 1,
+              pointBackgroundColor: 'rgba(255, 159, 64, 0.1)',
+              pointBorderColor: 'rgba(255, 159, 64, 1)',
+              pointBorderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            title: {
+              display: true,
+              text: '# Operating Systems'
             },
-            options: {
-              responsive: true,
-              maintainAspectRatio: true,
-              title: {
-                display: true,
-                text: '# Operating Systems'
-              },
-              tooltips: {
-                mode: 'index',
-                intersect: false
-              },
-              hover: {
-                mode: 'nearest',
-                intersect: true
-              },
-              legend: {
-                display: true
-              },
-              scales: {
-                xAxes: [{
-                  display: true,
-                  scaleLabel: {
-                    display: true,
-                    labelString: _this3.forms.filterdate.text
-                  }
-                }],
-                yAxes: [{
-                  ticks: {
-                    beginAtZero: true,
-                    userCallback: function userCallback(label, index, labels) {
-                      if (Math.floor(label) === label) {
-                        return label;
-                      }
-                    }
-                  }
-                }]
-              }
-            }
-          };
-          window.bar = new Chart(ctx, context);
-        } else {
-          var _options;
-
-          var context = {
-            type: 'bar',
-            data: {
-              labels: [result.os.ios.label, result.os.android.label, result.os.windows.label, result.os.linux.label, result.os.macos.label, result.os.other.label],
-              datasets: [{
-                label: '# Operating Systems',
-                data: [result.os.ios.total, result.os.android.total, result.os.windows.total, result.os.linux.total, result.os.macos.total, result.os.other.total],
-                backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
-                borderWidth: 1
-              }]
+            tooltips: {
+              mode: 'index',
+              intersect: false
             },
-            options: (_options = {
-              legend: {
-                display: true
-              },
-              responsive: true,
-              aspectRatio: 2,
-              title: {
-                display: true,
-                text: 'All Devices'
-              },
-              tooltips: {
-                mode: 'index',
-                intersect: false
-              },
-              hover: {
-                mode: 'nearest',
-                intersect: true
-              }
-            }, _defineProperty(_options, "legend", {
+            hover: {
+              mode: 'nearest',
+              intersect: true
+            },
+            legend: {
               display: true
-            }), _defineProperty(_options, "scales", {
+            },
+            scales: {
               xAxes: [{
                 display: true,
                 scaleLabel: {
                   display: true,
-                  labelString: result.date
+                  labelString: _this3.forms.filterdate.text
                 }
               }],
               yAxes: [{
@@ -4531,11 +4434,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   }
                 }
               }]
-            }), _options)
-          };
-          if (window.bar !== undefined) window.bar.destroy();
-          window.bar = new Chart(ctx, context);
-        }
+            }
+          }
+        };
+        window.bar = new Chart(ctx, context);
       }).catch(function (err) {
         console.log(err);
       });
@@ -74453,277 +74355,7 @@ var render = function() {
             attrs: { "uk-grid": "" }
           },
           [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s"
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-card uk-card-body uk-card-default card-overview-device"
-                  },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "uk-width-1-1 uk-text-left uk-inline" },
-                      [
-                        _c(
-                          "button",
-                          {
-                            staticClass:
-                              "uk-width-1-1 uk-button uk-button-default form-overview-button",
-                            attrs: { type: "button" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                " +
-                                _vm._s(_vm.forms.filterdate_pie.text) +
-                                " "
-                            ),
-                            _c("span", { attrs: { "uk-icon": "chevron-down" } })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "form-overview-dropdown",
-                            attrs: { "uk-dropdown": "mode: click" }
-                          },
-                          [
-                            _c(
-                              "ul",
-                              { staticClass: "uk-nav uk-dropdown-nav" },
-                              [
-                                _c("li", [
-                                  _vm.forms.filterdate_pie.value == "today"
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "form-overview-dropdown-active",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Today",
-                                                "today"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Today")]
-                                      )
-                                    : _c(
-                                        "a",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Today",
-                                                "today"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Today")]
-                                      )
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
-                                  _vm.forms.filterdate_pie.value == "7days"
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "form-overview-dropdown-active",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Last 7 days",
-                                                "7days"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Last 7 days")]
-                                      )
-                                    : _c(
-                                        "a",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Last 7 days ",
-                                                "7days"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Last 7 days")]
-                                      )
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
-                                  _vm.forms.filterdate_pie.value == "28days"
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "form-overview-dropdown-active",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Last 28 days",
-                                                "28days"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Last 28 days")]
-                                      )
-                                    : _c(
-                                        "a",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Last 28 days",
-                                                "28days"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Last 28 days")]
-                                      )
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
-                                  _vm.forms.filterdate_pie.value == "30days"
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "form-overview-dropdown-active",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Last 30 days",
-                                                "30days"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Last 30 days")]
-                                      )
-                                    : _c(
-                                        "a",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Last 30 days",
-                                                "30days"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Last 30 days")]
-                                      )
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
-                                  _vm.forms.filterdate_pie.value == "this_month"
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "form-overview-dropdown-active",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "This Month",
-                                                "this_month"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("This Month")]
-                                      )
-                                    : _c(
-                                        "a",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "This Month",
-                                                "this_month"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("This Month")]
-                                      )
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
-                                  _vm.forms.filterdate_pie.value == "last_month"
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass:
-                                            "form-overview-dropdown-active",
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Last Month",
-                                                "last_month"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Last Month")]
-                                      )
-                                    : _c(
-                                        "a",
-                                        {
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.onFilteringPieDeviceByOSByDate(
-                                                "Last Month",
-                                                "last_month"
-                                              )
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("Last Month")]
-                                      )
-                                ])
-                              ]
-                            )
-                          ]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "canvas",
-                      {
-                        attrs: {
-                          id: "chartPieSummaryClientAsVisitors",
-                          width: "400",
-                          height: "400"
-                        }
-                      },
-                      [_vm._v("Unable to load chart")]
-                    )
-                  ]
-                )
-              ]
-            ),
+            _vm._m(4),
             _vm._v(" "),
             _c("div", { staticClass: "uk-width-expand" }, [
               _c(
@@ -74763,40 +74395,6 @@ var render = function() {
                         [
                           _c("ul", { staticClass: "uk-nav uk-dropdown-nav" }, [
                             _c("li", [
-                              _vm.forms.filterdate.value == "today"
-                                ? _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "form-overview-dropdown-active",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.onFilteringDeviceByOSByDate(
-                                            "Today",
-                                            "today"
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Today")]
-                                  )
-                                : _c(
-                                    "a",
-                                    {
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.onFilteringDeviceByOSByDate(
-                                            "Today",
-                                            "today"
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_vm._v("Today")]
-                                  )
-                            ]),
-                            _vm._v(" "),
-                            _c("li", [
                               _vm.forms.filterdate.value == "7days"
                                 ? _c(
                                     "a",
@@ -74827,6 +74425,40 @@ var render = function() {
                                       }
                                     },
                                     [_vm._v("Last 7 days")]
+                                  )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _vm.forms.filterdate.value == "14days"
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "form-overview-dropdown-active",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.onFilteringDeviceByOSByDate(
+                                            "Last 14 days",
+                                            "14days"
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 14 days")]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.onFilteringDeviceByOSByDate(
+                                            "Last 14 days ",
+                                            "14days"
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Last 14 days")]
                                   )
                             ]),
                             _vm._v(" "),
@@ -75058,6 +74690,40 @@ var staticRenderFns = [
       "a",
       { staticClass: "card-overview-device-icon card-overview-device-unknown" },
       [_c("span", { staticClass: "fas fa-question-circle" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-1@s"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-card uk-card-body uk-card-default card-overview-device"
+          },
+          [
+            _c(
+              "canvas",
+              {
+                attrs: {
+                  id: "chartPieSummaryClientAsVisitors",
+                  width: "400",
+                  height: "400"
+                }
+              },
+              [_vm._v("Unable to load chart")]
+            )
+          ]
+        )
+      ]
     )
   }
 ]
