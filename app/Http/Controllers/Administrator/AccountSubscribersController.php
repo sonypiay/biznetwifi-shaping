@@ -121,35 +121,13 @@ class AccountSubscribersController extends Controller
         $logs->log_type = 'Delete';
         $logs->save();
 
-        $this->timeout_socket = 3;
-        $radprimary = $this->check_connection('182.253.238.66', 3306);
-        $radbackup = $this->check_connection('202.169.53.9', 3306);
+        $this->delete_radcheck( '182.253.238.66:8080', $mac );
+        $query->delete();
 
-        if( $radprimary['status'] == null )
-        {
-          $this->delete_radcheck( '182.253.238.66:8080', $mac );
-          $query->delete();
-          $res = [
-            'status' => 200,
-            'statusText' => $mac . ' deleted.'
-          ];
-        }
-        else if( $radbackup['status'] == null )
-        {
-          $this->delete_radcheck( '202.169.53.9', $mac );
-          $query->delete();
-          $res = [
-            'status' => 200,
-            'statusText' => $mac . ' deleted.'
-          ];
-        }
-        else
-        {
-          $res = [
-            'status' => 500,
-            'statusText' => $radbackup['statusText']
-          ];
-        }
+        $res = [
+          'status' => 200,
+          'statusText' => $mac . ' deleted.'
+        ];
       }
       else
       {
@@ -162,19 +140,28 @@ class AccountSubscribersController extends Controller
     else
     {
       $account = $subscriber->select('mac_address','account_id')
-      ->where('account_id', $account_id)
-      ->get();
-      foreach( $account as $acc )
-      {
-        $this->delete_radcheck( '182.253.238.66:8080', $acc->mac_address );
-      }
-      
-      $massdelete = $subscriber->where('account_id', '=', $account_id)->delete();
+      ->where('account_id', $account_id);
 
-      $res = [
-        'status' => 200,
-        'statusText' => 'Mass delete successfully.'
-      ];
+      if( $account->count() != 0 )
+      {
+        foreach( $account->get() as $acc )
+        {
+          $this->delete_radcheck( '182.253.238.66:8080', $acc->mac_address );
+        }
+
+        $massdelete = $subscriber->where('account_id', '=', $account_id)->delete();
+        $res = [
+          'status' => 200,
+          'statusText' => 'Mass delete successfully.'
+        ];
+      }
+      else
+      {
+        $res = [
+          'status' => 200,
+          'statusText' => 'Whoops, ' . $account_id . ' not found.'
+        ];
+      }
     }
 
     return response()->json( $res, $res['status'] );
@@ -182,18 +169,7 @@ class AccountSubscribersController extends Controller
 
   public function bw_client_usage( Request $request, $mac )
   {
-    $this->timeout_socket = 3;
-    $radprimary = $this->check_connection('182.253.238.66', 3306);
-    $radbackup = $this->check_connection('202.169.53.9', 3306);
-
-    if( $radbackup['status'] == null )
-    {
-      $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
-    }
-    else
-    {
-      $data_bandwidth = $this->bandwidthClientUsage( '202.169.53.9', $mac, $request );
-    }
+    $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
     return response()->json( $data_bandwidth );
   }
 }
