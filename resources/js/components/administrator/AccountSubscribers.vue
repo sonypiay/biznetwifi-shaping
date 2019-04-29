@@ -2,28 +2,79 @@
   <div>
     <div class="uk-modal-full" id="modal" uk-modal>
       <div class="uk-modal-dialog">
-        <!--<a class="uk-modal-close-full uk-close" uk-close></a>-->
         <div class="uk-modal-body modal-body-analytic uk-height-viewport">
           <div class="uk-container">
-            <div class="modal-heading-analytic">Analytic Data - <span class="uk-text-uppercase">{{ devices.bandwidth.mac_address }}</span></div>
+            <div class="modal-heading-analytic">Client Details Report</div>
             <div class="uk-margin">
-              <button class="uk-margin-small-left uk-button uk-button-default uk-button-small modal-button-analytic" @click="getBandwidthUsageClient(devices.bandwidth.mac_address)"><i class="fas fa-sync-alt"></i></button>
+              <button class="uk-margin-small-left uk-button uk-button-default uk-button-small modal-button-analytic" @click="getBandwidthUsageClient( clients_detail )"><i class="fas fa-sync-alt"></i></button>
               <button class="uk-button uk-button-default uk-button-small uk-modal-close modal-button-analytic"><i class="fas fa-times"></i></button>
             </div>
-            <div class="uk-margin uk-grid-medium uk-flex-center" uk-grid>
-              <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s">
-                <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
-                  <div class="uk-card-title modal-card-analytic-title">Total Bandwidth Usage</div>
-                  <canvas id="canvas_total_bandwidth_usage"></canvas>
-                </div>
-              </div>
-              <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-1@s">
-                <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
-                  <div class="uk-card-title modal-card-analytic-title">Current Bandwidth Usage</div>
-                  <canvas id="canvas_current_bandwidth_usage"></canvas>
-                </div>
-              </div>
+            <div class="uk-margin uk-grid-small uk-grid-match" uk-grid>
               <div class="uk-width-1-1">
+                <div class="uk-grid-small uk-flex-center" uk-grid>
+                  <div class="uk-width-2-3@xl uk-width-2-3@l uk-width-1-2@m uk-width-1-2@s">
+                    <div class="uk-card uk-card-body uk-card-default modal-card-detailclients">
+                      <div class="uk-card-title uk-margin-bottom modal-card-detailclients-heading">Detail Client</div>
+                      <div class="uk-grid-match uk-grid-small" uk-grid>
+                        <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-width-1-2@s">
+                          <div class="uk-tile uk-tile-default uk-padding-small uk-text-center modal-card-detailclients-icon">
+                            <div class="uk-position-center">
+                              <span v-if="clients_detail.device_agent === 'ANDROID'" class="fab fa-android"></span>
+                              <span v-else-if="clients_detail.device_agent === 'iOS'" class="fab fa-apple"></span>
+                              <span v-else-if="clients_detail.device_agent === 'PC/LAPTOP'" class="fas fa-laptop"></span>
+                              <span v-else class="fas fa-question-circle"></span>
+                              <div class="modal-card-detailclients-osname">{{ clients_detail.device_agent }}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="uk-width-expand">
+                          <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s">
+                              <div class="modal-card-detailclients-label">Account ID:</div>
+                            </div>
+                            <div class="uk-width-expand">
+                              <div class="modal-card-detailclients-value">{{ clients_detail.account_id }}</div>
+                            </div>
+                          </div>
+                          <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s">
+                              <div class="modal-card-detailclients-label">Mac Address:</div>
+                            </div>
+                            <div class="uk-width-expand">
+                              <div class="modal-card-detailclients-value">{{ clients_detail.mac_address }}</div>
+                            </div>
+                          </div>
+                          <div class="uk-grid-small" uk-grid>
+                            <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-wdith-1-1@s">
+                              <div class="modal-card-detailclients-label">Last Connected:</div>
+                            </div>
+                            <div class="uk-width-expand">
+                              <div class="modal-card-detailclients-value">{{ $root.formatDate( clients_detail.login_date, 'MMM DD, YYYY HH:mm' ) }}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-1@m uk-width-1-1@s">
+                <div class="uk-grid-small" uk-grid>
+                  <div class="uk-width-1-1">
+                    <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
+                      <div class="uk-card-title modal-card-analytic-title">Total Bandwidth Usage</div>
+                      <canvas id="canvas_total_bandwidth_usage"></canvas>
+                    </div>
+                  </div>
+                  <div class="uk-width-1-1">
+                    <div class="uk-card uk-card-default uk-card-body modal-card-analytic">
+                      <div class="uk-card-title modal-card-analytic-title">Current Bandwidth Usage</div>
+                      <canvas id="canvas_current_bandwidth_usage"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="uk-width-expand">
                 <div class="uk-card uk-card-default uk-card-body">
                   <div class="uk-width-1-1 uk-text-left uk-inline">
                     <button class="uk-button uk-button-default modal-button-form-analytic" type="button">
@@ -58,7 +109,7 @@
                       </ul>
                     </div>
                   </div>
-                  <canvas id="canvas_bandwidth_usage_perday" width="200" height="70"></canvas>
+                  <canvas id="canvas_bandwidth_usage_perday" width="300" height="150"></canvas>
                 </div>
               </div>
             </div>
@@ -113,7 +164,7 @@
           </div>
           <div v-if="devices.loading === true" class="uk-text-center" v-html="devices.loadingContent"></div>
         </div>
-        <div class="uk-overflow-auto">
+        <div class="uk-margin uk-overflow-auto">
           <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
             <thead>
               <tr>
@@ -128,7 +179,7 @@
               <tr v-for="device in devices.result">
                 <td>
                   <a @click="deleteDevice(device.account_id, device.mac_address)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: Delete" uk-icon="trash"></a>
-                  <a @click="getBandwidthUsageClient(device.mac_address)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: View"><span class="fas fa-chart-bar"></span></a>
+                  <a @click="getBandwidthUsageClient(device)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: View"><span class="fas fa-chart-bar"></span></a>
                 </td>
                 <td>{{ device.account_id }}</td>
                 <td>{{ device.mac_address }}</td>
@@ -195,7 +246,6 @@ export default {
           unknown: 0
         },
         bandwidth: {
-          mac_address: '',
           total_usage: {
             download: 0,
             upload: 0
@@ -209,6 +259,12 @@ export default {
         loading: false,
         loadingContent: ''
       },
+      clients_detail: {
+        account_id: '',
+        mac_address: '',
+        device_agent: '',
+        login_date: new Date(),
+      },
       errors: {}
     }
   },
@@ -221,28 +277,30 @@ export default {
     {
       this.forms.filterdate.text = str;
       this.forms.filterdate.value = val;
-      this.getBandwidthUsageClient( this.devices.bandwidth.mac_address );
+      this.getBandwidthUsageClient( this.clients_detail );
     },
     deleteDevice(account_id, mac_address)
     {
       swal({
-        title: 'Are you sure?',
-        text: 'MAC ' + mac_address + ' will be delete permanent.',
-        icon: 'warning',
+        text: 'Choose delete methods',
         dangerMode: true,
         buttons: {
-          cancel: 'No',
-          confirm: {
-            text: 'Sure',
-            value: true
+          cancel: 'Cancel',
+          singleDelete: {
+            value: 'single',
+            text: 'Delete'
+          },
+          multipleDelete: {
+            value: 'multiple',
+            text: 'Mass Delete'
           }
         }
       }).then( val => {
-        if( val )
+        if( val === 'single' )
         {
           axios({
             method: 'delete',
-            url: this.url + 'admin/delete/devices/' + account_id + '/' + mac_address,
+            url: this.url + 'admin/delete/devices/' + account_id + '/single/' + mac_address,
             headers: { 'Content-Type': 'application/json' }
           }).then( res => {
             swal({
@@ -259,6 +317,49 @@ export default {
               dangerMode: true
             });
           });
+        }
+        else if( val === 'multiple' )
+        {
+          swal({
+            title: 'Are you sure?',
+            text: 'All devices will be deleted permanently.',
+            icon: 'warning',
+            dangerMode: true,
+            buttons: {
+              cancel: 'Cancel',
+              confirm: {
+                value: true,
+                text: 'Yes'
+              }
+            }
+          }).then( willDelete => {
+            if( willDelete )
+            {
+              axios({
+                method: 'delete',
+                url: this.url + 'admin/delete/devices/' + account_id + '/mass',
+                headers: { 'Content-Type': 'application/json' }
+              }).then( res => {
+                swal({
+                  title: 'Success',
+                  text: 'All devices has been deleted successfully',
+                  icon: 'success'
+                });
+                this.getAccountSubscribers();
+              }).catch( err => {
+                swal({
+                  title: 'Whoops',
+                  text: 'An error has occured. ' + err.response.statusText,
+                  icon: 'warning',
+                  dangerMode: true
+                });
+              });
+            }
+          });
+        }
+        else
+        {
+
         }
       });
     },
@@ -302,13 +403,17 @@ export default {
         this.errors.load_data = err.response.statusText;
       });
     },
-    getBandwidthUsageClient(mac)
+    getBandwidthUsageClient( clients )
     {
-      this.devices.bandwidth.mac_address = mac;
+      this.clients_detail.account_id = clients.account_id;
+      this.clients_detail.device_agent = clients.device_agent;
+      this.clients_detail.mac_address = clients.mac_address;
+      this.clients_detail.date_registered = clients.login_date;
+
       UIkit.modal('#modal').show();
       axios({
         method: 'get',
-        url: this.url + 'admin/clients/bandwidth/' + mac + '?filterdate=' + this.forms.filterdate.value
+        url: this.url + 'admin/clients/summary/bandwidth/' + clients.mac_address + '?filterdate=' + this.forms.filterdate.value
       }).then( res => {
         let result = res.data;
         this.devices.bandwidth.current_usage = {
@@ -350,8 +455,8 @@ export default {
                 this.devices.bandwidth.total_usage.download
               ],
               backgroundColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)'
+                '#f15854',
+                '#5ba1e0'
               ],
               borderWidth: 1
             }]
@@ -394,8 +499,8 @@ export default {
                 this.devices.bandwidth.current_usage.download
               ],
               backgroundColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)'
+                '#f15854',
+                '#5ba1e0'
               ],
               borderWidth: 1
             }]
@@ -443,25 +548,25 @@ export default {
               {
                 label: 'Upload',
                 data: uploadUsage,
-                borderColor: 'rgba(255, 99, 132, 1)',
+                borderColor: '#f15854',
                 borderWidth: 2,
                 lineTension: 0.4,
                 fill: false,
                 pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(255, 99, 132, 1 )',
-                pointBorderColor: 'rgba(255, 99, 132, 1 )',
+                pointBackgroundColor: '#f15854',
+                pointBorderColor: '#f15854',
                 pointBorderWidth: 1
               },
               {
                 label: 'Download',
                 data: downloadUsage,
-                borderColor: 'rgba(54, 162, 235, 1)',
+                borderColor: '#5ba1e0',
                 borderWidth: 2,
                 fill: false,
                 lineTension: 0.4,
                 pointHitRadius: 1,
-                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-                pointBorderColor: 'rgba(54, 162, 235, 1)',
+                pointBackgroundColor: '#5ba1e0',
+                pointBorderColor: '#5ba1e0',
                 pointBorderWidth: 1
               }
             ]
@@ -508,7 +613,7 @@ export default {
                   beginAtZero: true,
                   userCallback: function(label, index, labels) {
                     if (Math.floor(label) === label) {
-                      return numeral(label).format('0.0 b');
+                      return numeral(label).format('0.00 b');
                     }
                   },
                 }

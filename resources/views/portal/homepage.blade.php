@@ -8,6 +8,7 @@
   <meta name="description" content="@lang('metaheader.description')">
   <meta name="keywords" content="@lang('metaheader.keywords')" />
   <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/logo/logo_biznet_wifi.ico') }}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ asset('vendor/uikit/css/uikit.min.css') }}" media="screen" />
   <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
 	<script src="{{ asset('vendor/uikit/js/uikit.min.js') }}"></script>
@@ -21,23 +22,23 @@
 <!-- nav offcanvas -->
 <section id="offcanvas-mobile" uk-offcanvas="overlay: true">
   <div class="uk-offcanvas-bar offcanvas-bar">
-    <div class="uk-inline">
+    <div class="uk-width-1-1 uk-inline">
       <!--<img class="uk-align-center logo-offcanvas" src="{{ asset('images/logo/biznetwifi_primary.png') }}" />-->
-      <a class="uk-text-uppercase uk-display-block lang-offcanvas"><div class="uk-float-right">{{ session()->get('session_locale') }} <span uk-icon="chevron-down"></span></div></a>
-      <div uk-dropdown="mode: click; pos: bottom" class="uk-margin-top lang-dropdown-offcanvas">
+      <a class="uk-text-uppercase uk-display-block lang-offcanvas">{{ session()->get('session_locale') }} <span uk-icon="chevron-down"></span></a>
+      <div uk-dropdown="mode: click; pos: bottom" class="uk-width-1-1 lang-dropdown-offcanvas">
         <ul class="uk-nav uk-dropdown-nav">
           <li class="lang-sub">
             @if( session()->get('session_locale') == 'id' )
-            <a class="lang-active-sub" onclick="change_locale.change('id')">ID</a>
+            <a class="lang-active-sub" onclick="change_locale.change('id')">Indonesia</a>
             @else
-            <a onclick="change_locale.change('id')">ID</a>
+            <a onclick="change_locale.change('id')">Indonesia</a>
             @endif
           </li>
           <li class="lang-sub">
             @if( session()->get('session_locale') == 'en' )
-            <a class="lang-active-sub" onclick="change_locale.change('en')">EN</a>
+            <a class="lang-active-sub" onclick="change_locale.change('en')">English</a>
             @else
-            <a onclick="change_locale.change('en')">EN</a>
+            <a onclick="change_locale.change('en')">English</a>
             @endif
           </li>
         </ul>
@@ -47,24 +48,6 @@
       <li><a href="{{ route('homepage') }}">Home</a></li>
       <li><a href="#">@lang('headermenu.lokasi')</a></li>
       <li><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login')</a></li>
-      <!--<li class="uk-parent"><a class="uk-text-uppercase">{{ session()->get('session_locale') }} <span class="uk-align-right" uk-icon="chevron-down"></span></a>
-        <ul class="uk-nav-sub nav-sub-offcanvas">
-          <li class="lang-sub">
-            @if( session()->get('session_locale') == 'id' )
-            <a class="lang-active-sub" onclick="change_locale.change('id')"><div>ID</div></a>
-            @else
-            <a onclick="change_locale.change('id')"><div>ID</div></a>
-            @endif
-          </li>
-          <li class="lang-sub">
-            @if( session()->get('session_locale') == 'en' )
-            <a class="lang-active-sub" onclick="change_locale.change('en')"><div>EN</div></a>
-            @else
-            <a onclick="change_locale.change('en')"><div>EN</div></a>
-            @endif
-          </li>
-        </ul>
-      </li>-->
     </ul>
   </div>
 </section>
@@ -105,7 +88,7 @@ var google_remarketing_only = true;
         <div class="footer-info">
           <div class="footer-heading">Biznet Fiber</div>
           <div class="footer-content">
-            Ajibarang | Amlapura (Karangasem) | Babat | Badung (Kuta) | BANDUNG | Bangil | Bangli | Banyuwangi | Batam | Batang | Bekasi | Besuki | Blitar | Blora | Bogor | Bojonegoro | Bondowoso | Boyolali | Brebes | Bumiayu | Cepu | Cianjur | Cibadak | Cicurug | Cikampek | Cimahi | Cirebon | Comal | Demak | DENPASAR | Depok | Gempol | Genteng | Gianyar | Glenmore | Gresik | Indramayu | Jajag | JAKARTA | JAMBI | Jember | Jimbaran | Jombang | Karangampel | Karawang | Kartasura | Kebumen | Kediri | Kendal | Kepanjen | Kertosono | Klaten | Kraksan | Krian | Kudus | Lamongan | Lawang | Lumajang | Madiun | Malang | Mojokerto | Muncar | Negara | Nganjuk | Ngawi | Ngopak | Padalarang | PADANG | Paiton | PALEMBANG | Pamanukan | Pasirian | Pasuruan | Pati | Pekalongan | Pemalang | Probolinggo | Purwakarta | Purwodadi | Purwokerto | Purworejo | Rogojampi | Salatiga | SEMARANG | Semarapura (Klungkung) | SERANG | Sidoarjo | Situbondo | Slawi | Sleman | Solo | Sragen | Sukabumi | SURABAYA | Tabanan | Tangerang | Tangerang Selatan | Tanggul | Tegal | Tulungagung | Turen | Ubud | Ungaran | Weleri | Wlingi | YOGYAKARTA
+            Ajibarang | Amlapura (Karangasem) | Babat | Badung (Kuta) | Bangil | Bangli | Banjar | Banjarsari | Banyuputih | Banyuwangi | BATAM | BATAM | Batang | Bekasi | Besuki | Blitar | Blora | Bogor | Bojonegoro | Bondowoso | Boyolali | Brebes | Bumiayu | Cepu | Ciamis | Cianjur | Cibadak | Cicurug | Cikampek | Cilacap | Cimahi | Cirebon | Comal | Demak | DENPASAR | Depok | Garut | Gempol | Genteng | Gianyar | Glenmore | Gresik | Indramayu | Jajag | JAKARTA | JAMBI | Jember | Jimbaran | Jombang | Karangampel | Karawang | Kartasura | Kebumen | Kediri | Kendal | Kepanjen | Kertosono | Ketapang | Klaten | Kraksan | Krian | Kudus | Lamongan | Lawang | Lumajang | Madiun | Malang | Mojokerto | Muncar | Negara | Nganjuk | Ngawi | Ngopak | Padalarang | PADANG | Paiton | PALEMBANG | Pamanukan | Pangandaran | Pasirian | Pasuruan | Pati | Pekalongan | Pemalang | Probolinggo | Purwakarta | Purwodadi | Purwokerto | Purworejo | Rogojampi | Salatiga | SEMARANG | Semarapura (Klungkung) | SERANG | Sidoarjo | Singaraja | Situbondo | Slawi | Sleman | Solo | Sragen | Sukabumi | SURABAYA | Tabanan | Tangerang | Tangerang Selatan | Tanggul | Tasikmalaya | Tegal | Tulungagung | Turen | Ubud | Ungaran | Weleri | Wlingi | YOGYAKARTA |
           </div>
         </div>
       </div>

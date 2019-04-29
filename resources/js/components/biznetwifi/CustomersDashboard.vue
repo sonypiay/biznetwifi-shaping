@@ -1,8 +1,7 @@
-<template lang="html">
+<template>
 <div>
   <!-- desktop -->
   <section class="uk-cover-container uk-visible@s banner-hmpg-customer">
-    <img :src="url + '/images/banner/banner3.jpg'" alt="banner 3" uk-cover>
     <div class="uk-overlay uk-position-cover uk-light banner-hmpg-overlay">
       <div class="uk-container">
         <div class="uk-position-center">
@@ -10,9 +9,7 @@
             <span class="fas fa-user-circle"></span>
           </div>
           <div class="uk-text-center welcome-customer-name">Hi, {{ datauser.displayname }}</div>
-          <div v-show="datauser.customer_id">
-            <div class="uk-text-center desktop-customer-id">{{ datauser.customer_id }}</div>
-          </div>
+          <div class="uk-text-center uk-margin desktop-customer-id">{{ connectlocale.biznetwifi.connected }}</div>
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
-<template lang="html">
+<template>
 <div>
   <div class="uk-cover-container coverbannerhomepage">
-    <img :src="url + '/images/banner/Banner1.jpg'" alt="banner_hotspot_1" uk-cover>
+    <img :src="url + '/images/banner/Banner2.jpg'" alt="banner_hotspot_1" uk-cover>
     <!--<img :src="url + '/images/banner/plazaindonesia/PI_mobile_2.png'" alt="" uk-cover>-->
-    <div class="uk-overlay uk-overlay-primary uk-position-cover banner_ovlay_homepage">
+    <div class="uk-overlay uk-position-cover banner_ovlay_homepage">
       <div class="uk-position-top-left">
         <div class="uk-card uk-card-body uk-card-small banner_ovlay_content">
           <h1>Biznet Wifi</h1>
@@ -14,6 +14,37 @@
       </div>
     </div>
   </div>
+  <!--
+  <div class="uk-card uk-card-body section-howto-use">
+    <div class="uk-container">
+      <div class="uk-margin section-heading-howto">Cara Penggunaan</div>
+      <div class="uk-grid-medium uk-grid-match uk-flex-center" uk-grid>
+        <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-width-1-1@s">
+          <div class="uk-tile uk-tile-default section-grid-howto">
+            <div class="uk-text-center uk-margin section-howto-icon"><span class="fas fa-wifi"></span></div>
+            <div class="uk-text-center section-howto-title">Terhubung ke BiznetWifi</div>
+            <div class="uk-text-center section-howto-subtitle">
+              Koneksikan perangkat Anda ke jaringan SSID BiznetWifi
+            </div>
+          </div>
+        </div>
+        <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-width-1-1@s">
+          <div class="uk-tile uk-tile-default section-grid-howto">
+            <div class="uk-text-center uk-margin section-howto-icon"><span class="fas fa-wifi"></span></div>
+            <div class="uk-text-center section-howto-title"></div>
+            <div class="uk-text-center section-howto-subtitle">
+              Koneksikan perangkat Anda ke jaringan SSID BiznetWifi
+            </div>
+          </div>
+        </div>
+        <div class="uk-width-1-3@xl uk-width-1-3@l uk-width-1-3@m uk-width-1-1@s">
+          <div class="uk-tile uk-tile-default section-grid-howto">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
   <div class="section-banner-biznethome">
     <div class="uk-grid-collapse uk-grid-match" uk-grid>
       <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s uk-visible@s">

@@ -42,7 +42,7 @@ class PortalController extends Controller
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
-      $request->session()->put('ap', $ap);
+      $request->session()->put('ap', 'mikrotik');
       $request->session()->put('location_id', $location);
       $request->session()->put('client_mac', $client_mac);
       $request->session()->put('uip', $uip);
@@ -90,7 +90,7 @@ class PortalController extends Controller
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
-	  $convert_location_id = hex2bin( $location );
+      $convert_location_id = hex2bin( $location );
       $request->session()->put('ap', $ap);
       $request->session()->put('location_id', $convert_location_id);
       $request->session()->put('client_mac', $client_mac);
@@ -120,14 +120,15 @@ class PortalController extends Controller
   public function afterlogin( Request $request, AccountSubscriber $subscriber, ClientsUsage $clientusage )
   {
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
-    $client_mac = strtoupper( $request->session()->get('client_mac') );
+    $client_mac = strtolower( $request->session()->get('client_mac') );
 
     $clientIfExists = $clientusage->select(
       'client_mac',
       DB::raw('date_format(created_at, "%Y-%m-%d") as start_connected'),
       DB::raw('date_format(updated_at, "%Y-%m-%d") as last_connected')
     )
-    ->where('client_mac', '=', $client_mac);
+    ->where('client_mac', '=', $client_mac)
+    ->orderBy(DB::raw('date_format(updated_at, "%Y-%m-%d")'), 'desc');
     if( $clientIfExists->count() != 0 )
     {
       $clients = $clientIfExists->first();
@@ -138,23 +139,23 @@ class PortalController extends Controller
           [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', date('Y-m-d')]
         ])->first();
         $updated->client_ip = $request->session()->get('uip');
-        $updated->client_mac = $request->session()->get('client_mac');
+        $updated->client_mac = $client_mac;
         $updated->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
         $updated->location_id = $request->session()->get('location_id');
         $updated->connection_type = $connection_type;
         $updated->ap = $request->session()->get('ap');
-        $updated->updated_at = date('Y-m-d H:i:s');
         $updated->save();
       }
       else
       {
         $clients = new $clientusage;
         $clients->client_ip = $request->session()->get('uip');
-        $clients->client_mac = $request->session()->get('client_mac');
+        $clients->client_mac = $client_mac;
         $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
         $clients->location_id = $request->session()->get('location_id');
         $clients->connection_type = $connection_type;
         $clients->ap = $request->session()->get('ap');
+        $clients->updated_at = date('Y-m-d H:i:s');
         $clients->save();
       }
     }
@@ -162,11 +163,12 @@ class PortalController extends Controller
     {
       $clients = new $clientusage;
       $clients->client_ip = $request->session()->get('uip');
-      $clients->client_mac = $request->session()->get('client_mac');
+      $clients->client_mac = $client_mac;
       $clients->client_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
       $clients->location_id = $request->session()->get('location_id');
       $clients->connection_type = $connection_type;
       $clients->ap = $request->session()->get('ap');
+      $clients->updated_at = date('Y-m-d H:i:s');
       $clients->save();
     }
 
@@ -194,53 +196,37 @@ class PortalController extends Controller
           ['account_id', $username],
           ['mac_address', $mac]
         ]);
-        $getlastmac = $checksubs->orderBy('login_date', 'asc')->first();
+        $getlastmac = $subscriber->where('account_id', $username)
+        ->orderBy('login_date', 'asc')->first();
 
-        if( $checksubs->count() == 0 )
+        if( $checkmacaddress->count() == 0 )
         {
           $this->timeout_socket = 2;
           $radprimary = $this->check_connection('182.253.238.66', 3306);
           $radbackup = $this->check_connection('202.169.53.9', 3306);
-          if( $radprimary['status'] == null )
+
+          if( $checksubs->count() == 4 )
           {
             $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+            $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
+            if( $checkmacaddress->count() == 0 )
+            {
+              $subscriber->account_id = $username;
+              $subscriber->mac_address = $mac;
+              $subscriber->login_date = date('Y-m-d H:i:s');
+              $subscriber->device_agent = $this->userAgent( $agent );
+              $subscriber->save();
+
+              $deletedevice = $subscriber->where('mac_address', '=', $getlastmac->mac_address);
+              if( $deletedevice->count() != 0 )
+              {
+                $deletedevice->delete();
+              }
+            }
           }
           else
           {
-            $this->add_radcheck( '202.169.53.9', $mac, $username );
-          }
-
-          if( $checkmacaddress->count() == 0 )
-          {
-            $subscriber->account_id = $username;
-            $subscriber->mac_address = $mac;
-            $subscriber->login_date = date('Y-m-d H:i:s');
-            $subscriber->device_agent = $this->userAgent( $agent );
-            $subscriber->save();
-          }
-          $subscriber->where([
-            ['username', '=', $username],
-            ['mac_address', '=', $getlastmac->mac_address]
-          ])->delete();
-        }
-        else
-        {
-          if( $checksubs->count() >= 4 )
-          {
-            $this->timeout_socket = 2;
-            $radprimary = $this->check_connection('182.253.238.66', 3306);
-            $radbackup = $this->check_connection('202.169.53.9', 3306);
-            if( $radprimary['status'] == null )
-            {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
-            }
-            else
-            {
-              $this->add_radcheck( '202.169.53.9', $mac, $username );
-              $this->delete_radcheck( '202.169.53.9', $getlastmac->mac_address );
-            }
-
+            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
             if( $checkmacaddress->count() == 0 )
             {
               $subscriber->account_id = $username;
@@ -249,11 +235,11 @@ class PortalController extends Controller
               $subscriber->device_agent = $this->userAgent( $agent );
               $subscriber->save();
             }
-            $subscriber->where([
-              ['username', '=', $username],
-              ['mac_address', '=', $getlastmac->mac_address]
-            ])->delete();
           }
+        }
+        else
+        {
+          $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
         }
         return redirect()->route('hmpgcustomer');
       }

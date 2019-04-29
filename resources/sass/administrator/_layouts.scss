@@ -67,6 +67,40 @@ html {
   @include globalfontstyle(600, normal, normal, 0.6px);
 }
 .content-data {
+  .nav-datepicker {
+    li {
+      a {
+        background: #f9f9f9;
+        color: #666666;
+        border-radius: 4px;
+        margin-bottom: 5px;
+        padding: 6px 12px;
+        font-family: $font-primary;
+        @include globalfontstyle(400, normal, normal, 0.6px);
+        font-size: 12px;
+      }
+      .nav-active {
+        background: $primary-color;
+        color: #ffffff;
+      }
+    }
+  }
+  .button-datepicker {
+    background: #f9f9f9;
+    color: #666666;
+    font-family: $font-primary;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-size: 12px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    text-transform: capitalize;
+    box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    &:hover, &:focus {
+      background: $primary-color;
+      color: #ffffff;
+      border: 1px solid $primary-color;
+    }
+  }
   .form-content-select {
     border: 1px solid #eeeeee;
     border-radius: 30px;
@@ -82,6 +116,18 @@ html {
   .form-content-input {
     border: 1px solid #eeeeee;
     border-radius: 30px;
+    color: #666666;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 12px;
+    &:hover, &:focus {
+      border: 1px solid $primary-color;
+      box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+    }
+  }
+  .form-content-datepicker {
+    border: 1px solid #eeeeee;
+    border-radius: 3px;
     color: #666666;
     @include globalfontstyle(400, normal, normal, 0.6px);
     font-family: $font-primary;
@@ -407,4 +453,82 @@ html {
       }
     }
   }
+}
+.modal-card-detailclients {
+  background: #5ba1e0;
+  .modal-card-detailclients-icon {
+    background: none;
+    span { font-size: 52px; color: #666666; }
+    .modal-card-detailclients-osname {
+      color: #ffffff;
+      @include globalfontstyle(600, normal, normal, 0.6px);
+      font-family: $font-primary;
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  }
+  .modal-card-detailclients-heading {
+    color: #ffffff;
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 24px;
+  }
+  .modal-card-detailclients-label {
+    color: #dddddd;
+    @include globalfontstyle(700, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 16px;
+  }
+  .modal-card-detailclients-value {
+    color: #ffffff;
+    @include globalfontstyle(400, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 14px;
+  }
+}
+
+.card-bandwidth {
+  border-radius: 4px;
+  .card-bandwidth-heading {
+    @include globalfontstyle(600, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 16px;
+    color: #666666;
+  }
+  .card-bandwidth-icon {
+    text-align: center;
+    color: #333333;
+    .icon-upload { color: #f15854; }
+    .icon-download { color: #5ba1e0; }
+  }
+  .card-bandwidth-text {
+    text-align: center;
+    @include globalfontstyle(300, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 32px;
+    color: #666666;
+    .card-bandwidth-text-upload { color: #f15854 !important; }
+    .card-bandwidth-text-download { color: #5ba1e0 !important; }
+  }
+  .card-bandwidth-subtext {
+    text-align: center;
+    @include globalfontstyle(300, normal, normal, 0.6px);
+    font-family: $font-primary;
+    font-size: 16px;
+    color: #999999;
+  }
+}
+.card-bandwidth-upload {
+  background: #f15854;
+  .card-bandwidth-heading { color: #ffffff; }
+  .card-bandwidth-text { color: #ffffff !important; }
+  .card-bandwidth-subtext { color: #ffffff; }
+  .card-bandwidth-icon { color: #ffffff; }
+}
+.card-bandwidth-download {
+  background: #5ba1e0;
+  .card-bandwidth-heading { color: #ffffff; }
+  .card-bandwidth-text { color: #ffffff !important; }
+  .card-bandwidth-subtext { color: #ffffff; }
+  .card-bandwidth-icon { color: #ffffff; }
 }

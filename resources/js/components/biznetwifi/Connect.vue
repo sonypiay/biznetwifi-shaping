@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div>
     <div id="loginCustomer" class="uk-modal-full" uk-modal="esc-close: false;">
       <div class="uk-modal-dialog modal-dialog">
@@ -219,8 +219,7 @@ export default {
         console.log( err.response.statusText );
       });
     }
-  },
-  mounted() {}
+  }
 }
 </script>
 

@@ -18,6 +18,7 @@ use DateInterval;
 class DashboardController extends Controller
 {
   use CustomFunction;
+  use RadiusAPI;
 
   public function index( Request $request )
   {
@@ -61,81 +62,17 @@ class DashboardController extends Controller
     return response()->json( $res );
   }
 
-  public function summaryDeviceClientAsVisitor( Request $request, ClientsUsage $clients )
+  public function summaryDeviceClientCurrentVisitor( Request $request, ClientsUsage $clients )
   {
-    $filterdate = isset( $request->filterdate ) ? $request->filterdate : 'today';
-
-    if( $filterdate == 'today' )
-    {
-      $today = new DateTime('today');
-      $totalDeviceConnected = $clients->select(
-        'client_os',
-        DB::raw('count(*) as total_device')
-      )->where([
-        ['connection_type', '=', 'visitor'],
-        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today->format('Y-m-d')]
-      ])->groupBy('client_os')
-      ->orderBy(DB::raw('count(*)'), 'desc');
-    }
-    else
-    {
-      if( $filterdate == 'this_month' OR $filterdate == 'last_month' )
-      {
-        if( $filterdate == 'this_month' )
-        {
-          $currentMonth = new DateTime( 'first day of this month' );
-        }
-        else
-        {
-          $currentMonth = new DateTime( 'first day of last month' );
-        }
-
-        $totalDeviceConnected = $clients->select(
-          'client_os',
-          DB::raw('count(*) as total_device')
-        )->where([
-          ['connection_type', '=', 'visitor'],
-          [DB::raw('date_format(updated_at, "%Y-%m")'), '=', $currentMonth->format('Y-m')]
-        ])
-        ->groupBy('client_os')
-        ->orderBy(DB::raw('count(*)'), 'desc');
-      }
-      else
-      {
-        if( $filterdate == '7days' )
-        {
-          $previousDate = new DateTime('7 days ago');
-        }
-        else if( $filterdate == '28days' )
-        {
-          $previousDate = new DateTime('28 days ago');
-        }
-        else
-        {
-          $previousDate = new DateTime('30 days ago');
-        }
-        $currentDate = new DateTime('today');
-        $interval = new DateInterval('P1D');
-        $period = new DatePeriod( $previousDate, $interval, $currentDate );
-        $rangeDate = [];
-        foreach( $period as $date )
-        {
-          $rangeDate[] = [
-            'dateValue' => $date->format('Y-m-d'),
-            'formatDate' => $date->format('M d, Y')
-          ];
-        }
-        $getFirstDay = $rangeDate[0];
-        $getLastDay = end( $rangeDate );
-
-        $totalDeviceConnected = $clients->select(
-          'client_os',
-          DB::raw('count(*) as total_device')
-        )->where('connection_type', '=', 'visitor')->groupBy('client_os')
-        ->whereBetween(DB::raw('date_format(updated_at, "%Y-%m-%d")'), [$getFirstDay, $getLastDay])
-        ->orderBy(DB::raw('count(*)'), 'desc');
-      }
-    }
+    $today = new DateTime('today');
+    $totalDeviceConnected = $clients->select(
+      'client_os',
+      DB::raw('count(*) as total_device')
+    )->where([
+      ['connection_type', '=', 'visitor'],
+      [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $today->format('Y-m-d')]
+    ])->groupBy('client_os')
+    ->orderBy(DB::raw('count(*)'), 'desc');
 
     $res = [
       'results' => [
@@ -152,52 +89,7 @@ class DashboardController extends Controller
     $filterdevice = isset( $request->filterdevice ) ? $request->filterdevice : 'all';
     $dataset = [];
 
-    if( $filterdate == 'today' )
-    {
-      $currentTime = new DateTime( 'today' );
-      $ios = $clients->where([
-        ['client_os', '=', 'ios'],
-        ['connection_type', '=', 'visitor'],
-        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
-      ])->count();
-      $android = $clients->where([
-        ['client_os', '=', 'Android'],
-        ['connection_type', '=', 'visitor'],
-        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
-      ])->count();
-      $windows = $clients->where([
-        ['client_os', '=', 'Windows'],
-        ['connection_type', '=', 'visitor'],
-        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
-      ])->count();
-      $linux = $clients->where([
-        ['client_os', '=', 'Linux'],
-        ['connection_type', '=', 'visitor'],
-        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
-      ])->count();
-      $macos = $clients->where([
-        ['client_os', '=', 'Mac OS'],
-        ['connection_type', '=', 'visitor'],
-        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
-      ])->count();
-      $other = $clients->where([
-        ['client_os', '=', 'Other'],
-        ['connection_type', '=', 'visitor'],
-        [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $currentTime->format('Y-m-d')]
-      ])->count();
-      $dataset = [
-        'date' => $currentTime->format('F d, Y'),
-        'os' => [
-          'ios' => [ 'total' => $ios, 'label' => 'iOS' ],
-          'android' => [ 'total' => $android, 'label' => 'Android' ],
-          'windows' => [ 'total' => $windows, 'label' => 'Windows' ],
-          'linux' => [ 'total' => $linux, 'label' => 'Linux' ],
-          'macos' => [ 'total' => $macos, 'label' => 'Mac OS' ],
-          'other' => [ 'total' => $other, 'label' => 'Other' ]
-        ]
-      ];
-    }
-    else if( $filterdate == 'this_month' OR $filterdate == 'last_month' )
+    if( $filterdate == 'this_month' OR $filterdate == 'last_month' )
     {
       if( $filterdate == 'this_month' )
       {
@@ -215,6 +107,7 @@ class DashboardController extends Controller
       $interval = new DateInterval('P1D');
       $period = new DatePeriod( $currentMonth, $interval, $endMonth );
       $rangeDate = [];
+
       foreach( $period as $date )
       {
         $rangeDate[] = [
@@ -222,6 +115,7 @@ class DashboardController extends Controller
           'formatDate' => $date->format('M d, Y')
         ];
       }
+
       foreach( $rangeDate as $key => $value )
       {
         $ios = $clients->where([
@@ -255,7 +149,7 @@ class DashboardController extends Controller
           [DB::raw('date_format(updated_at, "%Y-%m-%d")'), '=', $value['dateValue']]
         ])->count();
         $dataset['records'][] = [
-          'date' => $value['dateValue'],
+          'date' => $value['formatDate'],
           'os' => [
             'ios' => [ 'total' => $ios, 'label' => 'iOS' ],
             'android' => [ 'total' => $android, 'label' => 'Android' ],
@@ -332,6 +226,10 @@ class DashboardController extends Controller
       {
         $previousDate = new DateTime('7 days ago');
       }
+      else if( $filterdate == '14days' )
+      {
+        $previousDate = new DateTime('14 days ago');
+      }
       else if( $filterdate == '28days' )
       {
         $previousDate = new DateTime('28 days ago');
@@ -340,6 +238,7 @@ class DashboardController extends Controller
       {
         $previousDate = new DateTime('30 days ago');
       }
+
       $currentDate = new DateTime('today');
       $interval = new DateInterval('P1D');
       $period = new DatePeriod( $previousDate, $interval, $currentDate );
@@ -396,7 +295,6 @@ class DashboardController extends Controller
         ];
       }
     }
-
     return response()->json( $dataset );
   }
 }

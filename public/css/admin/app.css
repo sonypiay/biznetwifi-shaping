@@ -1,9 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Arimo:400,700);@import url(https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800);.loginform {
-  border: 0;
-  border-bottom: 1px solid #e9e9e9;
+  border: 1px solid #e9e9e9;
   font-family: "Nunito Sans", sans-serif;
   color: #666666;
   font-size: 12px;
+  border-radius: 30px;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -13,10 +13,14 @@
 .loginform:hover,
 .loginform:focus {
   color: #da068c;
-  border-bottom: 1px solid #da068c;
+  border: 1px solid #da068c;
 }
 
 .loginform::-webkit-input-placeholder {
+  color: #aaaaaa;
+}
+
+.loginform:-ms-input-placeholder {
   color: #aaaaaa;
 }
 
@@ -54,8 +58,7 @@ html {
 
 .login-container {
   border-radius: 4px;
-  -webkit-box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.06);
-          box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.06);
 }
 
 .login-container .login-heading {
@@ -71,8 +74,7 @@ html {
 
 .headertop {
   background: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .headertop .navbarlogo {
@@ -132,6 +134,47 @@ html {
   letter-spacing: 0.6px;
 }
 
+.content-data .nav-datepicker li a {
+  background: #f9f9f9;
+  color: #666666;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  padding: 6px 12px;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-size: 12px;
+}
+
+.content-data .nav-datepicker li .nav-active {
+  background: #da068c;
+  color: #ffffff;
+}
+
+.content-data .button-datepicker {
+  background: #f9f9f9;
+  color: #666666;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-size: 12px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  text-transform: capitalize;
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.content-data .button-datepicker:hover,
+.content-data .button-datepicker:focus {
+  background: #da068c;
+  color: #ffffff;
+  border: 1px solid #da068c;
+}
+
 .content-data .form-content-select {
   border: 1px solid #eeeeee;
   border-radius: 30px;
@@ -147,8 +190,7 @@ html {
 .content-data .form-content-select:hover,
 .content-data .form-content-select:focus {
   border: 1px solid #da068c;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data .form-content-input {
@@ -166,8 +208,25 @@ html {
 .content-data .form-content-input:hover,
 .content-data .form-content-input:focus {
   border: 1px solid #da068c;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+}
+
+.content-data .form-content-datepicker {
+  border: 1px solid #eeeeee;
+  border-radius: 3px;
+  color: #666666;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 12px;
+}
+
+.content-data .form-content-datepicker:hover,
+.content-data .form-content-datepicker:focus {
+  border: 1px solid #da068c;
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data .form-content-button {
@@ -189,16 +248,14 @@ html {
   border: 1px solid #da068c;
   background: #da068c;
   color: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data .form-content-dropdown {
   height: 200px;
   overflow: hidden;
   padding: 0;
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .content-data .form-content-dropdown:hover {
@@ -266,8 +323,7 @@ html {
   text-decoration: none;
   border-radius: 4px !important;
   background: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
   color: #666666;
   border: 1px solid #eeeeee;
   font-weight: 400;
@@ -288,8 +344,7 @@ html {
 
 .content-data-modal {
   border-radius: 6px;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data-modal h3 {
@@ -319,8 +374,7 @@ html {
 .content-data-modal .form-modal-select:hover,
 .content-data-modal .form-modal-select:focus {
   border: 1px solid #da068c;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .content-data-modal .form-modal-button {
@@ -342,8 +396,7 @@ html {
   border: 1px solid #da068c;
   background: #da068c;
   color: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .dashboard-container .subheading-dashboard {
@@ -368,15 +421,13 @@ html {
 
 .dashboard-container .card-overview-device {
   text-align: center;
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
   background: #ffffff;
   border-radius: 5px;
 }
 
 .dashboard-container .card-overview-device:hover {
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-container .card-overview-device .card-overview-device-icon {
@@ -442,16 +493,14 @@ html {
   border: 1px solid #da068c;
   background: #da068c;
   color: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .dashboard-container .card-overview-device .form-overview-dropdown {
   height: 200px;
   overflow: hidden;
   padding: 0;
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-container .card-overview-device .form-overview-dropdown:hover {
@@ -496,8 +545,7 @@ html {
 
 .modal-body-analytic .modal-button-analytic {
   border-radius: 4px;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
   background: #ffffff;
   border: 0;
   color: #666666;
@@ -516,8 +564,7 @@ html {
 
 .modal-body-analytic .modal-card-analytic {
   border-radius: 4px;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .modal-body-analytic .modal-card-analytic-title {
@@ -550,16 +597,14 @@ html {
   border: 1px solid #da068c;
   background: #da068c;
   color: #ffffff;
-  -webkit-box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 5px 5px 25px 0 rgba(0, 0, 0, 0.05);
 }
 
 .modal-body-analytic .modal-dropdown-analytic-form {
   height: 200px;
   overflow: hidden;
   padding: 0;
-  -webkit-box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
-          box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
 }
 
 .modal-body-analytic .modal-dropdown-analytic-form:hover {
@@ -586,5 +631,156 @@ html {
 .modal-body-analytic .modal-dropdown-analytic-form ul li .modal-button-form-analytic-active {
   border-left: 2px solid #da068c;
   color: #da068c;
+}
+
+.modal-card-detailclients {
+  background: #5ba1e0;
+}
+
+.modal-card-detailclients .modal-card-detailclients-icon {
+  background: none;
+}
+
+.modal-card-detailclients .modal-card-detailclients-icon span {
+  font-size: 52px;
+  color: #666666;
+}
+
+.modal-card-detailclients .modal-card-detailclients-icon .modal-card-detailclients-osname {
+  color: #ffffff;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.modal-card-detailclients .modal-card-detailclients-heading {
+  color: #ffffff;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 24px;
+}
+
+.modal-card-detailclients .modal-card-detailclients-label {
+  color: #dddddd;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+}
+
+.modal-card-detailclients .modal-card-detailclients-value {
+  color: #ffffff;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
+}
+
+.card-bandwidth {
+  border-radius: 4px;
+}
+
+.card-bandwidth .card-bandwidth-heading {
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  color: #666666;
+}
+
+.card-bandwidth .card-bandwidth-icon {
+  text-align: center;
+  color: #333333;
+}
+
+.card-bandwidth .card-bandwidth-icon .icon-upload {
+  color: #f15854;
+}
+
+.card-bandwidth .card-bandwidth-icon .icon-download {
+  color: #5ba1e0;
+}
+
+.card-bandwidth .card-bandwidth-text {
+  text-align: center;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 32px;
+  color: #666666;
+}
+
+.card-bandwidth .card-bandwidth-text .card-bandwidth-text-upload {
+  color: #f15854 !important;
+}
+
+.card-bandwidth .card-bandwidth-text .card-bandwidth-text-download {
+  color: #5ba1e0 !important;
+}
+
+.card-bandwidth .card-bandwidth-subtext {
+  text-align: center;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.6px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  color: #999999;
+}
+
+.card-bandwidth-upload {
+  background: #f15854;
+}
+
+.card-bandwidth-upload .card-bandwidth-heading {
+  color: #ffffff;
+}
+
+.card-bandwidth-upload .card-bandwidth-text {
+  color: #ffffff !important;
+}
+
+.card-bandwidth-upload .card-bandwidth-subtext {
+  color: #ffffff;
+}
+
+.card-bandwidth-upload .card-bandwidth-icon {
+  color: #ffffff;
+}
+
+.card-bandwidth-download {
+  background: #5ba1e0;
+}
+
+.card-bandwidth-download .card-bandwidth-heading {
+  color: #ffffff;
+}
+
+.card-bandwidth-download .card-bandwidth-text {
+  color: #ffffff !important;
+}
+
+.card-bandwidth-download .card-bandwidth-subtext {
+  color: #ffffff;
+}
+
+.card-bandwidth-download .card-bandwidth-icon {
+  color: #ffffff;
 }
 
