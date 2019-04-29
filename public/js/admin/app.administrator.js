@@ -2046,22 +2046,24 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       swal({
-        title: 'Are you sure?',
-        text: 'MAC ' + mac_address + ' will be delete permanent.',
-        icon: 'warning',
+        text: 'Choose delete methods',
         dangerMode: true,
         buttons: {
-          cancel: 'No',
-          confirm: {
-            text: 'Sure',
-            value: true
+          cancel: 'Cancel',
+          singleDelete: {
+            value: 'single',
+            text: 'Delete'
+          },
+          multipleDelete: {
+            value: 'multiple',
+            text: 'Mass Delete'
           }
         }
       }).then(function (val) {
-        if (val) {
+        if (val === 'single') {
           axios({
             method: 'delete',
-            url: _this.url + 'admin/delete/devices/' + account_id + '/' + mac_address,
+            url: _this.url + 'admin/delete/devices/' + account_id + '/single/' + mac_address,
             headers: {
               'Content-Type': 'application/json'
             }
@@ -2081,7 +2083,46 @@ __webpack_require__.r(__webpack_exports__);
               dangerMode: true
             });
           });
-        }
+        } else if (val === 'multiple') {
+          swal({
+            title: 'Are you sure?',
+            text: 'All devices will be deleted permanently.',
+            icon: 'warning',
+            dangerMode: true,
+            buttons: {
+              cancel: 'Cancel',
+              confirm: {
+                value: true,
+                text: 'Yes'
+              }
+            }
+          }).then(function (willDelete) {
+            if (willDelete) {
+              axios({
+                method: 'delete',
+                url: _this.url + 'admin/delete/devices/' + account_id + '/mass',
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }).then(function (res) {
+                swal({
+                  title: 'Success',
+                  text: 'All devices has been deleted successfully',
+                  icon: 'success'
+                });
+
+                _this.getAccountSubscribers();
+              }).catch(function (err) {
+                swal({
+                  title: 'Whoops',
+                  text: 'An error has occured. ' + err.response.statusText,
+                  icon: 'warning',
+                  dangerMode: true
+                });
+              });
+            }
+          });
+        } else {}
       });
     },
     getAccountSubscribers: function getAccountSubscribers(pages) {
@@ -69993,7 +70034,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "uk-overflow-auto" }, [
+          _c("div", { staticClass: "uk-margin uk-overflow-auto" }, [
             _c(
               "table",
               {

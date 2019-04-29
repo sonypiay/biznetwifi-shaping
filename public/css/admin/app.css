@@ -1,9 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Arimo:400,700);@import url(https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800);.loginform {
-  border: 0;
-  border-bottom: 1px solid #e9e9e9;
+  border: 1px solid #e9e9e9;
   font-family: "Nunito Sans", sans-serif;
   color: #666666;
   font-size: 12px;
+  border-radius: 30px;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -13,7 +13,7 @@
 .loginform:hover,
 .loginform:focus {
   color: #da068c;
-  border-bottom: 1px solid #da068c;
+  border: 1px solid #da068c;
 }
 
 .loginform::-webkit-input-placeholder {
