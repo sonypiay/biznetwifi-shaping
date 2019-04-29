@@ -69,7 +69,7 @@ Route::group(['prefix' => 'admin'], function() {
     Route::put('admin_roles/{userid}', 'Administrator\AdminRolesController@update_role');
   });
   Route::group(['prefix' => 'delete'], function() {
-    Route::delete('devices/{account_id}/{mac}', 'Administrator\AccountSubscribersController@deleteDevice');
+    Route::delete('devices/{account_id}/{method}/{mac?}', 'Administrator\AccountSubscribersController@deleteDevice');
     Route::delete('admin_roles/{userid}', 'Administrator\AdminRolesController@delete_role');
   });
 });

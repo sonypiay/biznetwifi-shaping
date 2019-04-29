@@ -1,14 +1,14 @@
 // login form
 .loginform {
-  border: 0;
-  border-bottom: 1px solid #e9e9e9;
+  border: 1px solid #e9e9e9;
   font-family: $font-primary;
   color: #666666;
   font-size: 12px;
+  border-radius: 30px;
   @include globalfontstyle(400, normal, normal, 0.6px);
   &:hover, &:focus {
     color: $primary-color;
-    border-bottom: 1px solid $primary-color;
+    border: 1px solid $primary-color;
   }
   &::placeholder { color: #aaaaaa; }
 }

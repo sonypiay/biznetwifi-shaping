@@ -100,41 +100,30 @@ class AccountSubscribersController extends Controller
     return response()->json( $res, $res['status'] );
   }
 
-  public function deleteDevice( Request $request, AdminRoles $users, AccountSubscriber $subscriber, AdminLogActivity $log, $account_id, $mac )
+  public function deleteDevice( Request $request, AdminRoles $users, AccountSubscriber $subscriber, AdminLogActivity $log, $account_id, $method, $mac = null )
   {
-    $query = $subscriber->where([
-      ['account_id', '=', $account_id],
-      ['mac_address', '=', $mac]
-    ]);
-    if( $query->count() !== 0 )
+    if( $method === 'single' )
     {
-      $result = $users->where('userid', $request->session()->get('admin_userid'))->first();
-      $logs = new $log;
-      $logs->log_username = $result->username;
-      $logs->log_ip = $request->server('REMOTE_ADDR');
-      $logs->log_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
-      $logs->log_browser = $this->getBrowserInfo( $request->server('HTTP_USER_AGENT') );
-      $logs->log_description = $result->fullname . ' has delete devices.';
-      $logs->log_type = 'Delete';
-      $logs->save();
+      $query = $subscriber->where([
+        ['account_id', '=', $account_id],
+        ['mac_address', '=', $mac]
+      ]);
 
-      $this->timeout_socket = 3;
-      $radprimary = $this->check_connection('182.253.238.66', 3306);
-      $radbackup = $this->check_connection('202.169.53.9', 3306);
-
-      if( $radprimary['status'] == null )
+      if( $query->count() !== 0 )
       {
+        $result = $users->where('userid', $request->session()->get('admin_userid'))->first();
+        $logs = new $log;
+        $logs->log_username = $result->username;
+        $logs->log_ip = $request->server('REMOTE_ADDR');
+        $logs->log_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+        $logs->log_browser = $this->getBrowserInfo( $request->server('HTTP_USER_AGENT') );
+        $logs->log_description = $result->fullname . ' has delete devices.';
+        $logs->log_type = 'Delete';
+        $logs->save();
+
         $this->delete_radcheck( '182.253.238.66:8080', $mac );
         $query->delete();
-        $res = [
-          'status' => 200,
-          'statusText' => $mac . ' deleted.'
-        ];
-      }
-      else if( $radbackup['status'] == null )
-      {
-        $this->delete_radcheck( '202.169.53.9', $mac );
-        $query->delete();
+
         $res = [
           'status' => 200,
           'statusText' => $mac . ' deleted.'
@@ -143,17 +132,36 @@ class AccountSubscribersController extends Controller
       else
       {
         $res = [
-          'status' => 500,
-          'statusText' => $radbackup['statusText']
+          'status' => 200,
+          'statusText' => 'Whoops, ' . $mac . ' not found'
         ];
       }
     }
     else
     {
-      $res = [
-        'status' => 200,
-        'statusText' => 'Whoops, ' . $mac . ' not found'
-      ];
+      $account = $subscriber->select('mac_address','account_id')
+      ->where('account_id', $account_id);
+
+      if( $account->count() != 0 )
+      {
+        foreach( $account->get() as $acc )
+        {
+          $this->delete_radcheck( '182.253.238.66:8080', $acc->mac_address );
+        }
+
+        $massdelete = $subscriber->where('account_id', '=', $account_id)->delete();
+        $res = [
+          'status' => 200,
+          'statusText' => 'Mass delete successfully.'
+        ];
+      }
+      else
+      {
+        $res = [
+          'status' => 200,
+          'statusText' => 'Whoops, ' . $account_id . ' not found.'
+        ];
+      }
     }
 
     return response()->json( $res, $res['status'] );
@@ -161,18 +169,7 @@ class AccountSubscribersController extends Controller
 
   public function bw_client_usage( Request $request, $mac )
   {
-    $this->timeout_socket = 3;
-    $radprimary = $this->check_connection('182.253.238.66', 3306);
-    $radbackup = $this->check_connection('202.169.53.9', 3306);
-
-    if( $radbackup['status'] == null )
-    {
-      $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
-    }
-    else
-    {
-      $data_bandwidth = $this->bandwidthClientUsage( '202.169.53.9', $mac, $request );
-    }
+    $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
     return response()->json( $data_bandwidth );
   }
 }

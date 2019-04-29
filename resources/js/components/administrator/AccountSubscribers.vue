@@ -164,7 +164,7 @@
           </div>
           <div v-if="devices.loading === true" class="uk-text-center" v-html="devices.loadingContent"></div>
         </div>
-        <div class="uk-overflow-auto">
+        <div class="uk-margin uk-overflow-auto">
           <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
             <thead>
               <tr>
@@ -282,23 +282,25 @@ export default {
     deleteDevice(account_id, mac_address)
     {
       swal({
-        title: 'Are you sure?',
-        text: 'MAC ' + mac_address + ' will be delete permanent.',
-        icon: 'warning',
+        text: 'Choose delete methods',
         dangerMode: true,
         buttons: {
-          cancel: 'No',
-          confirm: {
-            text: 'Sure',
-            value: true
+          cancel: 'Cancel',
+          singleDelete: {
+            value: 'single',
+            text: 'Delete'
+          },
+          multipleDelete: {
+            value: 'multiple',
+            text: 'Mass Delete'
           }
         }
       }).then( val => {
-        if( val )
+        if( val === 'single' )
         {
           axios({
             method: 'delete',
-            url: this.url + 'admin/delete/devices/' + account_id + '/' + mac_address,
+            url: this.url + 'admin/delete/devices/' + account_id + '/single/' + mac_address,
             headers: { 'Content-Type': 'application/json' }
           }).then( res => {
             swal({
@@ -315,6 +317,49 @@ export default {
               dangerMode: true
             });
           });
+        }
+        else if( val === 'multiple' )
+        {
+          swal({
+            title: 'Are you sure?',
+            text: 'All devices will be deleted permanently.',
+            icon: 'warning',
+            dangerMode: true,
+            buttons: {
+              cancel: 'Cancel',
+              confirm: {
+                value: true,
+                text: 'Yes'
+              }
+            }
+          }).then( willDelete => {
+            if( willDelete )
+            {
+              axios({
+                method: 'delete',
+                url: this.url + 'admin/delete/devices/' + account_id + '/mass',
+                headers: { 'Content-Type': 'application/json' }
+              }).then( res => {
+                swal({
+                  title: 'Success',
+                  text: 'All devices has been deleted successfully',
+                  icon: 'success'
+                });
+                this.getAccountSubscribers();
+              }).catch( err => {
+                swal({
+                  title: 'Whoops',
+                  text: 'An error has occured. ' + err.response.statusText,
+                  icon: 'warning',
+                  dangerMode: true
+                });
+              });
+            }
+          });
+        }
+        else
+        {
+
         }
       });
     },
