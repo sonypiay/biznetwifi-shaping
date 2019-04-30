@@ -54,7 +54,7 @@ class LoginController extends Controller
           if( $fetchaccount->is_blocked == 'Y' )
           {
             $res = [
-              'status' => 200,
+              'status' => 401,
               'statusText' => 'Sorry, your account has blocked for some reason.'
             ];
           }
@@ -117,7 +117,7 @@ class LoginController extends Controller
           else
           {
             $res = [
-              'status' => 200,
+              'status' => 401,
               'statusText' => 'Sorry, your account has blocked for some reason.'
             ];
           }
