@@ -106,10 +106,9 @@ export default {
           let result = res.data;
           swal({
             title: this.connectlocale.noerror,
-            text: 'Redirecting',
+            text: 'Redirecting...',
             icon: 'success'
           });
-          console.log(result);
           var redirect = this.url + '/biznetwifi/customers';
           setTimeout(function() { document.location = redirect; }, 2000);
         }).catch( err => {

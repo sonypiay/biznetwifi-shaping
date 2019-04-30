@@ -2471,10 +2471,9 @@ __webpack_require__.r(__webpack_exports__);
           var result = res.data;
           swal({
             title: _this.connectlocale.noerror,
-            text: 'Redirecting',
+            text: 'Redirecting...',
             icon: 'success'
           });
-          console.log(result);
           var redirect = _this.url + '/biznetwifi/customers';
           setTimeout(function () {
             document.location = redirect;
