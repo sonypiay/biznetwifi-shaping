@@ -1978,6 +1978,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
   data: function data() {
@@ -2042,11 +2062,10 @@ __webpack_require__.r(__webpack_exports__);
       this.forms.filterdate.value = val;
       this.getBandwidthUsageClient(this.clients_detail);
     },
-    deleteDevice: function deleteDevice(account_id, mac_address) {
+    deleteDevice: function deleteDevice(seqid) {
       var _this = this;
 
       swal({
-        text: 'Choose delete methods',
         dangerMode: true,
         buttons: {
           cancel: 'Cancel',
@@ -2063,14 +2082,14 @@ __webpack_require__.r(__webpack_exports__);
         if (val === 'single') {
           axios({
             method: 'delete',
-            url: _this.url + 'admin/delete/devices/' + account_id + '/single/' + mac_address,
+            url: _this.url + 'admin/delete/devices/' + seqid + '/single',
             headers: {
               'Content-Type': 'application/json'
             }
           }).then(function (res) {
             swal({
               title: 'Success',
-              text: 'MAC ' + mac_address + ' deleted',
+              text: res.data.statusText,
               icon: 'success'
             });
 
@@ -2100,14 +2119,14 @@ __webpack_require__.r(__webpack_exports__);
             if (willDelete) {
               axios({
                 method: 'delete',
-                url: _this.url + 'admin/delete/devices/' + account_id + '/mass',
+                url: _this.url + 'admin/delete/devices/' + seqid + '/mass',
                 headers: {
                   'Content-Type': 'application/json'
                 }
               }).then(function (res) {
                 swal({
                   title: 'Success',
-                  text: 'All devices has been deleted successfully',
+                  text: res.data.statusText,
                   icon: 'success'
                 });
 
@@ -2369,6 +2388,54 @@ __webpack_require__.r(__webpack_exports__);
           icon: 'warning',
           dangerMode: true
         });
+      });
+    },
+    blockAccountId: function blockAccountId(account_id, isBlocked) {
+      var _this4 = this;
+
+      var messageBlock = {
+        text: {
+          swal: isBlocked === 'N' ? 'Account ID ' + account_id + ' will block and cannot sign in.' : 'Unlock ' + account_id + ' and restore previous devices.',
+          button: isBlocked === 'N' ? 'Block' : 'Unlock'
+        }
+      };
+      swal({
+        title: 'Confirmation',
+        text: messageBlock.text.swal,
+        icon: 'warning',
+        dangerMode: true,
+        buttons: {
+          cancel: 'Cancel',
+          confirm: {
+            value: true,
+            text: messageBlock.text.button
+          }
+        }
+      }).then(function (val) {
+        if (val === true) {
+          axios({
+            method: 'put',
+            url: _this4.url + 'admin/update/subscriber/block/' + account_id,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then(function (res) {
+            swal({
+              title: 'Success',
+              text: res.data.statusText,
+              icon: 'success'
+            });
+
+            _this4.getAccountSubscribers();
+          }).catch(function (err) {
+            swal({
+              title: 'Error',
+              text: err.response.statusText,
+              icon: 'error',
+              dangerMode: true
+            });
+          });
+        }
       });
     }
   },
@@ -70049,37 +70116,105 @@ var render = function() {
                   _vm._l(_vm.devices.result, function(device) {
                     return _c("tr", [
                       _c("td", [
-                        _c("a", {
-                          staticClass:
-                            "uk-button uk-button-default uk-button-small table-btn-action",
-                          attrs: {
-                            "uk-tooltip": "title: Delete",
-                            "uk-icon": "trash"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.deleteDevice(
-                                device.account_id,
-                                device.mac_address
+                        _c("div", { staticClass: "uk-inline" }, [
+                          _vm._m(6, true),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { attrs: { "uk-dropdown": "mode: click" } },
+                            [
+                              _c(
+                                "ul",
+                                { staticClass: "uk-nav uk-dropdown-nav" },
+                                [
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.getBandwidthUsageClient(
+                                              device
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("span", {
+                                          staticClass: "fas fa-chart-bar"
+                                        }),
+                                        _vm._v(" View Usage")
+                                      ]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", [
+                                    _c(
+                                      "a",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.deleteDevice(
+                                              device.seqid
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("span", {
+                                          staticClass: "far fa-trash-alt"
+                                        }),
+                                        _vm._v(" Delete")
+                                      ]
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("li", [
+                                    device.is_blocked === "N"
+                                      ? _c(
+                                          "a",
+                                          {
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.blockAccountId(
+                                                  device.account_id,
+                                                  device.is_blocked
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("span", {
+                                              staticClass: "fas fa-ban"
+                                            }),
+                                            _vm._v(" Block")
+                                          ]
+                                        )
+                                      : _c(
+                                          "a",
+                                          {
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.blockAccountId(
+                                                  device.account_id,
+                                                  device.is_blocked
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("span", {
+                                              staticClass: "fas fa-unlock"
+                                            }),
+                                            _vm._v(" Unblock")
+                                          ]
+                                        )
+                                  ])
+                                ]
                               )
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "uk-button uk-button-default uk-button-small table-btn-action",
-                            attrs: { "uk-tooltip": "title: View" },
-                            on: {
-                              click: function($event) {
-                                return _vm.getBandwidthUsageClient(device)
-                              }
-                            }
-                          },
-                          [_c("span", { staticClass: "fas fa-chart-bar" })]
-                        )
+                            ]
+                          )
+                        ])
                       ]),
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(device.account_id))]),
@@ -70097,6 +70232,18 @@ var render = function() {
                             )
                           )
                         )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        device.is_blocked === "N"
+                          ? _c("span", { staticClass: "uk-label" }, [
+                              _vm._v("No")
+                            ])
+                          : _c(
+                              "span",
+                              { staticClass: "uk-label uk-label-danger" },
+                              [_vm._v("Yes")]
+                            )
                       ])
                     ])
                   }),
@@ -70295,9 +70442,24 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Device")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Date Registered")])
+        _c("th", [_vm._v("Date Registered")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Block")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "uk-button uk-button-small uk-button-default table-btn-action"
+      },
+      [_c("span", { attrs: { "uk-icon": "cog" } })]
+    )
   }
 ]
 render._withStripped = true
