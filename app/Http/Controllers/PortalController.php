@@ -201,16 +201,13 @@ class PortalController extends Controller
 
         if( $checkmacaddress->count() == 0 )
         {
-          $this->timeout_socket = 2;
-          $radprimary = $this->check_connection('182.253.238.66', 3306);
-          $radbackup = $this->check_connection('202.169.53.9', 3306);
-
           if( $checksubs->count() == 4 )
           {
             $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
             $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
             if( $checkmacaddress->count() == 0 )
             {
+              $subscriber->account_name = $displayname;
               $subscriber->account_id = $username;
               $subscriber->mac_address = $mac;
               $subscriber->login_date = date('Y-m-d H:i:s');
@@ -229,6 +226,7 @@ class PortalController extends Controller
             $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
             if( $checkmacaddress->count() == 0 )
             {
+              $subscriber->account_name = $displayname;
               $subscriber->account_id = $username;
               $subscriber->mac_address = $mac;
               $subscriber->login_date = date('Y-m-d H:i:s');
