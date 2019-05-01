@@ -60,6 +60,7 @@ class LoginController extends Controller
           }
           else
           {
+            $res = $ldap;
             $request->session()->put('displayname', $res['response']['displayname']);
             $request->session()->put('username', $this->ldap_username);
             $request->session()->put('ip', $request->server('REMOTE_ADDR'));
@@ -67,11 +68,11 @@ class LoginController extends Controller
             $request->session()->put('logintime', time());
             $request->session()->put('biznetwifi_login', true);
             $request->session()->put('connect', 'biznetwifi');
-            $res = $ldap;
           }
         }
         else
         {
+          $res = $ldap;
           $request->session()->put('displayname', $res['response']['displayname']);
           $request->session()->put('username', $this->ldap_username);
           $request->session()->put('ip', $request->server('REMOTE_ADDR'));
@@ -79,7 +80,6 @@ class LoginController extends Controller
           $request->session()->put('logintime', time());
           $request->session()->put('biznetwifi_login', true);
           $request->session()->put('connect', 'biznetwifi');
-          $res = $ldap;
         }
       }
       else
@@ -151,8 +151,7 @@ class LoginController extends Controller
     {
       $res = [
         'status' => 401,
-        'statusText' => 'Username / Password yang anda masukkan salah.',
-        'response' => ''
+        'statusText' => 'Username / Password yang anda masukkan salah.'
       ];
     }
     return response()->json($res, $res['status']);
