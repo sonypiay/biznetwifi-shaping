@@ -151,8 +151,7 @@ class LoginController extends Controller
     {
       $res = [
         'status' => 401,
-        'statusText' => 'Username / Password yang anda masukkan salah.',
-        'response' => ''
+        'statusText' => 'Username / Password yang anda masukkan salah.'
       ];
     }
     return response()->json($res, $res['status']);
