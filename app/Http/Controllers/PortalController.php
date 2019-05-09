@@ -191,6 +191,10 @@ class PortalController extends Controller
         $displayname = $request->session()->get('displayname');
         $agent = $request->session()->get('agent');
 
+		if( $username === 'SI20096955-51080' OR empty( $username ) OR $username === null ) {
+		   abort(401);
+		}
+
         $checksubs = $subscriber->where('account_id', '=', $username);
         $checkmacaddress = $subscriber->select('mac_address')->where([
           ['account_id', $username],

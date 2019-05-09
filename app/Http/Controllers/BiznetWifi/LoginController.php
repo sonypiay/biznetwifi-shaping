@@ -107,7 +107,7 @@ class LoginController extends Controller
             ];
 
             $request->session()->put('displayname', $getcustomer_sterlite['responseObject']['customerAccountResponseobj']['firstName']);
-            $request->session()->put('username', $username);
+            $request->session()->put('username', $auth['responseObject']['accountNumber']);
             $request->session()->put('ip', $request->server('REMOTE_ADDR'));
             $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
             $request->session()->put('logintime', time());
@@ -151,7 +151,8 @@ class LoginController extends Controller
     {
       $res = [
         'status' => 401,
-        'statusText' => 'Username / Password yang anda masukkan salah.'
+        'statusText' => 'Username / Password yang anda masukkan salah.',
+        'response' => ''
       ];
     }
     return response()->json($res, $res['status']);

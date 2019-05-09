@@ -70358,157 +70358,165 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "uk-margin uk-overflow-auto" }, [
-            _c(
-              "table",
-              {
-                staticClass:
-                  "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
-              },
-              [
-                _vm._m(5),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.devices.result, function(device) {
-                    return _c("tr", [
-                      _c("td", [
-                        _c("div", { staticClass: "uk-inline" }, [
-                          _vm._m(6, true),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { attrs: { "uk-dropdown": "mode: click" } },
-                            [
-                              _c(
-                                "ul",
-                                { staticClass: "uk-nav uk-dropdown-nav" },
-                                [
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.getBandwidthUsageClient(
-                                              device
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("span", {
-                                          staticClass: "fas fa-chart-bar"
-                                        }),
-                                        _vm._v(" View Usage")
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    _c(
-                                      "a",
-                                      {
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.deleteDevice(
-                                              device.seqid
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("span", {
-                                          staticClass: "far fa-trash-alt"
-                                        }),
-                                        _vm._v(" Delete")
-                                      ]
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("li", [
-                                    device.is_blocked === "N"
-                                      ? _c(
-                                          "a",
-                                          {
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.blockAccountId(
-                                                  device.account_id,
-                                                  device.is_blocked
-                                                )
-                                              }
+          _c(
+            "div",
+            { staticClass: "uk-margin uk-height-large uk-overflow-auto" },
+            [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content"
+                },
+                [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.devices.result, function(device) {
+                      return _c("tr", [
+                        _c("td", [
+                          _c("div", { staticClass: "uk-inline" }, [
+                            _vm._m(6, true),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                attrs: {
+                                  "uk-dropdown": "mode: click; pos: right"
+                                }
+                              },
+                              [
+                                _c(
+                                  "ul",
+                                  { staticClass: "uk-nav uk-dropdown-nav" },
+                                  [
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.getBandwidthUsageClient(
+                                                device
+                                              )
                                             }
-                                          },
-                                          [
-                                            _c("span", {
-                                              staticClass: "fas fa-ban"
-                                            }),
-                                            _vm._v(" Block")
-                                          ]
-                                        )
-                                      : _c(
-                                          "a",
-                                          {
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.blockAccountId(
-                                                  device.account_id,
-                                                  device.is_blocked
-                                                )
-                                              }
+                                          }
+                                        },
+                                        [
+                                          _c("span", {
+                                            staticClass: "fas fa-chart-bar"
+                                          }),
+                                          _vm._v(" View Usage")
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.deleteDevice(
+                                                device.seqid
+                                              )
                                             }
-                                          },
-                                          [
-                                            _c("span", {
-                                              staticClass: "fas fa-unlock"
-                                            }),
-                                            _vm._v(" Unblock")
-                                          ]
-                                        )
-                                  ])
-                                ]
+                                          }
+                                        },
+                                        [
+                                          _c("span", {
+                                            staticClass: "far fa-trash-alt"
+                                          }),
+                                          _vm._v(" Delete")
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      device.is_blocked === "N"
+                                        ? _c(
+                                            "a",
+                                            {
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.blockAccountId(
+                                                    device.account_id,
+                                                    device.is_blocked
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("span", {
+                                                staticClass: "fas fa-ban"
+                                              }),
+                                              _vm._v(" Block")
+                                            ]
+                                          )
+                                        : _c(
+                                            "a",
+                                            {
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.blockAccountId(
+                                                    device.account_id,
+                                                    device.is_blocked
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("span", {
+                                                staticClass: "fas fa-unlock"
+                                              }),
+                                              _vm._v(" Unblock")
+                                            ]
+                                          )
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(device.account_id))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(device.mac_address))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(device.device_agent))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.$root.formatDate(
+                                device.login_date,
+                                "MMM DD, YYYY HH:mm "
                               )
-                            ]
+                            )
                           )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          device.is_blocked === "N"
+                            ? _c("span", { staticClass: "uk-label" }, [
+                                _vm._v("No")
+                              ])
+                            : _c(
+                                "span",
+                                { staticClass: "uk-label uk-label-danger" },
+                                [_vm._v("Yes")]
+                              )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(device.account_id))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(device.mac_address))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(device.device_agent))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          _vm._s(
-                            _vm.$root.formatDate(
-                              device.login_date,
-                              "MMM DD, YYYY HH:mm "
-                            )
-                          )
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        device.is_blocked === "N"
-                          ? _c("span", { staticClass: "uk-label" }, [
-                              _vm._v("No")
-                            ])
-                          : _c(
-                              "span",
-                              { staticClass: "uk-label uk-label-danger" },
-                              [_vm._v("Yes")]
-                            )
                       ])
-                    ])
-                  }),
-                  0
-                )
-              ]
-            )
-          ]),
+                    }),
+                    0
+                  )
+                ]
+              )
+            ]
+          ),
           _vm._v(" "),
           _c("ul", { staticClass: "uk-pagination content-data-pagination" }, [
             _c("li", [
