@@ -164,7 +164,7 @@
           </div>
           <div v-if="devices.loading === true" class="uk-text-center" v-html="devices.loadingContent"></div>
         </div>
-        <div class="uk-margin uk-overflow-auto">
+        <div class="uk-margin uk-height-large uk-overflow-auto">
           <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
             <thead>
               <tr>
@@ -181,7 +181,7 @@
                 <td>
                   <div class="uk-inline">
                     <button class="uk-button uk-button-small uk-button-default table-btn-action"><span uk-icon="cog"></span></button>
-                    <div uk-dropdown="mode: click">
+                    <div uk-dropdown="mode: click; pos: right">
                       <ul class="uk-nav uk-dropdown-nav">
                         <li>
                           <a @click="getBandwidthUsageClient(device)"><span class="fas fa-chart-bar"></span> View Usage</a>
