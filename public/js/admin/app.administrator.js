@@ -4370,6 +4370,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
   data: function data() {
@@ -4390,10 +4407,22 @@ __webpack_require__.r(__webpack_exports__);
       },
       trafficAp: {
         ruckus: {
+          filterdate: {
+            value: 'today',
+            text: this.$root.formatDate(new Date(), 'MMM DD, YYYY'),
+            start: new Date(),
+            end: new Date()
+          },
           total: 0,
           results: []
         },
         mikrotik: {
+          filterdate: {
+            value: 'today',
+            text: this.$root.formatDate(new Date(), 'MMM DD, YYYY'),
+            start: new Date(),
+            end: new Date()
+          },
           total: 0,
           results: []
         }
@@ -4406,6 +4435,30 @@ __webpack_require__.r(__webpack_exports__);
         filterdevice: {
           value: 'all',
           text: 'All'
+        }
+      },
+      datepicker: {
+        filterdate: {
+          start: new Date(),
+          end: new Date()
+        },
+        props: {
+          class: "uk-width-1-1 uk-input form-content-datepicker",
+          placeholder: "Enter date",
+          readonly: true
+        },
+        attributes: {},
+        themeStyles: {},
+        formats: {
+          title: 'MMMM YYYY',
+          weekdays: 'W',
+          navMonths: 'MMM',
+          input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
+          // Only for `v-date-picker`
+          dayPopover: 'L',
+          // Only for `v-date-picker`
+          data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+
         }
       }
     };
@@ -4646,15 +4699,22 @@ __webpack_require__.r(__webpack_exports__);
     getListApTrafficRuckus: function getListApTrafficRuckus() {
       var _this4 = this;
 
+      var startdate = this.$root.formatDate(this.datepicker.filterdate.start, 'YYYY-MM-DD');
+      var enddate = this.$root.formatDate(this.datepicker.filterdate.end, 'YYYY-MM-DD');
+
+      if (startdate === this.$root.formatDate(new Date(), 'YYYY-MM-DD')) {
+        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate(new Date(), 'MMM DD, YYYY');
+      } else {
+        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate(this.datepicker.filterdate.start, 'MMM DD, YYYY') + ' - ' + this.$root.formatDate(this.datepicker.filterdate.end, 'MMM DD, YYYY');
+      }
+
       axios({
         method: 'get',
-        url: this.url + 'admin/bandwidth/ap/ruckus'
+        url: this.url + 'admin/bandwidth/ap/ruckus?startdate=' + startdate + '&enddate=' + enddate
       }).then(function (res) {
         var result = res.data;
-        _this4.trafficAp.ruckus = {
-          total: result.total_records,
-          results: result.results.data
-        };
+        _this4.trafficAp.ruckus.total = result.total_records;
+        _this4.trafficAp.ruckus.results = result.results.data;
       }).catch(function (err) {
         console.log(err.response.statusText);
       });
@@ -75262,6 +75322,95 @@ var render = function() {
               "uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard"
           },
           [
+            _c("div", { staticClass: "uk-margin uk-card content-data" }, [
+              _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "uk-button uk-button-default form-content-button",
+                    attrs: { type: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.trafficAp.ruckus.filterdate.text) +
+                        " "
+                    ),
+                    _c("span", { attrs: { "uk-icon": "chevron-down" } })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-width-2-3",
+                    attrs: { "uk-dropdown": "mode: click; pos: right-center" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "uk-dropdown-grid uk-grid-small",
+                        attrs: { "uk-grid": "" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "uk-width-expand" },
+                          [
+                            _c("v-date-picker", {
+                              attrs: {
+                                formats: _vm.datepicker.formats,
+                                mode: "range",
+                                "is-inline": true,
+                                "select-attribute": _vm.datepicker.attributes,
+                                "input-props": _vm.datepicker.props,
+                                "theme-styles": _vm.datepicker.themeStyles,
+                                "show-caps": "",
+                                "is-double-paned": ""
+                              },
+                              model: {
+                                value: _vm.datepicker.filterdate,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.datepicker, "filterdate", $$v)
+                                },
+                                expression: "datepicker.filterdate"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-3@s"
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "uk-width-1-1 uk-button uk-button-default button-datepicker",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getListApTrafficRuckus()
+                                  }
+                                }
+                              },
+                              [_vm._v("Apply")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
             _vm.trafficAp.ruckus.total === 0
               ? _c(
                   "div",

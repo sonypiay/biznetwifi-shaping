@@ -41,8 +41,8 @@ class BandwidthUsageController extends Controller
 
   public function getTrafficAp( Request $request, $ap )
   {
-    $startdate = isset( $request->startdate ) ? $request->startdate : date('Y-m-d');
-    $enddate = isset( $request->enddate ) ? $request->enddate : date('Y-m-d');
+    $startdate = $request->startdate;
+    $enddate = $request->enddate;
 
     $api = $this->trafficAccessPoint( $startdate, $enddate, $ap );
     return response()->json( $api );

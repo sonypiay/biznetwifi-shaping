@@ -94,6 +94,23 @@
         <div class="subheading-dashboard">Traffic Access Point</div>
         <div class="heading-dashboard">Ruckus Wireless</div>
         <div class="uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard">
+          <div class="uk-margin uk-card content-data">
+            <div class="uk-width-1-1 uk-inline">
+              <button class="uk-button uk-button-default form-content-button" type="button">
+                {{ trafficAp.ruckus.filterdate.text }} <span uk-icon="chevron-down"></span>
+              </button>
+              <div class="uk-width-2-3" uk-dropdown="mode: click; pos: right-center">
+                <div class="uk-dropdown-grid uk-grid-small" uk-grid>
+                  <div class="uk-width-expand">
+                    <v-date-picker :formats="datepicker.formats" mode="range" :is-inline="true" v-model="datepicker.filterdate" :select-attribute="datepicker.attributes" :input-props="datepicker.props" :theme-styles="datepicker.themeStyles" show-caps is-double-paned></v-date-picker>
+                  </div>
+                  <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-3@s">
+                    <button class="uk-width-1-1 uk-button uk-button-default button-datepicker" @click="getListApTrafficRuckus()">Apply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div v-if="trafficAp.ruckus.total === 0" class="uk-alert-warning" uk-alert>
             There is no data to display.
           </div>
@@ -197,10 +214,22 @@ export default {
       },
       trafficAp: {
         ruckus: {
+          filterdate: {
+            value: 'today',
+            text: this.$root.formatDate( new Date(), 'MMM DD, YYYY' ),
+            start: new Date(),
+            end: new Date()
+          },
           total: 0,
           results: []
         },
         mikrotik: {
+          filterdate: {
+            value: 'today',
+            text: this.$root.formatDate( new Date(), 'MMM DD, YYYY' ),
+            start: new Date(),
+            end: new Date()
+          },
           total: 0,
           results: []
         }
@@ -214,7 +243,28 @@ export default {
           value: 'all',
           text: 'All'
         }
-      }
+      },
+      datepicker: {
+        filterdate: {
+          start: new Date(),
+          end: new Date()
+        },
+        props: {
+          class: "uk-width-1-1 uk-input form-content-datepicker",
+          placeholder: "Enter date",
+          readonly: true
+        },
+        attributes: {},
+        themeStyles: {},
+        formats: {
+          title: 'MMMM YYYY',
+          weekdays: 'W',
+          navMonths: 'MMM',
+          input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'], // Only for `v-date-picker`
+          dayPopover: 'L', // Only for `v-date-picker`
+          data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+        }
+      },
     }
   },
   methods: {
@@ -459,15 +509,23 @@ export default {
     },
     getListApTrafficRuckus()
     {
+      var startdate = this.$root.formatDate( this.datepicker.filterdate.start, 'YYYY-MM-DD' );
+      var enddate = this.$root.formatDate( this.datepicker.filterdate.end, 'YYYY-MM-DD' );
+      if( startdate === this.$root.formatDate( new Date(), 'YYYY-MM-DD' ) )
+      {
+        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate( new Date(), 'MMM DD, YYYY' );
+      }
+      else
+      {
+        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate( this.datepicker.filterdate.start, 'MMM DD, YYYY' ) + ' - ' + this.$root.formatDate( this.datepicker.filterdate.end, 'MMM DD, YYYY' );
+      }
       axios({
         method: 'get',
-        url: this.url + 'admin/bandwidth/ap/ruckus'
+        url: this.url + 'admin/bandwidth/ap/ruckus?startdate=' + startdate + '&enddate=' + enddate
       }).then( res => {
         let result = res.data;
-        this.trafficAp.ruckus = {
-          total: result.total_records,
-          results: result.results.data
-        };
+        this.trafficAp.ruckus.total = result.total_records;
+        this.trafficAp.ruckus.results = result.results.data;
       }).catch( err => {
         console.log( err.response.statusText );
       });
