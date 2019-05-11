@@ -4287,6 +4287,89 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
   data: function data() {
@@ -4304,6 +4387,16 @@ __webpack_require__.r(__webpack_exports__);
       summaryClientAsVisitors: {
         total: [],
         results: {}
+      },
+      trafficAp: {
+        ruckus: {
+          total: 0,
+          results: []
+        },
+        mikrotik: {
+          total: 0,
+          results: []
+        }
       },
       forms: {
         filterdate: {
@@ -4549,12 +4642,46 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (err) {
         console.log(err);
       });
+    },
+    getListApTrafficRuckus: function getListApTrafficRuckus() {
+      var _this4 = this;
+
+      axios({
+        method: 'get',
+        url: this.url + 'admin/bandwidth/ap/ruckus'
+      }).then(function (res) {
+        var result = res.data;
+        _this4.trafficAp.ruckus = {
+          total: result.total_records,
+          results: result.results.data
+        };
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
+    },
+    getListApTrafficMikrotik: function getListApTrafficMikrotik() {
+      var _this5 = this;
+
+      axios({
+        method: 'get',
+        url: this.url + 'admin/bandwidth/ap/mikrotik'
+      }).then(function (res) {
+        var result = res.data;
+        _this5.trafficAp.mikrotik = {
+          total: result.total_records,
+          results: result.results.data
+        };
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
     }
   },
   mounted: function mounted() {
     this.getSummaryClientAsSubscriber();
     this.getSummaryDeviceClientAsVisitor();
     this.getSummaryDeviceClientAsVisitorByDate();
+    this.getListApTrafficRuckus();
+    this.getListApTrafficMikrotik();
   }
 });
 
@@ -75117,6 +75244,250 @@ var render = function() {
             ])
           ]
         )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-margin dashboard-container" }, [
+        _c("div", { staticClass: "subheading-dashboard" }, [
+          _vm._v("Traffic Access Point")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-dashboard" }, [
+          _vm._v("Ruckus Wireless")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard"
+          },
+          [
+            _vm.trafficAp.ruckus.total === 0
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "uk-alert-warning",
+                    attrs: { "uk-alert": "" }
+                  },
+                  [_vm._v("\n          There is no data to display.\n        ")]
+                )
+              : _c("div", { staticClass: "uk-overflow-auto" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "uk-table uk-table-small uk-table-striped uk-table-divider uk-table-hover table-overview-dashboard"
+                    },
+                    [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.trafficAp.ruckus.results, function(traffic) {
+                          return _c("tr", [
+                            _c("td", [_vm._v(_vm._s(traffic.ap_name))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.upload,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.upload,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.download,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.download,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.total_traffic,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.total_traffic,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(traffic.total_session))])
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  )
+                ])
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-margin dashboard-container" }, [
+        _c("div", { staticClass: "subheading-dashboard" }, [
+          _vm._v("Traffic Access Point")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-dashboard" }, [_vm._v("Mikrotik")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard"
+          },
+          [
+            _vm.trafficAp.mikrotik.total === 0
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "uk-alert-warning",
+                    attrs: { "uk-alert": "" }
+                  },
+                  [_vm._v("\n          There is no data to display.\n        ")]
+                )
+              : _c("div", { staticClass: "uk-overflow-auto" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "uk-table uk-table-small uk-table-striped uk-table-divider uk-table-hover table-overview-dashboard"
+                    },
+                    [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.trafficAp.mikrotik.results, function(
+                          traffic
+                        ) {
+                          return _c("tr", [
+                            _c("td", [_vm._v(_vm._s(traffic.ap_name))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.upload,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.upload,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.download,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.download,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.total_traffic,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.total_traffic,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(traffic.total_session))])
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  )
+                ])
+          ]
+        )
       ])
     ])
   ])
@@ -75193,6 +75564,42 @@ var staticRenderFns = [
         )
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("AP Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Upload")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Download")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Traffic")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sessions")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("AP Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Upload")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Download")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Traffic")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sessions")])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -87532,6 +87939,9 @@ var app = new Vue({
       var regexp = /^[0-9a-fA-F]+$/;
       if (regexp.test(hex)) isHex = true;
       return isHex;
+    },
+    toPercentage: function toPercentage(current, total) {
+      return Math.ceil(current / total * 100);
     }
   }
 });

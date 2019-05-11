@@ -89,6 +89,89 @@
           </div>
         </div>
       </div>
+
+      <div class="uk-margin dashboard-container">
+        <div class="subheading-dashboard">Traffic Access Point</div>
+        <div class="heading-dashboard">Ruckus Wireless</div>
+        <div class="uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard">
+          <div v-if="trafficAp.ruckus.total === 0" class="uk-alert-warning" uk-alert>
+            There is no data to display.
+          </div>
+          <div v-else class="uk-overflow-auto">
+            <table class="uk-table uk-table-small uk-table-striped uk-table-divider uk-table-hover table-overview-dashboard">
+              <thead>
+                <tr>
+                  <th>AP Name</th>
+                  <th>Upload</th>
+                  <th>Download</th>
+                  <th>Total Traffic</th>
+                  <th>Sessions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="traffic in trafficAp.ruckus.results">
+                  <td>{{ traffic.ap_name }}</td>
+                  <td>
+                    <progress class="uk-progress" :value="$root.toPercentage( traffic.upload, traffic.total_traffic )" max="100"></progress>
+                    {{ $root.formatNumeral( traffic.upload, '0.00 b' ) }}
+                  </td>
+                  <td>
+                    <progress class="uk-progress" :value="$root.toPercentage( traffic.download, traffic.total_traffic )" max="100"></progress>
+                    {{ $root.formatNumeral( traffic.download, '0.00 b' ) }}
+                  </td>
+                  <td>
+                    <progress class="uk-progress" :value="$root.toPercentage( traffic.total_traffic, traffic.total_traffic )" max="100"></progress>
+                    {{ $root.formatNumeral( traffic.total_traffic, '0.00 b' ) }}
+                  </td>
+                  <td>{{ traffic.total_session }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-margin dashboard-container">
+        <div class="subheading-dashboard">Traffic Access Point</div>
+        <div class="heading-dashboard">Mikrotik</div>
+        <div class="uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard">
+          <div v-if="trafficAp.mikrotik.total === 0" class="uk-alert-warning" uk-alert>
+            There is no data to display.
+          </div>
+          <div v-else class="uk-overflow-auto">
+            <table class="uk-table uk-table-small uk-table-striped uk-table-divider uk-table-hover table-overview-dashboard">
+              <thead>
+                <tr>
+                  <th>AP Name</th>
+                  <th>Upload</th>
+                  <th>Download</th>
+                  <th>Total Traffic</th>
+                  <th>Sessions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="traffic in trafficAp.mikrotik.results">
+                  <td>{{ traffic.ap_name }}</td>
+                  <td>
+                    <progress class="uk-progress" :value="$root.toPercentage( traffic.upload, traffic.total_traffic )" max="100"></progress>
+                    {{ $root.formatNumeral( traffic.upload, '0.00 b' ) }}
+                  </td>
+                  <td>
+                    <progress class="uk-progress" :value="$root.toPercentage( traffic.download, traffic.total_traffic )" max="100"></progress>
+                    {{ $root.formatNumeral( traffic.download, '0.00 b' ) }}
+                  </td>
+                  <td>
+                    <progress class="uk-progress" :value="$root.toPercentage( traffic.total_traffic, traffic.total_traffic )" max="100"></progress>
+                    {{ $root.formatNumeral( traffic.total_traffic, '0.00 b' ) }}
+                  </td>
+                  <td>{{ traffic.total_session }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -111,6 +194,16 @@ export default {
       summaryClientAsVisitors: {
         total: [],
         results: {}
+      },
+      trafficAp: {
+        ruckus: {
+          total: 0,
+          results: []
+        },
+        mikrotik: {
+          total: 0,
+          results: []
+        }
       },
       forms: {
         filterdate: {
@@ -363,12 +456,44 @@ export default {
       }).catch( err => {
         console.log( err );
       });
+    },
+    getListApTrafficRuckus()
+    {
+      axios({
+        method: 'get',
+        url: this.url + 'admin/bandwidth/ap/ruckus'
+      }).then( res => {
+        let result = res.data;
+        this.trafficAp.ruckus = {
+          total: result.total_records,
+          results: result.results.data
+        };
+      }).catch( err => {
+        console.log( err.response.statusText );
+      });
+    },
+    getListApTrafficMikrotik()
+    {
+      axios({
+        method: 'get',
+        url: this.url + 'admin/bandwidth/ap/mikrotik'
+      }).then( res => {
+        let result = res.data;
+        this.trafficAp.mikrotik = {
+          total: result.total_records,
+          results: result.results.data
+        };
+      }).catch( err => {
+        console.log( err.response.statusText );
+      });
     }
   },
   mounted() {
     this.getSummaryClientAsSubscriber();
     this.getSummaryDeviceClientAsVisitor();
     this.getSummaryDeviceClientAsVisitorByDate();
+    this.getListApTrafficRuckus();
+    this.getListApTrafficMikrotik();
   }
 }
 </script>

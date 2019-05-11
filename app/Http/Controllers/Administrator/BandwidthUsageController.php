@@ -38,4 +38,13 @@ class BandwidthUsageController extends Controller
     $api = $this->summaryBandwidthUsage( '182.253.238.66:8080', $request );
     return response()->json( $api );
   }
+
+  public function getTrafficAp( Request $request, $ap )
+  {
+    $startdate = isset( $request->startdate ) ? $request->startdate : date('Y-m-d');
+    $enddate = isset( $request->enddate ) ? $request->enddate : date('Y-m-d');
+
+    $api = $this->trafficAccessPoint( $startdate, $enddate, $ap );
+    return response()->json( $api );
+  }
 }

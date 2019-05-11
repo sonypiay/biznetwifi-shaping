@@ -374,6 +374,26 @@ html {
       }
     }
   }
+  .card-overview-dashboard {
+    box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    border-radius: 5px;
+    &:hover {
+      box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+    }
+    .table-overview-dashboard {
+      th {
+        @include globalfontstyle(700, normal, normal, 0.4px);
+        font-family: $font-primary;
+        font-size: 14px;
+      }
+      td {
+        @include globalfontstyle(400, normal, normal, 0.4px);
+        font-family: $font-primary;
+        font-size: 11px;
+      }
+    }
+  }
 }
 
 // analytic

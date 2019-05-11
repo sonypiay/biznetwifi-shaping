@@ -529,6 +529,34 @@ html {
   color: #da068c;
 }
 
+.dashboard-container .card-overview-dashboard {
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+.dashboard-container .card-overview-dashboard:hover {
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container .card-overview-dashboard .table-overview-dashboard th {
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
+}
+
+.dashboard-container .card-overview-dashboard .table-overview-dashboard td {
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 11px;
+}
+
 .modal-body-analytic {
   background: #f9f9f9;
 }
