@@ -191,6 +191,10 @@ class PortalController extends Controller
         $displayname = $request->session()->get('displayname');
         $agent = $request->session()->get('agent');
 
+		if( $username === 'SI20096955-51080' OR empty( $username ) OR $username === null ) {
+		   abort(401);
+		}
+
         $checksubs = $subscriber->where('account_id', '=', $username);
         $checkmacaddress = $subscriber->select('mac_address')->where([
           ['account_id', $username],
@@ -201,88 +205,43 @@ class PortalController extends Controller
 
         if( $checkmacaddress->count() == 0 )
         {
-          $this->timeout_socket = 2;
-          $radprimary = $this->check_connection('182.253.238.66', 3306);
-          $radbackup = $this->check_connection('202.169.53.9', 3306);
-
           if( $checksubs->count() == 4 )
           {
-            if( $radprimary['status'] == null )
+            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+            $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
+            if( $checkmacaddress->count() == 0 )
             {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
-              if( $checkmacaddress->count() == 0 )
-              {
-                $subscriber->account_id = $username;
-                $subscriber->mac_address = $mac;
-                $subscriber->login_date = date('Y-m-d H:i:s');
-                $subscriber->device_agent = $this->userAgent( $agent );
-                $subscriber->save();
+              $subscriber->account_name = $displayname;
+              $subscriber->account_id = $username;
+              $subscriber->mac_address = $mac;
+              $subscriber->login_date = date('Y-m-d H:i:s');
+              $subscriber->device_agent = $this->userAgent( $agent );
+              $subscriber->save();
 
-                $deletedevice = $subscriber->where('mac_address', '=', $getlastmac->mac_address);
-                if( $deletedevice->count() != 0 )
-                {
-                  $deletedevice->delete();
-                }
-              }
-            }
-            else
-            {
-              $this->add_radcheck( '202.169.53.9', $mac, $username );
-              $this->delete_radcheck( '202.169.53.9', $getlastmac->mac_address );
-              if( $checkmacaddress->count() == 0 )
+              $deletedevice = $subscriber->where('mac_address', '=', $getlastmac->mac_address);
+              if( $deletedevice->count() != 0 )
               {
-                $subscriber->account_id = $username;
-                $subscriber->mac_address = $mac;
-                $subscriber->login_date = date('Y-m-d H:i:s');
-                $subscriber->device_agent = $this->userAgent( $agent );
-                $subscriber->save();
-                $deletedevice = $subscriber->where('mac_address', '=', $getlastmac->mac_address);
-                if( $deletedevice->count() != 0 )
-                {
-                  $deletedevice->delete();
-                }
+                $deletedevice->delete();
               }
             }
           }
           else
           {
-            if( $radprimary['status'] == null )
+            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+            if( $checkmacaddress->count() == 0 )
             {
-              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-              if( $checkmacaddress->count() == 0 )
-              {
-                $subscriber->account_id = $username;
-                $subscriber->mac_address = $mac;
-                $subscriber->login_date = date('Y-m-d H:i:s');
-                $subscriber->device_agent = $this->userAgent( $agent );
-                $subscriber->save();
-              }
-            }
-            else
-            {
-              $this->add_radcheck( '202.169.53.9', $mac, $username );
-              if( $checkmacaddress->count() == 0 )
-              {
-                $subscriber->account_id = $username;
-                $subscriber->mac_address = $mac;
-                $subscriber->login_date = date('Y-m-d H:i:s');
-                $subscriber->device_agent = $this->userAgent( $agent );
-                $subscriber->save();
-              }
+              $subscriber->account_name = $displayname;
+              $subscriber->account_id = $username;
+              $subscriber->mac_address = $mac;
+              $subscriber->login_date = date('Y-m-d H:i:s');
+              $subscriber->device_agent = $this->userAgent( $agent );
+              $subscriber->save();
             }
           }
         }
         else
         {
-          if( $radprimary['status'] == null )
-          {
-            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-          }
-          else
-          {
-            $this->add_radcheck( '202.169.53.9', $mac, $username );
-          }
+          $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
         }
         return redirect()->route('hmpgcustomer');
       }

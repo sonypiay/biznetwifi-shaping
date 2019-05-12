@@ -164,7 +164,7 @@
           </div>
           <div v-if="devices.loading === true" class="uk-text-center" v-html="devices.loadingContent"></div>
         </div>
-        <div class="uk-overflow-auto">
+        <div class="uk-margin uk-height-large uk-overflow-auto">
           <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-hover table-data-content">
             <thead>
               <tr>
@@ -173,18 +173,38 @@
                 <th>Mac Address</th>
                 <th>Device</th>
                 <th>Date Registered</th>
+                <th>Block</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="device in devices.result">
                 <td>
-                  <a @click="deleteDevice(device.account_id, device.mac_address)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: Delete" uk-icon="trash"></a>
-                  <a @click="getBandwidthUsageClient(device)" class="uk-button uk-button-default uk-button-small table-btn-action" uk-tooltip="title: View"><span class="fas fa-chart-bar"></span></a>
+                  <div class="uk-inline">
+                    <button class="uk-button uk-button-small uk-button-default table-btn-action"><span uk-icon="cog"></span></button>
+                    <div uk-dropdown="mode: click; pos: right">
+                      <ul class="uk-nav uk-dropdown-nav">
+                        <li>
+                          <a @click="getBandwidthUsageClient(device)"><span class="fas fa-chart-bar"></span> View Usage</a>
+                        </li>
+                        <li>
+                          <a @click="deleteDevice(device.seqid)"><span class="far fa-trash-alt"></span> Delete</a>
+                        </li>
+                        <li>
+                          <a v-if="device.is_blocked === 'N'" @click="blockAccountId(device.account_id, device.is_blocked)"><span class="fas fa-ban"></span> Block</a>
+                          <a v-else @click="blockAccountId(device.account_id, device.is_blocked)"><span class="fas fa-unlock"></span> Unblock</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </td>
                 <td>{{ device.account_id }}</td>
                 <td>{{ device.mac_address }}</td>
                 <td>{{ device.device_agent }}</td>
                 <td>{{ $root.formatDate(device.login_date, 'MMM DD, YYYY HH:mm ') }}</td>
+                <td>
+                  <span v-if="device.is_blocked === 'N'" class="uk-label">No</span>
+                  <span v-else class="uk-label uk-label-danger">Yes</span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -279,31 +299,32 @@ export default {
       this.forms.filterdate.value = val;
       this.getBandwidthUsageClient( this.clients_detail );
     },
-    deleteDevice(account_id, mac_address)
+    deleteDevice(seqid)
     {
       swal({
-        title: 'Are you sure?',
-        text: 'MAC ' + mac_address + ' will be delete permanent.',
-        icon: 'warning',
         dangerMode: true,
         buttons: {
-          cancel: 'No',
-          confirm: {
-            text: 'Sure',
-            value: true
+          cancel: 'Cancel',
+          singleDelete: {
+            value: 'single',
+            text: 'Delete'
+          },
+          multipleDelete: {
+            value: 'multiple',
+            text: 'Mass Delete'
           }
         }
       }).then( val => {
-        if( val )
+        if( val === 'single' )
         {
           axios({
             method: 'delete',
-            url: this.url + 'admin/delete/devices/' + account_id + '/' + mac_address,
+            url: this.url + 'admin/delete/devices/' + seqid + '/single',
             headers: { 'Content-Type': 'application/json' }
           }).then( res => {
             swal({
               title: 'Success',
-              text: 'MAC ' + mac_address + ' deleted',
+              text: res.data.statusText,
               icon: 'success'
             });
             this.getAccountSubscribers();
@@ -315,6 +336,49 @@ export default {
               dangerMode: true
             });
           });
+        }
+        else if( val === 'multiple' )
+        {
+          swal({
+            title: 'Are you sure?',
+            text: 'All devices will be deleted permanently.',
+            icon: 'warning',
+            dangerMode: true,
+            buttons: {
+              cancel: 'Cancel',
+              confirm: {
+                value: true,
+                text: 'Yes'
+              }
+            }
+          }).then( willDelete => {
+            if( willDelete )
+            {
+              axios({
+                method: 'delete',
+                url: this.url + 'admin/delete/devices/' + seqid + '/mass',
+                headers: { 'Content-Type': 'application/json' }
+              }).then( res => {
+                swal({
+                  title: 'Success',
+                  text: res.data.statusText,
+                  icon: 'success'
+                });
+                this.getAccountSubscribers();
+              }).catch( err => {
+                swal({
+                  title: 'Whoops',
+                  text: 'An error has occured. ' + err.response.statusText,
+                  icon: 'warning',
+                  dangerMode: true
+                });
+              });
+            }
+          });
+        }
+        else
+        {
+
         }
       });
     },
@@ -583,6 +647,54 @@ export default {
           icon: 'warning',
           dangerMode: true
         });
+      });
+    },
+    blockAccountId( account_id, isBlocked )
+    {
+      var messageBlock = {
+        text: {
+          swal: isBlocked === 'N' ? 'Account ID ' + account_id + ' will block and cannot sign in.' : 'Unlock ' + account_id + ' and restore previous devices.',
+          button: isBlocked === 'N' ? 'Block' : 'Unlock'
+        }
+      };
+
+      swal({
+        title: 'Confirmation',
+        text: messageBlock.text.swal,
+        icon: 'warning',
+        dangerMode: true,
+        buttons: {
+          cancel: 'Cancel',
+          confirm: {
+            value: true,
+            text: messageBlock.text.button
+          }
+        }
+      }).then( val => {
+        if( val === true )
+        {
+          axios({
+            method: 'put',
+            url: this.url + 'admin/update/subscriber/block/' + account_id,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }).then( res => {
+            swal({
+              title: 'Success',
+              text: res.data.statusText,
+              icon: 'success'
+            });
+            this.getAccountSubscribers();
+          }).catch( err => {
+            swal({
+              title: 'Error',
+              text: err.response.statusText,
+              icon: 'error',
+              dangerMode: true
+            });
+          });
+        }
       });
     }
   },

@@ -42,16 +42,49 @@ class LoginController extends Controller
       $this->ldap_password = $password;
       $ldap = $this->auth_ldap();
 
-      $res = $ldap;
-      if( $res['status'] == 200 )
+      $statusLdap = $ldap;
+      if( $statusLdap['status'] == 200 )
       {
-        $request->session()->put('displayname', $res['response']['displayname']);
-        $request->session()->put('username', $this->ldap_username);
-        $request->session()->put('ip', $request->server('REMOTE_ADDR'));
-        $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
-        $request->session()->put('logintime', time());
-        $request->session()->put('biznetwifi_login', true);
-        $request->session()->put('connect', 'biznetwifi');
+        $getaccount = $subscriber->select('account_id', 'is_blocked')
+        ->where('account_id', $username);
+
+        if( $getaccount->count() != 0 )
+        {
+          $fetchaccount = $getaccount->first();
+          if( $fetchaccount->is_blocked == 'Y' )
+          {
+            $res = [
+              'status' => 401,
+              'statusText' => 'Sorry, your account has blocked for some reason.'
+            ];
+          }
+          else
+          {
+            $res = $ldap;
+            $request->session()->put('displayname', $res['response']['displayname']);
+            $request->session()->put('username', $this->ldap_username);
+            $request->session()->put('ip', $request->server('REMOTE_ADDR'));
+            $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
+            $request->session()->put('logintime', time());
+            $request->session()->put('biznetwifi_login', true);
+            $request->session()->put('connect', 'biznetwifi');
+          }
+        }
+        else
+        {
+          $res = $ldap;
+          $request->session()->put('displayname', $res['response']['displayname']);
+          $request->session()->put('username', $this->ldap_username);
+          $request->session()->put('ip', $request->server('REMOTE_ADDR'));
+          $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
+          $request->session()->put('logintime', time());
+          $request->session()->put('biznetwifi_login', true);
+          $request->session()->put('connect', 'biznetwifi');
+        }
+      }
+      else
+      {
+        $res = $ldap;
       }
     }
     else if( preg_match( '/^[A-Z0-9]*$/', $username ) )
@@ -59,19 +92,52 @@ class LoginController extends Controller
       $auth = $this->sterlite_auth( $username, $password );
       if( $auth['responseObject']['responseCode'] == 0 )
       {
-        $getcustomer_sterlite = $this->sterliteGetCustomerData( $auth['responseObject']['accountNumber'] );
-        $res = [
-          'status' => 200,
-          'statusText' => 'Login berhasil'
-        ];
+        $getaccount = $subscriber->select('account_id', 'is_blocked')
+        ->where('account_id', $username);
 
-        $request->session()->put('displayname', $getcustomer_sterlite['responseObject']['customerAccountResponseobj']['firstName']);
-        $request->session()->put('username', $username);
-        $request->session()->put('ip', $request->server('REMOTE_ADDR'));
-        $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
-        $request->session()->put('logintime', time());
-        $request->session()->put('biznetwifi_login', true);
-        $request->session()->put('connect', 'biznetwifi');
+        if( $getaccount->count() != 0 )
+        {
+          $fetchaccount = $getaccount->first();
+          if( $fetchaccount->is_blocked === 'N' )
+          {
+            $getcustomer_sterlite = $this->sterliteGetCustomerData( $auth['responseObject']['accountNumber'] );
+            $res = [
+              'status' => 200,
+              'statusText' => 'Login berhasil'
+            ];
+
+            $request->session()->put('displayname', $getcustomer_sterlite['responseObject']['customerAccountResponseobj']['firstName']);
+            $request->session()->put('username', $auth['responseObject']['accountNumber']);
+            $request->session()->put('ip', $request->server('REMOTE_ADDR'));
+            $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
+            $request->session()->put('logintime', time());
+            $request->session()->put('biznetwifi_login', true);
+            $request->session()->put('connect', 'biznetwifi');
+          }
+          else
+          {
+            $res = [
+              'status' => 401,
+              'statusText' => 'Sorry, your account has blocked for some reason.'
+            ];
+          }
+        }
+        else
+        {
+          $getcustomer_sterlite = $this->sterliteGetCustomerData( $auth['responseObject']['accountNumber'] );
+          $res = [
+            'status' => 200,
+            'statusText' => 'Login berhasil'
+          ];
+
+          $request->session()->put('displayname', $getcustomer_sterlite['responseObject']['customerAccountResponseobj']['firstName']);
+          $request->session()->put('username', $username);
+          $request->session()->put('ip', $request->server('REMOTE_ADDR'));
+          $request->session()->put('agent', $request->server('HTTP_USER_AGENT'));
+          $request->session()->put('logintime', time());
+          $request->session()->put('biznetwifi_login', true);
+          $request->session()->put('connect', 'biznetwifi');
+        }
       }
       else
       {
