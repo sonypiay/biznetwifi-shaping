@@ -4287,6 +4287,145 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
   data: function data() {
@@ -4304,6 +4443,84 @@ __webpack_require__.r(__webpack_exports__);
       summaryClientAsVisitors: {
         total: [],
         results: {}
+      },
+      trafficAp: {
+        ruckus: {
+          filterdate: {
+            value: 'today',
+            text: this.$root.formatDate(new Date(), 'MMM DD, YYYY'),
+            start: new Date(),
+            end: new Date()
+          },
+          datepicker: {
+            filterdate: {
+              start: new Date(),
+              end: new Date()
+            },
+            props: {},
+            attributes: {},
+            themeStyles: {},
+            formats: {
+              title: 'MMMM YYYY',
+              weekdays: 'W',
+              navMonths: 'MMM',
+              input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
+              // Only for `v-date-picker`
+              dayPopover: 'L',
+              // Only for `v-date-picker`
+              data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+
+            }
+          },
+          total: 0,
+          results: [],
+          pagination: {
+            first_page: 1,
+            last_page: 1,
+            next_page: 1,
+            prev_page: 1,
+            current_page: 1,
+            path: this.url + 'admin/bandwidth/ap/ruckus'
+          }
+        },
+        mikrotik: {
+          filterdate: {
+            value: 'today',
+            text: this.$root.formatDate(new Date(), 'MMM DD, YYYY'),
+            start: new Date(),
+            end: new Date()
+          },
+          datepicker: {
+            filterdate: {
+              start: new Date(),
+              end: new Date()
+            },
+            props: {},
+            attributes: {},
+            themeStyles: {},
+            formats: {
+              title: 'MMMM YYYY',
+              weekdays: 'W',
+              navMonths: 'MMM',
+              input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
+              // Only for `v-date-picker`
+              dayPopover: 'L',
+              // Only for `v-date-picker`
+              data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+
+            }
+          },
+          total: 0,
+          results: [],
+          pagination: {
+            first_page: 1,
+            last_page: 1,
+            next_page: 1,
+            prev_page: 1,
+            current_page: 1,
+            path: this.url + 'admin/bandwidth/ap/mikrotik'
+          }
+        }
       },
       forms: {
         filterdate: {
@@ -4549,12 +4766,86 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (err) {
         console.log(err);
       });
+    },
+    getListApTrafficRuckus: function getListApTrafficRuckus(url) {
+      var _this4 = this;
+
+      if (url === undefined) url = this.trafficAp.ruckus.pagination.path;
+      UIkit.dropdown('#filterDateRuckus').hide();
+      var startdate = this.$root.formatDate(this.trafficAp.ruckus.datepicker.filterdate.start, 'YYYY-MM-DD');
+      var enddate = this.$root.formatDate(this.trafficAp.ruckus.datepicker.filterdate.end, 'YYYY-MM-DD');
+
+      if (startdate === this.$root.formatDate(new Date(), 'YYYY-MM-DD')) {
+        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate(new Date(), 'MMM DD, YYYY');
+      } else {
+        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate(this.trafficAp.ruckus.datepicker.filterdate.start, 'MMM DD, YYYY') + ' - ' + this.$root.formatDate(this.trafficAp.ruckus.datepicker.filterdate.end, 'MMM DD, YYYY');
+      }
+
+      axios({
+        method: 'get',
+        url: url + '?startdate=' + startdate + '&enddate=' + enddate
+      }).then(function (res) {
+        var result = res.data;
+        _this4.trafficAp.ruckus.total = result.total_records;
+        _this4.trafficAp.ruckus.results = result.results.data;
+
+        if (result.results.next_page_url !== null) {
+          _this4.trafficAp.ruckus.pagination.next_page = +_this4.$root.getParameterURL(result.results.next_page_url).get('page');
+        }
+
+        if (result.results.prev_page_url !== null) {
+          _this4.trafficAp.ruckus.pagination.prev_page = _this4.$root.getParameterURL(result.results.prev_page_url).get('page');
+        }
+
+        _this4.trafficAp.ruckus.pagination.current_page = result.results.current_page;
+        _this4.trafficAp.ruckus.pagination.last_page = result.results.last_page;
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
+    },
+    getListApTrafficMikrotik: function getListApTrafficMikrotik(url) {
+      var _this5 = this;
+
+      if (url === undefined) url = this.trafficAp.mikrotik.pagination.path;
+      UIkit.dropdown('#filterDateMikrotik').hide();
+      var startdate = this.$root.formatDate(this.trafficAp.mikrotik.datepicker.filterdate.start, 'YYYY-MM-DD');
+      var enddate = this.$root.formatDate(this.trafficAp.mikrotik.datepicker.filterdate.end, 'YYYY-MM-DD');
+
+      if (startdate === this.$root.formatDate(new Date(), 'YYYY-MM-DD')) {
+        this.trafficAp.mikrotik.filterdate.text = this.$root.formatDate(new Date(), 'MMM DD, YYYY');
+      } else {
+        this.trafficAp.mikrotik.filterdate.text = this.$root.formatDate(this.trafficAp.mikrotik.datepicker.filterdate.start, 'MMM DD, YYYY') + ' - ' + this.$root.formatDate(this.trafficAp.mikrotik.datepicker.filterdate.end, 'MMM DD, YYYY');
+      }
+
+      axios({
+        method: 'get',
+        url: url + '?startdate=' + startdate + '&enddate=' + enddate
+      }).then(function (res) {
+        var result = res.data;
+        _this5.trafficAp.mikrotik.total = result.total_records;
+        _this5.trafficAp.mikrotik.results = result.results.data;
+
+        if (result.results.next_page_url !== null) {
+          _this5.trafficAp.mikrotik.pagination.next_page = +_this5.$root.getParameterURL(result.results.next_page_url).get('page');
+        }
+
+        if (result.results.prev_page_url !== null) {
+          _this5.trafficAp.mikrotik.pagination.prev_page = _this5.$root.getParameterURL(result.results.prev_page_url).get('page');
+        }
+
+        _this5.trafficAp.mikrotik.pagination.current_page = result.results.current_page;
+        _this5.trafficAp.mikrotik.pagination.last_page = result.results.last_page;
+      }).catch(function (err) {
+        console.log(err.response.statusText);
+      });
     }
   },
   mounted: function mounted() {
     this.getSummaryClientAsSubscriber();
     this.getSummaryDeviceClientAsVisitor();
     this.getSummaryDeviceClientAsVisitorByDate();
+    this.getListApTrafficRuckus();
+    this.getListApTrafficMikrotik();
   }
 });
 
@@ -75117,6 +75408,576 @@ var render = function() {
             ])
           ]
         )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-margin dashboard-container" }, [
+        _c("div", { staticClass: "subheading-dashboard" }, [
+          _vm._v("Traffic Access Point")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-dashboard" }, [
+          _vm._v("Ruckus Wireless")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard"
+          },
+          [
+            _c("div", { staticClass: "uk-margin uk-card content-data" }, [
+              _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "uk-button uk-button-default form-content-button",
+                    attrs: { type: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.trafficAp.ruckus.filterdate.text) +
+                        " "
+                    ),
+                    _c("span", { attrs: { "uk-icon": "chevron-down" } })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-width-2-3",
+                    attrs: {
+                      id: "filterDateRuckus",
+                      "uk-dropdown": "mode: click; pos: right-center"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "uk-dropdown-grid uk-grid-small",
+                        attrs: { "uk-grid": "" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "uk-width-expand" },
+                          [
+                            _c("v-date-picker", {
+                              attrs: {
+                                formats:
+                                  _vm.trafficAp.ruckus.datepicker.formats,
+                                mode: "range",
+                                "is-inline": true,
+                                "theme-styles":
+                                  _vm.trafficAp.ruckus.datepicker.themeStyles,
+                                "show-caps": "",
+                                "is-double-paned": ""
+                              },
+                              model: {
+                                value:
+                                  _vm.trafficAp.ruckus.datepicker.filterdate,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.trafficAp.ruckus.datepicker,
+                                    "filterdate",
+                                    $$v
+                                  )
+                                },
+                                expression:
+                                  "trafficAp.ruckus.datepicker.filterdate"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-3@s"
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "uk-width-1-1 uk-button uk-button-default button-datepicker",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getListApTrafficRuckus()
+                                  }
+                                }
+                              },
+                              [_vm._v("Apply")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _vm.trafficAp.ruckus.total === 0
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "uk-alert-warning",
+                    attrs: { "uk-alert": "" }
+                  },
+                  [_vm._v("\n          There is no data to display.\n        ")]
+                )
+              : _c("div", { staticClass: "uk-overflow-auto" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "uk-table uk-table-small uk-table-striped uk-table-divider uk-table-hover table-overview-dashboard"
+                    },
+                    [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.trafficAp.ruckus.results, function(traffic) {
+                          return _c("tr", [
+                            _c("td", [_vm._v(_vm._s(traffic.ap_name))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.upload,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.upload,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.download,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.download,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.total_traffic,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.total_traffic,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(traffic.total_session))])
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  )
+                ]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              { staticClass: "uk-pagination", attrs: { "uk-margin": "" } },
+              [
+                _c("li", [
+                  _vm.trafficAp.ruckus.pagination.prev_page !== 1
+                    ? _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.getListApTrafficRuckus(
+                                _vm.trafficAp.ruckus.pagination.path +
+                                  "/" +
+                                  _vm.trafficAp.ruckus.pagination.prev_page
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("span", {
+                            attrs: { "uk-pagination-previous": "" }
+                          })
+                        ]
+                      )
+                    : _c("a", [
+                        _c("span", { attrs: { "uk-pagination-previous": "" } })
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "uk-disabled" }, [
+                  _c("span", [
+                    _vm._v(
+                      "Page " +
+                        _vm._s(_vm.trafficAp.ruckus.pagination.current_page) +
+                        " of " +
+                        _vm._s(_vm.trafficAp.ruckus.pagination.last_page)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm.trafficAp.ruckus.pagination.next_page !== 1
+                    ? _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.getListApTrafficRuckus(
+                                _vm.trafficAp.ruckus.pagination.path +
+                                  "/" +
+                                  _vm.trafficAp.ruckus.pagination.next_page
+                              )
+                            }
+                          }
+                        },
+                        [_c("span", { attrs: { "uk-pagination-next": "" } })]
+                      )
+                    : _c("a", [
+                        _c("span", { attrs: { "uk-pagination-next": "" } })
+                      ])
+                ])
+              ]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-margin dashboard-container" }, [
+        _c("div", { staticClass: "subheading-dashboard" }, [
+          _vm._v("Traffic Access Point")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "heading-dashboard" }, [_vm._v("Mikrotik")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard"
+          },
+          [
+            _c("div", { staticClass: "uk-margin uk-card content-data" }, [
+              _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "uk-button uk-button-default form-content-button",
+                    attrs: { type: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.trafficAp.mikrotik.filterdate.text) +
+                        " "
+                    ),
+                    _c("span", { attrs: { "uk-icon": "chevron-down" } })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-width-2-3",
+                    attrs: {
+                      id: "filterDateMikrotik",
+                      "uk-dropdown": "mode: click; pos: right-center"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "uk-dropdown-grid uk-grid-small",
+                        attrs: { "uk-grid": "" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "uk-width-expand" },
+                          [
+                            _c("v-date-picker", {
+                              attrs: {
+                                formats:
+                                  _vm.trafficAp.mikrotik.datepicker.formats,
+                                mode: "range",
+                                "is-inline": true,
+                                "theme-styles":
+                                  _vm.trafficAp.mikrotik.datepicker.themeStyles,
+                                "show-caps": "",
+                                "is-double-paned": ""
+                              },
+                              model: {
+                                value:
+                                  _vm.trafficAp.mikrotik.datepicker.filterdate,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.trafficAp.mikrotik.datepicker,
+                                    "filterdate",
+                                    $$v
+                                  )
+                                },
+                                expression:
+                                  "trafficAp.mikrotik.datepicker.filterdate"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-3@s"
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "uk-width-1-1 uk-button uk-button-default button-datepicker",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getListApTrafficMikrotik()
+                                  }
+                                }
+                              },
+                              [_vm._v("Apply")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _vm.trafficAp.mikrotik.total === 0
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "uk-alert-warning",
+                    attrs: { "uk-alert": "" }
+                  },
+                  [_vm._v("\n          There is no data to display.\n        ")]
+                )
+              : _c("div", { staticClass: "uk-overflow-auto" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "uk-table uk-table-small uk-table-striped uk-table-divider uk-table-hover table-overview-dashboard"
+                    },
+                    [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.trafficAp.mikrotik.results, function(
+                          traffic
+                        ) {
+                          return _c("tr", [
+                            _c("td", [_vm._v(_vm._s(traffic.ap_name))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.upload,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.upload,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.download,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.download,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c("progress", {
+                                staticClass: "uk-progress",
+                                attrs: { max: "100" },
+                                domProps: {
+                                  value: _vm.$root.toPercentage(
+                                    traffic.total_traffic,
+                                    traffic.total_traffic
+                                  )
+                                }
+                              }),
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    _vm.$root.formatNumeral(
+                                      traffic.total_traffic,
+                                      "0.00 b"
+                                    )
+                                  ) +
+                                  "\n                "
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(traffic.total_session))])
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  )
+                ]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              { staticClass: "uk-pagination", attrs: { "uk-margin": "" } },
+              [
+                _c("li", [
+                  _vm.trafficAp.mikrotik.pagination.prev_page !== 1
+                    ? _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.getListApTrafficRuckus(
+                                _vm.trafficAp.mikrotik.pagination.path +
+                                  "/" +
+                                  _vm.trafficAp.mikrotik.pagination.prev_page
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("span", {
+                            attrs: { "uk-pagination-previous": "" }
+                          })
+                        ]
+                      )
+                    : _c("a", [
+                        _c("span", { attrs: { "uk-pagination-previous": "" } })
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "uk-disabled" }, [
+                  _c("span", [
+                    _vm._v(
+                      "Page " +
+                        _vm._s(_vm.trafficAp.mikrotik.pagination.current_page) +
+                        " of " +
+                        _vm._s(_vm.trafficAp.mikrotik.pagination.last_page)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm.trafficAp.mikrotik.pagination.next_page !== 1
+                    ? _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.getListApTrafficRuckus(
+                                _vm.trafficAp.mikrotik.pagination.path +
+                                  "/" +
+                                  _vm.trafficAp.mikrotik.pagination.next_page
+                              )
+                            }
+                          }
+                        },
+                        [_c("span", { attrs: { "uk-pagination-next": "" } })]
+                      )
+                    : _c("a", [
+                        _c("span", { attrs: { "uk-pagination-next": "" } })
+                      ])
+                ])
+              ]
+            )
+          ]
+        )
       ])
     ])
   ])
@@ -75193,6 +76054,42 @@ var staticRenderFns = [
         )
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("AP Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Upload")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Download")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Traffic")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sessions")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("AP Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Upload")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Download")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Traffic")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sessions")])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -87532,6 +88429,13 @@ var app = new Vue({
       var regexp = /^[0-9a-fA-F]+$/;
       if (regexp.test(hex)) isHex = true;
       return isHex;
+    },
+    toPercentage: function toPercentage(current, total) {
+      return Math.ceil(current / total * 100);
+    },
+    getParameterURL: function getParameterURL(url) {
+      var url_string = new URL(url);
+      return url_string.searchParams;
     }
   }
 });
