@@ -122,4 +122,26 @@ trait RadiusAPI {
 
     return json_decode( $res, true );
   }
+
+  public function trafficAccessPoint( $startdate, $enddate, $page, $ap )
+  {
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_URL => 'http://182.253.238.66:8080/api/bandwidth/ap/trafficUsage/' . $ap . '/list?page=' . $page . '&startdate=' . $startdate . '&enddate=' . $enddate,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_HTTPHEADER => [
+        'Content-Type: application/json',
+        'Accepts: application/json',
+        'Authorization: Basic YWRtaW46Yml6bmV0MDE='
+      ]
+    ]);
+    curl_setopt( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
+    curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+
+    $res = curl_exec( $ch );
+    curl_close( $ch );
+
+    return json_decode( $res, true );
+  }
 }

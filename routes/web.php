@@ -61,12 +61,14 @@ Route::group(['prefix' => 'admin'], function() {
   Route::group(['prefix' => 'bandwidth'], function() {
     Route::get('/', 'Administrator\BandwidthUsageController@index')->name('bandwidth_dashboard_page');
     Route::get('/total_usage', 'Administrator\BandwidthUsageController@totalBandwidthUsage');
+    Route::get('/ap/{type}/{page?}', 'Administrator\BandwidthUsageController@getTrafficAp');
   });
   Route::group(['prefix' => 'create'], function() {
     Route::post('admin_roles', 'Administrator\AdminRolesController@create_role');
   });
   Route::group(['prefix' => 'update'], function() {
     Route::put('admin_roles/{userid}', 'Administrator\AdminRolesController@update_role');
+    Route::put('subscriber/block/{account}', 'Administrator\AccountSubscribersController@blockSubscriber');
   });
   Route::group(['prefix' => 'delete'], function() {
     Route::delete('devices/{account_id}/{method}/{mac?}', 'Administrator\AccountSubscribersController@deleteDevice');
