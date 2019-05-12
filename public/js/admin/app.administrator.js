@@ -4387,6 +4387,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url'],
   data: function data() {
@@ -4413,8 +4452,36 @@ __webpack_require__.r(__webpack_exports__);
             start: new Date(),
             end: new Date()
           },
+          datepicker: {
+            filterdate: {
+              start: new Date(),
+              end: new Date()
+            },
+            props: {},
+            attributes: {},
+            themeStyles: {},
+            formats: {
+              title: 'MMMM YYYY',
+              weekdays: 'W',
+              navMonths: 'MMM',
+              input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
+              // Only for `v-date-picker`
+              dayPopover: 'L',
+              // Only for `v-date-picker`
+              data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+
+            }
+          },
           total: 0,
-          results: []
+          results: [],
+          pagination: {
+            first_page: 1,
+            last_page: 1,
+            next_page: 1,
+            prev_page: 1,
+            current_page: 1,
+            path: this.url + 'admin/bandwidth/ap/ruckus'
+          }
         },
         mikrotik: {
           filterdate: {
@@ -4423,8 +4490,36 @@ __webpack_require__.r(__webpack_exports__);
             start: new Date(),
             end: new Date()
           },
+          datepicker: {
+            filterdate: {
+              start: new Date(),
+              end: new Date()
+            },
+            props: {},
+            attributes: {},
+            themeStyles: {},
+            formats: {
+              title: 'MMMM YYYY',
+              weekdays: 'W',
+              navMonths: 'MMM',
+              input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
+              // Only for `v-date-picker`
+              dayPopover: 'L',
+              // Only for `v-date-picker`
+              data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+
+            }
+          },
           total: 0,
-          results: []
+          results: [],
+          pagination: {
+            first_page: 1,
+            last_page: 1,
+            next_page: 1,
+            prev_page: 1,
+            current_page: 1,
+            path: this.url + 'admin/bandwidth/ap/mikrotik'
+          }
         }
       },
       forms: {
@@ -4435,30 +4530,6 @@ __webpack_require__.r(__webpack_exports__);
         filterdevice: {
           value: 'all',
           text: 'All'
-        }
-      },
-      datepicker: {
-        filterdate: {
-          start: new Date(),
-          end: new Date()
-        },
-        props: {
-          class: "uk-width-1-1 uk-input form-content-datepicker",
-          placeholder: "Enter date",
-          readonly: true
-        },
-        attributes: {},
-        themeStyles: {},
-        formats: {
-          title: 'MMMM YYYY',
-          weekdays: 'W',
-          navMonths: 'MMM',
-          input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'],
-          // Only for `v-date-picker`
-          dayPopover: 'L',
-          // Only for `v-date-picker`
-          data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
-
         }
       }
     };
@@ -4696,41 +4767,74 @@ __webpack_require__.r(__webpack_exports__);
         console.log(err);
       });
     },
-    getListApTrafficRuckus: function getListApTrafficRuckus() {
+    getListApTrafficRuckus: function getListApTrafficRuckus(url) {
       var _this4 = this;
 
-      var startdate = this.$root.formatDate(this.datepicker.filterdate.start, 'YYYY-MM-DD');
-      var enddate = this.$root.formatDate(this.datepicker.filterdate.end, 'YYYY-MM-DD');
+      if (url === undefined) url = this.trafficAp.ruckus.pagination.path;
+      UIkit.dropdown('#filterDateRuckus').hide();
+      var startdate = this.$root.formatDate(this.trafficAp.ruckus.datepicker.filterdate.start, 'YYYY-MM-DD');
+      var enddate = this.$root.formatDate(this.trafficAp.ruckus.datepicker.filterdate.end, 'YYYY-MM-DD');
 
       if (startdate === this.$root.formatDate(new Date(), 'YYYY-MM-DD')) {
         this.trafficAp.ruckus.filterdate.text = this.$root.formatDate(new Date(), 'MMM DD, YYYY');
       } else {
-        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate(this.datepicker.filterdate.start, 'MMM DD, YYYY') + ' - ' + this.$root.formatDate(this.datepicker.filterdate.end, 'MMM DD, YYYY');
+        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate(this.trafficAp.ruckus.datepicker.filterdate.start, 'MMM DD, YYYY') + ' - ' + this.$root.formatDate(this.trafficAp.ruckus.datepicker.filterdate.end, 'MMM DD, YYYY');
       }
 
       axios({
         method: 'get',
-        url: this.url + 'admin/bandwidth/ap/ruckus?startdate=' + startdate + '&enddate=' + enddate
+        url: url + '?startdate=' + startdate + '&enddate=' + enddate
       }).then(function (res) {
         var result = res.data;
         _this4.trafficAp.ruckus.total = result.total_records;
         _this4.trafficAp.ruckus.results = result.results.data;
+
+        if (result.results.next_page_url !== null) {
+          _this4.trafficAp.ruckus.pagination.next_page = +_this4.$root.getParameterURL(result.results.next_page_url).get('page');
+        }
+
+        if (result.results.prev_page_url !== null) {
+          _this4.trafficAp.ruckus.pagination.prev_page = _this4.$root.getParameterURL(result.results.prev_page_url).get('page');
+        }
+
+        _this4.trafficAp.ruckus.pagination.current_page = result.results.current_page;
+        _this4.trafficAp.ruckus.pagination.last_page = result.results.last_page;
       }).catch(function (err) {
         console.log(err.response.statusText);
       });
     },
-    getListApTrafficMikrotik: function getListApTrafficMikrotik() {
+    getListApTrafficMikrotik: function getListApTrafficMikrotik(url) {
       var _this5 = this;
+
+      if (url === undefined) url = this.trafficAp.mikrotik.pagination.path;
+      UIkit.dropdown('#filterDateMikrotik').hide();
+      var startdate = this.$root.formatDate(this.trafficAp.mikrotik.datepicker.filterdate.start, 'YYYY-MM-DD');
+      var enddate = this.$root.formatDate(this.trafficAp.mikrotik.datepicker.filterdate.end, 'YYYY-MM-DD');
+
+      if (startdate === this.$root.formatDate(new Date(), 'YYYY-MM-DD')) {
+        this.trafficAp.mikrotik.filterdate.text = this.$root.formatDate(new Date(), 'MMM DD, YYYY');
+      } else {
+        this.trafficAp.mikrotik.filterdate.text = this.$root.formatDate(this.trafficAp.mikrotik.datepicker.filterdate.start, 'MMM DD, YYYY') + ' - ' + this.$root.formatDate(this.trafficAp.mikrotik.datepicker.filterdate.end, 'MMM DD, YYYY');
+      }
 
       axios({
         method: 'get',
-        url: this.url + 'admin/bandwidth/ap/mikrotik'
+        url: url + '?startdate=' + startdate + '&enddate=' + enddate
       }).then(function (res) {
         var result = res.data;
-        _this5.trafficAp.mikrotik = {
-          total: result.total_records,
-          results: result.results.data
-        };
+        _this5.trafficAp.mikrotik.total = result.total_records;
+        _this5.trafficAp.mikrotik.results = result.results.data;
+
+        if (result.results.next_page_url !== null) {
+          _this5.trafficAp.mikrotik.pagination.next_page = +_this5.$root.getParameterURL(result.results.next_page_url).get('page');
+        }
+
+        if (result.results.prev_page_url !== null) {
+          _this5.trafficAp.mikrotik.pagination.prev_page = _this5.$root.getParameterURL(result.results.prev_page_url).get('page');
+        }
+
+        _this5.trafficAp.mikrotik.pagination.current_page = result.results.current_page;
+        _this5.trafficAp.mikrotik.pagination.last_page = result.results.last_page;
       }).catch(function (err) {
         console.log(err.response.statusText);
       });
@@ -75345,7 +75449,10 @@ var render = function() {
                   "div",
                   {
                     staticClass: "uk-width-2-3",
-                    attrs: { "uk-dropdown": "mode: click; pos: right-center" }
+                    attrs: {
+                      id: "filterDateRuckus",
+                      "uk-dropdown": "mode: click; pos: right-center"
+                    }
                   },
                   [
                     _c(
@@ -75361,21 +75468,27 @@ var render = function() {
                           [
                             _c("v-date-picker", {
                               attrs: {
-                                formats: _vm.datepicker.formats,
+                                formats:
+                                  _vm.trafficAp.ruckus.datepicker.formats,
                                 mode: "range",
                                 "is-inline": true,
-                                "select-attribute": _vm.datepicker.attributes,
-                                "input-props": _vm.datepicker.props,
-                                "theme-styles": _vm.datepicker.themeStyles,
+                                "theme-styles":
+                                  _vm.trafficAp.ruckus.datepicker.themeStyles,
                                 "show-caps": "",
                                 "is-double-paned": ""
                               },
                               model: {
-                                value: _vm.datepicker.filterdate,
+                                value:
+                                  _vm.trafficAp.ruckus.datepicker.filterdate,
                                 callback: function($$v) {
-                                  _vm.$set(_vm.datepicker, "filterdate", $$v)
+                                  _vm.$set(
+                                    _vm.trafficAp.ruckus.datepicker,
+                                    "filterdate",
+                                    $$v
+                                  )
                                 },
-                                expression: "datepicker.filterdate"
+                                expression:
+                                  "trafficAp.ruckus.datepicker.filterdate"
                               }
                             })
                           ],
@@ -75512,7 +75625,72 @@ var render = function() {
                       )
                     ]
                   )
+                ]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              { staticClass: "uk-pagination", attrs: { "uk-margin": "" } },
+              [
+                _c("li", [
+                  _vm.trafficAp.ruckus.pagination.prev_page !== 1
+                    ? _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.getListApTrafficRuckus(
+                                _vm.trafficAp.ruckus.pagination.path +
+                                  "/" +
+                                  _vm.trafficAp.ruckus.pagination.prev_page
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("span", {
+                            attrs: { "uk-pagination-previous": "" }
+                          })
+                        ]
+                      )
+                    : _c("a", [
+                        _c("span", { attrs: { "uk-pagination-previous": "" } })
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "uk-disabled" }, [
+                  _c("span", [
+                    _vm._v(
+                      "Page " +
+                        _vm._s(_vm.trafficAp.ruckus.pagination.current_page) +
+                        " of " +
+                        _vm._s(_vm.trafficAp.ruckus.pagination.last_page)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm.trafficAp.ruckus.pagination.next_page !== 1
+                    ? _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.getListApTrafficRuckus(
+                                _vm.trafficAp.ruckus.pagination.path +
+                                  "/" +
+                                  _vm.trafficAp.ruckus.pagination.next_page
+                              )
+                            }
+                          }
+                        },
+                        [_c("span", { attrs: { "uk-pagination-next": "" } })]
+                      )
+                    : _c("a", [
+                        _c("span", { attrs: { "uk-pagination-next": "" } })
+                      ])
                 ])
+              ]
+            )
           ]
         )
       ]),
@@ -75531,6 +75709,104 @@ var render = function() {
               "uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard"
           },
           [
+            _c("div", { staticClass: "uk-margin uk-card content-data" }, [
+              _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "uk-button uk-button-default form-content-button",
+                    attrs: { type: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.trafficAp.mikrotik.filterdate.text) +
+                        " "
+                    ),
+                    _c("span", { attrs: { "uk-icon": "chevron-down" } })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-width-2-3",
+                    attrs: {
+                      id: "filterDateMikrotik",
+                      "uk-dropdown": "mode: click; pos: right-center"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "uk-dropdown-grid uk-grid-small",
+                        attrs: { "uk-grid": "" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "uk-width-expand" },
+                          [
+                            _c("v-date-picker", {
+                              attrs: {
+                                formats:
+                                  _vm.trafficAp.mikrotik.datepicker.formats,
+                                mode: "range",
+                                "is-inline": true,
+                                "theme-styles":
+                                  _vm.trafficAp.mikrotik.datepicker.themeStyles,
+                                "show-caps": "",
+                                "is-double-paned": ""
+                              },
+                              model: {
+                                value:
+                                  _vm.trafficAp.mikrotik.datepicker.filterdate,
+                                callback: function($$v) {
+                                  _vm.$set(
+                                    _vm.trafficAp.mikrotik.datepicker,
+                                    "filterdate",
+                                    $$v
+                                  )
+                                },
+                                expression:
+                                  "trafficAp.mikrotik.datepicker.filterdate"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-3@s"
+                          },
+                          [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "uk-width-1-1 uk-button uk-button-default button-datepicker",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.getListApTrafficMikrotik()
+                                  }
+                                }
+                              },
+                              [_vm._v("Apply")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
             _vm.trafficAp.mikrotik.total === 0
               ? _c(
                   "div",
@@ -75634,7 +75910,72 @@ var render = function() {
                       )
                     ]
                   )
+                ]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              { staticClass: "uk-pagination", attrs: { "uk-margin": "" } },
+              [
+                _c("li", [
+                  _vm.trafficAp.mikrotik.pagination.prev_page !== 1
+                    ? _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.getListApTrafficRuckus(
+                                _vm.trafficAp.mikrotik.pagination.path +
+                                  "/" +
+                                  _vm.trafficAp.mikrotik.pagination.prev_page
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("span", {
+                            attrs: { "uk-pagination-previous": "" }
+                          })
+                        ]
+                      )
+                    : _c("a", [
+                        _c("span", { attrs: { "uk-pagination-previous": "" } })
+                      ])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "uk-disabled" }, [
+                  _c("span", [
+                    _vm._v(
+                      "Page " +
+                        _vm._s(_vm.trafficAp.mikrotik.pagination.current_page) +
+                        " of " +
+                        _vm._s(_vm.trafficAp.mikrotik.pagination.last_page)
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm.trafficAp.mikrotik.pagination.next_page !== 1
+                    ? _c(
+                        "a",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.getListApTrafficRuckus(
+                                _vm.trafficAp.mikrotik.pagination.path +
+                                  "/" +
+                                  _vm.trafficAp.mikrotik.pagination.next_page
+                              )
+                            }
+                          }
+                        },
+                        [_c("span", { attrs: { "uk-pagination-next": "" } })]
+                      )
+                    : _c("a", [
+                        _c("span", { attrs: { "uk-pagination-next": "" } })
+                      ])
                 ])
+              ]
+            )
           ]
         )
       ])
@@ -88091,6 +88432,10 @@ var app = new Vue({
     },
     toPercentage: function toPercentage(current, total) {
       return Math.ceil(current / total * 100);
+    },
+    getParameterURL: function getParameterURL(url) {
+      var url_string = new URL(url);
+      return url_string.searchParams;
     }
   }
 });

@@ -54,6 +54,11 @@ const app = new Vue({
       toPercentage( current, total )
       {
         return Math.ceil( (current / total) * 100 );
+      },
+      getParameterURL( url )
+      {
+        var url_string = new URL( url );
+        return url_string.searchParams;
       }
     }
 });

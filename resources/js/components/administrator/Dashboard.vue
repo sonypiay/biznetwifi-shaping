@@ -99,10 +99,10 @@
               <button class="uk-button uk-button-default form-content-button" type="button">
                 {{ trafficAp.ruckus.filterdate.text }} <span uk-icon="chevron-down"></span>
               </button>
-              <div class="uk-width-2-3" uk-dropdown="mode: click; pos: right-center">
+              <div class="uk-width-2-3" id="filterDateRuckus" uk-dropdown="mode: click; pos: right-center">
                 <div class="uk-dropdown-grid uk-grid-small" uk-grid>
                   <div class="uk-width-expand">
-                    <v-date-picker :formats="datepicker.formats" mode="range" :is-inline="true" v-model="datepicker.filterdate" :select-attribute="datepicker.attributes" :input-props="datepicker.props" :theme-styles="datepicker.themeStyles" show-caps is-double-paned></v-date-picker>
+                    <v-date-picker :formats="trafficAp.ruckus.datepicker.formats" mode="range" :is-inline="true" v-model="trafficAp.ruckus.datepicker.filterdate" :theme-styles="trafficAp.ruckus.datepicker.themeStyles" show-caps is-double-paned></v-date-picker>
                   </div>
                   <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-3@s">
                     <button class="uk-width-1-1 uk-button uk-button-default button-datepicker" @click="getListApTrafficRuckus()">Apply</button>
@@ -145,6 +145,17 @@
               </tbody>
             </table>
           </div>
+          <ul class="uk-pagination" uk-margin>
+            <li>
+              <a v-if="trafficAp.ruckus.pagination.prev_page !== 1" @click="getListApTrafficRuckus( trafficAp.ruckus.pagination.path + '/' + trafficAp.ruckus.pagination.prev_page )"><span uk-pagination-previous></span></a>
+              <a v-else><span uk-pagination-previous></span></a>
+            </li>
+            <li class="uk-disabled"><span>Page {{ trafficAp.ruckus.pagination.current_page }} of {{ trafficAp.ruckus.pagination.last_page }}</span></li>
+            <li>
+              <a v-if="trafficAp.ruckus.pagination.next_page !== 1" @click="getListApTrafficRuckus( trafficAp.ruckus.pagination.path + '/' + trafficAp.ruckus.pagination.next_page )"><span uk-pagination-next></span></a>
+              <a v-else><span uk-pagination-next></span></a>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -152,6 +163,23 @@
         <div class="subheading-dashboard">Traffic Access Point</div>
         <div class="heading-dashboard">Mikrotik</div>
         <div class="uk-margin-top uk-card uk-card-body uk-card-small uk-card-default card-overview-dashboard">
+          <div class="uk-margin uk-card content-data">
+            <div class="uk-width-1-1 uk-inline">
+              <button class="uk-button uk-button-default form-content-button" type="button">
+                {{ trafficAp.mikrotik.filterdate.text }} <span uk-icon="chevron-down"></span>
+              </button>
+              <div class="uk-width-2-3" id="filterDateMikrotik" uk-dropdown="mode: click; pos: right-center">
+                <div class="uk-dropdown-grid uk-grid-small" uk-grid>
+                  <div class="uk-width-expand">
+                    <v-date-picker :formats="trafficAp.mikrotik.datepicker.formats" mode="range" :is-inline="true" v-model="trafficAp.mikrotik.datepicker.filterdate" :theme-styles="trafficAp.mikrotik.datepicker.themeStyles" show-caps is-double-paned></v-date-picker>
+                  </div>
+                  <div class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-4@m uk-width-1-3@s">
+                    <button class="uk-width-1-1 uk-button uk-button-default button-datepicker" @click="getListApTrafficMikrotik()">Apply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div v-if="trafficAp.mikrotik.total === 0" class="uk-alert-warning" uk-alert>
             There is no data to display.
           </div>
@@ -186,6 +214,17 @@
               </tbody>
             </table>
           </div>
+          <ul class="uk-pagination" uk-margin>
+            <li>
+              <a v-if="trafficAp.mikrotik.pagination.prev_page !== 1" @click="getListApTrafficRuckus( trafficAp.mikrotik.pagination.path + '/' + trafficAp.mikrotik.pagination.prev_page )"><span uk-pagination-previous></span></a>
+              <a v-else><span uk-pagination-previous></span></a>
+            </li>
+            <li class="uk-disabled"><span>Page {{ trafficAp.mikrotik.pagination.current_page }} of {{ trafficAp.mikrotik.pagination.last_page }}</span></li>
+            <li>
+              <a v-if="trafficAp.mikrotik.pagination.next_page !== 1" @click="getListApTrafficRuckus( trafficAp.mikrotik.pagination.path + '/' + trafficAp.mikrotik.pagination.next_page )"><span uk-pagination-next></span></a>
+              <a v-else><span uk-pagination-next></span></a>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -220,8 +259,33 @@ export default {
             start: new Date(),
             end: new Date()
           },
+          datepicker: {
+            filterdate: {
+              start: new Date(),
+              end: new Date()
+            },
+            props: {},
+            attributes: {},
+            themeStyles: {},
+            formats: {
+              title: 'MMMM YYYY',
+              weekdays: 'W',
+              navMonths: 'MMM',
+              input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'], // Only for `v-date-picker`
+              dayPopover: 'L', // Only for `v-date-picker`
+              data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+            }
+          },
           total: 0,
-          results: []
+          results: [],
+          pagination: {
+            first_page: 1,
+            last_page: 1,
+            next_page: 1,
+            prev_page: 1,
+            current_page: 1,
+            path: this.url + 'admin/bandwidth/ap/ruckus'
+          }
         },
         mikrotik: {
           filterdate: {
@@ -230,8 +294,33 @@ export default {
             start: new Date(),
             end: new Date()
           },
+          datepicker: {
+            filterdate: {
+              start: new Date(),
+              end: new Date()
+            },
+            props: {},
+            attributes: {},
+            themeStyles: {},
+            formats: {
+              title: 'MMMM YYYY',
+              weekdays: 'W',
+              navMonths: 'MMM',
+              input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'], // Only for `v-date-picker`
+              dayPopover: 'L', // Only for `v-date-picker`
+              data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
+            }
+          },
           total: 0,
-          results: []
+          results: [],
+          pagination: {
+            first_page: 1,
+            last_page: 1,
+            next_page: 1,
+            prev_page: 1,
+            current_page: 1,
+            path: this.url + 'admin/bandwidth/ap/mikrotik'
+          }
         }
       },
       forms: {
@@ -244,27 +333,7 @@ export default {
           text: 'All'
         }
       },
-      datepicker: {
-        filterdate: {
-          start: new Date(),
-          end: new Date()
-        },
-        props: {
-          class: "uk-width-1-1 uk-input form-content-datepicker",
-          placeholder: "Enter date",
-          readonly: true
-        },
-        attributes: {},
-        themeStyles: {},
-        formats: {
-          title: 'MMMM YYYY',
-          weekdays: 'W',
-          navMonths: 'MMM',
-          input: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'], // Only for `v-date-picker`
-          dayPopover: 'L', // Only for `v-date-picker`
-          data: ['L', 'YYYY-MM-DD', 'YYYY/MM/DD'] // For attribute dates
-        }
-      },
+
     }
   },
   methods: {
@@ -507,40 +576,79 @@ export default {
         console.log( err );
       });
     },
-    getListApTrafficRuckus()
+    getListApTrafficRuckus( url )
     {
-      var startdate = this.$root.formatDate( this.datepicker.filterdate.start, 'YYYY-MM-DD' );
-      var enddate = this.$root.formatDate( this.datepicker.filterdate.end, 'YYYY-MM-DD' );
+      if( url === undefined ) url = this.trafficAp.ruckus.pagination.path;
+      UIkit.dropdown('#filterDateRuckus').hide();
+      var startdate = this.$root.formatDate( this.trafficAp.ruckus.datepicker.filterdate.start, 'YYYY-MM-DD' );
+      var enddate = this.$root.formatDate( this.trafficAp.ruckus.datepicker.filterdate.end, 'YYYY-MM-DD' );
       if( startdate === this.$root.formatDate( new Date(), 'YYYY-MM-DD' ) )
       {
         this.trafficAp.ruckus.filterdate.text = this.$root.formatDate( new Date(), 'MMM DD, YYYY' );
       }
       else
       {
-        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate( this.datepicker.filterdate.start, 'MMM DD, YYYY' ) + ' - ' + this.$root.formatDate( this.datepicker.filterdate.end, 'MMM DD, YYYY' );
+        this.trafficAp.ruckus.filterdate.text = this.$root.formatDate( this.trafficAp.ruckus.datepicker.filterdate.start, 'MMM DD, YYYY' ) + ' - ' + this.$root.formatDate( this.trafficAp.ruckus.datepicker.filterdate.end, 'MMM DD, YYYY' );
       }
+
       axios({
         method: 'get',
-        url: this.url + 'admin/bandwidth/ap/ruckus?startdate=' + startdate + '&enddate=' + enddate
+        url: url + '?startdate=' + startdate + '&enddate=' + enddate
       }).then( res => {
         let result = res.data;
         this.trafficAp.ruckus.total = result.total_records;
         this.trafficAp.ruckus.results = result.results.data;
+
+        if( result.results.next_page_url !== null )
+        {
+          this.trafficAp.ruckus.pagination.next_page =  + this.$root.getParameterURL( result.results.next_page_url ).get('page');
+        }
+
+        if( result.results.prev_page_url !== null )
+        {
+          this.trafficAp.ruckus.pagination.prev_page = this.$root.getParameterURL( result.results.prev_page_url ).get('page');
+        }
+        this.trafficAp.ruckus.pagination.current_page = result.results.current_page;
+        this.trafficAp.ruckus.pagination.last_page = result.results.last_page;
       }).catch( err => {
         console.log( err.response.statusText );
       });
+
     },
-    getListApTrafficMikrotik()
+    getListApTrafficMikrotik( url )
     {
+      if( url === undefined ) url = this.trafficAp.mikrotik.pagination.path;
+      UIkit.dropdown('#filterDateMikrotik').hide();
+      var startdate = this.$root.formatDate( this.trafficAp.mikrotik.datepicker.filterdate.start, 'YYYY-MM-DD' );
+      var enddate = this.$root.formatDate( this.trafficAp.mikrotik.datepicker.filterdate.end, 'YYYY-MM-DD' );
+      if( startdate === this.$root.formatDate( new Date(), 'YYYY-MM-DD' ) )
+      {
+        this.trafficAp.mikrotik.filterdate.text = this.$root.formatDate( new Date(), 'MMM DD, YYYY' );
+      }
+      else
+      {
+        this.trafficAp.mikrotik.filterdate.text = this.$root.formatDate( this.trafficAp.mikrotik.datepicker.filterdate.start, 'MMM DD, YYYY' ) + ' - ' + this.$root.formatDate( this.trafficAp.mikrotik.datepicker.filterdate.end, 'MMM DD, YYYY' );
+      }
+
       axios({
         method: 'get',
-        url: this.url + 'admin/bandwidth/ap/mikrotik'
+        url: url + '?startdate=' + startdate + '&enddate=' + enddate
       }).then( res => {
         let result = res.data;
-        this.trafficAp.mikrotik = {
-          total: result.total_records,
-          results: result.results.data
-        };
+        this.trafficAp.mikrotik.total = result.total_records;
+        this.trafficAp.mikrotik.results = result.results.data;
+
+        if( result.results.next_page_url !== null )
+        {
+          this.trafficAp.mikrotik.pagination.next_page =  + this.$root.getParameterURL( result.results.next_page_url ).get('page');
+        }
+
+        if( result.results.prev_page_url !== null )
+        {
+          this.trafficAp.mikrotik.pagination.prev_page = this.$root.getParameterURL( result.results.prev_page_url ).get('page');
+        }
+        this.trafficAp.mikrotik.pagination.current_page = result.results.current_page;
+        this.trafficAp.mikrotik.pagination.last_page = result.results.last_page;
       }).catch( err => {
         console.log( err.response.statusText );
       });

@@ -39,12 +39,14 @@ class BandwidthUsageController extends Controller
     return response()->json( $api );
   }
 
-  public function getTrafficAp( Request $request, $ap )
+  public function getTrafficAp( Request $request, $ap, $page = null )
   {
     $startdate = $request->startdate;
     $enddate = $request->enddate;
 
-    $api = $this->trafficAccessPoint( $startdate, $enddate, $ap );
+    if( $page == null ) $page = 1;
+
+    $api = $this->trafficAccessPoint( $startdate, $enddate, $page, $ap );
     return response()->json( $api );
   }
 }

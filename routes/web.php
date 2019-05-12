@@ -61,7 +61,7 @@ Route::group(['prefix' => 'admin'], function() {
   Route::group(['prefix' => 'bandwidth'], function() {
     Route::get('/', 'Administrator\BandwidthUsageController@index')->name('bandwidth_dashboard_page');
     Route::get('/total_usage', 'Administrator\BandwidthUsageController@totalBandwidthUsage');
-    Route::get('/ap/{type}', 'Administrator\BandwidthUsageController@getTrafficAp');
+    Route::get('/ap/{type}/{page?}', 'Administrator\BandwidthUsageController@getTrafficAp');
   });
   Route::group(['prefix' => 'create'], function() {
     Route::post('admin_roles', 'Administrator\AdminRolesController@create_role');
