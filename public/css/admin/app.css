@@ -1,9 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Arimo:400,700);@import url(https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800);.loginform {
-  border: 0;
-  border-bottom: 1px solid #e9e9e9;
+  border: 1px solid #e9e9e9;
   font-family: "Nunito Sans", sans-serif;
   color: #666666;
   font-size: 12px;
+  border-radius: 30px;
   font-weight: 400;
   font-stretch: normal;
   font-style: normal;
@@ -13,7 +13,7 @@
 .loginform:hover,
 .loginform:focus {
   color: #da068c;
-  border-bottom: 1px solid #da068c;
+  border: 1px solid #da068c;
 }
 
 .loginform::-webkit-input-placeholder {
@@ -527,6 +527,34 @@ html {
 .dashboard-container .card-overview-device .form-overview-dropdown ul li .form-overview-dropdown-active {
   border-left: 2px solid #da068c;
   color: #da068c;
+}
+
+.dashboard-container .card-overview-dashboard {
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+.dashboard-container .card-overview-dashboard:hover {
+  box-shadow: 10px 10px 40px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-container .card-overview-dashboard .table-overview-dashboard th {
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 14px;
+}
+
+.dashboard-container .card-overview-dashboard .table-overview-dashboard td {
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 11px;
 }
 
 .modal-body-analytic {

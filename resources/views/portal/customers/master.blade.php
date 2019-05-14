@@ -19,9 +19,7 @@
   <script src="{{ asset('vendor/uikit/js/uikit-icons.min.js') }}"></script>
 
   <title>@lang('metaheader.title')</title>
-  <script type="text/javascript">
-    var biznetwifi_locale = '{{ session()->get("session_locale") }}';
-  </script>
+  <script type="text/javascript">var biznetwifi_locale = '{{ session()->get("session_locale") }}'; </script>
 </head>
 <body>
 @if( $request->route()->getName() !== 'pagelogin_biznetwifi' )

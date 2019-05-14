@@ -49,7 +49,7 @@ Route::group(['prefix' => 'admin'], function() {
   Route::group(['prefix' => 'clients'], function() {
     Route::group(['prefix' => 'summary'], function() {
       Route::get('/subscribers', 'Administrator\DashboardController@summaryClientAsSubscribers');
-      Route::get('/visitors', 'Administrator\DashboardController@summaryDeviceClientAsVisitor');
+      Route::get('/current_visitors', 'Administrator\DashboardController@summaryDeviceClientCurrentVisitor');
       Route::get('/visitors_by_date', 'Administrator\DashboardController@summaryDeviceClientAsVisitorByDate');
       Route::get('/bandwidth/{mac}', 'Administrator\AccountSubscribersController@bw_client_usage');
     });
@@ -61,15 +61,17 @@ Route::group(['prefix' => 'admin'], function() {
   Route::group(['prefix' => 'bandwidth'], function() {
     Route::get('/', 'Administrator\BandwidthUsageController@index')->name('bandwidth_dashboard_page');
     Route::get('/total_usage', 'Administrator\BandwidthUsageController@totalBandwidthUsage');
+    Route::get('/ap/{type}/{page?}', 'Administrator\BandwidthUsageController@getTrafficAp');
   });
   Route::group(['prefix' => 'create'], function() {
     Route::post('admin_roles', 'Administrator\AdminRolesController@create_role');
   });
   Route::group(['prefix' => 'update'], function() {
     Route::put('admin_roles/{userid}', 'Administrator\AdminRolesController@update_role');
+    Route::put('subscriber/block/{account}', 'Administrator\AccountSubscribersController@blockSubscriber');
   });
   Route::group(['prefix' => 'delete'], function() {
-    Route::delete('devices/{account_id}/{mac}', 'Administrator\AccountSubscribersController@deleteDevice');
+    Route::delete('devices/{account_id}/{method}/{mac?}', 'Administrator\AccountSubscribersController@deleteDevice');
     Route::delete('admin_roles/{userid}', 'Administrator\AdminRolesController@delete_role');
   });
 });

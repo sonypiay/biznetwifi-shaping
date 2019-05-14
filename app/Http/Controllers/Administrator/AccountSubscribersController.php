@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Database\AccountSubscriber;
 use App\Database\AdminLogActivity;
 use App\Database\AdminRoles;
+use App\Database\BlockedAccount;
 use App\CustomFunction;
 use App\RadiusAPI;
 use DateTime;
@@ -100,13 +101,12 @@ class AccountSubscribersController extends Controller
     return response()->json( $res, $res['status'] );
   }
 
-  public function deleteDevice( Request $request, AdminRoles $users, AccountSubscriber $subscriber, AdminLogActivity $log, $account_id, $mac )
+  public function deleteDevice( Request $request, AdminRoles $users, AccountSubscriber $subscriber, AdminLogActivity $log, $seqid, $method )
   {
-    $query = $subscriber->where([
-      ['account_id', '=', $account_id],
-      ['mac_address', '=', $mac]
-    ]);
-    if( $query->count() !== 0 )
+    $getsubscriber = $subscriber->where('seqid', $seqid)->first();
+    $account_id = $getsubscriber->account_id;
+
+    if( $method === 'single' )
     {
       $result = $users->where('userid', $request->session()->get('admin_userid'))->first();
       $logs = new $log;
@@ -118,61 +118,95 @@ class AccountSubscribersController extends Controller
       $logs->log_type = 'Delete';
       $logs->save();
 
-      $this->timeout_socket = 3;
-      $radprimary = $this->check_connection('182.253.238.66', 3306);
-      $radbackup = $this->check_connection('202.169.53.9', 3306);
+      $res = [
+        'status' => 200,
+        'statusText' => 'Device ' . $getsubscriber->mac_address . ' deleted.'
+      ];
 
-      if( $radprimary['status'] == null )
+      $this->delete_radcheck( '182.253.238.66:8080', $getsubscriber->mac_address );
+      $subscriber->where('seqid', $seqid)->delete();
+    }
+    else
+    {
+      $getdevice = $subscriber->where('account_id', $account_id);
+      $res = [
+        'status' => 200,
+        'statusText' => 'OK'
+      ];
+
+      if( $getdevice->count() != 0 )
       {
-        $this->delete_radcheck( '182.253.238.66:8080', $mac );
-        $query->delete();
+        foreach( $getdevice->get() as $device )
+        {
+          $this->delete_radcheck( '182.253.238.66:8080', $device->mac_address );
+        }
+        $getdevice->delete();
+
         $res = [
           'status' => 200,
-          'statusText' => $mac . ' deleted.'
-        ];
-      }
-      else if( $radbackup['status'] == null )
-      {
-        $this->delete_radcheck( '202.169.53.9', $mac );
-        $query->delete();
-        $res = [
-          'status' => 200,
-          'statusText' => $mac . ' deleted.'
+          'statusText' => 'Device ' . $account_id . ' successfully deleted.'
         ];
       }
       else
       {
         $res = [
-          'status' => 500,
-          'statusText' => $radbackup['statusText']
+          'status' => 200,
+          'statusText' => 'Whoops, ' . $account_id . ' not found.'
         ];
       }
     }
-    else
-    {
-      $res = [
-        'status' => 200,
-        'statusText' => 'Whoops, ' . $mac . ' not found'
-      ];
-    }
-
     return response()->json( $res, $res['status'] );
   }
 
   public function bw_client_usage( Request $request, $mac )
   {
-    $this->timeout_socket = 3;
-    $radprimary = $this->check_connection('182.253.238.66', 3306);
-    $radbackup = $this->check_connection('202.169.53.9', 3306);
+    $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
+    return response()->json( $data_bandwidth );
+  }
 
-    if( $radbackup['status'] == null )
+  public function blockSubscriber( Request $request, AccountSubscriber $subscriber, AdminRoles $users, AdminLogActivity $logs, $account_id )
+  {
+    $logs = new $logs;
+    $result = $users->where('userid', $request->session()->get('admin_userid'))->first();
+    $logs->log_username = $result->username;
+    $logs->log_ip = $request->server('REMOTE_ADDR');
+    $logs->log_os = $this->getOsInfo( $request->server('HTTP_USER_AGENT') );
+    $logs->log_browser = $this->getBrowserInfo( $request->server('HTTP_USER_AGENT') );
+    $logs->log_description = $result->fullname . ' blocked account id ' . $account_id . '.';
+    $logs->log_type = 'Update';
+    $logs->save();
+
+    $getaccount = $subscriber->where('account_id', $account_id);
+    $statusaccount = $subscriber->select('account_id', 'is_blocked')
+    ->where('account_id', $account_id)->first();
+
+    if( $statusaccount->is_blocked === 'N' )
     {
-      $data_bandwidth = $this->bandwidthClientUsage( '182.253.238.66:8080', $mac, $request );
+      foreach( $getaccount->get() as $device )
+      {
+        $this->delete_radcheck( '182.253.238.66:8080', $device->mac_address );
+      }
+      $getaccount->update(['is_blocked' => 'Y']);
+
+      $res = [
+        'status' => 200,
+        'statusText' => 'Account ID ' . $account_id . ' blocked.'
+      ];
     }
     else
     {
-      $data_bandwidth = $this->bandwidthClientUsage( '202.169.53.9', $mac, $request );
+      foreach( $getaccount->get() as $device )
+      {
+        $this->add_radcheck( '182.253.238.66:8080', $device->mac_address, $account_id );
+      }
+
+      $getaccount->update(['is_blocked' => 'N']);
+      $res = [
+        'status' => 200,
+        'statusText' => 'Blocking has opened for ' . $account_id
+      ];
     }
-    return response()->json( $data_bandwidth );
+
+    return response()->json( $res, $res['status'] );
   }
 }

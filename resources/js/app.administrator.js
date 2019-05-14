@@ -50,6 +50,15 @@ const app = new Vue({
         if( regexp.test( hex ) ) isHex = true;
 
         return isHex;
+      },
+      toPercentage( current, total )
+      {
+        return Math.ceil( (current / total) * 100 );
+      },
+      getParameterURL( url )
+      {
+        var url_string = new URL( url );
+        return url_string.searchParams;
       }
     }
 });
