@@ -73,3 +73,10 @@ Route::group(['prefix' => 'admin'], function() {
     Route::delete('admin_roles/{userid}', 'Administrator\AdminRolesController@delete_role');
   });
 });
+
+Route::group(['prefix' => 'ruckus-api'], function () {
+    Route::post('logon', 'RuckusApi\ApiController@logon');
+    Route::get('logoff', 'RuckusApi\ApiController@logoff');
+    Route::post('ap', 'RuckusApi\ApiController@accessPoints');
+    Route::get('ap', 'RuckusApi\ApiController@accessPoints');
+});
