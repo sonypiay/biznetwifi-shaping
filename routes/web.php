@@ -23,7 +23,10 @@ Route::group(['prefix' => 'biznetwifi'], function() {
   Route::get('/login', 'BiznetWifi\LoginController@index')->name('pagelogin_biznetwifi');
   Route::get('/logout', 'BiznetWifi\LoginController@logout')->name('logoutpage');
   Route::post('/auth', 'BiznetWifi\LoginController@authentication');
+  Route::post('/authMember', 'BiznetWifi\LoginController@authenticationMember');
   Route::get('/afterlogin', 'PortalController@afterlogin')->name('bzw_afterlogin');
+  Route::get('/registration', 'BiznetWifi\LoginController@registration')->name('member_registration');
+  Route::post('/registration', 'BiznetWifi\LoginController@storeRegistration');
 
   // homepage customer
   Route::get('/customers', 'BiznetWifi\DashboardController@homepage_customer')->name('hmpgcustomer');
