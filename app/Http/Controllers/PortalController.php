@@ -123,8 +123,6 @@ class PortalController extends Controller
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
     $client_mac = strtolower( $request->session()->get('client_mac') );
 
-    dd($request->session());
-
     $clientIfExists = $clientusage->select(
       'client_mac',
       DB::raw('date_format(created_at, "%Y-%m-%d") as start_connected'),
@@ -177,13 +175,11 @@ class PortalController extends Controller
 
     if( $request->session()->get('connect') == 'freehotspot' )
     {
-      $fullUrl = $request->fullUrl();
-
-      $fullUrlParts = parse_url($fullUrl);
       $redirectUrl = 'http://biznethotspot.com/after-login';
-      $request->session()->forget('connect');
-      $request->session()->flush();
-      return redirect($redirectUrl);
+      dd( $request->session()->all() );
+      //$request->session()->forget('connect');
+      //$request->session()->flush();
+      //return redirect($redirectUrl);
     }
     else if( $request->session()->get('connect') == 'biznetwifi' )
     {
