@@ -284,7 +284,7 @@ class LoginController extends Controller
     if($insert) {
       $res = [
         'status' => 200,
-        'statusText' => 'Login berhasil'
+        'statusText' => 'Registrasi Berhasil'
       ];
 
       $request->session()->put('displayname', $member->full_name);

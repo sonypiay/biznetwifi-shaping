@@ -11,7 +11,8 @@ return [
     'biznetwifi' => 'Masuk sebagai Pelanggan',
     'freehotspot' => 'Masuk sebagai Pengunjung',
     'biznetwifi_login_title' => 'Masuk ke Biznet Wifi',
-    'biznetwifi_login_title_2' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    'biznetwifi_login_title_2' => 'Cara mudah mendapatkan banyak hal baru melalui akses internet terbaik.
+    Mulai sekarang untuk segera terkoneksi.',
     'biznetwifi_member' => 'Masuk sebagai Member'
   ],
   'errors' => [

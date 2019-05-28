@@ -35,7 +35,6 @@
             </div>
             <div class="uk-light uk-text-center">
               <h2>{{ connectlocale.reg_form.title }}</h2>
-              <p>{{ connectlocale.reg_form.title_2 }}</p>
             </div>
             <!--<div class="bzw-heading-login">{{ connectlocale.biznetwifi.login_heading }}</div>-->
             <form class="uk-form-stacked" @submit.prevent="doRegistration">

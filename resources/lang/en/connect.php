@@ -11,7 +11,8 @@ return [
     'biznetwifi' => 'Log in as Subscribers',
     'freehotspot' => 'Log in as Visitor',
     'biznetwifi_login_title' => 'Login to Biznet Wifi',
-    'biznetwifi_login_title_2' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    'biznetwifi_login_title_2' => 'The easiest to get a lot of new things through reliable internet access.
+    Start now to get connected.',
     'biznetwifi_member' => 'Log in as Member'
   ],
   'errors' => [
@@ -24,7 +25,7 @@ return [
     'password' => 'Password',
     'registration' => 'Member Registration'
   ],
-  'registration_form' => [
+  'reg_form' => [
     'title' => 'Member Registration',
     'title_2' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     'full_name' => 'Full Name',

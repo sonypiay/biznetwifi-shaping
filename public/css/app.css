@@ -231,16 +231,6 @@ body {
   color: #ffffff;
 }
 
-.biz-login-opt .lang-offcanvas {
-  color: #666 !important;
-  padding: 12px 15px !important;
-}
-
-.biz-login-opt .lang-dropdown-offcanvas .lang-sub a {
-  color: #666 !important;
-  font-size: 12px !important;
-}
-
 .headerhmpg-cust {
   background: #ffffff;
   z-index: 9999;

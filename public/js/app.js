@@ -3183,7 +3183,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["url", "connectlocale"],
   data: function data() {
@@ -55800,9 +55799,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "uk-light uk-text-center" }, [
-                  _c("h2", [_vm._v(_vm._s(_vm.connectlocale.reg_form.title))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(_vm.connectlocale.reg_form.title_2))])
+                  _c("h2", [_vm._v(_vm._s(_vm.connectlocale.reg_form.title))])
                 ]),
                 _vm._v(" "),
                 _c(
