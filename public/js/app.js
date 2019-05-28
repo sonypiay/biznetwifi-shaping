@@ -2048,14 +2048,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     doLoginHotspot: function doLoginHotspot() {
-      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid + '&shaping=true';
-      ga('send', {
-        hitType: 'event',
-        eventCategory: 'Button',
-        eventAction: 'click',
-        eventLabel: 'LoginAsGuest'
-      });
-      this.forms.btnhotspot = '<span uk-spinner></span>';
+      var redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&ssid=' + this.ssid + '&starturl=' + this.starturl;
       setTimeout(function () {
         document.location = redirect;
       }, 2000);
