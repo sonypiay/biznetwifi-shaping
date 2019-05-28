@@ -177,10 +177,9 @@ class PortalController extends Controller
     if( $request->session()->get('connect') == 'freehotspot' )
     {
       $redirectUrl = 'http://biznethotspot.com/after-login';
-      dd( $request->session()->all() );
-      //$request->session()->forget('connect');
-      //$request->session()->flush();
-      //return redirect($redirectUrl);
+      $request->session()->forget('connect');
+      $request->session()->flush();
+      return redirect($redirectUrl);
     }
     else if( $request->session()->get('connect') == 'biznetwifi' )
     {
