@@ -60,19 +60,33 @@ class AccountMember extends Model
         return true;
     }
 
-    public function deleteUserDevice($mac_address)
+    public function deleteUserDevice($username, $mac_address)
     {
         $device = DB::connection($this->connection)->table($this->tbDevice)
-            ->where('MAC_ADDRESS', $mac_address)
-            ->get();
+            ->join($this->tbLogin, $this->tbLogin.'.ID', '=', $this->tbDevice.'.ID_LOGIN')
+            ->where($this->tbDevice.'.MAC_ADDRESS', $mac_address)
+            ->where($this->tbLogin.'.USERNAME', $username)
+            ->select($this->tbDevice.'.ID')
+            ->first();
 
-        if( $device->count() != 0 ) {
+        if( $device ) {
             DB::connection($this->connection)->table($this->tbDevice)
-                ->where('MAC_ADDRESS', $mac_address)
+                ->where('ID', $device->ID)
                 ->delete();
         }
 
         return true;
     }
 
+    public function userDeviceList($username)
+    {
+        $devices = DB::connection($this->connection)->table($this->tbLogin)
+            ->join($this->tbDevice, $this->tbDevice.'.ID_LOGIN', '=', $this->tbLogin.'.ID')
+            ->where($this->tbLogin.'.USERNAME', $username)
+            ->select($this->tbLogin.'.USERNAME', $this->tbDevice.'.MAC_ADDRESS', $this->tbDevice.'.DEVICE_AGENT', DB::raw('CONVERT(VARCHAR, ' .$this->tbDevice .'.LOGIN_DATE, 100) AS LOGIN_DATE'))
+            ->orderBy($this->tbDevice.'.LOGIN_DATE', 'DESC')
+            ->get();
+
+        return $devices;
+    }
 }

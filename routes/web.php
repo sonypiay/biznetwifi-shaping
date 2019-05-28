@@ -21,6 +21,7 @@ Route::get('/testing', 'PortalController@testing');
 
 Route::group(['prefix' => 'biznetwifi'], function() {
   Route::get('/login', 'BiznetWifi\LoginController@index')->name('pagelogin_biznetwifi');
+  Route::get('/member-login', 'BiznetWifi\LoginController@member_login')->name('pagelogin_member');
   Route::get('/logout', 'BiznetWifi\LoginController@logout')->name('logoutpage');
   Route::post('/auth', 'BiznetWifi\LoginController@authentication');
   Route::post('/authMember', 'BiznetWifi\LoginController@authenticationMember');
@@ -33,6 +34,10 @@ Route::group(['prefix' => 'biznetwifi'], function() {
   // homepage customer
   Route::get('/devicesubscriber/{customerid}', 'BiznetWifi\AccountSubscriberController@datadevice');
   Route::delete('/deletedevice/{username}/{mac}', 'BiznetWifi\AccountSubscriberController@destroy');
+
+  // homepage member
+  Route::get('/memberDevice/{customerid}', 'BiznetWifi\AccountMemberController@datadevice');
+  Route::delete('/deleteMemberDevice/{username}/{mac}', 'BiznetWifi\AccountMemberController@destroy');
 });
 
 Route::group(['prefix' => 'admin'], function() {

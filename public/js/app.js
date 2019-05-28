@@ -2672,6 +2672,363 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url', 'connectlocale'],
+  data: function data() {
+    return {
+      forms: {
+        username: '',
+        password: ''
+      },
+      btnSubmit: this.connectlocale.biznetwifi.btnlogin
+    };
+  },
+  methods: {
+    doLogin: function doLogin() {
+      var _this = this;
+
+      if (this.forms.username === '') {
+        swal({
+          title: 'Warning',
+          text: this.connectlocale.errors.username,
+          icon: 'warning',
+          dangerMode: true
+        });
+      } else if (this.forms.password === '') {
+        swal({
+          title: 'Warning',
+          text: this.connectlocale.errors.password,
+          icon: 'warning',
+          dangerMode: true
+        });
+      } else {
+        this.btnSubmit = '<span uk-spinner></span>';
+        axios({
+          method: 'post',
+          url: this.url + '/biznetwifi/authMember',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          params: {
+            username: this.forms.username,
+            password: this.forms.password
+          }
+        }).then(function (res) {
+          var result = res.data;
+          swal({
+            title: _this.connectlocale.noerror,
+            text: 'Redirecting...',
+            icon: 'success'
+          });
+          var redirect = _this.url + '/biznetwifi/customers';
+          setTimeout(function () {
+            document.location = redirect;
+          }, 2000);
+        }).catch(function (err) {
+          if (err.response.status === 401) {
+            swal({
+              title: 'Warning',
+              text: err.response.data.statusText,
+              icon: 'warning',
+              dangerMode: true
+            });
+          } else {
+            swal({
+              title: 'Error',
+              text: err.response.data.statusText,
+              icon: 'error',
+              dangerMode: true
+            });
+          }
+
+          _this.btnSubmit = 'Login';
+        });
+      }
+    },
+    getMoment: function getMoment() {
+      var now = moment().format('Y');
+      return now;
+    }
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url', 'datauser', 'connectlocale', 'custdash'],
+  data: function data() {
+    return {
+      devices: {
+        total: 0,
+        results: []
+      },
+      errors: ''
+    };
+  },
+  methods: {
+    deviceList: function deviceList() {
+      var _this = this;
+
+      axios({
+        method: 'get',
+        url: this.url + '/biznetwifi/memberDevice/' + this.datauser.username
+      }).then(function (res) {
+        var result = res.data;
+        _this.devices = {
+          total: result.total,
+          results: result.data
+        };
+      }).catch(function (err) {
+        _this.errors = err.response.statusText;
+      });
+    },
+    deleteDevice: function deleteDevice(user, mac) {
+      var _this2 = this;
+
+      swal({
+        title: 'Konfirmasi',
+        text: 'Apakah anda ingin menghapus device ini?',
+        icon: 'warning',
+        dangerMode: true,
+        buttons: {
+          cancel: true,
+          confirm: {
+            value: true,
+            text: 'Hapus'
+          }
+        }
+      }).then(function (value) {
+        if (value) {
+          axios({
+            method: 'delete',
+            url: _this2.url + '/biznetwifi/deleteMemberDevice/' + user + '/' + mac
+          }).then(function (res) {
+            swal({
+              title: 'Berhasil',
+              text: res.data.statusText,
+              icon: 'success',
+              timer: 5000
+            });
+
+            _this2.deviceList();
+          }).catch(function (err) {
+            _this2.errors = err.response.statusText;
+          });
+        }
+      });
+    },
+    dateConverted: function dateConverted(date) {
+      return moment(date).locale('id').format('LL');
+    }
+  },
+  mounted: function mounted() {
+    this.deviceList();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Registration.vue?vue&type=script&lang=js& ***!
@@ -54852,6 +55209,557 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "bzw-content-login", attrs: { "uk-height-viewport": "" } },
+    [
+      _c("div", { staticClass: "uk-position-cover" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-2-3@s uk-align-center"
+          },
+          [
+            _c("div", { staticClass: "container-bzw-login" }, [
+              _c(
+                "div",
+                { staticClass: "uk-tile uk-box-shadow-large card-bzw-login" },
+                [
+                  _c("div", { staticClass: "bzw-logo-login" }, [
+                    _c("img", {
+                      staticClass: "uk-width-1-2 uk-align-center",
+                      attrs: {
+                        src: _vm.url + "/images/logo/biznetwifi_white.png",
+                        alt: "biznetwifi"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      staticClass: "uk-form-stacked",
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.doLogin($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("div", { staticClass: "uk-form-controls" }, [
+                          _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                            _c("span", {
+                              staticClass: "uk-form-icon bzw-form-icon",
+                              attrs: { "uk-icon": "user" }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.forms.username,
+                                  expression: "forms.username"
+                                }
+                              ],
+                              staticClass:
+                                "uk-width-1-1 uk-input bzw-form-login",
+                              attrs: {
+                                type: "text",
+                                placeholder:
+                                  _vm.connectlocale.loginform.username
+                              },
+                              domProps: { value: _vm.forms.username },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.forms,
+                                    "username",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("div", { staticClass: "uk-form-controls" }, [
+                          _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                            _c("span", {
+                              staticClass: "uk-form-icon bzw-form-icon",
+                              attrs: { "uk-icon": "lock" }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.forms.password,
+                                  expression: "forms.password"
+                                }
+                              ],
+                              staticClass:
+                                "uk-width-1-1 uk-input bzw-form-login",
+                              attrs: {
+                                type: "password",
+                                placeholder:
+                                  _vm.connectlocale.loginform.password
+                              },
+                              domProps: { value: _vm.forms.password },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.forms,
+                                    "password",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("button", {
+                          staticClass:
+                            "uk-width-1-1 uk-button uk-button-default bzw-button-login",
+                          domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-text-center copyright-login" }, [
+                    _vm._v("© 2000 - " + _vm._s(_vm.getMoment()) + " Biznet.")
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "section",
+      { staticClass: "uk-cover-container uk-visible@s banner-hmpg-customer" },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-overlay uk-position-cover uk-light banner-hmpg-overlay"
+          },
+          [
+            _c("div", { staticClass: "uk-container" }, [
+              _c("div", { staticClass: "uk-position-center" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "uk-text-center welcome-customer-name" },
+                  [_vm._v("Hi, " + _vm._s(_vm.datauser.displayname))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-text-center uk-margin desktop-customer-id"
+                  },
+                  [_vm._v(_vm._s(_vm.connectlocale.biznetwifi.connected))]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("section", { staticClass: "uk-visible@s container" }, [
+      _c(
+        "div",
+        { staticClass: "uk-card uk-card-default uk-card-body container-box" },
+        [
+          _c("div", { staticClass: "container-devices" }, [
+            _c("div", { staticClass: "uk-margin-bottom container-heading" }, [
+              _vm._v(_vm._s(_vm.custdash.mydevice))
+            ]),
+            _vm._v(" "),
+            _vm.errors
+              ? _c("div", [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-alert-error",
+                      attrs: { "uk-alert": "" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n            " +
+                          _vm._s(_vm.errors) +
+                          "\r\n            "
+                      ),
+                      _c("a", {
+                        staticClass: "uk-alert-close",
+                        attrs: { "uk-close": "" }
+                      })
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.devices.total === 0
+              ? _c("div", [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-alert-warning",
+                      attrs: { "uk-alert": "" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n            " +
+                          _vm._s(_vm.custdash.nodevice) +
+                          "\r\n          "
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "uk-grid-medium uk-flex-center",
+                attrs: { "uk-grid": "" }
+              },
+              _vm._l(_vm.devices.results, function(device) {
+                return _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-width-1-4@xl uk-width-1-4@l uk-width-1-2@m uk-width-1-2@s card-devices"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "uk-tile uk-tile-default card-device-box"
+                      },
+                      [
+                        _c("div", { staticClass: "card-icon-device" }, [
+                          device.DEVICE_AGENT === "ANDROID"
+                            ? _c("span", [
+                                _c("i", { staticClass: "fab fa-android" })
+                              ])
+                            : device.DEVICE_AGENT === "iOS"
+                            ? _c("span", [
+                                _c("i", { staticClass: "fab fa-apple" })
+                              ])
+                            : _c("span", [
+                                _c("i", { staticClass: "fas fa-laptop" })
+                              ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-identity-mac" }, [
+                          _vm._v(_vm._s(device.DEVICE_AGENT))
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-device-info" }, [
+                          _c("div", { staticClass: "device-info-lead" }, [
+                            _vm._v("Mac Address")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "uk-text-uppercase device-last-login"
+                            },
+                            [_vm._v(_vm._s(device.MAC_ADDRESS))]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "uk-width-1-1 uk-button uk-button-default btn-delete-device",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteDevice(
+                                  device.USERNAME,
+                                  device.MAC_ADDRESS
+                                )
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.custdash.btndelete))]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              }),
+              0
+            )
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "section",
+      { staticClass: "uk-card uk-card-body uk-hidden@s box-content-customer" },
+      [
+        _c(
+          "div",
+          { staticClass: "uk-tile uk-tile-default box-customer-profile" },
+          [
+            _c(
+              "div",
+              { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-width-1-1" }, [
+                  _c(
+                    "div",
+                    { staticClass: "uk-text-center box-customer-name" },
+                    [
+                      _vm._v("Hello, "),
+                      _c("br"),
+                      _vm._v(" " + _vm._s(_vm.datauser.displayname))
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-width-1-1" }, [
+                  _c("div", { staticClass: "uk-text-center" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass:
+                          "uk-button uk-button-default box-button-browse",
+                        attrs: { href: "https://www.biznethome.net/id/" }
+                      },
+                      [_vm._v(_vm._s(_vm.custdash.browse))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "uk-text-center connected-mobile" },
+                    [_vm._v(_vm._s(_vm.connectlocale.biznetwifi.connected))]
+                  )
+                ])
+              ]
+            )
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-card uk-card-body uk-card-small container-listdevice uk-hidden@s"
+      },
+      [
+        _c("div", { staticClass: "heading-listdevice" }, [
+          _vm._v(_vm._s(_vm.custdash.mydevice))
+        ]),
+        _vm._v(" "),
+        _vm.errors
+          ? _c("div", [
+              _c(
+                "div",
+                { staticClass: "uk-alert-warning", attrs: { "uk-alert": "" } },
+                [
+                  _vm._v("\r\n        " + _vm._s(_vm.errors) + "\r\n        "),
+                  _c("a", {
+                    staticClass: "uk-alert-close",
+                    attrs: { "uk-close": "" }
+                  })
+                ]
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-grid-medium", attrs: { "uk-grid": "" } },
+          _vm._l(_vm.devices.results, function(device) {
+            return _c("div", { staticClass: "uk-width-1-1" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-card uk-card-default uk-card-body card-listdevice"
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "uk-tile uk-tile-default tile-icon-device" },
+                    [
+                      device.DEVICE_AGENT === "iOS"
+                        ? _c("div", [_vm._m(2, true)])
+                        : device.DEVICE_AGENT === "ANDROID"
+                        ? _c("div", [_vm._m(3, true)])
+                        : _c("div", [_vm._m(4, true)])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-card uk-card-body" }, [
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "card-labeldevice" }, [
+                        _vm._v(_vm._s(device.DEVICE_AGENT))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "card-labeldevice" }, [
+                        _vm._v("Mac Address")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "uk-text-uppercase card-sublabel" },
+                        [_vm._v(_vm._s(device.MAC_ADDRESS))]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "uk-width-1-1 uk-button uk-button-default btn-delete-device",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteDevice(
+                                device.USERNAME,
+                                device.MAC_ADDRESS
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.custdash.btndelete))]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ])
+          }),
+          0
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-text-center banner-icon-customer" }, [
+      _c("span", { staticClass: "fas fa-user-circle" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-width-1-1" }, [
+      _c("div", { staticClass: "uk-text-center box-icon-customer" }, [
+        _c("span", { staticClass: "icon ion-ios-contact" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-text-center icon-device ios" }, [
+      _c("i", { staticClass: "fab fa-apple" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-text-center icon-device android" }, [
+      _c("i", { staticClass: "fab fa-android" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-text-center icon-device laptop" }, [
+      _c("i", { staticClass: "fas fa-laptop" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=template&id=4fce4e2e&":
 /*!**************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Registration.vue?vue&type=template&id=4fce4e2e& ***!
@@ -67385,7 +68293,9 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('connect-section', __webpack_require__(/*! ./components/biznetwifi/Connect.vue */ "./resources/js/components/biznetwifi/Connect.vue").default);
 Vue.component('customers-dashboard', __webpack_require__(/*! ./components/biznetwifi/CustomersDashboard.vue */ "./resources/js/components/biznetwifi/CustomersDashboard.vue").default);
+Vue.component('members-dashboard', __webpack_require__(/*! ./components/biznetwifi/MembersDashboard.vue */ "./resources/js/components/biznetwifi/MembersDashboard.vue").default);
 Vue.component('login-biznetwifi', __webpack_require__(/*! ./components/biznetwifi/Login.vue */ "./resources/js/components/biznetwifi/Login.vue").default);
+Vue.component('login-member', __webpack_require__(/*! ./components/biznetwifi/LoginMember.vue */ "./resources/js/components/biznetwifi/LoginMember.vue").default);
 Vue.component('registration-biznetwifi', __webpack_require__(/*! ./components/biznetwifi/Registration.vue */ "./resources/js/components/biznetwifi/Registration.vue").default);
 Vue.component('homepage', __webpack_require__(/*! ./components/biznetwifi/Homepage.vue */ "./resources/js/components/biznetwifi/Homepage.vue").default);
 var app = new Vue({
@@ -67745,6 +68655,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_2780ecc4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_2780ecc4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/LoginMember.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/LoginMember.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoginMember.vue?vue&type=template&id=508db504& */ "./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504&");
+/* harmony import */ var _LoginMember_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LoginMember.vue?vue&type=script&lang=js& */ "./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LoginMember_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/biznetwifi/LoginMember.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginMember.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginMember.vue?vue&type=template&id=508db504& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/MembersDashboard.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/MembersDashboard.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MembersDashboard.vue?vue&type=template&id=5c2dab70& */ "./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70&");
+/* harmony import */ var _MembersDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MembersDashboard.vue?vue&type=script&lang=js& */ "./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MembersDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/biznetwifi/MembersDashboard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MembersDashboard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MembersDashboard.vue?vue&type=template&id=5c2dab70& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

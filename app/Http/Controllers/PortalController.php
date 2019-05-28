@@ -215,7 +215,7 @@ class PortalController extends Controller
                   'LOGIN_DATE' => date('Y-m-d H:i:s')
                 ]);
   
-                $member->deleteUserDevice($getlastmac->MAC_ADDRESS);
+                $member->deleteUserDevice($username, $getlastmac->MAC_ADDRESS);
               }
             }
             else

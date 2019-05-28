@@ -32,6 +32,23 @@ class LoginController extends Controller
     }
   }
 
+  public function member_login( Request $request )
+  {
+    if( $request->session()->has('biznetwifi_login') )
+    {
+      return redirect()->route('hmpgcustomer');
+    }
+    else
+    {
+      return response()->view('portal.members.login', [
+        'request' => $request,
+        'session' => $request->session()->all()
+      ])
+      ->header('Content-Type', 'text/html, charset=utf8')
+      ->header('Accepts', 'text/html, charset=utf8');
+    }
+  }
+
   public function authentication( Request $request, AccountSubscriber $subscriber )
   {
     $username = $request->username;

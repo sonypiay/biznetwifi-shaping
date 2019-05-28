@@ -47,8 +47,20 @@
     <ul class="uk-nav uk-nav-default uk-margin-top nav-offcanvas-bar" uk-nav>
       <li><a href="{{ route('homepage') }}">Home</a></li>
       <li><a href="#">@lang('headermenu.lokasi')</a></li>
-      <li><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login')</a></li>
+      {{-- <li><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login')</a></li> --}}
     </ul>
+
+    <div class="uk-width-1-1 uk-inline biz-login-opt">
+      <!--<img class="uk-align-center logo-offcanvas" src="{{ asset('images/logo/biznetwifi_primary.png') }}" />-->
+      <a class="uk-text-uppercase uk-display-block lang-offcanvas">@lang('headermenu.login') <span uk-icon="chevron-down"></span></a>
+      <div uk-dropdown="mode: click; pos: bottom" class="uk-width-1-1 lang-dropdown-offcanvas">
+        <ul class="uk-nav uk-dropdown-nav">
+          <li class="lang-sub"><a href="{{ route('pagelogin_member') }}">@lang('headermenu.login_opt.member')</a></li>
+          <li class="lang-sub"><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login_opt.customer')</a></li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 </section>
 <!-- nav offcanvas -->
