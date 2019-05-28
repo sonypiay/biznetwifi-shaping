@@ -277,6 +277,9 @@ export default {
     },
     doLoginHotspot()
     {
+      var username_radius = 'newhotspot';
+      var password_radius = 'biznet';
+
       var redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&ssid=' + this.ssid + '&starturl=' + this.starturl;
       setTimeout(function(){
         document.location = redirect;
