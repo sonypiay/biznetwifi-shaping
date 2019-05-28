@@ -38,7 +38,7 @@ class PortalController extends Controller
 
     if( $ap == 'mkt' )
     {
-      $startUrl = 'http://biznethotspot.qeon.co.id';
+      $startUrl = 'http://biznethotspot.com/after-login';
     }
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
@@ -178,7 +178,7 @@ class PortalController extends Controller
       $fullUrl = $request->fullUrl();
 
       $fullUrlParts = parse_url($fullUrl);
-      $redirectUrl = 'http://biznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
+      $redirectUrl = 'http://biznethotspot.com/after-login';
       $request->session()->forget('connect');
       $request->session()->flush();
       return redirect($redirectUrl);
@@ -323,9 +323,9 @@ class PortalController extends Controller
     $client_mac = $request->client_mac;
     $uip = $request->uip;
     $ssid = $request->ssid;
-    $starturl = 'http://biznethotspot.qeon.co.id';
+    $starturl = 'http://biznethotspot.com/after-login/';
     $location = $request->loc;
-    $redirect = 'http://biznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1';
+    $redirect = 'http://biznethotspot.com/after-login/?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1';
     return redirect( $redirect );
   }
 
