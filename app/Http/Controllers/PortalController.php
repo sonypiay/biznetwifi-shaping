@@ -322,9 +322,19 @@ class PortalController extends Controller
     $ssid = $request->ssid;
     $starturl = 'http://biznethotspot.com/after-login/';
     $location = $request->loc;
+
     $username_radius = 'newhotspot';
     $password_radius = 'biznet';
-    $redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' . $username_radius . '&password=' . $password_radius . '&uip=' . $uip . '&client_mac=' . $client_mac . '&ssid=' . $ssid . '&starturl=' . $starturl;
+
+    if ($ap == 'ruckus')
+    {
+      $redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' . $username_radius . '&password=' . $password_radius . '&uip=' . $uip . '&client_mac=' . $client_mac . '&ssid=' . $ssid . '&starturl=' . $starturl;
+    }
+    else
+    {
+      $redirect = 'http://10.10.10.10/login?username=' . $username_radius .'&password=' .$password_radius .'&client_mac=' .$client_mac .'&uip=' .$uip;
+    }
+
     return redirect( $redirect );
   }
 
