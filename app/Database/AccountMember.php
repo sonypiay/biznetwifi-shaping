@@ -2,6 +2,7 @@
 
 namespace App\Database;
 
+use Illuminate\Database\Eloquent\Model;
 use DB;
 
 class AccountMember extends Model
