@@ -50,7 +50,7 @@ class AccountMember extends Model
             ->where('USERNAME', $username)
             ->get();
 
-        return $login->ID;
+        return $login;
     }
 
     public function saveUserDevice($device) {

@@ -209,7 +209,7 @@ class PortalController extends Controller
               if( $checkmacaddress == 0 )
               {
                 $member->saveUserDevice([
-                  'ID_LOGIN' => $loginId,
+                  'ID_LOGIN' => $loginId->ID,
                   'MAC_ADDRESS' => $mac,
                   'DEVICE_AGENT' => $this->userAgent( $agent ),
                   'LOGIN_DATE' => date('Y-m-d H:i:s')
@@ -224,7 +224,7 @@ class PortalController extends Controller
               if( $checkmacaddress == 0 )
               {
                 $member->saveUserDevice([
-                  'ID_LOGIN' => $loginId,
+                  'ID_LOGIN' => $loginId->ID,
                   'MAC_ADDRESS' => $mac,
                   'DEVICE_AGENT' => $this->userAgent( $agent ),
                   'LOGIN_DATE' => date('Y-m-d H:i:s')
