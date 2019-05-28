@@ -48,9 +48,9 @@ class AccountMember extends Model
     {
         $login = DB::connection($this->connection)->table($this->tbLogin)
             ->where('USERNAME', $username)
-            ->get();
+            ->first();
 
-        return $login;
+        return $login->ID;
     }
 
     public function saveUserDevice($device) {
