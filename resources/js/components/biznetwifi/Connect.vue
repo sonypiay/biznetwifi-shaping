@@ -279,7 +279,7 @@ export default {
     {
       var username_radius = 'newhotspot';
       var password_radius = 'biznet';
-      var redirect = 'http://wifiregistration-dev2018.biznetnetworks.com/biznetwifi-shaping/public/freehotspot'
+      var redirect = 'http://wifiregistration-dev2018.biznetnetworks.com/biznetwifi-shaping/public/freehotspot?uip=' + this.uip + '&client_mac=' + this.client_mac + '&ssid=' + this.ssid + '&starturl=' + this.starturl;
       setTimeout(function(){
         document.location = redirect;
       }, 2000);

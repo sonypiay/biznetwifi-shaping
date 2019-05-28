@@ -327,7 +327,8 @@ class PortalController extends Controller
     $username_radius = 'newhotspot';
     $password_radius = 'biznet';
     $redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' . $username_radius . '&password=' . $password_radius . '&uip=' . $uip . '&client_mac=' . $client_mac . '&ssid=' . $ssid . '&starturl=' . $starturl;
-    return redirect( $redirect );
+    dd( $request->all() );
+    //return redirect( $redirect );
   }
 
   public function testing( Request $request )
