@@ -3184,7 +3184,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["url", "connectlocale"],
+  props: ['url', 'connectlocale', 'client_mac', 'uip', 'ssid', 'startUrl', 'loc', 'ap'],
   data: function data() {
     return {
       forms: {
@@ -3262,7 +3262,15 @@ __webpack_require__.r(__webpack_exports__);
             "Content-Type": "application/json"
           },
           params: {
-            member: this.forms
+            member: this.forms,
+            wifiParams: {
+              client_mac: this.client_mac,
+              uip: this.uip,
+              ssid: this.ssid,
+              startUrl: this.startUrl,
+              loc: this.loc,
+              ap: this.ap
+            }
           }
         }).then(function (res) {
           var result = res.data;
@@ -3272,9 +3280,26 @@ __webpack_require__.r(__webpack_exports__);
             icon: "success"
           });
           var redirect = _this.url + "/biznetwifi/customers";
-          setTimeout(function () {
-            document.location = redirect;
-          }, 2000);
+
+          if (_this.client_mac === '' && _this.uip === '' && _this.ssid === '' && _this.loc === '') {
+            setTimeout(function () {
+              document.location = redirect;
+            }, 2000);
+          } else {
+            var username_radius = 'biznetmember';
+            var password_radius = 'biznet01';
+
+            if (_this.ap === 'ruckus') {
+              redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + _this.uip + '&client_mac=' + _this.client_mac + '&ssid=' + _this.ssid + '&starturl=' + _this.startUrl;
+            } else {
+              redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + _this.client_mac + '&uip=' + _this.uip;
+            } // ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
+
+
+            setTimeout(function () {
+              document.location = redirect;
+            }, 2000);
+          }
         }).catch(function (err) {
           if (err.response.status === 401) {
             swal({
