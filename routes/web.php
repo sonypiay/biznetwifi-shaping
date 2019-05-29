@@ -18,6 +18,10 @@ Route::post('/connect/mikrotik', 'PortalController@connectmikrotik')->name('conn
 Route::get('/freehotspot', 'PortalController@hotspot');
 Route::get('/afterlogin', 'PortalController@afterlogin');
 Route::get('/testing', 'PortalController@testing');
+Route::group(['prefix' => 'afterlogin'], function() {
+  Route::get('/', 'PortalController@afterlogin');
+  Route::get('/connected', 'PortalController@youareconnected');
+});
 
 Route::group(['prefix' => 'biznetwifi'], function() {
   Route::get('/login', 'BiznetWifi\LoginController@index')->name('pagelogin_biznetwifi');

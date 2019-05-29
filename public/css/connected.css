@@ -1,0 +1,120 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito:400,600,700,800,900);@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400;
+
+600;700&display=swap);@font-face {
+  font-family: "Univers";
+  src: local("Univers"), url("/works/portalwifi/public/fonts/univers/UniversLTStd.otf") format("opentype");
+  src: local("Univers"), url("/works/portalwifi/public/fonts/univers/Univers-light-normal.ttf") format("truetype");
+  src: local("Univers"), url("/works/portalwifi/public/fonts/univers/Univers.woff") format("woff");
+}
+
+/*bold font*/
+
+@font-face {
+  font-family: "Univers";
+  src: url("/works/portalwifi/public/fonts/univers/UniversLTStd-Bold.otf") format("opentype");
+  src: url("/works/portalwifi/public/fonts/univers/UniversBlack.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@media screen and (min-width: 320px) {
+  .enjoy {
+    text-align: center;
+  }
+
+  .enjoy .enjoy-heading {
+    font-size: 16px;
+  }
+
+  .enjoy p {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .enjoy {
+    text-align: center;
+  }
+
+  .enjoy .enjoy-heading {
+    font-size: 20px;
+  }
+
+  .enjoy p {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 414px) {
+  .enjoy {
+    text-align: center;
+  }
+
+  .enjoy .enjoy-heading {
+    font-size: 22px;
+  }
+
+  .enjoy p {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .enjoy {
+    text-align: center;
+  }
+
+  .enjoy .enjoy-heading {
+    font-size: 20px;
+  }
+
+  .enjoy p {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .enjoy {
+    text-align: center;
+  }
+
+  .enjoy .enjoy-heading {
+    font-size: 22px;
+  }
+
+  .enjoy p {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .enjoy {
+    text-align: center;
+  }
+
+  .enjoy .enjoy-heading {
+    font-size: 24px;
+  }
+
+  .enjoy p {
+    font-size: 18px;
+  }
+}
+
+.enjoy .enjoy-heading {
+  color: #222222;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+}
+
+.enjoy p {
+  color: #444444;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+}
+

@@ -338,6 +338,13 @@ class PortalController extends Controller
     return redirect( $redirect );
   }
 
+  public function youareconnected( Request $request )
+  {
+    return response()->view('portal.you-are-connected', [
+      'request' => $request
+    ]);
+  }
+
   public function testing( Request $request )
   {
 

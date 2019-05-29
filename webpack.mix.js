@@ -15,4 +15,5 @@ mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/app.administrator.js', 'public/js/admin')
    .sass('resources/sass/administrator/app.scss', 'public/css/admin')
    .sass('resources/sass/app.scss', 'public/css')
-   .sass('resources/sass/connect.scss', 'public/css');
+   .sass('resources/sass/connect.scss', 'public/css')
+   .sass('resources/sass/connected.scss', 'public/css');

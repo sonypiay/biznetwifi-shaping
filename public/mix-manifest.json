@@ -3,5 +3,6 @@
     "/js/app.js": "/js/app.js",
     "/css/admin/app.css": "/css/admin/app.css",
     "/css/app.css": "/css/app.css",
-    "/css/connect.css": "/css/connect.css"
+    "/css/connect.css": "/css/connect.css",
+    "/css/connected.css": "/css/connected.css"
 }
