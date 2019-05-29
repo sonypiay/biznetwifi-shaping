@@ -122,10 +122,10 @@ class PortalController extends Controller
 
   public function afterlogin( Request $request, AccountSubscriber $subscriber, AccountMember $member, ClientsUsage $clientusage )
   {
-    /*if( ! $request->session()->has('client_mac') AND ! $request->session()->has('uip') AND ! $request->session()->has('location_id') )
+    if( ! $request->session()->has('client_mac') AND ! $request->session()->has('uip') AND ! $request->session()->has('location_id') )
     {
       return redirect()->route('you_are_connected_page');
-    }*/
+    }
 
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
     $client_mac = strtolower( $request->session()->get('client_mac') );
