@@ -33,7 +33,7 @@
                 </p>
             </div>
             <hr class="uk-divider-icon">
-            <div class="uk-text-center">
+            <div class="uk-margin-large-bottom uk-text-center">
                 <a class="uk-button uk-button-default uk-button-large browsenow" href="http://www.biznethome.net/">Browse Now</a>
             </div>
         </div>
