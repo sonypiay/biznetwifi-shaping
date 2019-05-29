@@ -21,15 +21,23 @@ Route::get('/testing', 'PortalController@testing');
 
 Route::group(['prefix' => 'biznetwifi'], function() {
   Route::get('/login', 'BiznetWifi\LoginController@index')->name('pagelogin_biznetwifi');
+  Route::get('/member-login', 'BiznetWifi\LoginController@member_login')->name('pagelogin_member');
   Route::get('/logout', 'BiznetWifi\LoginController@logout')->name('logoutpage');
   Route::post('/auth', 'BiznetWifi\LoginController@authentication');
+  Route::post('/authMember', 'BiznetWifi\LoginController@authenticationMember');
   Route::get('/afterlogin', 'PortalController@afterlogin')->name('bzw_afterlogin');
+  Route::get('/registration', 'BiznetWifi\LoginController@registration')->name('member_registration');
+  Route::post('/registration', 'BiznetWifi\LoginController@storeRegistration');
 
   // homepage customer
   Route::get('/customers', 'BiznetWifi\DashboardController@homepage_customer')->name('hmpgcustomer');
   // homepage customer
   Route::get('/devicesubscriber/{customerid}', 'BiznetWifi\AccountSubscriberController@datadevice');
   Route::delete('/deletedevice/{username}/{mac}', 'BiznetWifi\AccountSubscriberController@destroy');
+
+  // homepage member
+  Route::get('/memberDevice/{customerid}', 'BiznetWifi\AccountMemberController@datadevice');
+  Route::delete('/deleteMemberDevice/{username}/{mac}', 'BiznetWifi\AccountMemberController@destroy');
 });
 
 Route::group(['prefix' => 'admin'], function() {
@@ -74,4 +82,11 @@ Route::group(['prefix' => 'admin'], function() {
     Route::delete('devices/{account_id}/{method}/{mac?}', 'Administrator\AccountSubscribersController@deleteDevice');
     Route::delete('admin_roles/{userid}', 'Administrator\AdminRolesController@delete_role');
   });
+});
+
+Route::group(['prefix' => 'ruckus-api'], function () {
+    Route::post('logon', 'RuckusApi\ApiController@logon');
+    Route::get('logoff', 'RuckusApi\ApiController@logoff');
+    Route::post('ap', 'RuckusApi\ApiController@accessPoints');
+    Route::get('ap', 'RuckusApi\ApiController@accessPoints');
 });

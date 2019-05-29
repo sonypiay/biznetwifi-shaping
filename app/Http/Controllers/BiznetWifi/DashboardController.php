@@ -40,9 +40,20 @@ class DashboardController extends Controller
     $getlocale = session()->get('session_locale');
     app()->setLocale( $getlocale );
 
+    if( $request->session()->get('login_type') == 'member' ) 
+    {
+      $blade = 'portal.members.homepage';
+      $route = 'pagelogin_member';
+    }
+    else
+    {
+      $blade = 'portal.customers.homepage';
+      $route = 'pagelogin_biznetwifi';
+    }
+
     if( $request->session()->get('biznetwifi_login') )
     {
-      return response()->view('portal.customers.homepage', [
+      return response()->view($blade, [
         'request' => $request,
         'session' => $request->session()->all()
       ])
@@ -51,7 +62,7 @@ class DashboardController extends Controller
     }
     else
     {
-      return redirect()->route('pagelogin_biznetwifi');
+      return redirect()->route($route);
     }
   }
 }

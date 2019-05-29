@@ -22,13 +22,13 @@
   <script type="text/javascript">var biznetwifi_locale = '{{ session()->get("session_locale") }}'; </script>
 </head>
 <body>
-@if( !in_array($request->route()->getName(), array('pagelogin_biznetwifi', 'member_registration')) )
+@if( !in_array($request->route()->getName(), array('pagelogin_biznetwifi', 'pagelogin_member', 'member_registration')) )
 @include('includes.navbar-users')
 @endif
 <main id="app">
   @yield('maincontent')
 </main>
-@if( !in_array($request->route()->getName(), array('pagelogin_biznetwifi', 'member_registration')) )
+@if( !in_array($request->route()->getName(), array('pagelogin_biznetwifi', 'pagelogin_member', 'member_registration')) )
 <footer class="footer">
   <div class="uk-container footer-container">
     <div class="uk-grid-small" uk-grid>
