@@ -172,11 +172,11 @@
         </div>
     </div>
 
-    <div class="uk-section uk-section-primary uk-light uk-padding">
+    <div class="uk-section uk-section-primary uk-light uk-padding" v-if="loc.merchant.length != 0">
         <div class="uk-container">
             <div class="uk-panel uk-light uk-margin-medium uk-text-center">
                 <p class="uk-text-lead uk-margin-small">{{ connectlocale.location.title }}</p>
-                <img class="biz-merchant-logo" v-if="loc.merchant.logo" :src="loc.merchant.logo" alt="" uk-img>
+                <img class="biz-merchant-logo" v-if="loc.merchant.logo" :src="'http://www.biznethotspot.com/img/logos/merchants/' +loc.merchant.logo" :alt="loc.merchant.name" uk-img>
                 <h3 class="uk-text-bold uk-margin-small">{{ loc.merchant.name }}</h3>
             </div>
         </div>

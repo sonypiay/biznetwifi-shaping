@@ -46,10 +46,16 @@ class PortalController extends Controller
       $request->session()->put('starturl', $startUrl);
     }
 
-    $filter_location = explode('-', $location);
-    $merchant = $filter_location[1];
-
-    $merchantDetail = $this->merchant_detail($merchant);
+    if ( $location != '' )
+    {
+      $filter_location = explode('-', $location);
+      $merchant = $filter_location[1];
+      $merchantDetail = $this->merchant_detail($merchant);
+    }
+    else 
+    {
+      $merchantDetail = [];
+    }
 
     return response()->view('portal.connect', [
       'mac' => $client_mac,
@@ -86,6 +92,7 @@ class PortalController extends Controller
     $startUrl = route('you_are_connected_page');
     $location = $request->loc;
     $shaping = $request->shaping;
+    $convert_location_id = '';
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
@@ -97,10 +104,18 @@ class PortalController extends Controller
       $request->session()->put('ssid', $ssid);
       $request->session()->put('starturl', $startUrl);
     }
-    $filter_location = explode('-', $convert_location_id);
-    $merchant = $filter_location[1];
 
-    $merchantDetail = $this->merchant_detail( $merchant );
+    if( $convert_location_id != '' )
+    {
+      $filter_location = explode('-', $convert_location_id);
+      $merchant = $filter_location[1];
+      $merchantDetail = $this->merchant_detail( $merchant );
+    }
+    else
+    {
+      $merchantDetail = [];
+    }
+
 
     return response()->view('portal.connect', [
       'mac' => $client_mac,
@@ -129,7 +144,7 @@ class PortalController extends Controller
     {
       $res = [
         'name' => $merchantDetail->Zone_Name,
-        'logo' => 'http://www.biznethotspot.com/img/logos/merchants/' .$merchantDetail->Logo_Image
+        'logo' => $merchantDetail->Logo_Image
       ];
     }
     else

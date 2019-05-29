@@ -54317,36 +54317,45 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "uk-section uk-section-primary uk-light uk-padding" },
-      [
-        _c("div", { staticClass: "uk-container" }, [
-          _c(
-            "div",
-            {
-              staticClass: "uk-panel uk-light uk-margin-medium uk-text-center"
-            },
-            [
-              _c("p", { staticClass: "uk-text-lead uk-margin-small" }, [
-                _vm._v(_vm._s(_vm.connectlocale.location.title))
-              ]),
-              _vm._v(" "),
-              _vm.loc.merchant.logo
-                ? _c("img", {
-                    staticClass: "biz-merchant-logo",
-                    attrs: { src: _vm.loc.merchant.logo, alt: "", "uk-img": "" }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _c("h3", { staticClass: "uk-text-bold uk-margin-small" }, [
-                _vm._v(_vm._s(_vm.loc.merchant.name))
-              ])
-            ]
-          )
-        ])
-      ]
-    )
+    _vm.loc.merchant.length != 0
+      ? _c(
+          "div",
+          { staticClass: "uk-section uk-section-primary uk-light uk-padding" },
+          [
+            _c("div", { staticClass: "uk-container" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-panel uk-light uk-margin-medium uk-text-center"
+                },
+                [
+                  _c("p", { staticClass: "uk-text-lead uk-margin-small" }, [
+                    _vm._v(_vm._s(_vm.connectlocale.location.title))
+                  ]),
+                  _vm._v(" "),
+                  _vm.loc.merchant.logo
+                    ? _c("img", {
+                        staticClass: "biz-merchant-logo",
+                        attrs: {
+                          src:
+                            "http://www.biznethotspot.com/img/logos/merchants/" +
+                            _vm.loc.merchant.logo,
+                          alt: _vm.loc.merchant.name,
+                          "uk-img": ""
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("h3", { staticClass: "uk-text-bold uk-margin-small" }, [
+                    _vm._v(_vm._s(_vm.loc.merchant.name))
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
