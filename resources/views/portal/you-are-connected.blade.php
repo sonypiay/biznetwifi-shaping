@@ -22,7 +22,7 @@
     <div class="uk-container">
         <div class="uk-width-3-4 uk-align-center">
             <div class="uk-margin-large-top">
-                <img class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-3@m uk-width-1-3@s uk-align-center" src="{{ asset('images/logo/biznetwifi_primary.png') }}" alt="">
+                <img class="uk-width-1-4@xl uk-width-1-4@l uk-width-1-3@m uk-visible@s uk-align-center" src="{{ asset('images/logo/biznetwifi_primary.png') }}" alt="">
             </div>
             <hr class="uk-divider-icon">
             <div class="uk-card uk-card-body uk-card-small enjoy">
