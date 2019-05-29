@@ -47,6 +47,7 @@ class PortalController extends Controller
       $request->session()->put('location_id', $location);
       $request->session()->put('client_mac', $client_mac);
       $request->session()->put('uip', $uip);
+      $request->session()->put('ssid', $ssid);
       $request->session()->put('starturl', $startUrl);
     }
 
@@ -96,6 +97,7 @@ class PortalController extends Controller
       $request->session()->put('location_id', $convert_location_id);
       $request->session()->put('client_mac', $client_mac);
       $request->session()->put('uip', $uip);
+      $request->session()->put('ssid', $ssid);
       $request->session()->put('starturl', $startUrl);
     }
     //$filter_location = explode('-', $convert_string);
