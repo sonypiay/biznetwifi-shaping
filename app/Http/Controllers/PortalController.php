@@ -122,6 +122,11 @@ class PortalController extends Controller
 
   public function afterlogin( Request $request, AccountSubscriber $subscriber, AccountMember $member, ClientsUsage $clientusage )
   {
+    if( ! $request->session()->has('client_mac') AND ! $request->session()->has('uip') AND ! $request->session()->has('location_id') )
+    {
+      return redirect()->route('you_are_connected_page');
+    }
+
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
     $client_mac = strtolower( $request->session()->get('client_mac') );
     
@@ -177,10 +182,9 @@ class PortalController extends Controller
 
     if( $request->session()->get('connect') == 'freehotspot' )
     {
-      $redirectUrl = 'http://biznethotspot.com/after-login';
       $request->session()->forget('connect');
       $request->session()->flush();
-      return redirect($redirectUrl);
+      return redirect()->route('afterlogin_page');
     }
     else if( $request->session()->get('connect') == 'biznetwifi' )
     {
@@ -322,7 +326,7 @@ class PortalController extends Controller
     $client_mac = $request->client_mac;
     $uip = $request->uip;
     $ssid = $request->ssid;
-    $starturl = 'http://biznethotspot.com/after-login/';
+    $starturl = route('afterlogin_page');
     $location = $request->loc;
 
     $username_radius = 'newhotspot';

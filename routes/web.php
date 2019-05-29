@@ -19,8 +19,8 @@ Route::get('/freehotspot', 'PortalController@hotspot');
 Route::get('/afterlogin', 'PortalController@afterlogin');
 Route::get('/testing', 'PortalController@testing');
 Route::group(['prefix' => 'afterlogin'], function() {
-  Route::get('/', 'PortalController@afterlogin');
-  Route::get('/connected', 'PortalController@youareconnected');
+  Route::get('/', 'PortalController@afterlogin')->name('afterlogin_page');
+  Route::get('/connected', 'PortalController@youareconnected')->name('you_are_connected_page');
 });
 
 Route::group(['prefix' => 'biznetwifi'], function() {
