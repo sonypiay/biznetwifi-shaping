@@ -45,5 +45,8 @@ return [
     'password' => 'Silahkan masukkan password Anda.',
     'confirm_password' => 'Silahkan ketik ulang password Anda.',
     'confirm_password_not_match' => 'Password tidak sama.'
+  ],
+  'location' => [
+    'title' => 'Kamu berada di'
   ]
 ];

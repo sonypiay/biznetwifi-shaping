@@ -78,6 +78,17 @@ return [
             'prefix' => '',
         ],
 
+        'sqlsrv208' => [
+            'driver' => 'sqlsrv',
+            'host' => env('DB_HOST3', 'localhost'),
+            'port' => env('DB_PORT3', '1433'),
+            'database' => env('DB_DATABASE3', 'forge'),
+            'username' => env('DB_USERNAME3', 'forge'),
+            'password' => env('DB_PASSWORD3', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+        ],
+
     ],
 
     /*

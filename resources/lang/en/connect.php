@@ -44,5 +44,8 @@ return [
     'password' => 'Please enter your password.',
     'confirm_password' => 'Please retype your password.',
     'confirm_password_not_match' => 'Password does not match.'
+  ],
+  'location' => [
+    'title' => 'You\'re located at'
   ]
 ];

@@ -51,8 +51,10 @@ class PortalController extends Controller
       $request->session()->put('starturl', $startUrl);
     }
 
-    //$filter_location = explode('-', $location);
-    //$merchant = $this->get_merchant( $filter_location[1] );
+    $filter_location = explode('-', $location);
+    $merchant = $filter_location[1];
+
+    $merchantDetail = $this->merchant_detail($merchant);
 
     return response()->view('portal.connect', [
       'mac' => $client_mac,
@@ -61,7 +63,7 @@ class PortalController extends Controller
       'startUrl' => $startUrl,
       'loc' => [
         'origin' => $location,
-        'merchant' => ''
+        'merchant' => $merchantDetail
       ],
       'ap' => $ap,
       'shaping' => $shaping
@@ -100,8 +102,10 @@ class PortalController extends Controller
       $request->session()->put('ssid', $ssid);
       $request->session()->put('starturl', $startUrl);
     }
-    //$filter_location = explode('-', $convert_string);
-    //$merchant = $this->get_merchant( $filter_location[1] );
+    $filter_location = explode('-', $convert_location_id);
+    $merchant = $filter_location[1];
+
+    $merchantDetail = $this->merchant_detail( $merchant );
 
     return response()->view('portal.connect', [
       'mac' => $client_mac,
@@ -110,7 +114,7 @@ class PortalController extends Controller
       'startUrl' => $startUrl,
       'loc' => [
         'origin' => $location,
-        'merchant' => ''
+        'merchant' => $merchantDetail
       ],
       'ap' => $ap,
       'shaping' => $shaping
@@ -118,6 +122,30 @@ class PortalController extends Controller
     ->header('Content-Type', 'text/html; charset=utf8')
     ->header('Accepts', 'text/html; charset=utf8')
     ->header('Access-Control-Allow-Headers', 'GET');
+  }
+
+  public function merchant_detail($merchantId)
+  {
+    $merchantDetail = DB::connection('sqlsrv208')->table('Wifi_Zone_New')
+                          ->where('Merchant_ID', $merchantId)
+                          ->first();
+
+    if($merchantDetail) 
+    {
+      $res = [
+        'name' => $merchantDetail->Zone_Name,
+        'logo' => 'http://www.biznethotspot.com/img/logos/merchants/' .$merchantDetail->Logo_Image
+      ];
+    }
+    else
+    {
+      $res = [
+        'name' => '',
+        'logo' => ''
+      ];
+    }
+
+    return $res;
   }
 
   public function afterlogin( Request $request, AccountSubscriber $subscriber, AccountMember $member, ClientsUsage $clientusage )
