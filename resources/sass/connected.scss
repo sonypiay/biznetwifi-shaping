@@ -96,3 +96,18 @@ $line-height-base: 1.6;
         @include globalfontstyle(300, normal, normal, 0.4px);
     }
 }
+
+.browsenow {
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
+    border-radius: 30px;
+    border: 0;
+    background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+    box-shadow: 0px 0px 4px rgba(0,0,0, 0.3);
+    color: #ffffff;
+    &:hover, &:active, &:focus {
+        color: #ffffff;
+        background: #da068c !important;
+        border: 0;
+    }
+}
