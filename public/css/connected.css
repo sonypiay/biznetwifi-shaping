@@ -118,3 +118,24 @@
   letter-spacing: 0.4px;
 }
 
+.browsenow {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: 0.4px;
+  border-radius: 30px;
+  border: 0;
+  background: linear-gradient(97deg, #da068c, #982e7e) !important;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+
+.browsenow:hover,
+.browsenow:active,
+.browsenow:focus {
+  color: #ffffff;
+  background: #da068c !important;
+  border: 0;
+}
+

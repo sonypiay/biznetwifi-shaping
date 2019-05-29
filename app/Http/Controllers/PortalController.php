@@ -32,14 +32,9 @@ class PortalController extends Controller
     $client_mac = $request->client_mac;
     $uip = $request->uip;
     $ssid = $request->ssid;
-    $startUrl = $request->starturl;
+    $startUrl = route('you_are_connected_page');
     $location = $request->loc;
     $shaping = $request->shaping;
-
-    if( $ap == 'mkt' )
-    {
-      $startUrl = 'http://biznethotspot.com/after-login';
-    }
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
@@ -88,7 +83,7 @@ class PortalController extends Controller
     $client_mac = $request->client_mac;
     $uip = $request->uip;
     $ssid = $request->ssid;
-    $startUrl = $request->StartURL;
+    $startUrl = route('you_are_connected_page');
     $location = $request->loc;
     $shaping = $request->shaping;
 
@@ -150,7 +145,7 @@ class PortalController extends Controller
 
   public function afterlogin( Request $request, AccountSubscriber $subscriber, AccountMember $member, ClientsUsage $clientusage )
   {
-    if( ! $request->session()->has('client_mac') AND ! $request->session()->has('uip') AND ! $request->session()->has('location_id') )
+    if( ! $request->session()->has('client_mac') AND ! $request->session()->has('uip') )
     {
       return redirect()->route('you_are_connected_page');
     }
@@ -350,12 +345,12 @@ class PortalController extends Controller
   public function hotspot( Request $request )
   {
     $request->session()->put('connect', 'freehotspot');
-    $ap = $request->ap;
-    $client_mac = $request->client_mac;
-    $uip = $request->uip;
-    $ssid = $request->ssid;
-    $starturl = route('afterlogin_page');
-    $location = $request->loc;
+    $ap = $request->session()->get('ap');
+    $client_mac = $request->session()->get('client_mac');
+    $uip = $request->session()->get('uip');
+    $ssid = $request->session()->get('ssid');
+    $starturl = $request->session()->get('starturl');
+    $location = $request->session()->get('location_id');
 
     $username_radius = 'newhotspot';
     $password_radius = 'biznet';
@@ -381,6 +376,6 @@ class PortalController extends Controller
 
   public function testing( Request $request )
   {
-
+    dd( $request->session()->all() );
   }
 }
