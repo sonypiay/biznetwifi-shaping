@@ -1988,14 +1988,9 @@ __webpack_require__.r(__webpack_exports__);
       if (this.forms.error === true) {
         this.forms.error = false;
         return false;
-      }
+      } // ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsBiznet'});
 
-      ga('send', {
-        hitType: 'event',
-        eventCategory: 'Button',
-        eventAction: 'click',
-        eventLabel: 'LoginAsBiznet'
-      });
+
       this.forms.btnSubmit = '<span uk-spinner></span>';
       axios({
         method: 'post',
@@ -2029,14 +2024,9 @@ __webpack_require__.r(__webpack_exports__);
             redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + _this.uip + '&client_mac=' + _this.client_mac + '&ssid=' + _this.ssid + '&starturl=' + _this.starturl;
           } else {
             redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + _this.client_mac + '&uip=' + _this.uip;
-          }
+          } //ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
 
-          ga('send', {
-            hitType: 'event',
-            eventCategory: 'Success',
-            eventAction: 'submit',
-            eventLabel: 'Customer_ID'
-          });
+
           setTimeout(function () {
             document.location = redirect;
           }, 1000);
@@ -2046,14 +2036,9 @@ __webpack_require__.r(__webpack_exports__);
           _this.errorMessage = err.response.data.statusText;
         } else {
           _this.errorMessage = err.response.statusText;
-        }
+        } // ga('send', {hitType: 'event', eventCategory: 'Error', eventAction: 'submit', eventLabel: 'AuthError'});
 
-        ga('send', {
-          hitType: 'event',
-          eventCategory: 'Error',
-          eventAction: 'submit',
-          eventLabel: 'AuthError'
-        });
+
         _this.forms.btnSubmit = 'Log In';
       });
     },
@@ -2082,14 +2067,9 @@ __webpack_require__.r(__webpack_exports__);
       if (this.forms.error === true) {
         this.forms.error = false;
         return false;
-      }
+      } // ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsMember'});
 
-      ga('send', {
-        hitType: 'event',
-        eventCategory: 'Button',
-        eventAction: 'click',
-        eventLabel: 'LoginAsMember'
-      });
+
       this.forms.btnSubmitMember = '<span uk-spinner></span>';
       axios({
         method: 'post',
@@ -2123,14 +2103,9 @@ __webpack_require__.r(__webpack_exports__);
             redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + _this2.uip + '&client_mac=' + _this2.client_mac + '&ssid=' + _this2.ssid + '&starturl=' + _this2.starturl;
           } else {
             redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + _this2.client_mac + '&uip=' + _this2.uip;
-          }
+          } // ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
 
-          ga('send', {
-            hitType: 'event',
-            eventCategory: 'Success',
-            eventAction: 'submit',
-            eventLabel: 'Customer_ID'
-          });
+
           setTimeout(function () {
             document.location = redirect;
           }, 1000);
@@ -2516,6 +2491,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'homepagelocale'],
   data: function data() {
@@ -2527,10 +2504,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Login.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Login.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2645,7 +2622,7 @@ __webpack_require__.r(__webpack_exports__);
             text: 'Redirecting...',
             icon: 'success'
           });
-          var redirect = _this.url + '/biznetwifi/customers';
+          var redirect = _this.url + '/biznetwifi/myaccount';
           setTimeout(function () {
             document.location = redirect;
           }, 2000);
@@ -55015,95 +54992,6 @@ var render = function() {
           ])
         ]
       )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "section-homepage-flashads" }, [
-      _c("div", { staticClass: "uk-card uk-card-body" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-grid-medium uk-margin-top uk-margin-bottom uk-flex-center",
-            attrs: { "uk-grid": "" }
-          },
-          [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-2@s"
-              },
-              [
-                _c("img", {
-                  staticClass:
-                    "uk-width-4-5@xl uk-width-4-5@l uk-width-2-3@m uk-width-3-4@s uk-align-center uk-visible@s",
-                  attrs: {
-                    src: _vm.url + "/images/logo/FlashAds-Logo.png",
-                    alt: "",
-                    "uk-scrollspy": "cls: uk-animation-slide-top"
-                  }
-                }),
-                _vm._v(" "),
-                _c("img", {
-                  staticClass: "uk-width-1-2 uk-align-center uk-hidden@s",
-                  attrs: {
-                    src: _vm.url + "/images/logo/FlashAds-Logo.png",
-                    alt: "",
-                    "uk-scrollspy": "cls: uk-animation-slide-top"
-                  }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-1-2@s"
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "uk-visible@s",
-                    attrs: { "uk-scrollspy": "cls: uk-animation-slide-top" }
-                  },
-                  [
-                    _c("div", { staticClass: "flashads-contactads" }, [
-                      _vm._v(_vm._s(_vm.homepagelocale.flashads))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { attrs: { href: "https://www.flashads.co.id/" } },
-                      [_vm._v("www.flashads.co.id")]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "uk-hidden@s uk-text-center",
-                    attrs: { "uk-scrollspy": "cls: uk-animation-slide-top" }
-                  },
-                  [
-                    _c("div", { staticClass: "flashads-contactads" }, [
-                      _vm._v(_vm._s(_vm.homepagelocale.flashads))
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      { attrs: { href: "https://www.flashads.co.id/" } },
-                      [_vm._v("www.flashads.co.id")]
-                    )
-                  ]
-                )
-              ]
-            )
-          ]
-        )
-      ])
     ])
   ])
 }
@@ -55114,10 +55002,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Login.vue?vue&type=template&id=2780ecc4&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Login.vue?vue&type=template&id=2780ecc4& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=template&id=3e2ab8be&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=template&id=3e2ab8be& ***!
+  \****************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -68347,24 +68235,13 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 Vue.component('connect-section', __webpack_require__(/*! ./components/biznetwifi/Connect.vue */ "./resources/js/components/biznetwifi/Connect.vue").default);
 Vue.component('customers-dashboard', __webpack_require__(/*! ./components/biznetwifi/CustomersDashboard.vue */ "./resources/js/components/biznetwifi/CustomersDashboard.vue").default);
 Vue.component('members-dashboard', __webpack_require__(/*! ./components/biznetwifi/MembersDashboard.vue */ "./resources/js/components/biznetwifi/MembersDashboard.vue").default);
-Vue.component('login-biznetwifi', __webpack_require__(/*! ./components/biznetwifi/Login.vue */ "./resources/js/components/biznetwifi/Login.vue").default);
+Vue.component('login-biznetwifi', __webpack_require__(/*! ./components/biznetwifi/LoginCustomers.vue */ "./resources/js/components/biznetwifi/LoginCustomers.vue").default);
 Vue.component('login-member', __webpack_require__(/*! ./components/biznetwifi/LoginMember.vue */ "./resources/js/components/biznetwifi/LoginMember.vue").default);
 Vue.component('registration-biznetwifi', __webpack_require__(/*! ./components/biznetwifi/Registration.vue */ "./resources/js/components/biznetwifi/Registration.vue").default);
 Vue.component('homepage', __webpack_require__(/*! ./components/biznetwifi/Homepage.vue */ "./resources/js/components/biznetwifi/Homepage.vue").default);
@@ -68661,17 +68538,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/biznetwifi/Login.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/components/biznetwifi/Login.vue ***!
-  \******************************************************/
+/***/ "./resources/js/components/biznetwifi/LoginCustomers.vue":
+/*!***************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/LoginCustomers.vue ***!
+  \***************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Login_vue_vue_type_template_id_2780ecc4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Login.vue?vue&type=template&id=2780ecc4& */ "./resources/js/components/biznetwifi/Login.vue?vue&type=template&id=2780ecc4&");
-/* harmony import */ var _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Login.vue?vue&type=script&lang=js& */ "./resources/js/components/biznetwifi/Login.vue?vue&type=script&lang=js&");
+/* harmony import */ var _LoginCustomers_vue_vue_type_template_id_3e2ab8be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoginCustomers.vue?vue&type=template&id=3e2ab8be& */ "./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=template&id=3e2ab8be&");
+/* harmony import */ var _LoginCustomers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LoginCustomers.vue?vue&type=script&lang=js& */ "./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -68681,9 +68558,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Login_vue_vue_type_template_id_2780ecc4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Login_vue_vue_type_template_id_2780ecc4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _LoginCustomers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LoginCustomers_vue_vue_type_template_id_3e2ab8be___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LoginCustomers_vue_vue_type_template_id_3e2ab8be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -68693,38 +68570,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/biznetwifi/Login.vue"
+component.options.__file = "resources/js/components/biznetwifi/LoginCustomers.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/biznetwifi/Login.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/biznetwifi/Login.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Login.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Login.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginCustomers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginCustomers.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginCustomers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/biznetwifi/Login.vue?vue&type=template&id=2780ecc4&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/biznetwifi/Login.vue?vue&type=template&id=2780ecc4& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=template&id=3e2ab8be&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=template&id=3e2ab8be& ***!
+  \**********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_2780ecc4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Login.vue?vue&type=template&id=2780ecc4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Login.vue?vue&type=template&id=2780ecc4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_2780ecc4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginCustomers_vue_vue_type_template_id_3e2ab8be___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginCustomers.vue?vue&type=template&id=3e2ab8be& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginCustomers.vue?vue&type=template&id=3e2ab8be&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginCustomers_vue_vue_type_template_id_3e2ab8be___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Login_vue_vue_type_template_id_2780ecc4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginCustomers_vue_vue_type_template_id_3e2ab8be___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

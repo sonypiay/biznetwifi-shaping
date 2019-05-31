@@ -20,11 +20,11 @@ class LoginController extends Controller
   use RadiusAPI;
   use CustomFunction;
 
-  public function index( Request $request )
+  public function customer_login( Request $request )
   {
     if( $request->session()->has('biznetwifi_login') )
     {
-      return redirect()->route('hmpgcustomer');
+      return redirect()->route('pagelogin_customer');
     }
     else
     {
@@ -41,7 +41,7 @@ class LoginController extends Controller
   {
     if( $request->session()->has('biznetwifi_login') )
     {
-      return redirect()->route('hmpgcustomer');
+      return redirect()->route('pagelogin_member');
     }
     else
     {
@@ -239,6 +239,8 @@ class LoginController extends Controller
   {
     if( $request->session()->has('biznetwifi_login') )
     {
+      $login_type = $request->session()->get('login_type');
+
       $request->session()->forget('biznetwifi_login');
       $request->session()->forget('displayname');
       $request->session()->forget('username');
@@ -246,13 +248,21 @@ class LoginController extends Controller
       $request->session()->forget('connect');
       $request->session()->forget('logintime');
       $request->session()->forget('agent');
+      $request->session()->forget('login_type', 'member');
       $request->session()->flush();
 
-      return redirect()->route('pagelogin_biznetwifi');
+      if( $login_type == 'customer' )
+      {
+        return redirect()->route('pagelogin_customer');
+      }
+      else
+      {
+        return redirect()->route('pagelogin_member');
+      }
     }
     else
     {
-      return redirect()->route('hmpgcustomer');
+      return redirect()->route('homepage_myaccount');
     }
   }
 
@@ -290,7 +300,7 @@ class LoginController extends Controller
                   'EMAIL' => $member->email,
                   'PHONE' => $member->phone,
                 ]);
-    
+
     $loginInsert = DB::connection('sqlsrv')
         ->table('Wifi_Member_Login')
         ->insertGetId([
@@ -329,7 +339,7 @@ class LoginController extends Controller
         'statusText' => 'Error occured.'
       ];
     }
-    
+
     return response()->json($res, $res['status']);
   }
 }

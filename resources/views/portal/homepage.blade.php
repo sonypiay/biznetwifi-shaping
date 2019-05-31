@@ -16,6 +16,13 @@
   <title>@lang('metaheader.title')</title>
   <script type="text/javascript">
     var biznetwifi_locale = '{{ session()->get("session_locale") }}';
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-54510905-1', 'auto');
+	  ga('send', 'pageview');
   </script>
 </head>
 <body>
@@ -47,7 +54,6 @@
     <ul class="uk-nav uk-nav-default uk-margin-top nav-offcanvas-bar" uk-nav>
       <li><a href="{{ route('homepage') }}">Home</a></li>
       <li><a href="#">@lang('headermenu.lokasi')</a></li>
-      {{-- <li><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login')</a></li> --}}
     </ul>
 
     <div class="uk-width-1-1 uk-inline biz-login-opt">
@@ -56,7 +62,7 @@
       <div uk-dropdown="mode: click; pos: bottom" class="uk-width-1-1 lang-dropdown-offcanvas">
         <ul class="uk-nav uk-dropdown-nav">
           <li class="lang-sub"><a href="{{ route('pagelogin_member') }}">@lang('headermenu.login_opt.member')</a></li>
-          <li class="lang-sub"><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login_opt.customer')</a></li>
+          <li class="lang-sub"><a href="{{ route('pagelogin_customer') }}">@lang('headermenu.login_opt.customer')</a></li>
         </ul>
       </div>
     </div>
@@ -64,6 +70,7 @@
   </div>
 </section>
 <!-- nav offcanvas -->
+
 @include('includes.navbar-header')
 
 <!-- Google Code for Remarketing Tag -->

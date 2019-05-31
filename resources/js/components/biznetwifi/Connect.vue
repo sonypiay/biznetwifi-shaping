@@ -135,7 +135,7 @@
                             </form>
                         </div>
                     </div>
-                    
+
                     <div>
                         <div class="uk-card uk-card-default uk-card-body uk-card-small __login-card">
                             <form class="uk-form-stacked" @submit.prevent="doLoginCustomer">
@@ -180,7 +180,7 @@
                 <h3 class="uk-text-bold uk-margin-small">{{ loc.merchant.name }}</h3>
             </div>
         </div>
-    </div>  
+    </div>
   </div>
 </template>
 
@@ -231,7 +231,7 @@ export default {
         return false;
       }
 
-      ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsBiznet'});
+      // ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsBiznet'});
 
       this.forms.btnSubmit = '<span uk-spinner></span>';
       axios({
@@ -268,7 +268,7 @@ export default {
           {
             redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + this.client_mac + '&uip=' + this.uip;
           }
-          ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
+          //ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
           setTimeout(function() { document.location = redirect; }, 1000);
         }
       }).catch( err => {
@@ -281,7 +281,7 @@ export default {
           this.errorMessage = err.response.statusText;
         }
 
-        ga('send', {hitType: 'event', eventCategory: 'Error', eventAction: 'submit', eventLabel: 'AuthError'});
+        // ga('send', {hitType: 'event', eventCategory: 'Error', eventAction: 'submit', eventLabel: 'AuthError'});
         this.forms.btnSubmit = 'Log In';
       });
     },
@@ -314,7 +314,7 @@ export default {
         return false;
       }
 
-      ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsMember'});
+      // ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsMember'});
 
       this.forms.btnSubmitMember = '<span uk-spinner></span>';
       axios({
@@ -351,7 +351,7 @@ export default {
           {
             redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + this.client_mac + '&uip=' + this.uip;
           }
-          ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
+          // ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
           setTimeout(function() { document.location = redirect; }, 1000);
         }
       }).catch( err => {

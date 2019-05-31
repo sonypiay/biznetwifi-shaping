@@ -102,6 +102,7 @@
       </div>
     </div>
   </div>
+<!-- flash ads banner
   <div class="section-homepage-flashads">
     <div class="uk-card uk-card-body">
       <div class="uk-grid-medium uk-margin-top uk-margin-bottom uk-flex-center" uk-grid>
@@ -122,6 +123,7 @@
       </div>
     </div>
   </div>
+  -->
 </div>
 </template>
 

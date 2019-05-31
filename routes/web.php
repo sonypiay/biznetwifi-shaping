@@ -24,7 +24,8 @@ Route::group(['prefix' => 'afterlogin'], function() {
 });
 
 Route::group(['prefix' => 'biznetwifi'], function() {
-  Route::get('/login', 'BiznetWifi\LoginController@index')->name('pagelogin_biznetwifi');
+  Route::get('/', function() { return redirect()->route('homepage');  });
+  Route::get('/customer-login', 'BiznetWifi\LoginController@customer_login')->name('pagelogin_customer');
   Route::get('/member-login', 'BiznetWifi\LoginController@member_login')->name('pagelogin_member');
   Route::get('/logout', 'BiznetWifi\LoginController@logout')->name('logoutpage');
   Route::post('/auth', 'BiznetWifi\LoginController@authentication');
@@ -33,17 +34,22 @@ Route::group(['prefix' => 'biznetwifi'], function() {
   Route::get('/registration', 'BiznetWifi\LoginController@registration')->name('member_registration');
   Route::post('/registration', 'BiznetWifi\LoginController@storeRegistration');
 
-  // homepage customer
-  Route::get('/customers', 'BiznetWifi\DashboardController@homepage_customer')->name('hmpgcustomer');
-  // homepage customer
+  // dashboard my account
+  Route::get('/myaccount', 'BiznetWifi\DashboardController@homepage_myaccount')->name('homepage_myaccount');
+  // dashboard my account
+
+  // customer device
   Route::get('/devicesubscriber/{customerid}', 'BiznetWifi\AccountSubscriberController@datadevice');
   Route::delete('/deletedevice/{username}/{mac}', 'BiznetWifi\AccountSubscriberController@destroy');
 
-  // homepage member
+  // member device
   Route::get('/memberDevice/{customerid}', 'BiznetWifi\AccountMemberController@datadevice');
   Route::delete('/deleteMemberDevice/{username}/{mac}', 'BiznetWifi\AccountMemberController@destroy');
 });
 
+// administrator biznetwifi
+// username : admin
+// password : 4dbiznet01min
 Route::group(['prefix' => 'admin'], function() {
   Route::get('/', function() { return redirect()->route('admin_login'); });
   Route::get('/login', 'Administrator\LoginController@index')->name('admin_login');

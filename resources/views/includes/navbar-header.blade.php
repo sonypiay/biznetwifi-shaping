@@ -39,7 +39,7 @@ change_locale.change = function(lang) {
      <ul class="uk-navbar-nav uk-visible@s">
        <li><a href="{{ route('homepage') }}">Home</a></li>
        <li><a href="#">@lang('headermenu.lokasi')</a></li>
-       {{-- <li><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login')</a></li> --}}
+       <!--<li><a href="{{ route('pagelogin_customer') }}">@lang('headermenu.login')</a></li>-->
 
        <li>
           <a href="#">@lang('headermenu.login')</a>
@@ -47,7 +47,7 @@ change_locale.change = function(lang) {
               <ul class="uk-nav uk-navbar-dropdown-nav">
                   <li><a href="{{ route('pagelogin_member') }}">@lang('headermenu.login_opt.member')</a></li>
                   <li class="uk-nav-divider"></li>
-                  <li><a href="{{ route('pagelogin_biznetwifi') }}">@lang('headermenu.login_opt.customer')</a></li>
+                  <li><a href="{{ route('pagelogin_customer') }}">@lang('headermenu.login_opt.customer')</a></li>
               </ul>
           </div>
         </li>
