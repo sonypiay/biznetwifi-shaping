@@ -109,7 +109,7 @@ export default {
             text: 'Redirecting...',
             icon: 'success'
           });
-          var redirect = this.url + '/biznetwifi/customers';
+          var redirect = this.url + '/biznetwifi/myaccount';
           setTimeout(function() { document.location = redirect; }, 2000);
         }).catch( err => {
           if( err.response.status === 401 )
