@@ -33,6 +33,7 @@ class BandwidthUsageController extends Controller
       return redirect()->route('admin_login');
     }
   }
+  
   public function totalBandwidthUsage( Request $request )
   {
     $api = $this->summaryBandwidthUsage( '182.253.238.66:8080', $request );
