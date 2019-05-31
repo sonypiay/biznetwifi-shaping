@@ -1863,6 +1863,92 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['url', 'client_mac', 'uip', 'ssid', 'starturl', 'loc', 'ap', 'shaping', 'connectlocale', 'homepagelocale'],
   data: function data() {
@@ -1870,12 +1956,16 @@ __webpack_require__.r(__webpack_exports__);
       forms: {
         username: '',
         password: '',
+        usernameMember: '',
+        passwordMember: '',
         btnSubmit: this.connectlocale.biznetwifi.btnlogin,
+        btnSubmitMember: this.connectlocale.biznetwifi.btnlogin,
         btnhotspot: this.connectlocale.connect.freehotspot,
         error: false
       },
       errors: {},
-      errorMessage: ''
+      errorMessage: '',
+      errorMessageMember: ''
     };
   },
   methods: {
@@ -1968,17 +2058,98 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     doLoginHotspot: function doLoginHotspot() {
-      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid + '&shaping=true';
+      var redirect = this.url + '/freehotspot?ap=' + this.ap + 'uip=' + this.uip + '&client_mac=' + this.client_mac + '&ssid=' + this.ssid + '&starturl=' + this.starturl;
+      setTimeout(function () {
+        document.location = redirect;
+      }, 2000);
+    },
+    doLoginMember: function doLoginMember() {
+      var _this2 = this;
+
+      this.errors = {};
+      this.errorMessageMember = '';
+
+      if (this.forms.usernameMember === '') {
+        this.forms.error = true;
+        this.errors.usernameMember = this.connectlocale.errors.username;
+      }
+
+      if (this.forms.passwordMember === '') {
+        this.forms.error = true;
+        this.errors.passwordMember = this.connectlocale.errors.password;
+      }
+
+      if (this.forms.error === true) {
+        this.forms.error = false;
+        return false;
+      }
+
       ga('send', {
         hitType: 'event',
         eventCategory: 'Button',
         eventAction: 'click',
-        eventLabel: 'LoginAsGuest'
+        eventLabel: 'LoginAsMember'
       });
-      this.forms.btnhotspot = '<span uk-spinner></span>';
-      setTimeout(function () {
-        document.location = redirect;
-      }, 2000);
+      this.forms.btnSubmitMember = '<span uk-spinner></span>';
+      axios({
+        method: 'post',
+        url: this.url + '/biznetwifi/authMember',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        params: {
+          username: this.forms.usernameMember,
+          password: this.forms.passwordMember
+        }
+      }).then(function (res) {
+        var result = res.data;
+        /*swal({
+          title: 'Login berhasil',
+          text: 'Redirecting',
+          icon: 'success'
+        });*/
+
+        var redirect = _this2.url + '/biznetwifi/customers';
+
+        if (_this2.client_mac === '' && _this2.uip === '' && _this2.ssid === '' && _this2.loc === '') {
+          setTimeout(function () {
+            document.location = redirect;
+          }, 1000);
+        } else {
+          var username_radius = 'biznetmember';
+          var password_radius = 'biznet01';
+
+          if (_this2.ap === 'ruckus') {
+            redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + _this2.uip + '&client_mac=' + _this2.client_mac + '&ssid=' + _this2.ssid + '&starturl=' + _this2.starturl;
+          } else {
+            redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + _this2.client_mac + '&uip=' + _this2.uip;
+          }
+
+          ga('send', {
+            hitType: 'event',
+            eventCategory: 'Success',
+            eventAction: 'submit',
+            eventLabel: 'Customer_ID'
+          });
+          setTimeout(function () {
+            document.location = redirect;
+          }, 1000);
+        }
+      }).catch(function (err) {
+        if (err.response.status === 401) {
+          _this2.errorMessageMember = err.response.data.statusText;
+        } else {
+          _this2.errorMessageMember = err.response.statusText;
+        }
+
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'Error',
+          eventAction: 'submit',
+          eventLabel: 'AuthError'
+        });
+        _this2.forms.btnSubmitMember = 'Log In';
+      });
     },
     closeLoginAsBiznet: function closeLoginAsBiznet() {
       ga('send', {
@@ -2509,9 +2680,668 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url', 'connectlocale'],
+  data: function data() {
+    return {
+      forms: {
+        username: '',
+        password: ''
+      },
+      btnSubmit: this.connectlocale.biznetwifi.btnlogin
+    };
+  },
+  methods: {
+    doLogin: function doLogin() {
+      var _this = this;
+
+      if (this.forms.username === '') {
+        swal({
+          title: 'Warning',
+          text: this.connectlocale.errors.username,
+          icon: 'warning',
+          dangerMode: true
+        });
+      } else if (this.forms.password === '') {
+        swal({
+          title: 'Warning',
+          text: this.connectlocale.errors.password,
+          icon: 'warning',
+          dangerMode: true
+        });
+      } else {
+        this.btnSubmit = '<span uk-spinner></span>';
+        axios({
+          method: 'post',
+          url: this.url + '/biznetwifi/authMember',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          params: {
+            username: this.forms.username,
+            password: this.forms.password
+          }
+        }).then(function (res) {
+          var result = res.data;
+          swal({
+            title: _this.connectlocale.noerror,
+            text: 'Redirecting...',
+            icon: 'success'
+          });
+          var redirect = _this.url + '/biznetwifi/customers';
+          setTimeout(function () {
+            document.location = redirect;
+          }, 2000);
+        }).catch(function (err) {
+          if (err.response.status === 401) {
+            swal({
+              title: 'Warning',
+              text: err.response.data.statusText,
+              icon: 'warning',
+              dangerMode: true
+            });
+          } else {
+            swal({
+              title: 'Error',
+              text: err.response.data.statusText,
+              icon: 'error',
+              dangerMode: true
+            });
+          }
+
+          _this.btnSubmit = 'Login';
+        });
+      }
+    },
+    getMoment: function getMoment() {
+      var now = moment().format('Y');
+      return now;
+    }
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url', 'datauser', 'connectlocale', 'custdash'],
+  data: function data() {
+    return {
+      devices: {
+        total: 0,
+        results: []
+      },
+      errors: ''
+    };
+  },
+  methods: {
+    deviceList: function deviceList() {
+      var _this = this;
+
+      axios({
+        method: 'get',
+        url: this.url + '/biznetwifi/memberDevice/' + this.datauser.username
+      }).then(function (res) {
+        var result = res.data;
+        _this.devices = {
+          total: result.total,
+          results: result.data
+        };
+      }).catch(function (err) {
+        _this.errors = err.response.statusText;
+      });
+    },
+    deleteDevice: function deleteDevice(user, mac) {
+      var _this2 = this;
+
+      swal({
+        title: 'Konfirmasi',
+        text: 'Apakah anda ingin menghapus device ini?',
+        icon: 'warning',
+        dangerMode: true,
+        buttons: {
+          cancel: true,
+          confirm: {
+            value: true,
+            text: 'Hapus'
+          }
+        }
+      }).then(function (value) {
+        if (value) {
+          axios({
+            method: 'delete',
+            url: _this2.url + '/biznetwifi/deleteMemberDevice/' + user + '/' + mac
+          }).then(function (res) {
+            swal({
+              title: 'Berhasil',
+              text: res.data.statusText,
+              icon: 'success',
+              timer: 5000
+            });
+
+            _this2.deviceList();
+          }).catch(function (err) {
+            _this2.errors = err.response.statusText;
+          });
+        }
+      });
+    },
+    dateConverted: function dateConverted(date) {
+      return moment(date).locale('id').format('LL');
+    }
+  },
+  mounted: function mounted() {
+    this.deviceList();
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Registration.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['url', 'connectlocale', 'client_mac', 'uip', 'ssid', 'startUrl', 'loc', 'ap'],
+  data: function data() {
+    return {
+      forms: {
+        full_name: "",
+        email: "",
+        phone: "",
+        username: "",
+        password: "",
+        confirm_password: "",
+        error: false
+      },
+      errors: {},
+      btnSubmit: this.connectlocale.reg_form.btnRegister,
+      phoneRE: /^[0-9]*$/,
+      emailRE: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
+    };
+  },
+  methods: {
+    doRegistration: function doRegistration() {
+      var _this = this;
+
+      this.errors = {};
+      this.forms.error = false;
+
+      if (this.forms.full_name === "") {
+        this.forms.error = true;
+        this.errors.full_name = this.connectlocale.reg_form_errors.full_name;
+      }
+
+      if (this.forms.email === "") {
+        this.forms.error = true;
+        this.errors.email = this.connectlocale.reg_form_errors.email;
+      } else {
+        if (!this.emailRE.test(this.forms.email)) {
+          this.forms.error = true;
+          this.errors.email = this.connectlocale.reg_form_errors.email_not_valid;
+        }
+      }
+
+      if (this.forms.phone !== "") {
+        if (!this.phoneRE.test(this.forms.phone)) {
+          this.forms.error = true;
+          this.errors.phone = this.connectlocale.reg_form_errors.phone_not_valid;
+        }
+      }
+
+      if (this.forms.username === "") {
+        this.forms.error = true;
+        this.errors.username = this.connectlocale.reg_form_errors.username;
+      }
+
+      if (this.forms.password === "") {
+        this.forms.error = true;
+        this.errors.password = this.connectlocale.reg_form_errors.password;
+      }
+
+      if (this.forms.confirm_password === "") {
+        this.forms.error = true;
+        this.errors.confirm_password = this.connectlocale.reg_form_errors.confirm_password;
+      }
+
+      if (this.forms.password !== "" && this.forms.confirm_password !== "") {
+        if (this.forms.password !== this.forms.confirm_password) {
+          this.forms.error = true;
+          this.errors.confirm_password = this.connectlocale.reg_form_errors.confirm_password_not_match;
+        }
+      }
+
+      if (!this.forms.error) {
+        this.btnSubmit = "<span uk-spinner></span>";
+        axios({
+          method: "post",
+          url: this.url + "/biznetwifi/registration",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          params: {
+            member: this.forms,
+            wifiParams: {
+              client_mac: this.client_mac,
+              uip: this.uip,
+              ssid: this.ssid,
+              startUrl: this.startUrl,
+              loc: this.loc,
+              ap: this.ap
+            }
+          }
+        }).then(function (res) {
+          var result = res.data;
+          swal({
+            title: _this.connectlocale.noerror,
+            text: "Redirecting...",
+            icon: "success"
+          });
+          var redirect = _this.url + "/biznetwifi/customers";
+
+          if (_this.client_mac === '' && _this.uip === '' && _this.ssid === '' && _this.loc === '') {
+            setTimeout(function () {
+              document.location = redirect;
+            }, 2000);
+          } else {
+            var username_radius = 'biznetmember';
+            var password_radius = 'biznet01';
+
+            if (_this.ap === 'ruckus') {
+              redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + _this.uip + '&client_mac=' + _this.client_mac + '&ssid=' + _this.ssid + '&starturl=' + _this.startUrl;
+            } else {
+              redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + _this.client_mac + '&uip=' + _this.uip;
+            } // ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
+
+
+            setTimeout(function () {
+              document.location = redirect;
+            }, 2000);
+          }
+        }).catch(function (err) {
+          if (err.response.status === 401) {
+            swal({
+              title: "Warning",
+              text: err.response.data.statusText,
+              icon: "warning",
+              dangerMode: true
+            });
+          } else {
+            swal({
+              title: "Error",
+              text: err.response.data.statusText,
+              icon: "error",
+              dangerMode: true
+            });
+          }
+
+          _this.btnSubmit = _this.connectlocale.reg_form.btnRegister;
+        });
+      }
+    },
+    getMoment: function getMoment() {
+      var now = moment().format("Y");
+      return now;
+    }
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--8-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css& ***!
+  !*** ./node_modules/css-loader??ref--9-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css& ***!
   \************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2521,7 +3351,26 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#loginCustomer { z-index: 9999;\n}\n.modal-dialog {\n  background: rgba(0,0,0,0.7);\n}\n.modal-body {\n  background: #ffffff;\n  margin-bottom: 0;\n}\n.modal-heading {\n  font-size: 36px;\n  color: #333333;\n  font-family: 'Univers', sans-serif;\n  font-weight: 400;\n  text-align: center;\n}\n.modal-subheading {\n  font-size: 16px;\n  color: #333333;\n  font-family: 'Univers', sans-serif;\n  font-weight: 400;\n  text-align: center;\n}\n.login-container {\n  box-shadow: none;\n}\n.form-login-customer {\n  border-radius: 30px;\n  font-size: 13px;\n  color: #333333;\n  font-family: 'Univers', sans-serif;\n  font-weight: 400;\n}\n.form-login-customer:hover, .form-login-customer:focus {\n  border: 1px solid #982e7e;\n}\n.button-login-customer {\n  border-radius: 30px;\n  border: 0;\n  background: linear-gradient(97deg, #da068c, #982e7e)  !important;\n  color: #ffffff;\n  font-size: 13px;\n  font-family: 'Univers', sans-serif;\n  font-weight: 400;\n}\n.button-login-customer:hover, .button-login-customer:focus {\n  background: linear-gradient(97deg, #da068c, #982e7e)  !important;\n  color: #ffffff;\n}\n", ""]);
+exports.push([module.i, "\n#loginCustomer { z-index: 9999;\n}\n.modal-dialog {\n  background: rgba(0,0,0,0.7);\n}\n.modal-body {\n  background: #ffffff;\n  margin-bottom: 0;\n}\n.modal-heading {\n  font-size: 36px;\n  color: #333333;\n  font-family: 'Univers', sans-serif;\n  font-weight: 400;\n  text-align: center;\n}\n.modal-subheading {\n  font-size: 16px;\n  color: #333333;\n  font-family: 'Univers', sans-serif;\n  font-weight: 400;\n  text-align: center;\n}\n.login-container {\n  box-shadow: none;\n}\n.form-login-customer {\n  border-radius: 30px;\n  font-size: 13px;\n  color: #333333;\n  font-family: 'Univers', sans-serif;\n  font-weight: 400;\n}\n.form-login-customer:hover, .form-login-customer:focus {\n  border: 1px solid #982e7e;\n}\n.button-login-customer {\n  border-radius: 30px;\n  border: 0;\n  background: linear-gradient(97deg, #da068c, #982e7e)  !important;\n  color: #ffffff;\n  font-size: 13px;\n  font-family: 'Univers', sans-serif;\n  font-weight: 400;\n}\n.button-login-customer:hover, .button-login-customer:focus {\n  background: linear-gradient(97deg, #da068c, #982e7e)  !important;\n  color: #ffffff;\n}\n#loginSection { background: #a53089;\n}\n.__login-card { border-radius: 10px;\n}\n.biz-merchant-logo {\n  padding: 4px;\n  background-color: #fff;\n  border: 1px solid #ddd;\n  border-radius: 6px;\n  max-width: 140px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--9-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Registration.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.bzw-content-login {\n  min-height: calc(145vh);\n}\n", ""]);
 
 // exports
 
@@ -52010,13 +52859,43 @@ process.umask = function() { return 0; };
 
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css&":
 /*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--8-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--8-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css& ***!
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--9-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css& ***!
   \****************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--8-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--8-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Connect.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--9-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Connect.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--9-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Registration.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--9-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Registration.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -53012,49 +53891,471 @@ var render = function() {
               attrs: { "uk-grid": "" }
             },
             [
-              _c(
-                "div",
-                {
+              _c("div", { staticClass: "uk-width-expand" }, [
+                _c("a", {
                   staticClass:
-                    "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
-                },
-                [
-                  _c("a", {
-                    staticClass:
-                      "uk-display-block uk-button login-connect login-visitor",
-                    domProps: { innerHTML: _vm._s(_vm.forms.btnhotspot) },
-                    on: {
-                      click: function($event) {
-                        return _vm.doLoginHotspot()
-                      }
+                    "uk-display-block uk-button login-connect login-visitor",
+                  domProps: { innerHTML: _vm._s(_vm.forms.btnhotspot) },
+                  on: {
+                    click: function($event) {
+                      return _vm.doLoginHotspot()
                     }
-                  })
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s"
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass:
-                        "uk-display-block uk-button login-connect login-customer",
-                      attrs: { "uk-toggle": "target: #loginCustomer" }
-                    },
-                    [_vm._v(_vm._s(_vm.connectlocale.connect.biznetwifi))]
-                  )
-                ]
-              )
+                  }
+                })
+              ])
             ]
           )
         ])
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c("div", [
+      _c(
+        "div",
+        {
+          staticClass: "uk-section uk-section-default",
+          attrs: { id: "loginSection" }
+        },
+        [
+          _c("div", { staticClass: "uk-container" }, [
+            _c(
+              "div",
+              {
+                staticClass: "uk-panel uk-light uk-margin-medium uk-text-center"
+              },
+              [
+                _c("h2", [
+                  _vm._v(
+                    _vm._s(_vm.connectlocale.connect.biznetwifi_login_title)
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v(
+                    _vm._s(_vm.connectlocale.connect.biznetwifi_login_title_2)
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "uk-grid-large uk-child-width-1-2@m",
+                attrs: { "uk-grid": "" }
+              },
+              [
+                _c("div", [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-card uk-card-default uk-card-body uk-card-small __login-card"
+                    },
+                    [
+                      _c(
+                        "form",
+                        {
+                          staticClass: "uk-form-stacked",
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.doLoginMember($event)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "legend",
+                            { staticClass: "uk-legend uk-text-center" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.connectlocale.connect.biznetwifi_member
+                                )
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.errorMessageMember
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass: "uk-alert-danger",
+                                  attrs: { "uk-alert": "" }
+                                },
+                                [_vm._v(_vm._s(_vm.errorMessageMember))]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "uk-margin" }, [
+                            _c("div", { staticClass: "uk-form-controls" }, [
+                              _c(
+                                "div",
+                                { staticClass: "uk-width-1-1 uk-inline" },
+                                [
+                                  _c("span", {
+                                    staticClass: "uk-form-icon",
+                                    attrs: { "uk-icon": "user" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.forms.usernameMember,
+                                        expression: "forms.usernameMember"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "uk-width-1-1 uk-input form-login-customer",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder:
+                                        _vm.connectlocale.loginform.username
+                                    },
+                                    domProps: {
+                                      value: _vm.forms.usernameMember
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.forms,
+                                          "usernameMember",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm.errors.usernameMember
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "uk-text-small uk-text-danger"
+                                  },
+                                  [_vm._v(_vm._s(_vm.errors.usernameMember))]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "uk-margin" }, [
+                            _c("div", { staticClass: "uk-form-controls" }, [
+                              _c(
+                                "div",
+                                { staticClass: "uk-width-1-1 uk-inline" },
+                                [
+                                  _c("span", {
+                                    staticClass: "uk-form-icon",
+                                    attrs: { "uk-icon": "lock" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.forms.passwordMember,
+                                        expression: "forms.passwordMember"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "uk-width-1-1 uk-input form-login-customer",
+                                    attrs: {
+                                      type: "password",
+                                      placeholder:
+                                        _vm.connectlocale.loginform.password
+                                    },
+                                    domProps: {
+                                      value: _vm.forms.passwordMember
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.forms,
+                                          "passwordMember",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm.errors.passwordMember
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "uk-text-small uk-text-danger"
+                                  },
+                                  [_vm._v(_vm._s(_vm.errors.passwordMember))]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "uk-margin" }, [
+                            _c("button", {
+                              staticClass:
+                                "uk-width-1-1 uk-button uk-button-default button-login-customer",
+                              domProps: {
+                                innerHTML: _vm._s(_vm.forms.btnSubmitMember)
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "uk-text-center" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "uk-link-text uk-text-small uk-text-muted",
+                                attrs: {
+                                  href: _vm.url + "/biznetwifi/registration"
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.connectlocale.loginform.registration
+                                  )
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-card uk-card-default uk-card-body uk-card-small __login-card"
+                    },
+                    [
+                      _c(
+                        "form",
+                        {
+                          staticClass: "uk-form-stacked",
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.doLoginCustomer($event)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "legend",
+                            { staticClass: "uk-legend uk-text-center" },
+                            [
+                              _vm._v(
+                                _vm._s(_vm.connectlocale.connect.biznetwifi)
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.errorMessage
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass: "uk-alert-danger",
+                                  attrs: { "uk-alert": "" }
+                                },
+                                [_vm._v(_vm._s(_vm.errorMessage))]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "uk-margin" }, [
+                            _c("div", { staticClass: "uk-form-controls" }, [
+                              _c(
+                                "div",
+                                { staticClass: "uk-width-1-1 uk-inline" },
+                                [
+                                  _c("span", {
+                                    staticClass: "uk-form-icon",
+                                    attrs: { "uk-icon": "user" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.forms.username,
+                                        expression: "forms.username"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "uk-width-1-1 uk-input form-login-customer",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder:
+                                        _vm.connectlocale.loginform.username
+                                    },
+                                    domProps: { value: _vm.forms.username },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.forms,
+                                          "username",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm.errors.username
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "uk-text-small uk-text-danger"
+                                  },
+                                  [_vm._v(_vm._s(_vm.errors.username))]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "uk-margin" }, [
+                            _c("div", { staticClass: "uk-form-controls" }, [
+                              _c(
+                                "div",
+                                { staticClass: "uk-width-1-1 uk-inline" },
+                                [
+                                  _c("span", {
+                                    staticClass: "uk-form-icon",
+                                    attrs: { "uk-icon": "lock" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.forms.password,
+                                        expression: "forms.password"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "uk-width-1-1 uk-input form-login-customer",
+                                    attrs: {
+                                      type: "password",
+                                      placeholder:
+                                        _vm.connectlocale.loginform.password
+                                    },
+                                    domProps: { value: _vm.forms.password },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.forms,
+                                          "password",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _vm.errors.password
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass: "uk-text-small uk-text-danger"
+                                  },
+                                  [_vm._v(_vm._s(_vm.errors.password))]
+                                )
+                              : _vm._e()
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "uk-margin" }, [
+                            _c("button", {
+                              staticClass:
+                                "uk-width-1-1 uk-button uk-button-default button-login-customer",
+                              domProps: {
+                                innerHTML: _vm._s(_vm.forms.btnSubmit)
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "uk-text-center" }, [
+                            _vm._v(" ")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              ]
+            )
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _vm.loc.merchant.length != 0
+      ? _c(
+          "div",
+          { staticClass: "uk-section uk-section-primary uk-light uk-padding" },
+          [
+            _c("div", { staticClass: "uk-container" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-panel uk-light uk-margin-medium uk-text-center"
+                },
+                [
+                  _c("p", { staticClass: "uk-text-lead uk-margin-small" }, [
+                    _vm._v(_vm._s(_vm.connectlocale.location.title))
+                  ]),
+                  _vm._v(" "),
+                  _vm.loc.merchant.logo
+                    ? _c("img", {
+                        staticClass: "biz-merchant-logo",
+                        attrs: {
+                          src:
+                            "http://www.biznethotspot.com/img/logos/merchants/" +
+                            _vm.loc.merchant.logo,
+                          alt: _vm.loc.merchant.name,
+                          "uk-img": ""
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("h3", { staticClass: "uk-text-bold uk-margin-small" }, [
+                    _vm._v(_vm._s(_vm.loc.merchant.name))
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -53972,6 +55273,929 @@ var render = function() {
       ])
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "bzw-content-login", attrs: { "uk-height-viewport": "" } },
+    [
+      _c("div", { staticClass: "uk-position-cover" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-2-3@s uk-align-center"
+          },
+          [
+            _c("div", { staticClass: "container-bzw-login" }, [
+              _c(
+                "div",
+                { staticClass: "uk-tile uk-box-shadow-large card-bzw-login" },
+                [
+                  _c("div", { staticClass: "bzw-logo-login" }, [
+                    _c("img", {
+                      staticClass: "uk-width-1-2 uk-align-center",
+                      attrs: {
+                        src: _vm.url + "/images/logo/biznetwifi_white.png",
+                        alt: "biznetwifi"
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      staticClass: "uk-form-stacked",
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.doLogin($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("div", { staticClass: "uk-form-controls" }, [
+                          _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                            _c("span", {
+                              staticClass: "uk-form-icon bzw-form-icon",
+                              attrs: { "uk-icon": "user" }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.forms.username,
+                                  expression: "forms.username"
+                                }
+                              ],
+                              staticClass:
+                                "uk-width-1-1 uk-input bzw-form-login",
+                              attrs: {
+                                type: "text",
+                                placeholder:
+                                  _vm.connectlocale.loginform.username
+                              },
+                              domProps: { value: _vm.forms.username },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.forms,
+                                    "username",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("div", { staticClass: "uk-form-controls" }, [
+                          _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                            _c("span", {
+                              staticClass: "uk-form-icon bzw-form-icon",
+                              attrs: { "uk-icon": "lock" }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.forms.password,
+                                  expression: "forms.password"
+                                }
+                              ],
+                              staticClass:
+                                "uk-width-1-1 uk-input bzw-form-login",
+                              attrs: {
+                                type: "password",
+                                placeholder:
+                                  _vm.connectlocale.loginform.password
+                              },
+                              domProps: { value: _vm.forms.password },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.forms,
+                                    "password",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-margin" }, [
+                        _c("button", {
+                          staticClass:
+                            "uk-width-1-1 uk-button uk-button-default bzw-button-login",
+                          domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-text-center copyright-login" }, [
+                    _vm._v("© 2000 - " + _vm._s(_vm.getMoment()) + " Biznet.")
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "section",
+      { staticClass: "uk-cover-container uk-visible@s banner-hmpg-customer" },
+      [
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-overlay uk-position-cover uk-light banner-hmpg-overlay"
+          },
+          [
+            _c("div", { staticClass: "uk-container" }, [
+              _c("div", { staticClass: "uk-position-center" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "uk-text-center welcome-customer-name" },
+                  [_vm._v("Hi, " + _vm._s(_vm.datauser.displayname))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-text-center uk-margin desktop-customer-id"
+                  },
+                  [_vm._v(_vm._s(_vm.connectlocale.biznetwifi.connected))]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c("section", { staticClass: "uk-visible@s container" }, [
+      _c(
+        "div",
+        { staticClass: "uk-card uk-card-default uk-card-body container-box" },
+        [
+          _c("div", { staticClass: "container-devices" }, [
+            _c("div", { staticClass: "uk-margin-bottom container-heading" }, [
+              _vm._v(_vm._s(_vm.custdash.mydevice))
+            ]),
+            _vm._v(" "),
+            _vm.errors
+              ? _c("div", [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-alert-error",
+                      attrs: { "uk-alert": "" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n            " +
+                          _vm._s(_vm.errors) +
+                          "\r\n            "
+                      ),
+                      _c("a", {
+                        staticClass: "uk-alert-close",
+                        attrs: { "uk-close": "" }
+                      })
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.devices.total === 0
+              ? _c("div", [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-alert-warning",
+                      attrs: { "uk-alert": "" }
+                    },
+                    [
+                      _vm._v(
+                        "\r\n            " +
+                          _vm._s(_vm.custdash.nodevice) +
+                          "\r\n          "
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "uk-grid-medium uk-flex-center",
+                attrs: { "uk-grid": "" }
+              },
+              _vm._l(_vm.devices.results, function(device) {
+                return _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-width-1-4@xl uk-width-1-4@l uk-width-1-2@m uk-width-1-2@s card-devices"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "uk-tile uk-tile-default card-device-box"
+                      },
+                      [
+                        _c("div", { staticClass: "card-icon-device" }, [
+                          device.DEVICE_AGENT === "ANDROID"
+                            ? _c("span", [
+                                _c("i", { staticClass: "fab fa-android" })
+                              ])
+                            : device.DEVICE_AGENT === "iOS"
+                            ? _c("span", [
+                                _c("i", { staticClass: "fab fa-apple" })
+                              ])
+                            : _c("span", [
+                                _c("i", { staticClass: "fas fa-laptop" })
+                              ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-identity-mac" }, [
+                          _vm._v(_vm._s(device.DEVICE_AGENT))
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "card-device-info" }, [
+                          _c("div", { staticClass: "device-info-lead" }, [
+                            _vm._v("Mac Address")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "uk-text-uppercase device-last-login"
+                            },
+                            [_vm._v(_vm._s(device.MAC_ADDRESS))]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "uk-width-1-1 uk-button uk-button-default btn-delete-device",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteDevice(
+                                  device.USERNAME,
+                                  device.MAC_ADDRESS
+                                )
+                              }
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.custdash.btndelete))]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              }),
+              0
+            )
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "section",
+      { staticClass: "uk-card uk-card-body uk-hidden@s box-content-customer" },
+      [
+        _c(
+          "div",
+          { staticClass: "uk-tile uk-tile-default box-customer-profile" },
+          [
+            _c(
+              "div",
+              { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-width-1-1" }, [
+                  _c(
+                    "div",
+                    { staticClass: "uk-text-center box-customer-name" },
+                    [
+                      _vm._v("Hello, "),
+                      _c("br"),
+                      _vm._v(" " + _vm._s(_vm.datauser.displayname))
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-width-1-1" }, [
+                  _c("div", { staticClass: "uk-text-center" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass:
+                          "uk-button uk-button-default box-button-browse",
+                        attrs: { href: "https://www.biznethome.net/id/" }
+                      },
+                      [_vm._v(_vm._s(_vm.custdash.browse))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "uk-text-center connected-mobile" },
+                    [_vm._v(_vm._s(_vm.connectlocale.biznetwifi.connected))]
+                  )
+                ])
+              ]
+            )
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-card uk-card-body uk-card-small container-listdevice uk-hidden@s"
+      },
+      [
+        _c("div", { staticClass: "heading-listdevice" }, [
+          _vm._v(_vm._s(_vm.custdash.mydevice))
+        ]),
+        _vm._v(" "),
+        _vm.errors
+          ? _c("div", [
+              _c(
+                "div",
+                { staticClass: "uk-alert-warning", attrs: { "uk-alert": "" } },
+                [
+                  _vm._v("\r\n        " + _vm._s(_vm.errors) + "\r\n        "),
+                  _c("a", {
+                    staticClass: "uk-alert-close",
+                    attrs: { "uk-close": "" }
+                  })
+                ]
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-grid-medium", attrs: { "uk-grid": "" } },
+          _vm._l(_vm.devices.results, function(device) {
+            return _c("div", { staticClass: "uk-width-1-1" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-card uk-card-default uk-card-body card-listdevice"
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "uk-tile uk-tile-default tile-icon-device" },
+                    [
+                      device.DEVICE_AGENT === "iOS"
+                        ? _c("div", [_vm._m(2, true)])
+                        : device.DEVICE_AGENT === "ANDROID"
+                        ? _c("div", [_vm._m(3, true)])
+                        : _c("div", [_vm._m(4, true)])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-card uk-card-body" }, [
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "card-labeldevice" }, [
+                        _vm._v(_vm._s(device.DEVICE_AGENT))
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "card-labeldevice" }, [
+                        _vm._v("Mac Address")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "uk-text-uppercase card-sublabel" },
+                        [_vm._v(_vm._s(device.MAC_ADDRESS))]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "uk-width-1-1 uk-button uk-button-default btn-delete-device",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteDevice(
+                                device.USERNAME,
+                                device.MAC_ADDRESS
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.custdash.btndelete))]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ])
+          }),
+          0
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-text-center banner-icon-customer" }, [
+      _c("span", { staticClass: "fas fa-user-circle" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-width-1-1" }, [
+      _c("div", { staticClass: "uk-text-center box-icon-customer" }, [
+        _c("span", { staticClass: "icon ion-ios-contact" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-text-center icon-device ios" }, [
+      _c("i", { staticClass: "fab fa-apple" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-text-center icon-device android" }, [
+      _c("i", { staticClass: "fab fa-android" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-text-center icon-device laptop" }, [
+      _c("i", { staticClass: "fas fa-laptop" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=template&id=4fce4e2e&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/biznetwifi/Registration.vue?vue&type=template&id=4fce4e2e& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "bzw-content-login" }, [
+    _c("div", { staticClass: "uk-position-cover" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "uk-container uk-width-1-3@xl uk-width-1-3@l uk-width-1-2@m uk-width-2-3@s uk-align-center"
+        },
+        [
+          _c("div", { staticClass: "container-bzw-login" }, [
+            _c(
+              "div",
+              { staticClass: "uk-tile uk-box-shadow-large card-bzw-login" },
+              [
+                _c("div", { staticClass: "bzw-logo-login" }, [
+                  _c("img", {
+                    staticClass: "uk-width-1-2 uk-align-center",
+                    attrs: {
+                      src: _vm.url + "/images/logo/biznetwifi_white.png",
+                      alt: "biznetwifi"
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-light uk-text-center" }, [
+                  _c("h2", [_vm._v(_vm._s(_vm.connectlocale.reg_form.title))])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    staticClass: "uk-form-stacked",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.doRegistration($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "uk-form-controls" }, [
+                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                          _c("span", {
+                            staticClass: "uk-form-icon bzw-form-icon",
+                            attrs: { "uk-icon": "user" }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.forms.full_name,
+                                expression: "forms.full_name"
+                              }
+                            ],
+                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
+                            attrs: {
+                              type: "text",
+                              placeholder: _vm.connectlocale.reg_form.full_name
+                            },
+                            domProps: { value: _vm.forms.full_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.forms,
+                                  "full_name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.errors.full_name
+                        ? _c(
+                            "div",
+                            { staticClass: "uk-text-small uk-text-danger" },
+                            [_vm._v(_vm._s(_vm.errors.full_name))]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "uk-form-controls" }, [
+                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                          _c("span", {
+                            staticClass: "uk-form-icon bzw-form-icon",
+                            attrs: { "uk-icon": "mail" }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.forms.email,
+                                expression: "forms.email"
+                              }
+                            ],
+                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
+                            attrs: {
+                              type: "text",
+                              placeholder: _vm.connectlocale.reg_form.email
+                            },
+                            domProps: { value: _vm.forms.email },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.forms,
+                                  "email",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.errors.email
+                        ? _c(
+                            "div",
+                            { staticClass: "uk-text-small uk-text-danger" },
+                            [_vm._v(_vm._s(_vm.errors.email))]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "uk-form-controls" }, [
+                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                          _c("span", {
+                            staticClass: "uk-form-icon bzw-form-icon",
+                            attrs: { "uk-icon": "receiver" }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.forms.phone,
+                                expression: "forms.phone"
+                              }
+                            ],
+                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
+                            attrs: {
+                              type: "text",
+                              placeholder: _vm.connectlocale.reg_form.phone
+                            },
+                            domProps: { value: _vm.forms.phone },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.forms,
+                                  "phone",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.errors.phone
+                        ? _c(
+                            "div",
+                            { staticClass: "uk-text-small uk-text-danger" },
+                            [_vm._v(_vm._s(_vm.errors.phone))]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "uk-form-controls" }, [
+                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                          _c("span", {
+                            staticClass: "uk-form-icon bzw-form-icon",
+                            attrs: { "uk-icon": "user" }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.forms.username,
+                                expression: "forms.username"
+                              }
+                            ],
+                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
+                            attrs: {
+                              type: "text",
+                              placeholder: _vm.connectlocale.reg_form.username
+                            },
+                            domProps: { value: _vm.forms.username },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.forms,
+                                  "username",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.errors.username
+                        ? _c(
+                            "div",
+                            { staticClass: "uk-text-small uk-text-danger" },
+                            [_vm._v(_vm._s(_vm.errors.username))]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "uk-form-controls" }, [
+                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                          _c("span", {
+                            staticClass: "uk-form-icon bzw-form-icon",
+                            attrs: { "uk-icon": "lock" }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.forms.password,
+                                expression: "forms.password"
+                              }
+                            ],
+                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
+                            attrs: {
+                              type: "password",
+                              placeholder: _vm.connectlocale.reg_form.password
+                            },
+                            domProps: { value: _vm.forms.password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.forms,
+                                  "password",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.errors.password
+                        ? _c(
+                            "div",
+                            { staticClass: "uk-text-small uk-text-danger" },
+                            [_vm._v(_vm._s(_vm.errors.password))]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("div", { staticClass: "uk-form-controls" }, [
+                        _c("div", { staticClass: "uk-width-1-1 uk-inline" }, [
+                          _c("span", {
+                            staticClass: "uk-form-icon bzw-form-icon",
+                            attrs: { "uk-icon": "lock" }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.forms.confirm_password,
+                                expression: "forms.confirm_password"
+                              }
+                            ],
+                            staticClass: "uk-width-1-1 uk-input bzw-form-login",
+                            attrs: {
+                              type: "password",
+                              placeholder:
+                                _vm.connectlocale.reg_form.confirm_password
+                            },
+                            domProps: { value: _vm.forms.confirm_password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.forms,
+                                  "confirm_password",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm.errors.confirm_password
+                        ? _c(
+                            "div",
+                            { staticClass: "uk-text-small uk-text-danger" },
+                            [_vm._v(_vm._s(_vm.errors.confirm_password))]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin" }, [
+                      _c("button", {
+                        staticClass:
+                          "uk-width-1-1 uk-button uk-button-default bzw-button-login",
+                        domProps: { innerHTML: _vm._s(_vm.btnSubmit) }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-text-center copyright-login" }, [
+                  _vm._v("© 2000 - " + _vm._s(_vm.getMoment()) + " Biznet.")
+                ])
+              ]
+            )
+          ])
+        ]
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -66139,7 +68363,10 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('connect-section', __webpack_require__(/*! ./components/biznetwifi/Connect.vue */ "./resources/js/components/biznetwifi/Connect.vue").default);
 Vue.component('customers-dashboard', __webpack_require__(/*! ./components/biznetwifi/CustomersDashboard.vue */ "./resources/js/components/biznetwifi/CustomersDashboard.vue").default);
+Vue.component('members-dashboard', __webpack_require__(/*! ./components/biznetwifi/MembersDashboard.vue */ "./resources/js/components/biznetwifi/MembersDashboard.vue").default);
 Vue.component('login-biznetwifi', __webpack_require__(/*! ./components/biznetwifi/Login.vue */ "./resources/js/components/biznetwifi/Login.vue").default);
+Vue.component('login-member', __webpack_require__(/*! ./components/biznetwifi/LoginMember.vue */ "./resources/js/components/biznetwifi/LoginMember.vue").default);
+Vue.component('registration-biznetwifi', __webpack_require__(/*! ./components/biznetwifi/Registration.vue */ "./resources/js/components/biznetwifi/Registration.vue").default);
 Vue.component('homepage', __webpack_require__(/*! ./components/biznetwifi/Homepage.vue */ "./resources/js/components/biznetwifi/Homepage.vue").default);
 var app = new Vue({
   el: '#app',
@@ -66271,10 +68498,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--8-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--8-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Connect.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_8_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--9-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Connect.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Connect.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Connect_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -66503,6 +68730,231 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/biznetwifi/LoginMember.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/LoginMember.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoginMember.vue?vue&type=template&id=508db504& */ "./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504&");
+/* harmony import */ var _LoginMember_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LoginMember.vue?vue&type=script&lang=js& */ "./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LoginMember_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/biznetwifi/LoginMember.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginMember.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./LoginMember.vue?vue&type=template&id=508db504& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/LoginMember.vue?vue&type=template&id=508db504&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginMember_vue_vue_type_template_id_508db504___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/MembersDashboard.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/MembersDashboard.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MembersDashboard.vue?vue&type=template&id=5c2dab70& */ "./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70&");
+/* harmony import */ var _MembersDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MembersDashboard.vue?vue&type=script&lang=js& */ "./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _MembersDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/biznetwifi/MembersDashboard.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./MembersDashboard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./MembersDashboard.vue?vue&type=template&id=5c2dab70& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/MembersDashboard.vue?vue&type=template&id=5c2dab70&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MembersDashboard_vue_vue_type_template_id_5c2dab70___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/Registration.vue":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/Registration.vue ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Registration_vue_vue_type_template_id_4fce4e2e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Registration.vue?vue&type=template&id=4fce4e2e& */ "./resources/js/components/biznetwifi/Registration.vue?vue&type=template&id=4fce4e2e&");
+/* harmony import */ var _Registration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Registration.vue?vue&type=script&lang=js& */ "./resources/js/components/biznetwifi/Registration.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Registration.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/biznetwifi/Registration.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Registration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Registration_vue_vue_type_template_id_4fce4e2e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Registration_vue_vue_type_template_id_4fce4e2e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/biznetwifi/Registration.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/Registration.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/Registration.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Registration.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/Registration.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/Registration.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--9-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Registration.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_9_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/biznetwifi/Registration.vue?vue&type=template&id=4fce4e2e&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/biznetwifi/Registration.vue?vue&type=template&id=4fce4e2e& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_template_id_4fce4e2e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Registration.vue?vue&type=template&id=4fce4e2e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/biznetwifi/Registration.vue?vue&type=template&id=4fce4e2e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_template_id_4fce4e2e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Registration_vue_vue_type_template_id_4fce4e2e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/sass/administrator/app.scss":
 /*!***********************************************!*\
   !*** ./resources/sass/administrator/app.scss ***!
@@ -66536,17 +68988,29 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/connected.scss":
+/*!***************************************!*\
+  !*** ./resources/sass/connected.scss ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!***********************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/administrator/app.scss ./resources/sass/app.scss ./resources/sass/connect.scss ***!
-  \***********************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/administrator/app.scss ./resources/sass/app.scss ./resources/sass/connect.scss ./resources/sass/connected.scss ***!
+  \*******************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\works\portalwifi\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\xampp\htdocs\works\portalwifi\resources\sass\administrator\app.scss */"./resources/sass/administrator/app.scss");
-__webpack_require__(/*! C:\xampp\htdocs\works\portalwifi\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\works\portalwifi\resources\sass\connect.scss */"./resources/sass/connect.scss");
+__webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\sass\administrator\app.scss */"./resources/sass/administrator/app.scss");
+__webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\sass\connect.scss */"./resources/sass/connect.scss");
+module.exports = __webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\sass\connected.scss */"./resources/sass/connected.scss");
 
 
 /***/ })

@@ -44,9 +44,7 @@
         <ul class="uk-slideshow-items" uk-height-viewport>
           <li>
             <img v-bind:src="url + '/images/banner/Banner1.jpg'" uk-cover />
-            <div class="uk-overlay uk-overlay-primary uk-position-cover overlay">
-
-            </div>
+            <div class="uk-overlay uk-overlay-primary uk-position-cover overlay"></div>
           </li>
           <li>
             <img v-bind:src="url + '/images/banner/Banner2.jpg'" uk-cover />
@@ -85,16 +83,104 @@
             <div class="uk-text-center banner-subheading">{{ homepagelocale.freewifi.frombiznet }}</div>
             <div class="uk-text-center lead-banner" v-html="homepagelocale.freewifi.textcontent"></div>
             <div class="uk-grid-small uk-margin-top" uk-grid>
-              <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
+              <div class="uk-width-expand">
                 <a @click="doLoginHotspot()" class="uk-display-block uk-button login-connect login-visitor" v-html="forms.btnhotspot"></a>
               </div>
-              <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
+              <!-- <div class="uk-width-1-2@xl uk-width-1-2@l uk-width-1-2@m uk-width-1-2@s">
                 <a uk-toggle="target: #loginCustomer" class="uk-display-block uk-button login-connect login-customer">{{ connectlocale.connect.biznetwifi }}</a>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
     </div>
+
+    <div>
+        <div class="uk-section uk-section-default" id="loginSection">
+            <div class="uk-container">
+                <div class="uk-panel uk-light uk-margin-medium uk-text-center">
+                    <h2>{{ connectlocale.connect.biznetwifi_login_title }}</h2>
+                    <p>{{ connectlocale.connect.biznetwifi_login_title_2 }}</p>
+                </div>
+
+                <div class="uk-grid-large uk-child-width-1-2@m" uk-grid>
+                    <div>
+                        <div class="uk-card uk-card-default uk-card-body uk-card-small __login-card">
+                            <form class="uk-form-stacked" @submit.prevent="doLoginMember">
+                                <legend class="uk-legend uk-text-center">{{ connectlocale.connect.biznetwifi_member }}</legend>
+                                <div v-if="errorMessageMember" class="uk-alert-danger" uk-alert>{{ errorMessageMember }}</div>
+                                <div class="uk-margin">
+                                    <div class="uk-form-controls">
+                                        <div class="uk-width-1-1 uk-inline">
+                                            <span class="uk-form-icon" uk-icon="user"></span>
+                                            <input type="text" v-model="forms.usernameMember" class="uk-width-1-1 uk-input form-login-customer" :placeholder="connectlocale.loginform.username">
+                                        </div>
+                                    </div>
+                                    <div v-if="errors.usernameMember" class="uk-text-small uk-text-danger">{{ errors.usernameMember }}</div>
+                                </div>
+                                <div class="uk-margin">
+                                    <div class="uk-form-controls">
+                                        <div class="uk-width-1-1 uk-inline">
+                                            <span class="uk-form-icon" uk-icon="lock"></span>
+                                            <input type="password" v-model="forms.passwordMember" class="uk-width-1-1 uk-input form-login-customer" :placeholder="connectlocale.loginform.password">
+                                        </div>
+                                    </div>
+                                    <div v-if="errors.passwordMember" class="uk-text-small uk-text-danger">{{ errors.passwordMember }}</div>
+                                </div>
+                                <div class="uk-margin">
+                                    <button v-html="forms.btnSubmitMember" class="uk-width-1-1 uk-button uk-button-default button-login-customer"></button>
+                                </div>
+                                <div class="uk-text-center">
+                                    <a v-bind:href="url +'/biznetwifi/registration'" class="uk-link-text uk-text-small uk-text-muted">{{ connectlocale.loginform.registration }}</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="uk-card uk-card-default uk-card-body uk-card-small __login-card">
+                            <form class="uk-form-stacked" @submit.prevent="doLoginCustomer">
+                                <legend class="uk-legend uk-text-center">{{ connectlocale.connect.biznetwifi }}</legend>
+                                <div v-if="errorMessage" class="uk-alert-danger" uk-alert>{{ errorMessage }}</div>
+                                <div class="uk-margin">
+                                    <div class="uk-form-controls">
+                                        <div class="uk-width-1-1 uk-inline">
+                                            <span class="uk-form-icon" uk-icon="user"></span>
+                                            <input type="text" v-model="forms.username" class="uk-width-1-1 uk-input form-login-customer" :placeholder="connectlocale.loginform.username">
+                                        </div>
+                                    </div>
+                                    <div v-if="errors.username" class="uk-text-small uk-text-danger">{{ errors.username }}</div>
+                                </div>
+                                <div class="uk-margin">
+                                    <div class="uk-form-controls">
+                                        <div class="uk-width-1-1 uk-inline">
+                                            <span class="uk-form-icon" uk-icon="lock"></span>
+                                            <input type="password" v-model="forms.password" class="uk-width-1-1 uk-input form-login-customer"
+                                                :placeholder="connectlocale.loginform.password">
+                                        </div>
+                                    </div>
+                                    <div v-if="errors.password" class="uk-text-small uk-text-danger">{{ errors.password }}</div>
+                                </div>
+                                <div class="uk-margin">
+                                    <button v-html="forms.btnSubmit" class="uk-width-1-1 uk-button uk-button-default button-login-customer"></button>
+                                </div>
+                                <div class="uk-text-center">&nbsp;</div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-section uk-section-primary uk-light uk-padding" v-if="loc.merchant.length != 0">
+        <div class="uk-container">
+            <div class="uk-panel uk-light uk-margin-medium uk-text-center">
+                <p class="uk-text-lead uk-margin-small">{{ connectlocale.location.title }}</p>
+                <img class="biz-merchant-logo" v-if="loc.merchant.logo" :src="'http://www.biznethotspot.com/img/logos/merchants/' +loc.merchant.logo" :alt="loc.merchant.name" uk-img>
+                <h3 class="uk-text-bold uk-margin-small">{{ loc.merchant.name }}</h3>
+            </div>
+        </div>
+    </div>  
   </div>
 </template>
 
@@ -110,12 +196,16 @@ export default {
       forms: {
         username: '',
         password: '',
+        usernameMember: '',
+        passwordMember: '',
         btnSubmit: this.connectlocale.biznetwifi.btnlogin,
+        btnSubmitMember: this.connectlocale.biznetwifi.btnlogin,
         btnhotspot: this.connectlocale.connect.freehotspot,
         error: false
       },
       errors: {},
-      errorMessage: ''
+      errorMessage: '',
+      errorMessageMember: ''
     }
   },
   methods: {
@@ -197,12 +287,86 @@ export default {
     },
     doLoginHotspot()
     {
-      var redirect = this.url + '/freehotspot?ap=' + this.ap + '&src=BiznetHotspot&loc=' + this.loc.origin + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&starturl=' + this.starturl + '&ssid=' + this.ssid + '&shaping=true';
-      ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsGuest'});
-      this.forms.btnhotspot = '<span uk-spinner></span>';
+      var redirect = this.url + '/freehotspot?ap=' + this.ap + 'uip=' + this.uip + '&client_mac=' + this.client_mac + '&ssid=' + this.ssid + '&starturl=' + this.starturl;
       setTimeout(function(){
         document.location = redirect;
       }, 2000);
+    },
+    doLoginMember()
+    {
+      this.errors = {};
+      this.errorMessageMember = '';
+      if( this.forms.usernameMember === '' )
+      {
+        this.forms.error = true;
+        this.errors.usernameMember = this.connectlocale.errors.username;
+      }
+
+      if( this.forms.passwordMember === '' )
+      {
+        this.forms.error = true;
+        this.errors.passwordMember = this.connectlocale.errors.password;
+      }
+
+      if( this.forms.error === true )
+      {
+        this.forms.error = false;
+        return false;
+      }
+
+      ga('send', {hitType: 'event', eventCategory: 'Button', eventAction: 'click', eventLabel: 'LoginAsMember'});
+
+      this.forms.btnSubmitMember = '<span uk-spinner></span>';
+      axios({
+        method: 'post',
+        url: this.url + '/biznetwifi/authMember',
+        headers: { 'Content-Type': 'application/json' },
+        params: {
+          username: this.forms.usernameMember,
+          password: this.forms.passwordMember
+        }
+      }).then( res => {
+        let result = res.data;
+        /*swal({
+          title: 'Login berhasil',
+          text: 'Redirecting',
+          icon: 'success'
+        });*/
+        var redirect = this.url + '/biznetwifi/customers';
+        if( this.client_mac === ''
+          && this.uip === ''
+          && this.ssid === ''
+          && this.loc === '')
+        {
+          setTimeout(function() { document.location = redirect; }, 1000);
+        }
+        else
+        {
+          var username_radius = 'biznetmember';
+          var password_radius = 'biznet01';
+          if( this.ap === 'ruckus' ) {
+            redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' + username_radius + '&password=' + password_radius + '&uip=' + this.uip + '&client_mac=' + this.client_mac + '&ssid=' + this.ssid + '&starturl=' + this.starturl;
+          }
+          else
+          {
+            redirect = 'http://10.10.10.10/login?username=' + username_radius + '&password=' + password_radius + '&client_mac=' + this.client_mac + '&uip=' + this.uip;
+          }
+          ga('send', {hitType: 'event', eventCategory: 'Success', eventAction: 'submit', eventLabel: 'Customer_ID'});
+          setTimeout(function() { document.location = redirect; }, 1000);
+        }
+      }).catch( err => {
+        if( err.response.status === 401 )
+        {
+          this.errorMessageMember = err.response.data.statusText;
+        }
+        else
+        {
+          this.errorMessageMember = err.response.statusText;
+        }
+
+        ga('send', {hitType: 'event', eventCategory: 'Error', eventAction: 'submit', eventLabel: 'AuthError'});
+        this.forms.btnSubmitMember = 'Log In';
+      });
     },
     closeLoginAsBiznet()
     {
@@ -271,5 +435,15 @@ export default {
   .button-login-customer:hover, .button-login-customer:focus {
     background: linear-gradient(97deg, #da068c, #982e7e)  !important;
     color: #ffffff;
+  }
+  #loginSection { background: #a53089; }
+  .__login-card { border-radius: 10px; }
+
+  .biz-merchant-logo {
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    max-width: 140px;
   }
 </style>

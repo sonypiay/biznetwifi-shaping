@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700,800,900');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400;600;700&display=swap');
+
+@font-face {
+	font-family: 'Univers';
+	src: local('Univers'), url('/works/portalwifi/public/fonts/univers/UniversLTStd.otf') format('opentype');
+	src: local('Univers'), url('/works/portalwifi/public/fonts/univers/Univers-light-normal.ttf') format('truetype');
+	src: local('Univers'), url('/works/portalwifi/public/fonts/univers/Univers.woff') format('woff');
+}
+
+/*bold font*/
+@font-face {
+	font-family: 'Univers';
+	src: url('/works/portalwifi/public/fonts/univers/UniversLTStd-Bold.otf') format('opentype');
+	src: url('/works/portalwifi/public/fonts/univers/UniversBlack.ttf') format('truetype');
+	font-weight: bold;
+}
+
+// Typography
+$font-primary: "Univers", sans-serif;
+$font-secondary: "Open Sans", sans-serif;
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
+@mixin globalfontstyle( $weight, $stretch, $style, $spacing )
+{
+  font-weight: $weight;
+	font-stretch: $stretch;
+	font-style: $style;
+	letter-spacing: $spacing;
+}
+
+@media screen and(min-width: 320px)
+{
+    .enjoy {
+        text-align: center;
+        .enjoy-heading { font-size: 16px; }
+        p { font-size: 14px; }
+    }
+}
+
+@media screen and(min-width: 375px)
+{
+    .enjoy {
+        text-align: center;
+        .enjoy-heading { font-size: 20px; }
+        p { font-size: 14px; }
+    }
+}
+
+@media screen and(min-width: 414px)
+{
+    .enjoy {
+        text-align: center;
+        .enjoy-heading { font-size: 22px; }
+        p { font-size: 16px; }
+    }
+}
+
+@media screen and(min-width: 768px)
+{
+    .enjoy {
+        text-align: center;
+        .enjoy-heading { font-size: 20px; }
+        p { font-size: 14px; }
+    }
+}
+
+@media screen and(min-width: 1024px)
+{
+    .enjoy {
+        text-align: center;
+        .enjoy-heading { font-size: 22px; }
+        p { font-size: 16px; }
+    }
+}
+
+@media screen and(min-width: 1280px)
+{
+    .enjoy {
+        text-align: center;
+        .enjoy-heading { font-size: 24px; }
+        p { font-size: 18px; }
+    }
+}
+
+.enjoy {
+    .enjoy-heading {
+        color: #222222;
+        font-family: $font-secondary;
+        @include globalfontstyle(600, normal, normal, 0.4px);
+    }
+    p {
+        color: #444444;
+        font-family: $font-secondary;
+        @include globalfontstyle(300, normal, normal, 0.4px);
+    }
+}
+
+.browsenow {
+    font-family: $font-secondary;
+    @include globalfontstyle(400, normal, normal, 0.4px);
+    border-radius: 30px;
+    border: 0;
+    background: linear-gradient(97deg, #da068c, #982e7e)  !important;
+    box-shadow: 0px 0px 4px rgba(0,0,0, 0.3);
+    color: #ffffff;
+    &:hover, &:active, &:focus {
+        color: #ffffff;
+        background: #da068c !important;
+        border: 0;
+    }
+}

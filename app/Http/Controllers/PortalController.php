@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Database\AccountSubscriber;
+use App\Database\AccountMember;
 use App\Database\ClientsUsage;
 use App\RadiusAPI;
 use App\CustomFunction;
@@ -31,14 +32,9 @@ class PortalController extends Controller
     $client_mac = $request->client_mac;
     $uip = $request->uip;
     $ssid = $request->ssid;
-    $startUrl = $request->starturl;
+    $startUrl = route('you_are_connected_page');
     $location = $request->loc;
     $shaping = $request->shaping;
-
-    if( $ap == 'mkt' )
-    {
-      $startUrl = 'http://biznethotspot.qeon.co.id';
-    }
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
@@ -46,11 +42,20 @@ class PortalController extends Controller
       $request->session()->put('location_id', $location);
       $request->session()->put('client_mac', $client_mac);
       $request->session()->put('uip', $uip);
+      $request->session()->put('ssid', $ssid);
       $request->session()->put('starturl', $startUrl);
     }
 
-    //$filter_location = explode('-', $location);
-    //$merchant = $this->get_merchant( $filter_location[1] );
+    if ( $location != '' )
+    {
+      $filter_location = explode('-', $location);
+      $merchant = $filter_location[1];
+      $merchantDetail = $this->merchant_detail($merchant);
+    }
+    else 
+    {
+      $merchantDetail = [];
+    }
 
     return response()->view('portal.connect', [
       'mac' => $client_mac,
@@ -59,7 +64,7 @@ class PortalController extends Controller
       'startUrl' => $startUrl,
       'loc' => [
         'origin' => $location,
-        'merchant' => ''
+        'merchant' => $merchantDetail
       ],
       'ap' => $ap,
       'shaping' => $shaping
@@ -84,9 +89,10 @@ class PortalController extends Controller
     $client_mac = $request->client_mac;
     $uip = $request->uip;
     $ssid = $request->ssid;
-    $startUrl = $request->StartURL;
+    $startUrl = route('you_are_connected_page');
     $location = $request->loc;
     $shaping = $request->shaping;
+    $convert_location_id = '';
 
     if( isset( $client_mac ) AND ! empty( $client_mac ) )
     {
@@ -95,10 +101,21 @@ class PortalController extends Controller
       $request->session()->put('location_id', $convert_location_id);
       $request->session()->put('client_mac', $client_mac);
       $request->session()->put('uip', $uip);
+      $request->session()->put('ssid', $ssid);
       $request->session()->put('starturl', $startUrl);
     }
-    //$filter_location = explode('-', $convert_string);
-    //$merchant = $this->get_merchant( $filter_location[1] );
+
+    if( $convert_location_id != '' )
+    {
+      $filter_location = explode('-', $convert_location_id);
+      $merchant = $filter_location[1];
+      $merchantDetail = $this->merchant_detail( $merchant );
+    }
+    else
+    {
+      $merchantDetail = [];
+    }
+
 
     return response()->view('portal.connect', [
       'mac' => $client_mac,
@@ -107,7 +124,7 @@ class PortalController extends Controller
       'startUrl' => $startUrl,
       'loc' => [
         'origin' => $location,
-        'merchant' => ''
+        'merchant' => $merchantDetail
       ],
       'ap' => $ap,
       'shaping' => $shaping
@@ -117,11 +134,40 @@ class PortalController extends Controller
     ->header('Access-Control-Allow-Headers', 'GET');
   }
 
-  public function afterlogin( Request $request, AccountSubscriber $subscriber, ClientsUsage $clientusage )
+  public function merchant_detail($merchantId)
   {
+    $merchantDetail = DB::connection('sqlsrv208')->table('Wifi_Zone_New')
+                          ->where('Merchant_ID', $merchantId)
+                          ->first();
+
+    if($merchantDetail) 
+    {
+      $res = [
+        'name' => $merchantDetail->Zone_Name,
+        'logo' => $merchantDetail->Logo_Image
+      ];
+    }
+    else
+    {
+      $res = [
+        'name' => '',
+        'logo' => ''
+      ];
+    }
+
+    return $res;
+  }
+
+  public function afterlogin( Request $request, AccountSubscriber $subscriber, AccountMember $member, ClientsUsage $clientusage )
+  {
+    if( ! $request->session()->has('client_mac') AND ! $request->session()->has('uip') )
+    {
+      return redirect()->route('you_are_connected_page');
+    }
+
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
     $client_mac = strtolower( $request->session()->get('client_mac') );
-
+    
     $clientIfExists = $clientusage->select(
       'client_mac',
       DB::raw('date_format(created_at, "%Y-%m-%d") as start_connected'),
@@ -174,13 +220,9 @@ class PortalController extends Controller
 
     if( $request->session()->get('connect') == 'freehotspot' )
     {
-      $fullUrl = $request->fullUrl();
-
-      $fullUrlParts = parse_url($fullUrl);
-      $redirectUrl = 'http://biznethotspot.qeon.co.id/a' . (isset($fullUrlParts['query']) ? ('?' . $fullUrlParts['query']) : '');
       $request->session()->forget('connect');
       $request->session()->flush();
-      return redirect($redirectUrl);
+      return redirect()->route('afterlogin_page');
     }
     else if( $request->session()->get('connect') == 'biznetwifi' )
     {
@@ -191,58 +233,107 @@ class PortalController extends Controller
         $displayname = $request->session()->get('displayname');
         $agent = $request->session()->get('agent');
 
-		if( $username === 'SI20096955-51080' OR empty( $username ) OR $username === null ) {
-		   abort(401);
-		}
+        if( $username === 'SI20096955-51080' OR empty( $username ) OR $username === null ) {
+          abort(401);
+        }
 
-        $checksubs = $subscriber->where('account_id', '=', $username);
-        $checkmacaddress = $subscriber->select('mac_address')->where([
-          ['account_id', $username],
-          ['mac_address', $mac]
-        ]);
-        $getlastmac = $subscriber->where('account_id', $username)
-        ->orderBy('login_date', 'asc')->first();
-
-        if( $checkmacaddress->count() == 0 )
+        if( $request->session()->get('login_type') == 'member' ) 
         {
-          if( $checksubs->count() == 4 )
-          {
-            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-            $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
-            if( $checkmacaddress->count() == 0 )
-            {
-              $subscriber->account_name = $displayname;
-              $subscriber->account_id = $username;
-              $subscriber->mac_address = $mac;
-              $subscriber->login_date = date('Y-m-d H:i:s');
-              $subscriber->device_agent = $this->userAgent( $agent );
-              $subscriber->save();
+          $devices = $member->getUserDevices($username);
+          $checkmacaddress = $member->checkMacAddress($username, $mac);
+          $getlastmac = $member->getUserLastDevice($username);
+          $loginId = $member->getLoginId($username);
 
-              $deletedevice = $subscriber->where('mac_address', '=', $getlastmac->mac_address);
-              if( $deletedevice->count() != 0 )
+          if( $checkmacaddress == 0 )
+          {
+            if ( $devices == 2 )
+            {
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->MAC_ADDRESS );
+              if( $checkmacaddress == 0 )
               {
-                $deletedevice->delete();
+                $member->saveUserDevice([
+                  'ID_LOGIN' => $loginId,
+                  'MAC_ADDRESS' => $mac,
+                  'DEVICE_AGENT' => $this->userAgent( $agent ),
+                  'LOGIN_DATE' => date('Y-m-d H:i:s')
+                ]);
+  
+                $member->deleteUserDevice($username, $getlastmac->MAC_ADDRESS);
+              }
+            }
+            else
+            {
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              if( $checkmacaddress == 0 )
+              {
+                $member->saveUserDevice([
+                  'ID_LOGIN' => $loginId,
+                  'MAC_ADDRESS' => $mac,
+                  'DEVICE_AGENT' => $this->userAgent( $agent ),
+                  'LOGIN_DATE' => date('Y-m-d H:i:s')
+                ]);
               }
             }
           }
           else
           {
             $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-            if( $checkmacaddress->count() == 0 )
+          }
+        } 
+        else 
+        {
+          $checksubs = $subscriber->where('account_id', '=', $username);
+          $checkmacaddress = $subscriber->select('mac_address')->where([
+            ['account_id', $username],
+            ['mac_address', $mac]
+          ]);
+          $getlastmac = $subscriber->where('account_id', $username)
+          ->orderBy('login_date', 'asc')->first();
+  
+          if( $checkmacaddress->count() == 0 )
+          {
+            if( $checksubs->count() == 5 )
             {
-              $subscriber->account_name = $displayname;
-              $subscriber->account_id = $username;
-              $subscriber->mac_address = $mac;
-              $subscriber->login_date = date('Y-m-d H:i:s');
-              $subscriber->device_agent = $this->userAgent( $agent );
-              $subscriber->save();
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              $this->delete_radcheck( '182.253.238.66:8080', $getlastmac->mac_address );
+              if( $checkmacaddress->count() == 0 )
+              {
+                $subscriber->account_name = $displayname;
+                $subscriber->account_id = $username;
+                $subscriber->mac_address = $mac;
+                $subscriber->login_date = date('Y-m-d H:i:s');
+                $subscriber->device_agent = $this->userAgent( $agent );
+                $subscriber->save();
+  
+                $deletedevice = $subscriber->where('mac_address', '=', $getlastmac->mac_address);
+                if( $deletedevice->count() != 0 )
+                {
+                  $deletedevice->delete();
+                }
+              }
+            }
+            else
+            {
+              $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+              if( $checkmacaddress->count() == 0 )
+              {
+                $subscriber->account_name = $displayname;
+                $subscriber->account_id = $username;
+                $subscriber->mac_address = $mac;
+                $subscriber->login_date = date('Y-m-d H:i:s');
+                $subscriber->device_agent = $this->userAgent( $agent );
+                $subscriber->save();
+              }
             }
           }
+          else
+          {
+            $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
+          }
+          
         }
-        else
-        {
-          $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
-        }
+        
         return redirect()->route('hmpgcustomer');
       }
       else
@@ -269,18 +360,37 @@ class PortalController extends Controller
   public function hotspot( Request $request )
   {
     $request->session()->put('connect', 'freehotspot');
-    $ap = $request->ap;
-    $client_mac = $request->client_mac;
-    $uip = $request->uip;
-    $ssid = $request->ssid;
-    $starturl = 'http://biznethotspot.qeon.co.id';
-    $location = $request->loc;
-    $redirect = 'http://biznethotspot.qeon.co.id?ap=' . $ap . '&src=BiznetHotspot&loc=' . $location . '&uip=' . $uip . '&client_mac=' . $client_mac . '&startUrl=' . $starturl . '&ssid=' . $ssid . '&rad=1';
+    $ap = $request->session()->get('ap');
+    $client_mac = $request->session()->get('client_mac');
+    $uip = $request->session()->get('uip');
+    $ssid = $request->session()->get('ssid');
+    $starturl = $request->session()->get('starturl');
+    $location = $request->session()->get('location_id');
+
+    $username_radius = 'newhotspot';
+    $password_radius = 'biznet';
+
+    if ($ap == 'ruckus')
+    {
+      $redirect = 'http://10.132.0.5:9997/SubscriberPortal/hotspotlogin?username=' . $username_radius . '&password=' . $password_radius . '&uip=' . $uip . '&client_mac=' . $client_mac . '&ssid=' . $ssid . '&starturl=' . $starturl;
+    }
+    else
+    {
+      $redirect = 'http://10.10.10.10/login?username=' . $username_radius .'&password=' .$password_radius .'&client_mac=' .$client_mac .'&uip=' .$uip;
+    }
+
     return redirect( $redirect );
+  }
+
+  public function youareconnected( Request $request )
+  {
+    return response()->view('portal.you-are-connected', [
+      'request' => $request
+    ]);
   }
 
   public function testing( Request $request )
   {
-
+    dd( $request->session()->all() );
   }
 }
