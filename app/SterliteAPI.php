@@ -30,7 +30,7 @@ trait SterliteAPI
     $ch = @curl_init();
     @curl_setopt_array($ch, [
 		  CURLOPT_RETURNTRANSFER => true,
-		  CURLOPT_URL => 'http://calrestiot.biznetnetworks.com/islrest/rest/CustomerOperationRestService/authenticateUser',
+		  CURLOPT_URL => 'http://rest.biznetnetworks.com/islrest/rest/CustomerOperationRestService/authenticateUser',
 		  CURLOPT_CUSTOMREQUEST => "POST",
 		  CURLOPT_HTTPHEADER => [
         'Authorization: Basic YWRtaW46YWRtaW4=',
@@ -51,7 +51,7 @@ trait SterliteAPI
     $ch = @curl_init();
     @curl_setopt_array($ch, [
       CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_URL => 'http://calrestiot.biznetnetworks.com/islrest/rest/CustomerGeneralOPerationRestService/getCustomerHrchyDetails',
+      CURLOPT_URL => 'http://rest.biznetnetworks.com/islrest/rest/CustomerGeneralOPerationRestService/getCustomerHrchyDetails',
       CURLOPT_CUSTOMREQUEST => "POST",
       CURLOPT_HTTPHEADER => [
         'Authorization: Basic YWRtaW46YWRtaW4=',

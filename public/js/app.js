@@ -69006,11 +69006,11 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\sass\administrator\app.scss */"./resources/sass/administrator/app.scss");
-__webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\sass\connect.scss */"./resources/sass/connect.scss");
-module.exports = __webpack_require__(/*! F:\xampp\htdocs\works\biznetwifi-shaping\resources\sass\connected.scss */"./resources/sass/connected.scss");
+__webpack_require__(/*! C:\xampp\htdocs\works\portalwifi\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\xampp\htdocs\works\portalwifi\resources\sass\administrator\app.scss */"./resources/sass/administrator/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\works\portalwifi\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\works\portalwifi\resources\sass\connect.scss */"./resources/sass/connect.scss");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\works\portalwifi\resources\sass\connected.scss */"./resources/sass/connected.scss");
 
 
 /***/ })
