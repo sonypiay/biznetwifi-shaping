@@ -24,7 +24,7 @@ class LoginController extends Controller
   {
     if( $request->session()->has('biznetwifi_login') )
     {
-      return redirect()->route('pagelogin_customer');
+      return redirect()->route('homepage_myaccount');
     }
     else
     {
@@ -41,7 +41,7 @@ class LoginController extends Controller
   {
     if( $request->session()->has('biznetwifi_login') )
     {
-      return redirect()->route('pagelogin_member');
+      return redirect()->route('homepage_myaccount');
     }
     else
     {
@@ -270,7 +270,7 @@ class LoginController extends Controller
   {
     if( $request->session()->has('biznetwifi_login') )
     {
-      return redirect()->route('hmpgcustomer');
+      return redirect()->route('homepage_myaccount');
     }
     else
     {
