@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="{{ session()->get('session_locale') }}">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +13,13 @@
     <script src="{{ asset('vendor/uikit/js/uikit.min.js') }}"></script>
     <script src="{{ asset('vendor/uikit/js/uikit-icons.min.js') }}"></script>
     <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-54510905-1', 'auto');
+	  ga('send', 'pageview');
     </script>
     <title>BiznetWifi | Layanan Wi-Fi Gratis dari Biznet</title>
 </head>
@@ -27,8 +34,9 @@
             <div class="uk-card uk-card-body uk-card-small enjoy">
                 <div class="uk-card-title uk-margin enjoy-heading">YOU ARE CONNECTED</div>
                 <p>
-                Enjoy the free Wi-Fi service from Biznet Hotspot for the next 30 minutes. <br>
-                You can always reconnect to Biznet Hotspot by clicking again the Start Now button.
+                  @lang('afterlogin.enjoy')
+                <!--Enjoy the free Wi-Fi service from Biznet Hotspot for the next 30 minutes. <br>
+                You can always reconnect to Biznet Hotspot by clicking again the Start Now button.-->
                 </p>
             </div>
             <hr class="uk-divider-icon">

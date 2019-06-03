@@ -52,7 +52,7 @@ class PortalController extends Controller
       $merchant = $filter_location[1];
       $merchantDetail = $this->merchant_detail($merchant);
     }
-    else 
+    else
     {
       $merchantDetail = [];
     }
@@ -140,7 +140,7 @@ class PortalController extends Controller
                           ->where('Merchant_ID', $merchantId)
                           ->first();
 
-    if($merchantDetail) 
+    if($merchantDetail)
     {
       $res = [
         'name' => $merchantDetail->Zone_Name,
@@ -167,7 +167,7 @@ class PortalController extends Controller
 
     $connection_type = $request->session()->get('connect') == 'freehotspot' ? 'visitor' : 'subscriber';
     $client_mac = strtolower( $request->session()->get('client_mac') );
-    
+
     $clientIfExists = $clientusage->select(
       'client_mac',
       DB::raw('date_format(created_at, "%Y-%m-%d") as start_connected'),
@@ -237,7 +237,7 @@ class PortalController extends Controller
           abort(401);
         }
 
-        if( $request->session()->get('login_type') == 'member' ) 
+        if( $request->session()->get('login_type') == 'member' )
         {
           $devices = $member->getUserDevices($username);
           $checkmacaddress = $member->checkMacAddress($username, $mac);
@@ -258,7 +258,7 @@ class PortalController extends Controller
                   'DEVICE_AGENT' => $this->userAgent( $agent ),
                   'LOGIN_DATE' => date('Y-m-d H:i:s')
                 ]);
-  
+
                 $member->deleteUserDevice($username, $getlastmac->MAC_ADDRESS);
               }
             }
@@ -280,8 +280,8 @@ class PortalController extends Controller
           {
             $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
           }
-        } 
-        else 
+        }
+        else
         {
           $checksubs = $subscriber->where('account_id', '=', $username);
           $checkmacaddress = $subscriber->select('mac_address')->where([
@@ -290,7 +290,7 @@ class PortalController extends Controller
           ]);
           $getlastmac = $subscriber->where('account_id', $username)
           ->orderBy('login_date', 'asc')->first();
-  
+
           if( $checkmacaddress->count() == 0 )
           {
             if( $checksubs->count() == 5 )
@@ -305,7 +305,7 @@ class PortalController extends Controller
                 $subscriber->login_date = date('Y-m-d H:i:s');
                 $subscriber->device_agent = $this->userAgent( $agent );
                 $subscriber->save();
-  
+
                 $deletedevice = $subscriber->where('mac_address', '=', $getlastmac->mac_address);
                 if( $deletedevice->count() != 0 )
                 {
@@ -331,9 +331,9 @@ class PortalController extends Controller
           {
             $this->add_radcheck( '182.253.238.66:8080', $mac, $username );
           }
-          
+
         }
-        
+
         return redirect()->route('hmpgcustomer');
       }
       else
@@ -384,6 +384,16 @@ class PortalController extends Controller
 
   public function youareconnected( Request $request )
   {
+
+    if( ! $request->session()->has('session_locale') )
+    {
+      $locale = app()->getLocale();
+      session()->put('session_locale', $locale);
+    }
+
+    $getlocale = session()->get('session_locale');
+    app()->setLocale( $getlocale );
+    
     return response()->view('portal.you-are-connected', [
       'request' => $request
     ]);
