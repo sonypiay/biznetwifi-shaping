@@ -9,7 +9,7 @@ return [
   ],
   'connect' => [
     'biznetwifi' => 'Log in as Subscribers',
-    'freehotspot' => 'Log in as Visitor',
+    'freehotspot' => 'Start as Visitor',
     'biznetwifi_login_title' => 'Login to Biznet Wifi',
     'biznetwifi_login_title_2' => 'The easiest to get a lot of new things through reliable internet access.
     Start now to get connected.',
@@ -23,10 +23,10 @@ return [
   'loginform' => [
     'username' => 'Username',
     'password' => 'Password',
-    'registration' => 'Member Registration'
+    'registration' => 'Register Now'
   ],
   'reg_form' => [
-    'title' => 'Member Registration',
+    'title' => 'Register Now',
     'title_2' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     'full_name' => 'Full Name',
     'email' => 'Email Address',

@@ -22,6 +22,15 @@ class LoginController extends Controller
 
   public function customer_login( Request $request )
   {
+    if( ! $request->session()->has('session_locale') )
+    {
+      $locale = app()->getLocale();
+      session()->put('session_locale', $locale);
+    }
+
+    $getlocale = session()->get('session_locale');
+    app()->setLocale( $getlocale );
+
     if( $request->session()->has('biznetwifi_login') )
     {
       return redirect()->route('homepage_myaccount');
@@ -39,6 +48,15 @@ class LoginController extends Controller
 
   public function member_login( Request $request )
   {
+    if( ! $request->session()->has('session_locale') )
+    {
+      $locale = app()->getLocale();
+      session()->put('session_locale', $locale);
+    }
+
+    $getlocale = session()->get('session_locale');
+    app()->setLocale( $getlocale );
+
     if( $request->session()->has('biznetwifi_login') )
     {
       return redirect()->route('homepage_myaccount');
@@ -268,6 +286,15 @@ class LoginController extends Controller
 
   public function registration(Request $request)
   {
+    if( ! $request->session()->has('session_locale') )
+    {
+      $locale = app()->getLocale();
+      session()->put('session_locale', $locale);
+    }
+
+    $getlocale = session()->get('session_locale');
+    app()->setLocale( $getlocale );
+    
     if( $request->session()->has('biznetwifi_login') )
     {
       return redirect()->route('homepage_myaccount');

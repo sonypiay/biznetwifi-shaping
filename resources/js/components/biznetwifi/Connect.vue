@@ -126,11 +126,12 @@
                                     </div>
                                     <div v-if="errors.passwordMember" class="uk-text-small uk-text-danger">{{ errors.passwordMember }}</div>
                                 </div>
+                                <div class="uk-text-center">
+                                    <!--<a v-bind:href="url +'/biznetwifi/registration'" class="uk-link-text uk-text-small uk-text-muted">{{ connectlocale.loginform.registration }}</a>-->
+                                    <a v-bind:href="url +'/biznetwifi/registration'" class="uk-width-1-1 uk-button uk-button-default button-login-customer">{{ connectlocale.loginform.registration }}</a>
+                                </div>
                                 <div class="uk-margin">
                                     <button v-html="forms.btnSubmitMember" class="uk-width-1-1 uk-button uk-button-default button-login-customer"></button>
-                                </div>
-                                <div class="uk-text-center">
-                                    <a v-bind:href="url +'/biznetwifi/registration'" class="uk-link-text uk-text-small uk-text-muted">{{ connectlocale.loginform.registration }}</a>
                                 </div>
                             </form>
                         </div>

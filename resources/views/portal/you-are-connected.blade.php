@@ -32,7 +32,7 @@
             </div>
             <hr class="uk-divider-icon">
             <div class="uk-card uk-card-body uk-card-small enjoy">
-                <div class="uk-card-title uk-margin enjoy-heading">YOU ARE CONNECTED</div>
+                <div class="uk-card-title uk-margin enjoy-heading">@lang('afterlogin.enjoy_heading')</div>
                 <p>
                   @lang('afterlogin.enjoy')
                 <!--Enjoy the free Wi-Fi service from Biznet Hotspot for the next 30 minutes. <br>

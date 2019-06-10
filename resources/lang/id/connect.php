@@ -9,7 +9,7 @@ return [
   ],
   'connect' => [
     'biznetwifi' => 'Masuk sebagai Pelanggan',
-    'freehotspot' => 'Masuk sebagai Pengunjung',
+    'freehotspot' => 'Mulai sebagai Pengunjung',
     'biznetwifi_login_title' => 'Masuk ke Biznet Wifi',
     'biznetwifi_login_title_2' => 'Cara mudah mendapatkan banyak hal baru melalui akses internet terbaik.
     Mulai sekarang untuk segera terkoneksi.',
@@ -23,10 +23,10 @@ return [
   'loginform' => [
     'username' => 'Nama Pengguna',
     'password' => 'Kata Sandi',
-    'registration' => 'Registrasi Member'
+    'registration' => 'Registrasi Sekarang'
   ],
   'reg_form' => [
-    'title' => 'Registrasi Member',
+    'title' => 'Registrasi Sekarang',
     'title_2' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
     'full_name' => 'Nama Lengkap',
     'email' => 'Email',
